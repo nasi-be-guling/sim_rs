@@ -1,0 +1,10 @@
+*.suo
+*.sln
+*.dll
+*.exe
+*.application
+*.manifest
+*.pdb
+*.Cache
+*.resources
+*.cache
