@@ -32,10 +32,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKeluarProgram = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPetugas = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtUnitKerja = new System.Windows.Forms.TextBox();
+            this.txtShift = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -62,6 +62,7 @@
             this.lbDaftarMenu.ScrollAlwaysVisible = true;
             this.lbDaftarMenu.Size = new System.Drawing.Size(531, 229);
             this.lbDaftarMenu.TabIndex = 0;
+            this.lbDaftarMenu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbDaftarMenu_KeyPress);
             // 
             // pictureBox1
             // 
@@ -96,16 +97,16 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Petugas";
             // 
-            // textBox1
+            // txtPetugas
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.txtPetugas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(19, 55);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(156, 26);
-            this.textBox1.TabIndex = 5;
+            this.txtPetugas.Location = new System.Drawing.Point(19, 55);
+            this.txtPetugas.Name = "txtPetugas";
+            this.txtPetugas.ReadOnly = true;
+            this.txtPetugas.Size = new System.Drawing.Size(156, 26);
+            this.txtPetugas.TabIndex = 5;
             // 
             // label2
             // 
@@ -115,31 +116,31 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 99);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 18);
+            this.label2.Size = new System.Drawing.Size(73, 18);
             this.label2.TabIndex = 6;
             this.label2.Text = "Unit Kerja";
             // 
-            // textBox2
+            // txtUnitKerja
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.txtUnitKerja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(19, 120);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(156, 26);
-            this.textBox2.TabIndex = 7;
+            this.txtUnitKerja.Location = new System.Drawing.Point(19, 120);
+            this.txtUnitKerja.Name = "txtUnitKerja";
+            this.txtUnitKerja.ReadOnly = true;
+            this.txtUnitKerja.Size = new System.Drawing.Size(156, 26);
+            this.txtUnitKerja.TabIndex = 7;
             // 
-            // textBox3
+            // txtShift
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.txtShift.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(19, 185);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(156, 26);
-            this.textBox3.TabIndex = 9;
+            this.txtShift.Location = new System.Drawing.Point(19, 185);
+            this.txtShift.Name = "txtShift";
+            this.txtShift.ReadOnly = true;
+            this.txtShift.Size = new System.Drawing.Size(156, 26);
+            this.txtShift.TabIndex = 9;
             // 
             // label3
             // 
@@ -149,7 +150,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 164);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 18);
+            this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 8;
             this.label3.Text = "Shift";
             // 
@@ -157,11 +158,11 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtShift);
+            this.groupBox1.Controls.Add(this.txtPetugas);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.txtUnitKerja);
             this.groupBox1.Location = new System.Drawing.Point(552, 179);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 237);
@@ -201,12 +202,12 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnKeluarProgram;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.TextBox txtPetugas;
+        public System.Windows.Forms.TextBox txtUnitKerja;
+        public System.Windows.Forms.TextBox txtShift;
 
     }
 }

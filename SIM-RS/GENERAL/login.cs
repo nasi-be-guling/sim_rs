@@ -18,9 +18,15 @@ namespace SIM_RS
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
 
+        /**/
+
         string strSqlQuery = "";
         string strErr = "";
 
+
+        bool isLoginSuccess = false;
+
+        /**/
 
         /*LOAD OTHER FORM       */
         /*IF NEEDED             */
@@ -130,24 +136,44 @@ namespace SIM_RS
 
         private void login_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult msgDialog = MessageBox.Show("Apakah anda akan membatalkan login dan keluar dari program", 
-                                                        "Informasi", 
-                                                        MessageBoxButtons.YesNo, 
-                                                        MessageBoxIcon.Question);
 
-            if (msgDialog == DialogResult.No)
+            if (!isLoginSuccess)
             {
-                e.Cancel = true;
-                return;
-            }          
+                DialogResult msgDialog = MessageBox.Show("Apakah anda akan membatalkan login dan keluar dari program",
+                                                            "Informasi",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question);
+
+                if (msgDialog == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            
         }
 
         private void login_FormClosed(object sender, FormClosedEventArgs e)
         {
-           
-            halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
-            fTCN.isForceQuit = true;
-            fTCN.Close();
+
+            if (!isLoginSuccess)
+            {
+                halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
+                fTCN.isForceQuit = true;
+                fTCN.Close();
+            }
+            else
+            {
+                /*CALL / LOAD INFO IN MAIN FORM..*/
+
+                halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
+
+                fTCN.txtPetugas.Text = txtIdPetugas.Text.Trim().ToString();
+                fTCN.txtUnitKerja.Text = cmbUnitKerja.Text.Trim().ToString();
+                fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
+
+                fTCN.pvLoadInfoUser(txtIdPetugas.Text.Trim().ToString());
+            }
         }
 
         private void cmbUnitKerja_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,7 +196,8 @@ namespace SIM_RS
         {
             if ((e.KeyChar == 13) && (cmbShift.Text.Trim().ToString() != ""))
             {
-                
+                isLoginSuccess = true;
+                this.Close();
             }
         }
 

@@ -12,3 +12,15 @@ D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.login.resources
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.halamanUtama.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.pdb
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\C4Module.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\C4Module.pdb
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.halamanUtama.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.login.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Properties.Resources.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Form1.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csproj.GenerateResource.Cache
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb

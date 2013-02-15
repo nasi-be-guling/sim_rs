@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Data.SqlClient;
 
 namespace SIM_RS
 {
@@ -18,10 +19,7 @@ namespace SIM_RS
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
 
-        public DateTime dtTglServer = DateTime.Now;
-        public string strUserID = "";
-
-        /*REGISTER - REGEDIT*/
+        /* DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
         public static string REG_ROOT = "Software\\ITIKOM";
         public static string REG_NAME_APP = "\\SIM-RS";
 
@@ -30,38 +28,46 @@ namespace SIM_RS
 
         public static string FULL_REG_CONN = REG_ROOT + REG_NAME_APP + REG_CONN;
         public static string FULL_REG_SETTING = REG_ROOT + REG_NAME_APP + REG_SETTING;
+        /* EOF DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
 
-        
-        /*EOF REGISTER - REGEDIT*/
 
-        /*DEFAULT SETTING SERVER*/
+        /* DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
         public static string strIPDBServer = "192.168.2.201";
         public static string strUserDBServer = "sa";
         public static string strPasswordDBServer = "";
         public static string strPortDBServer = "1433";
         public static string strNameDBServer = "BILLING";
+        /* EOF DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
 
-        /*EOF DEFAULT SETTING SERVER*/
 
-
-        /* VARIABLE APP */
-
+        /* PUBLIC !READONLY VARIABLE APP */
         public bool isForceQuit = false;
+        public DateTime dtTglServer = DateTime.Now;
+        public string strUserID = "";
 
-        /**/
+        public string strShiftPegawai = "";
+        /* EOF PUBLIC !READONLY VARIABLE APP */
 
+
+        /* PRIVATE VARIABLE */
+
+        string strQuerySQL = "";
+        string strErr = "";
+
+        /* EOF PRIVATE VARIABLE */
 
 
         /*PRIVATE FUNCTION*/
 
+        /*
+         *  NAME        : pvInitialApp
+         *  FUNCTION    : Load initial variable that needed for application to run.
+         *  RESULT      : -
+         *  CREATED     : Eka Rudito (eka@rudito.web.id)
+         *  DATE        : 15-02-2013
+         */
         private void pvInitialApp()
         {
-
-            //string strIniFile = AppDomain.CurrentDomain.BaseDirectory + "/setting.ini";
-            //C4Module.IniParser parser = new C4Module.IniParser(strIniFile);
-
-            //string strNamaDB =  parser.GetSetting("connDepo", "nama_database");
-            
             bool isAdaRegistry = modMain.checkRegistry(FULL_REG_CONN.ToString());
 
             if (!isAdaRegistry)
@@ -77,8 +83,6 @@ namespace SIM_RS
                             strPortDBServer, 
                             strNameDBServer, 
                             FULL_REG_CONN.ToString());
-                //MessageBox.Show("Tulis Registry Terlebih Dahulu");
-                //this.Close();
             }
             
             isAdaRegistry = modMain.checkRegistry(FULL_REG_SETTING.ToString());
@@ -88,13 +92,103 @@ namespace SIM_RS
                  *  oleh karena itu harus menampilkan setting login aplikasi..
                  */
                 Registry.CurrentUser.CreateSubKey(FULL_REG_SETTING.ToString());
-                C4Module.MainModule.strRegKey = FULL_REG_SETTING;
-                //modMain.pbTulisRegistryItem("KodeApotik", "");
-                //modMain.pbTulisRegistryItem("KodePoli", "");
+                C4Module.MainModule.strRegKey = FULL_REG_SETTING;               
                 modMain.pbTulisRegistryItem("Aplikasi", "Operator");
 
               
             }          
+
+        }
+
+
+        /*
+        *  NAME        : pvLoadInfoUser
+        *  FUNCTION    : Load data from Database info about user and privileges.
+        *  RESULT      : info user on widget and list of privileges on listbox
+        *  CREATED     : Eka Rudito (eka@rudito.web.id)
+        *  DATE        : 15-02-2013
+        */
+        public void pvLoadInfoUser(string _strUserID)
+        {
+            lbDaftarMenu.Items.Clear();
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+
+
+            string strUserID = _strUserID;
+
+            strQuerySQL = "SELECT idPetugas, idProgram, Grup, Urut "+
+                          "FROM BILHAKAKSES "+
+                          "WHERE idPetugas = '" + strUserID + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lbDaftarMenu.Items.Add(modMain.pbstrgetCol(reader,1,ref strErr,""));
+                }          
+            }
+
+            reader.Close();
+            conn.Close();
+        }
+
+
+        private void pvLoadForm(string _strIDMenu)
+        {
+
+            string strNamaMenu = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+
+            strQuerySQL = "SELECT NamaFormERD " +
+                          "FROM BILPROGRAM " +
+                          "WHERE idProgram = '" + _strIDMenu + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                strNamaMenu = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            }
+
+            reader.Close();
+            conn.Close();
+
+
+            
+
 
         }
 
@@ -137,6 +231,11 @@ namespace SIM_RS
                 e.Cancel = true;
                 return;
             }
+        }
+
+        private void lbDaftarMenu_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           
         }
     }
 }
