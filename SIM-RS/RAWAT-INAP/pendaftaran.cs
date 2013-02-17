@@ -158,7 +158,9 @@ namespace SIM_RS.RAWAT_INAP
         private void pvDisableInput()
         {
 
+            /*while disable mode, only MR textbox is enable*/
             txtPasienRM.Enabled = true;
+
             txtPasienNama.Enabled = false;
             txtPasienAlamat.Enabled = false;
             txtPasienTelp.Enabled = false;
@@ -179,10 +181,6 @@ namespace SIM_RS.RAWAT_INAP
             txtPasienUmurThn.Enabled = false;
             txtPasienUmurBln.Enabled = false;
             txtPasienUmurHr.Enabled = false;
-               
-              
-
-
 
         }
 
@@ -196,8 +194,111 @@ namespace SIM_RS.RAWAT_INAP
         private void pvEnableInput()
         {
 
-            txtPasienRM.Enabled = true;
-            txtPasienNama.Enabled = false;
+            /*if enable mode, only MR textbox is disable */
+            txtPasienRM.Enabled = false;
+
+
+            txtPasienNama.Enabled = true;
+            txtPasienAlamat.Enabled = true;
+            txtPasienTelp.Enabled = true;
+            txtPasienKelurahan.Enabled = true;
+            txtPasienKecamatan.Enabled = true;
+            txtPasienKota.Enabled = true;
+            txtPasienKab.Enabled = true;
+            txtPasienProp.Enabled = true;
+            cmbPasienJK.Enabled = true;
+            cmbPasienStatKawin.Enabled = true;
+            cmbPasienStatPend.Enabled = true;
+            cmbPasienPekerjaan.Enabled = true;
+            cmbPasienAgama.Enabled = true;
+            txtPasienSuku.Enabled = true;
+            txtPasienKebangsaan.Enabled = true;
+            txtPasienKartuIden.Enabled = true;
+            dtpPasienTglLahir.Enabled = true;
+            txtPasienUmurThn.Enabled = true;
+            txtPasienUmurBln.Enabled = true;
+            txtPasienUmurHr.Enabled = true;
+
+
+        }
+
+        /*
+         *  NAME        : pvLoadInisialisasiDataMaster
+         *  FUNCTION    : load master-master data
+         *  RESULT      : -
+         *  CREATED     : Eka Rudito (eka@rudito.web.id)
+         *  DATE        : 17-02-2013
+         */
+        private void pvLoadInisialisasiDataMaster()
+        {
+
+            /* if user fill patient RM */
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+
+            strQuerySQL = "SELECT idmr_pendidikan FROM MR_PENDIDIKAN WHERE dipakai = 'Y'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            
+            cmbPasienStatPend.Items.Clear();
+            cmbPasienStatPend.Items.Add("-");
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    cmbPasienStatPend.Items.Add(
+                            modMain.pbstrgetCol(reader,0,ref strErr, cmbPasienStatPend.Name.ToString()));
+                }
+            }
+
+
+            reader.Close();
+
+
+            
+            strQuerySQL = "SELECT idmr_pekerjaan FROM MR_PEKERJAAN WHERE dipakai = 'Y'";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            
+            cmbPasienPekerjaan.Items.Clear();
+            
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    cmbPasienPekerjaan.Items.Add(
+                            modMain.pbstrgetCol(reader,0,ref strErr, cmbPasienPekerjaan.Name.ToString()));
+                }
+            }
+
+
+            reader.Close();
+
+
+
+            conn.Close();
+
 
 
         }
@@ -212,7 +313,9 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pendaftaran_Load(object sender, EventArgs e)
         {
-
+            this.pvLoadInisialisasiDataMaster();
+            this.pvDisableInput();
+            
         }
 
         private void txtPasienRM_KeyPress(object sender, KeyPressEventArgs e)
@@ -235,6 +338,7 @@ namespace SIM_RS.RAWAT_INAP
                 if (msgDlg == System.Windows.Forms.DialogResult.Yes)
                 {
                     isUpdateData = false;
+                    this.pvEnableInput();
                 }
 
 
@@ -310,6 +414,8 @@ namespace SIM_RS.RAWAT_INAP
                                 modMain.pbstrgetCol(reader, 17, ref strErr, ""),
                                 modMain.pbstrgetCol(reader, 18, ref strErr, ""));
 
+                    this.pvEnableInput();
+
                 }
                 else
                 {
@@ -323,6 +429,7 @@ namespace SIM_RS.RAWAT_INAP
                     {
                         /* if yes, then this is new registration process. */
                         isUpdateData = false;
+                        this.pvEnableInput();
                     }
                     else
                     {

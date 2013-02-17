@@ -173,7 +173,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 18);
+            this.label1.Size = new System.Drawing.Size(102, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Register RM : ";
             // 
@@ -194,7 +194,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 18);
+            this.label2.Size = new System.Drawing.Size(128, 18);
             this.label2.TabIndex = 2;
             this.label2.Text = "Nama Penderita : ";
             // 
@@ -252,7 +252,7 @@
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(556, 9);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(125, 18);
+            this.label39.Size = new System.Drawing.Size(126, 18);
             this.label39.TabIndex = 71;
             this.label39.Text = "Jenis Pelayanan : ";
             // 
@@ -408,7 +408,7 @@
             this.label60.AutoSize = true;
             this.label60.Location = new System.Drawing.Point(381, 314);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(103, 18);
+            this.label60.Size = new System.Drawing.Size(104, 18);
             this.label60.TabIndex = 123;
             this.label60.Text = "Tgl Kejadian : ";
             // 
@@ -425,7 +425,7 @@
             this.label59.AutoSize = true;
             this.label59.Location = new System.Drawing.Point(381, 279);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(95, 18);
+            this.label59.Size = new System.Drawing.Size(97, 18);
             this.label59.TabIndex = 121;
             this.label59.Text = "Komunikasi : ";
             // 
@@ -459,7 +459,7 @@
             this.label57.AutoSize = true;
             this.label57.Location = new System.Drawing.Point(381, 215);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(96, 18);
+            this.label57.Size = new System.Drawing.Size(99, 18);
             this.label57.TabIndex = 117;
             this.label57.Text = "Kasus Polisi : ";
             // 
@@ -524,7 +524,7 @@
             this.label54.AutoSize = true;
             this.label54.Location = new System.Drawing.Point(381, 87);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(125, 18);
+            this.label54.Size = new System.Drawing.Size(126, 18);
             this.label54.TabIndex = 109;
             this.label54.Text = "Alamat Rujukan : ";
             // 
@@ -533,7 +533,7 @@
             this.label53.AutoSize = true;
             this.label53.Location = new System.Drawing.Point(381, 55);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(105, 18);
+            this.label53.Size = new System.Drawing.Size(106, 18);
             this.label53.TabIndex = 108;
             this.label53.Text = "Rujukan Dari : ";
             // 
@@ -551,7 +551,7 @@
             this.label51.AutoSize = true;
             this.label51.Location = new System.Drawing.Point(6, 466);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(43, 18);
+            this.label51.Size = new System.Drawing.Size(44, 18);
             this.label51.TabIndex = 106;
             this.label51.Text = "Diet :";
             // 
@@ -560,7 +560,7 @@
             this.label50.AutoSize = true;
             this.label50.Location = new System.Drawing.Point(6, 434);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(86, 18);
+            this.label50.Size = new System.Drawing.Size(87, 18);
             this.label50.TabIndex = 105;
             this.label50.Text = "Kode Diet : ";
             // 
@@ -569,7 +569,7 @@
             this.label49.AutoSize = true;
             this.label49.Location = new System.Drawing.Point(6, 402);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(87, 18);
+            this.label49.Size = new System.Drawing.Size(88, 18);
             this.label49.TabIndex = 104;
             this.label49.Text = "Hak Kelas : ";
             // 
@@ -578,7 +578,7 @@
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(6, 370);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(110, 18);
+            this.label48.Size = new System.Drawing.Size(111, 18);
             this.label48.TabIndex = 103;
             this.label48.Text = "Status Pasien : ";
             // 
@@ -624,7 +624,7 @@
             this.label47.AutoSize = true;
             this.label47.Location = new System.Drawing.Point(6, 279);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(74, 18);
+            this.label47.Size = new System.Drawing.Size(75, 18);
             this.label47.TabIndex = 97;
             this.label47.Text = "Keluhan : ";
             // 
@@ -633,7 +633,7 @@
             this.label46.AutoSize = true;
             this.label46.Location = new System.Drawing.Point(6, 247);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(98, 18);
+            this.label46.Size = new System.Drawing.Size(99, 18);
             this.label46.TabIndex = 96;
             this.label46.Text = "Sebab Sakit : ";
             // 
@@ -650,7 +650,7 @@
             this.label45.AutoSize = true;
             this.label45.Location = new System.Drawing.Point(6, 215);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(129, 18);
+            this.label45.Size = new System.Drawing.Size(130, 18);
             this.label45.TabIndex = 94;
             this.label45.Text = "Diagnosa Masuk : ";
             // 
@@ -683,7 +683,7 @@
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(6, 151);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(126, 18);
+            this.label43.Size = new System.Drawing.Size(127, 18);
             this.label43.TabIndex = 90;
             this.label43.Text = "Jns. Keringanan : ";
             // 
@@ -692,7 +692,7 @@
             this.label42.AutoSize = true;
             this.label42.Location = new System.Drawing.Point(6, 119);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(82, 18);
+            this.label42.Size = new System.Drawing.Size(83, 18);
             this.label42.TabIndex = 89;
             this.label42.Text = "Penjamin : ";
             // 
@@ -723,7 +723,7 @@
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(6, 55);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(123, 18);
+            this.label41.Size = new System.Drawing.Size(126, 18);
             this.label41.TabIndex = 85;
             this.label41.Text = "Kelas / Prioritas : ";
             // 
@@ -740,7 +740,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 23);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 18);
+            this.label3.Size = new System.Drawing.Size(133, 18);
             this.label3.TabIndex = 83;
             this.label3.Text = "Tempat Layanan : ";
             // 
@@ -807,7 +807,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.groupBox2.BackColor = System.Drawing.Color.DarkOrange;
             this.groupBox2.Controls.Add(this.txtPJPasienTelp);
             this.groupBox2.Controls.Add(this.label34);
             this.groupBox2.Controls.Add(this.txtPJPasienKota);
@@ -902,7 +902,7 @@
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(6, 96);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(87, 18);
+            this.label31.Size = new System.Drawing.Size(88, 18);
             this.label31.TabIndex = 109;
             this.label31.Text = "Kelurahan : ";
             // 
@@ -911,7 +911,7 @@
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(6, 64);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(68, 18);
+            this.label32.Size = new System.Drawing.Size(69, 18);
             this.label32.TabIndex = 108;
             this.label32.Text = "Alamat : ";
             // 
@@ -926,7 +926,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.groupBox1.BackColor = System.Drawing.Color.SpringGreen;
             this.groupBox1.Controls.Add(this.cmbPasienAnakPendIbu);
             this.groupBox1.Controls.Add(this.txtPasienAnakNamaIbu);
             this.groupBox1.Controls.Add(this.cmbPasienAnakPendAyah);
@@ -947,6 +947,7 @@
             // 
             // cmbPasienAnakPendIbu
             // 
+            this.cmbPasienAnakPendIbu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienAnakPendIbu.FormattingEnabled = true;
             this.cmbPasienAnakPendIbu.Location = new System.Drawing.Point(133, 157);
             this.cmbPasienAnakPendIbu.Name = "cmbPasienAnakPendIbu";
@@ -962,6 +963,7 @@
             // 
             // cmbPasienAnakPendAyah
             // 
+            this.cmbPasienAnakPendAyah.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienAnakPendAyah.FormattingEnabled = true;
             this.cmbPasienAnakPendAyah.Location = new System.Drawing.Point(133, 93);
             this.cmbPasienAnakPendAyah.Name = "cmbPasienAnakPendAyah";
@@ -987,7 +989,7 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(6, 160);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(117, 18);
+            this.label28.Size = new System.Drawing.Size(119, 18);
             this.label28.TabIndex = 111;
             this.label28.Text = "Pendidikan Ibu : ";
             // 
@@ -1005,7 +1007,7 @@
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(6, 96);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(128, 18);
+            this.label26.Size = new System.Drawing.Size(129, 18);
             this.label26.TabIndex = 109;
             this.label26.Text = "Pendidikan Ayah : ";
             // 
@@ -1014,7 +1016,7 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 64);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(100, 18);
+            this.label25.Size = new System.Drawing.Size(99, 18);
             this.label25.TabIndex = 108;
             this.label25.Text = "Nama Ayah : ";
             // 
@@ -1023,7 +1025,7 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(6, 32);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(97, 18);
+            this.label24.Size = new System.Drawing.Size(98, 18);
             this.label24.TabIndex = 107;
             this.label24.Text = "Register Ibu :";
             // 
@@ -1180,13 +1182,16 @@
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(551, 9);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(78, 18);
+            this.label19.Size = new System.Drawing.Size(79, 18);
             this.label19.TabIndex = 97;
             this.label19.Text = "Tgl Lahir : ";
             // 
             // cmbPasienAgama
             // 
+            this.cmbPasienAgama.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienAgama.FormattingEnabled = true;
+            this.cmbPasienAgama.Items.AddRange(new object[] {
+            "-"});
             this.cmbPasienAgama.Location = new System.Drawing.Point(129, 354);
             this.cmbPasienAgama.Name = "cmbPasienAgama";
             this.cmbPasienAgama.Size = new System.Drawing.Size(198, 26);
@@ -1194,6 +1199,7 @@
             // 
             // cmbPasienPekerjaan
             // 
+            this.cmbPasienPekerjaan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienPekerjaan.FormattingEnabled = true;
             this.cmbPasienPekerjaan.Location = new System.Drawing.Point(129, 322);
             this.cmbPasienPekerjaan.Name = "cmbPasienPekerjaan";
@@ -1202,6 +1208,7 @@
             // 
             // cmbPasienStatPend
             // 
+            this.cmbPasienStatPend.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienStatPend.FormattingEnabled = true;
             this.cmbPasienStatPend.Location = new System.Drawing.Point(129, 290);
             this.cmbPasienStatPend.Name = "cmbPasienStatPend";
@@ -1210,6 +1217,7 @@
             // 
             // cmbPasienStatKawin
             // 
+            this.cmbPasienStatKawin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienStatKawin.FormattingEnabled = true;
             this.cmbPasienStatKawin.Location = new System.Drawing.Point(129, 258);
             this.cmbPasienStatKawin.Name = "cmbPasienStatKawin";
@@ -1218,7 +1226,12 @@
             // 
             // cmbPasienJK
             // 
+            this.cmbPasienJK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPasienJK.FormattingEnabled = true;
+            this.cmbPasienJK.Items.AddRange(new object[] {
+            "-",
+            "Pria",
+            "Wanita"});
             this.cmbPasienJK.Location = new System.Drawing.Point(129, 229);
             this.cmbPasienJK.Name = "cmbPasienJK";
             this.cmbPasienJK.Size = new System.Drawing.Size(198, 26);
@@ -1229,7 +1242,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(7, 453);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(120, 18);
+            this.label18.Size = new System.Drawing.Size(121, 18);
             this.label18.TabIndex = 81;
             this.label18.Text = "Kartu Identitas : ";
             // 
@@ -1274,7 +1287,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(7, 293);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(90, 18);
+            this.label13.Size = new System.Drawing.Size(92, 18);
             this.label13.TabIndex = 76;
             this.label13.Text = "Pendidikan : ";
             // 
@@ -1283,7 +1296,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(7, 261);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(90, 18);
+            this.label12.Size = new System.Drawing.Size(91, 18);
             this.label12.TabIndex = 75;
             this.label12.Text = "Perkawinan :";
             // 
@@ -1292,7 +1305,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(7, 232);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(104, 18);
+            this.label11.Size = new System.Drawing.Size(106, 18);
             this.label11.TabIndex = 74;
             this.label11.Text = "Jns. Kelamin : ";
             // 
@@ -1301,7 +1314,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(7, 200);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 18);
+            this.label10.Size = new System.Drawing.Size(73, 18);
             this.label10.TabIndex = 73;
             this.label10.Text = "Propinsi : ";
             // 
@@ -1337,7 +1350,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(7, 72);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 18);
+            this.label6.Size = new System.Drawing.Size(88, 18);
             this.label6.TabIndex = 69;
             this.label6.Text = "Kelurahan : ";
             // 
@@ -1355,7 +1368,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 18);
+            this.label4.Size = new System.Drawing.Size(69, 18);
             this.label4.TabIndex = 67;
             this.label4.Text = "Alamat : ";
             // 
