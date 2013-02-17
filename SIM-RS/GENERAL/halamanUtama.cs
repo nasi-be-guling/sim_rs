@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace SIM_RS
 {
@@ -104,7 +105,7 @@ namespace SIM_RS
         /*
         *  NAME        : pvLoadInfoUser
         *  FUNCTION    : Load data from Database info about user and privileges.
-        *  RESULT      : info user on widget and list of privileges on listbox
+        *  RESULT      : info user on main form widget and list of privileges on listbox
         *  CREATED     : Eka Rudito (eka@rudito.web.id)
         *  DATE        : 15-02-2013
         */
@@ -150,6 +151,13 @@ namespace SIM_RS
         }
 
 
+        /*
+       *  NAME        : pvLoadForm
+       *  FUNCTION    : call form within name from database.
+       *  RESULT      : -
+       *  CREATED     : Eka Rudito (eka@rudito.web.id)
+       *  DATE        : 15-02-2013
+       */
         private void pvLoadForm(string _strIDMenu)
         {
 
@@ -186,8 +194,28 @@ namespace SIM_RS
             reader.Close();
             conn.Close();
 
+            string strDefaultProjectName = "SIM_RS.";
 
-            
+            Type formType = Type.GetType(strDefaultProjectName +  strNamaMenu);
+
+            Form fLoadForm = modMain.pvfCekForm(formType);
+
+            try
+            {
+
+                ConstructorInfo ciInit = formType.GetConstructor(System.Type.EmptyTypes);
+                Form fFormLoad = (Form)ciInit.Invoke(null);
+                fFormLoad.Icon = this.Icon;
+                fFormLoad.StartPosition = FormStartPosition.CenterScreen;
+                fFormLoad.WindowState = FormWindowState.Maximized;
+                fFormLoad.ShowDialog();
+                     
+            }
+            catch (Exception _error)
+            {
+                MessageBox.Show("Form tidak dapat ditampilkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
 
         }
@@ -224,7 +252,8 @@ namespace SIM_RS
                 return;
             }
 
-            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program", "Informasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program", "Informasi", 
+                                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (msgDialog == DialogResult.No)
             {
@@ -235,7 +264,17 @@ namespace SIM_RS
 
         private void lbDaftarMenu_KeyPress(object sender, KeyPressEventArgs e)
         {
-           
+            if (e.KeyChar == 13)
+            {             
+                string strSelectedMenu = lbDaftarMenu.SelectedItem.ToString();
+                this.pvLoadForm(strSelectedMenu);
+            }
+        }
+
+        private void lbDaftarMenu_DoubleClick(object sender, EventArgs e)
+        {
+            string strSelectedMenu = lbDaftarMenu.SelectedItem.ToString();
+            this.pvLoadForm(strSelectedMenu);
         }
     }
 }

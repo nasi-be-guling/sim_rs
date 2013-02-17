@@ -7,18 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SIM_RS
+namespace SIM_RS.RAWAT_INAP
 {
-    public partial class Form1 : Form
+    public partial class inputTindakan : Form
     {
-        public Form1()
+        public inputTindakan()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

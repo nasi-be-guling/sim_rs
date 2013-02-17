@@ -160,7 +160,7 @@
             this.Text = "Login Aplikasi Billing RSSA";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.login_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.login_FormClosed);
-            this.Load += new System.EventHandler(this.login_Load);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

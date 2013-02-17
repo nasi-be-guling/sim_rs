@@ -18,39 +18,26 @@ namespace SIM_RS
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
 
-        /**/
+        /*Private Variable*/
 
         string strSqlQuery = "";
         string strErr = "";
-
-
+        string strNamaPetugas = "";
         bool isLoginSuccess = false;
 
-        /**/
+        /*EOF Private Variable*/
 
         /*LOAD OTHER FORM       */
         /*IF NEEDED             */
 
         halamanUtama fHalamanUtama = new halamanUtama();
 
-        /**/
+        /*EOF LOAD OTHER FORM   */
 
         public login()
         {
             InitializeComponent();
-        }
-
-        private void login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtSandiOperator_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-
-
-        }
+        }      
 
         private void txtIdPetugas_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -58,10 +45,7 @@ namespace SIM_RS
             if (e.KeyChar != 13)
                 return;
 
-
             bool boolPetugasAda = false;
-
-
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
@@ -74,7 +58,10 @@ namespace SIM_RS
 
             string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
 
-            strSqlQuery = "SELECT idPetugas FROM BILPETUGAS WHERE idPetugas = '" + strPetugas + "'";
+            strSqlQuery = "SELECT "+
+                                "Petugas "+
+                          "FROM BILPETUGAS "+
+                          "WHERE idPetugas = '" + strPetugas + "'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
             if (strErr != "")
@@ -87,8 +74,9 @@ namespace SIM_RS
             if (reader.HasRows)
             {
 
+                reader.Read();
+                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                 boolPetugasAda = true;
-
             }
 
 
@@ -168,7 +156,7 @@ namespace SIM_RS
 
                 halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
 
-                fTCN.txtPetugas.Text = txtIdPetugas.Text.Trim().ToString();
+                fTCN.txtPetugas.Text = strNamaPetugas;
                 fTCN.txtUnitKerja.Text = cmbUnitKerja.Text.Trim().ToString();
                 fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
 
