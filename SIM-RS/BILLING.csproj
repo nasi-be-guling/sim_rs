@@ -59,6 +59,12 @@
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\daftarTindakan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\daftarTindakan.Designer.cs">
+      <DependentUpon>daftarTindakan.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\inputTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RAWAT-INAP\daftarTindakan.resx">
+      <DependentUpon>daftarTindakan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>

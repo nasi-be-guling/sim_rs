@@ -44,6 +44,9 @@ namespace SIM_RS.RAWAT_INAP
         private void pvSimpanDataPasien()
         {
 
+            string strNoMR = "";
+            int intNoMR = 0;
+
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -58,31 +61,63 @@ namespace SIM_RS.RAWAT_INAP
 
             /* CREATE AUTONUMBERING MEDICAL RECORD AND TRANSACTION */
 
+            /*FIRST get last id*/
+            this.strQuerySQL = "SELECT MAX(idmr_pasien) FROM MR_PASIEN ";
+            SqlDataReader reader = modDb.pbreaderSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return;
+            }
 
-            /* INSERTING PATIENT DATA TO DATABASE */
-            this.strQuerySQL = "INSERT MR_PASIEN ( "+
-                                    "idmr_pasien, "+
-                                    "nama, "+
-                                    "alamat, "+
-                                    "telp, "+
-                                    "kelurahan, "+
-                                    "kecamatan, "+
-                                    "kabupaten, "+
-                                    "kodya, "+
-                                    "propinsi, "+
-                                    "tanggal_lahir, "+
-                                    "jenis_kelamin, "+
-                                    "statusperkawinan, "+
-                                    "bangsa, "+
-                                    "agama, "+
-                                    "idmr_pendidikan, "+
-                                    "idmr_pekerjaan, "+
-                                    "kota, "+
-                                    "suku, "+
-                                    "tglreg, "+
-                                    "KartuIdentitas, "+
-                                    "batal) "+
-                               "VALUES ()";
+            if (reader.HasRows)
+            {
+                reader.Read();
+                strNoMR = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                intNoMR = Convert.ToInt32(strNoMR);
+                intNoMR = intNoMR + 1;
+                string strNoMRInc = intNoMR.ToString(); 
+            }
+
+            reader.Close();
+
+            if (!isUpdateData)
+            {
+                /* INSERTING PATIENT DATA TO DATABASE */
+                this.strQuerySQL = "INSERT MR_PASIEN ( " +
+                                        "idmr_pasien, " +
+                                        "nama, " +
+                                        "alamat, " +
+                                        "telp, " +
+                                        "kelurahan, " +
+                                        "kecamatan, " +
+                                        "kabupaten, " +
+                                        "kodya, " +
+                                        "propinsi, " +
+                                        "tanggal_lahir, " +
+                                        "jenis_kelamin, " +
+                                        "statusperkawinan, " +
+                                        "bangsa, " +
+                                        "agama, " +
+                                        "idmr_pendidikan, " +
+                                        "idmr_pekerjaan, " +
+                                        "kota, " +
+                                        "suku, " +
+                                        "tglreg, " +
+                                        "KartuIdentitas, " +
+                                        "batal) " +
+                                   "VALUES ()";
+            }
+            else
+            {
+                this.strQuerySQL = "UPDATE MR_PASIEN WITH (ROWLOCK) " +
+                                    "SET alamat = '" + modMain.pbstrBersihkanInput(txtPasienAlamat.Text) + "', " +
+                                    "telp = '" + modMain.pbstrBersihkanInput(txtPasienTelp.Text) + "'," +
+                                    "kelurahan = '" + modMain.pbstrBersihkanInput(txtPasienKelurahan.Text) + "', ";
+
+            }
 
             modDb.pbWriteSQLTrans(conn, strQuerySQL, ref strErr, trans);
             if (strErr != "")
@@ -447,6 +482,18 @@ namespace SIM_RS.RAWAT_INAP
                 
 
             }
+        }
+
+        private void btnSimpan_Click(object sender, EventArgs e)
+        {
+
+            DialogResult msgDlg = MessageBox.Show("Apakah data akan disimpan ?", 
+                                                    "Konfirmasi", 
+                                                    MessageBoxButtons.YesNo, 
+                                                    MessageBoxIcon.Question);
+
+            if(msgDlg == DialogResult.Yes)
+                this.pvSimpanDataPasien();
         }
 
 
