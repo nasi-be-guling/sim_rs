@@ -23,7 +23,43 @@ namespace SIM_RS.RAWAT_INAP
         string strErr = "";
 
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
 
+        public class lstDaftarTarif
+        {
+
+            public string strKodeTarif { get; set; }
+            public string strUraianTarif { get; set; }
+            public double dblBiaya { get; set; }
+
+        }
+        List<lstDaftarTarif> grpLstDaftarTarif = new List<lstDaftarTarif>();
+
+
+        public class lstDaftarTindakan
+        {
+            public int intNoUrut { get; set; }
+            public string strKodeTarif { get; set; }
+            public string strUraianTarif { get; set; }
+            public double dblBiaya { get; set; }
+            public string strKodeDokter { get; set; }
+        }
+        List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
+
+
+        public class lstDaftarDokter
+        {
+            public string strKodeDokter { get; set; }
+            public string strNamaDokter { get; set; }
+        }
+        List<lstDaftarDokter> grpLstDaftarDokter = new List<lstDaftarDokter>();
+
+        public class lstTempatLayanan
+        {
+            public string strKodeRuang { get; set; }
+            public string strNamaRuang { get; set; }
+        }
+        List<lstTempatLayanan> grpLstTempatLayanan = new List<lstTempatLayanan>();
 
 
         /*  FUNCTION  */
@@ -62,12 +98,17 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             cmbTempatLayanan.Items.Clear();
-
+            grpLstTempatLayanan.Clear();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     cmbTempatLayanan.Items.Add(modMain.pbstrgetCol(reader,0,ref strErr,""));
+
+                    lstTempatLayanan itemTempatLayanan = new lstTempatLayanan();
+                    itemTempatLayanan.strKodeRuang = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemTempatLayanan.strNamaRuang = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    grpLstTempatLayanan.Add(itemTempatLayanan);
                 }
 
             }
@@ -76,8 +117,11 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
-            strQuerySQL = "SELECT " +
-                                "BL_TARIP.idbl_tarip " +        //0
+            strQuerySQL = "SELECT TOP 100 " +
+                                "BL_TARIP.idbl_tarip, " +        //0
+                                "BL_TARIP.uraiantarip, " +       //1
+                                "BL_TARIP.idmr_tsmf, " +         //2
+                                "BL_TARIP.nilai " +             //3
                            "FROM BL_TARIP WITH (NOLOCK) " +
                            "INNER JOIN BL_KOMPTARIP WITH (NOLOCK) " +
                                 "ON BL_TARIP.IdBl_tarip = BL_KOMPTARIP.idbl_tarip " +
@@ -93,12 +137,22 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             listTarif.Clear();
+            grpLstDaftarTarif.Clear();
 
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     listTarif.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+
+                    lstDaftarTarif itemDaftarTarif = new lstDaftarTarif();
+                    itemDaftarTarif.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemDaftarTarif.strUraianTarif = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemDaftarTarif.dblBiaya = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+
+                    grpLstDaftarTarif.Add(itemDaftarTarif);
+
+
                 }
             }
 
@@ -108,6 +162,50 @@ namespace SIM_RS.RAWAT_INAP
             txtKodeTindakan.AutoCompleteCustomSource = listTarif;
             txtKodeTindakan.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtKodeTindakan.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+            this.strQuerySQL = "SELECT " +
+                                "MR_DOKTER.idmr_dokter, " +           //0
+                                "MR_DOKTER.nama " +                  //1
+                               "FROM MR_DOKTER WITH (NOLOCK) " +
+                               "WHERE MR_DOKTER.dipakai = 'Y'";
+
+            reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            listDokter.Clear();
+            grpLstDaftarDokter.Clear();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+
+                    lstDaftarDokter itemDaftarDokter = new lstDaftarDokter();
+                    itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemDaftarDokter.strNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+
+                    grpLstDaftarDokter.Add(itemDaftarDokter);
+
+
+                }
+            }
+
+
+            reader.Close();
+
+
+
+
+            txtNamaDokter.AutoCompleteCustomSource = listDokter;
+            txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
 
 
@@ -236,7 +334,7 @@ namespace SIM_RS.RAWAT_INAP
             int intNoUrutObject = 0;
 
             modMain.pvUrutkanTab(txtNoBilling, ref intNoUrutObject);
-            modMain.pvUrutkanTab(dtpTglTindakan, ref intNoUrutObject);
+            modMain.pvUrutkanTab(dtpTglTindakan, ref intNoUrutObject,true);
             modMain.pvUrutkanTab(cmbTempatLayanan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtKodeTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtNamaDokter, ref intNoUrutObject);
@@ -259,7 +357,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void inputTindakan_Load(object sender, EventArgs e)
         {
-
+            this.KeyPreview = true;
         }
 
         private void txtNoBilling_KeyPress(object sender, KeyPressEventArgs e)
@@ -286,6 +384,46 @@ namespace SIM_RS.RAWAT_INAP
 
                 if (msgDlg == DialogResult.No)
                     e.Cancel = true;
+            }
+        }
+
+        private void txtKodeTindakan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == 13)
+            {
+                if (txtKodeTindakan.Text.Trim().ToString() == "")
+                {
+                    daftarTindakan fDaftarTindakan = new daftarTindakan();
+                    fDaftarTindakan.ShowDialog();
+                }
+             }
+        }
+
+        private void cmbTempatLayanan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) && (cmbTempatLayanan.Text != ""))
+            {
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == cmbTempatLayanan.Text);
+
+                if (intResultSearch == -1)
+                {
+                    MessageBox.Show("Nama Ruang yang anda masukkan tidak terdaftar",
+                                    "Informasi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    cmbTempatLayanan.Focus();
+                }
+                else
+                {
+                    txtKodeTindakan.Focus();
+                }
+            }
+            else if((e.KeyCode == Keys.Enter) && ( cmbTempatLayanan.Text == ""))
+            {
+                /*  if EMPTY What should i do.. ;) */
+                cmbTempatLayanan.Text = lblRuangan.Text;
+                txtKodeTindakan.Focus();
+
             }
         }
 

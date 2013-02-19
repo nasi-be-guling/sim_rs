@@ -196,9 +196,9 @@ namespace SIM_RS
 
             string strDefaultProjectName = "SIM_RS.";
 
-            Type formType = Type.GetType(strDefaultProjectName +  strNamaMenu);
+            Type formType = Type.GetType(strDefaultProjectName + strNamaMenu);
 
-            Form fLoadForm = modMain.pvfCekForm(formType);
+            Form fLoadForm = modMain.pvfCekForm(formType);        
 
             try
             {
@@ -211,7 +211,7 @@ namespace SIM_RS
                 fFormLoad.ShowDialog();
                      
             }
-            catch (Exception _error)
+            catch (Exception)
             {
                 MessageBox.Show("Form tidak dapat ditampilkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

@@ -43,6 +43,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label10 = new System.Windows.Forms.Label();
             this.dtpTglTindakan = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
@@ -70,10 +71,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblRuangan = new System.Windows.Forms.Label();
             this.lblKelas = new System.Windows.Forms.Label();
             this.lblStatusPasien = new System.Windows.Forms.Label();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmsDaftarTindakan.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,7 +126,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(261, 72);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 18);
+            this.label4.Size = new System.Drawing.Size(86, 18);
             this.label4.TabIndex = 67;
             this.label4.Text = "Ruangan : ";
             // 
@@ -136,7 +137,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(47, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 18);
+            this.label5.Size = new System.Drawing.Size(64, 18);
             this.label5.TabIndex = 69;
             this.label5.Text = "Nama : ";
             // 
@@ -158,7 +159,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(47, 130);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 18);
+            this.label7.Size = new System.Drawing.Size(73, 18);
             this.label7.TabIndex = 72;
             this.label7.Text = "Alamat : ";
             // 
@@ -169,7 +170,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(610, 99);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(125, 18);
+            this.label8.Size = new System.Drawing.Size(123, 18);
             this.label8.TabIndex = 73;
             this.label8.Text = "Status Pasien : ";
             // 
@@ -187,6 +188,7 @@
             // 
             this.lvDaftarTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -216,6 +218,10 @@
             this.columnHeader3.Text = "Biaya";
             this.columnHeader3.Width = 100;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Dokter";
+            // 
             // label10
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -223,7 +229,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(47, 335);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(81, 18);
+            this.label10.Size = new System.Drawing.Size(80, 18);
             this.label10.TabIndex = 76;
             this.label10.Text = "Tanggal : ";
             // 
@@ -244,18 +250,21 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(47, 366);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(146, 18);
+            this.label11.Size = new System.Drawing.Size(143, 18);
             this.label11.TabIndex = 78;
             this.label11.Text = "Tempat Layanan : ";
             // 
             // cmbTempatLayanan
             // 
             this.cmbTempatLayanan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cmbTempatLayanan.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbTempatLayanan.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbTempatLayanan.FormattingEnabled = true;
             this.cmbTempatLayanan.Location = new System.Drawing.Point(200, 370);
             this.cmbTempatLayanan.Name = "cmbTempatLayanan";
             this.cmbTempatLayanan.Size = new System.Drawing.Size(256, 26);
             this.cmbTempatLayanan.TabIndex = 79;
+            this.cmbTempatLayanan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbTempatLayanan_KeyDown);
             // 
             // label12
             // 
@@ -264,7 +273,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(586, 335);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(120, 18);
+            this.label12.Size = new System.Drawing.Size(119, 18);
             this.label12.TabIndex = 80;
             this.label12.Text = "No Transaksi : ";
             // 
@@ -296,7 +305,7 @@
             this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(47, 408);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(132, 18);
+            this.label15.Size = new System.Drawing.Size(130, 18);
             this.label15.TabIndex = 83;
             this.label15.Text = "Kode Tindakan : ";
             // 
@@ -307,6 +316,7 @@
             this.txtKodeTindakan.Name = "txtKodeTindakan";
             this.txtKodeTindakan.Size = new System.Drawing.Size(175, 26);
             this.txtKodeTindakan.TabIndex = 84;
+            this.txtKodeTindakan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKodeTindakan_KeyPress);
             // 
             // label16
             // 
@@ -346,6 +356,7 @@
             this.lblMRPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMRPasien.AutoSize = true;
             this.lblMRPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMRPasien.ForeColor = System.Drawing.Color.Red;
             this.lblMRPasien.Location = new System.Drawing.Point(139, 72);
             this.lblMRPasien.Name = "lblMRPasien";
             this.lblMRPasien.Size = new System.Drawing.Size(23, 18);
@@ -357,6 +368,7 @@
             this.lblNamaPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblNamaPasien.AutoSize = true;
             this.lblNamaPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNamaPasien.ForeColor = System.Drawing.Color.Red;
             this.lblNamaPasien.Location = new System.Drawing.Point(139, 99);
             this.lblNamaPasien.Name = "lblNamaPasien";
             this.lblNamaPasien.Size = new System.Drawing.Size(23, 18);
@@ -368,6 +380,7 @@
             this.lblAlamatPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAlamatPasien.AutoSize = true;
             this.lblAlamatPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlamatPasien.ForeColor = System.Drawing.Color.Red;
             this.lblAlamatPasien.Location = new System.Drawing.Point(139, 130);
             this.lblAlamatPasien.Name = "lblAlamatPasien";
             this.lblAlamatPasien.Size = new System.Drawing.Size(23, 18);
@@ -402,7 +415,7 @@
             this.label23.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.Location = new System.Drawing.Point(48, 490);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(82, 18);
+            this.label23.Size = new System.Drawing.Size(81, 18);
             this.label23.TabIndex = 93;
             this.label23.Text = "Petugas : ";
             // 
@@ -487,15 +500,12 @@
             this.txtNamaDokter.Size = new System.Drawing.Size(240, 26);
             this.txtNamaDokter.TabIndex = 100;
             // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Dokter";
-            // 
             // lblRuangan
             // 
             this.lblRuangan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblRuangan.AutoSize = true;
             this.lblRuangan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRuangan.ForeColor = System.Drawing.Color.Red;
             this.lblRuangan.Location = new System.Drawing.Point(356, 72);
             this.lblRuangan.Name = "lblRuangan";
             this.lblRuangan.Size = new System.Drawing.Size(23, 18);
@@ -507,6 +517,7 @@
             this.lblKelas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblKelas.AutoSize = true;
             this.lblKelas.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKelas.ForeColor = System.Drawing.Color.Red;
             this.lblKelas.Location = new System.Drawing.Point(737, 72);
             this.lblKelas.Name = "lblKelas";
             this.lblKelas.Size = new System.Drawing.Size(23, 18);
@@ -518,11 +529,17 @@
             this.lblStatusPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblStatusPasien.AutoSize = true;
             this.lblStatusPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatusPasien.ForeColor = System.Drawing.Color.Red;
             this.lblStatusPasien.Location = new System.Drawing.Point(737, 99);
             this.lblStatusPasien.Name = "lblStatusPasien";
             this.lblStatusPasien.Size = new System.Drawing.Size(23, 18);
             this.lblStatusPasien.TabIndex = 103;
             this.lblStatusPasien.Text = "...";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "No";
+            this.columnHeader5.Width = 41;
             // 
             // inputTindakan
             // 
@@ -629,6 +646,7 @@
         private System.Windows.Forms.Label lblRuangan;
         private System.Windows.Forms.Label lblKelas;
         private System.Windows.Forms.Label lblStatusPasien;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }
 
