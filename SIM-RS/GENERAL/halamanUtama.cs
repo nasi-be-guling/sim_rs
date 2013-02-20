@@ -29,6 +29,10 @@ namespace SIM_RS
 
         public static string FULL_REG_CONN = REG_ROOT + REG_NAME_APP + REG_CONN;
         public static string FULL_REG_SETTING = REG_ROOT + REG_NAME_APP + REG_SETTING;
+
+        public static DateTime dtTglServer = DateTime.Now;
+        public static string strUserID = "";
+        public static string strNamaUser = "";
         /* EOF DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
 
 
@@ -43,8 +47,8 @@ namespace SIM_RS
 
         /* PUBLIC !READONLY VARIABLE APP */
         public bool isForceQuit = false;
-        public DateTime dtTglServer = DateTime.Now;
-        public string strUserID = "";
+        //public DateTime dtTglServer = DateTime.Now;
+       
 
         public string strShiftPegawai = "";
         /* EOF PUBLIC !READONLY VARIABLE APP */
@@ -220,6 +224,39 @@ namespace SIM_RS
 
         }
 
+        private void pvLoadInitialData()
+        {
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+            
+            strQuerySQL = "SELECT GETDATE()";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                halamanUtama.dtTglServer = Convert.ToDateTime(modMain.pbstrgetCol(reader,0,ref strErr,""));
+            }
+
+            reader.Close();
+            conn.Close();
+
+        }
+
         /*EOF PRIVATE FUNCTION*/
 
 
@@ -240,6 +277,8 @@ namespace SIM_RS
 
             login fLogin = new login();
             fLogin.ShowDialog();
+
+            strNamaUser = txtPetugas.Text;
 
         }
 

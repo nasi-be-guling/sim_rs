@@ -189,5 +189,10 @@ namespace SIM_RS
             }
         }
 
+        private void login_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

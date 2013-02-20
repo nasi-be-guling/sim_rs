@@ -35,7 +35,6 @@ G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csproj.GenerateResource.Cache
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
-E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csprojResolveAssemblyReference.cache
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources

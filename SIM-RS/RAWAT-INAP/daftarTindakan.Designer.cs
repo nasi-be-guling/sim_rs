@@ -29,18 +29,21 @@
         private void InitializeComponent()
         {
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbPilihanFilter = new System.Windows.Forms.ComboBox();
-            this.txtIsiFilter = new System.Windows.Forms.TextBox();
-            this.btnCariSesuaiFilter = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbPilihanFilter = new System.Windows.Forms.ComboBox();
+            this.txtIsiFilter = new System.Windows.Forms.TextBox();
+            this.btnCariSesuaiFilter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lvDaftarTindakan
             // 
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -51,10 +54,29 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(12, 48);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(693, 347);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(905, 347);
             this.lvDaftarTindakan.TabIndex = 0;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Kode Tarif";
+            this.columnHeader1.Width = 120;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Nama Tarif";
+            this.columnHeader2.Width = 117;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Nama SMF";
+            this.columnHeader3.Width = 144;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Biaya";
             // 
             // label1
             // 
@@ -82,37 +104,18 @@
             // 
             // btnCariSesuaiFilter
             // 
-            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(630, 15);
+            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(842, 15);
             this.btnCariSesuaiFilter.Name = "btnCariSesuaiFilter";
             this.btnCariSesuaiFilter.Size = new System.Drawing.Size(75, 26);
             this.btnCariSesuaiFilter.TabIndex = 4;
             this.btnCariSesuaiFilter.Text = "Cari";
             this.btnCariSesuaiFilter.UseVisualStyleBackColor = true;
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Kode Tarif";
-            this.columnHeader1.Width = 120;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Nama Tarif";
-            this.columnHeader2.Width = 117;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Nama SMF";
-            this.columnHeader3.Width = 144;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Biaya";
-            // 
             // daftarTindakan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 407);
+            this.ClientSize = new System.Drawing.Size(924, 407);
             this.Controls.Add(this.btnCariSesuaiFilter);
             this.Controls.Add(this.txtIsiFilter);
             this.Controls.Add(this.cmbPilihanFilter);
@@ -120,7 +123,7 @@
             this.Controls.Add(this.lvDaftarTindakan);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "daftarTindakan";
             this.Text = "Daftar Nama Tarip Perawatan";
             this.Load += new System.EventHandler(this.daftarTindakan_Load);

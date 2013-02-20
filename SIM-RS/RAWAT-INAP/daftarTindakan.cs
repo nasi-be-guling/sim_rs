@@ -22,6 +22,8 @@ namespace SIM_RS.RAWAT_INAP
         string strQuerySQL = "";
         string strErr = "";
 
+        List<ListViewItem> lviDaftarTindakan = new List<ListViewItem>();
+
         private void pvTampilDataTindakan()
         {
 
@@ -34,21 +36,21 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-
             string strKodeTarif = "";
+
             strQuerySQL = "SELECT "+
                                 "BL_TARIP.idbl_tarip, "+        //0
                                 "BL_TARIP.uraiantarip, "+       //1
                                 "BL_TARIP.idmr_tsmf, "+         //2
-                                "BL_TARIF.nilai, "+             //3
+                                "BL_TARIP.nilai, "+             //3
                                 "BL_KOMPTARIP.idbl_komponen, "+ //4
                                 "BL_KOMPTARIP.bykomponen "+     //5
                            "FROM BL_TARIP WITH (NOLOCK) "+
-                           "INNER JOIN BL_KOMPTARIF "+
-                                "ON BL_TARIF.IdBl_tarif = BL_KOMPTARIP.idbl_tarip "+
-                           "WHERE BL_TARIF.idbl_tarif LIKE '%" + strKodeTarif + "%' "+
-                                "AND BL_TARIF.nilai > 0 "+
-                                "AND BL_TARIF.dipakai = 'Y';";
+                           "INNER JOIN BL_KOMPTARIP WITH (NOLOCK) "+
+                                "ON BL_TARIP.IdBl_tarip = BL_KOMPTARIP.idbl_tarip "+
+                           "WHERE BL_TARIP.idbl_tarip LIKE '%" + strKodeTarif + "%' "+
+                                "AND BL_TARIP.nilai > 0 "+
+                                "AND BL_TARIP.dipakai = 'Y'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
@@ -64,7 +66,6 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-
                     lvDaftarTindakan.Items.Add(modMain.pbstrgetCol(reader,0,ref strErr,""));
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count -1 ].SubItems.Add(
                             modMain.pbstrgetCol(reader, 1, ref strErr, ""));
@@ -72,25 +73,46 @@ namespace SIM_RS.RAWAT_INAP
                             modMain.pbstrgetCol(reader, 2, ref strErr, ""));
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-
-
                 }
             }
 
             conn.Close();
-
-
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 4);
         }
 
         public daftarTindakan()
         {
             InitializeComponent();
 
-            this.pvTampilDataTindakan();
+            //this.pvTampilDataTindakan();
         }
 
         private void daftarTindakan_Load(object sender, EventArgs e)
         {
+            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+
+            
+
+            fInputTindakan.grpLstDaftarTarif.ForEach(
+            delegate(inputTindakan.lstDaftarTarif itemTarif)
+            {
+
+                ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
+                itemList.SubItems.Add(itemTarif.strUraianTarif);
+                itemList.SubItems.Add(itemTarif.strTarifSMF);
+                itemList.SubItems.Add(itemTarif.dblBiaya.ToString());
+
+                lviDaftarTindakan.Add(itemList);
+
+            });
+
+            lvDaftarTindakan.BeginUpdate();
+            lvDaftarTindakan.Items.Clear();
+            lvDaftarTindakan.Items.AddRange(lviDaftarTindakan.ToArray());
+            lvDaftarTindakan.EndUpdate();
+
+
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 4);
 
         }
     }
