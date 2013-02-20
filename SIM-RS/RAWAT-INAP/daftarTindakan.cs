@@ -115,5 +115,18 @@ namespace SIM_RS.RAWAT_INAP
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 4);
 
         }
+
+        private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
+        {
+            string strKodeTindakan = lvDaftarTindakan.SelectedItems[0].Text;
+
+            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+
+            fInputTindakan.txtKodeTindakan.Text = strKodeTindakan;
+            fInputTindakan.Focus();
+
+            this.Close();
+
+        }
     }
 }

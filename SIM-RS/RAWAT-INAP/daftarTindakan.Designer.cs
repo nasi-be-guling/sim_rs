@@ -41,9 +41,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -54,10 +54,11 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(12, 48);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(905, 347);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(774, 347);
             this.lvDaftarTindakan.TabIndex = 0;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
+            this.lvDaftarTindakan.DoubleClick += new System.EventHandler(this.lvDaftarTindakan_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -83,7 +84,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 18);
+            this.label1.Size = new System.Drawing.Size(89, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Filter Data : ";
             // 
@@ -104,7 +105,7 @@
             // 
             // btnCariSesuaiFilter
             // 
-            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(842, 15);
+            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(470, 16);
             this.btnCariSesuaiFilter.Name = "btnCariSesuaiFilter";
             this.btnCariSesuaiFilter.Size = new System.Drawing.Size(75, 26);
             this.btnCariSesuaiFilter.TabIndex = 4;
@@ -115,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 407);
+            this.ClientSize = new System.Drawing.Size(793, 407);
             this.Controls.Add(this.btnCariSesuaiFilter);
             this.Controls.Add(this.txtIsiFilter);
             this.Controls.Add(this.cmbPilihanFilter);
@@ -125,7 +126,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "daftarTindakan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Daftar Nama Tarip Perawatan";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.daftarTindakan_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

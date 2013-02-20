@@ -37,6 +37,18 @@ namespace SIM_RS.RAWAT_INAP
         }
         public List<lstDaftarTarif> grpLstDaftarTarif = new List<lstDaftarTarif>();
 
+        public class lstDaftarKomponenTarif
+        {
+            public string strKodeTarif { get; set; }
+            public string strId_Komponen { get; set; }
+            public double dblByKomponen { get; set; }
+            public double dblHak1 { get; set; }
+            public double dblHak2 { get; set; }
+            public double dblHak3 { get; set; }
+            public int intPrioritasTunai {get; set;}
+
+        }
+        public List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
 
         public class lstDaftarTindakan
         {
@@ -45,9 +57,9 @@ namespace SIM_RS.RAWAT_INAP
             public string strUraianTarif { get; set; }
             public double dblBiaya { get; set; }
             public string strKodeDokter { get; set; }
+            public string strNamaDokter { get; set; }
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
-
 
         public class lstDaftarDokter
         {
@@ -100,14 +112,11 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             listTempatLayanan.Clear();
-            //txtTempatLayanan.Items.Clear();
             grpLstTempatLayanan.Clear();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    //cmbTempatLayanan.Items.Add(modMain.pbstrgetCol(reader,0,ref strErr,""));
-
                     listTempatLayanan.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
 
                     lstTempatLayanan itemTempatLayanan = new lstTempatLayanan();
@@ -131,7 +140,7 @@ namespace SIM_RS.RAWAT_INAP
                                 "BL_TARIP.uraiantarip, " +       //1
                                 "BL_TARIP.idmr_tsmf, " +         //2
                                 "BL_TARIP.nilai " +             //3
-                           "FROM BL_TARIP WITH (NOLOCK) " +                           
+                           "FROM BL_TARIP WITH (NOLOCK) " +
                            "WHERE BL_TARIP.nilai > 0 " +
                                 "AND BL_TARIP.dipakai = 'Y'";
 
@@ -471,6 +480,8 @@ namespace SIM_RS.RAWAT_INAP
         {
             txtKodeTindakan.Text = "";
             txtKodeTindakan.CharacterCasing = CharacterCasing.Upper;
+            lblBiayaTindakan.Text = "...";
+            lblDeskripsiTindakan.Text = "...";
         }
 
         private void txtNamaDokter_Enter(object sender, EventArgs e)
@@ -483,7 +494,11 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txtNamaDokter.Focus();
+                if (txtKodeTindakan.Text.Trim().ToString() != "")
+                    txtNamaDokter.Focus();
+                else
+                    btnTampilDaftarTindakan.Focus();
+
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -618,11 +633,141 @@ namespace SIM_RS.RAWAT_INAP
                                 MessageBoxIcon.Information);
 
                 txtKodeTindakan.Focus();
+                return;
+            }
 
+            string strNamaDokter = txtNamaDokter.Text.Trim().ToString();
+            string strKodeDokter = "";
+
+            if(strNamaDokter != "")
+            {
+                int intResultSearchDoctor = grpLstDaftarDokter.FindIndex(m => m.strNamaDokter == txtNamaDokter.Text.Trim().ToString());
+
+                if (intResultSearchDoctor != -1)
+                {
+                    strKodeDokter = grpLstDaftarDokter[intResultSearchDoctor].strKodeDokter;
+                }
 
             }
+
+            lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
+            itemTindakan.strKodeTarif = txtKodeTindakan.Text.Trim().ToString();
+            itemTindakan.strKodeDokter = strKodeDokter;
+            itemTindakan.strUraianTarif = lblDeskripsiTindakan.Text;
+            itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
+            itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
+            itemTindakan.strNamaDokter = strNamaDokter;
+
+            grpLstDaftarTindakan.Add(itemTindakan);
+
+
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            this.strQuerySQL = "SELECT " +
+                                    "idbl_tarip, " +        //0
+                                    "idbl_komponen, "+      //1
+                                    "bykomponen, "+         //2
+                                    "Hak1, "+               //3
+                                    "Hak2, "+               //4
+                                    "Hak3, "+               //5
+                                    "PrioritasTunai " +      //6
+                                "FROM BL_KOMPTARIP WITH (NOLOCK) " +
+                                "WHERE idbl_tarip = '" + txtKodeTindakan.Text.Trim() + "'";
+            SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstDaftarKomponenTarif itemKomponenTarif = new lstDaftarKomponenTarif();
+                    itemKomponenTarif.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKomponenTarif.strId_Komponen = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKomponenTarif.dblByKomponen = Convert.ToDouble(modMain.pbstrgetCol(reader, 2, ref strErr, ""));
+                    itemKomponenTarif.dblHak1 = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKomponenTarif.dblHak2 = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKomponenTarif.dblHak3 = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKomponenTarif.intPrioritasTunai = Convert.ToInt32(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+
+                    grpLstDaftarKomponenTarif.Add(itemKomponenTarif);
+                }
+
+            }
+
+
+            reader.Close();
+            conn.Close();
+
+            lvDaftarTindakan.Items.Clear();
+            grpLstDaftarTindakan.ForEach(
+                delegate(
+                    lstDaftarTindakan itemTindakanFetch) 
+            {
+
+                lvDaftarTindakan.Items.Add(itemTindakanFetch.intNoUrut.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);
+
+            });
+
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 5);
+
+            lblBiayaTindakan.Text = "...";
+            lblDeskripsiTindakan.Text = "...";
+            txtKodeTindakan.Text = "";
+            txtNamaDokter.Text = "";
+            dtpTglTindakan.Focus();
+           
+
         }
 
+        private void txtTempatLayanan_Leave(object sender, EventArgs e)
+        {
+
+            if (txtTempatLayanan.Text != "")
+            {
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
+
+                if (intResultSearch == -1)
+                {
+                    MessageBox.Show("Nama Ruang yang anda masukkan tidak terdaftar",
+                                    "Informasi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    txtTempatLayanan.Focus();
+                }
+                else
+                {
+                    txtKodeTindakan.Focus();
+                }
+            }
+            else
+            {
+                /*  if EMPTY What should i do.. ;) */
+                txtTempatLayanan.Text = lblRuangan.Text;
+                txtKodeTindakan.Focus();
+
+            }
+
+        } 
+
       
-    }
+    } /*EOF*/
 }

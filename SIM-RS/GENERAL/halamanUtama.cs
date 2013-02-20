@@ -130,9 +130,12 @@ namespace SIM_RS
 
             string strUserID = _strUserID;
 
-            strQuerySQL = "SELECT idPetugas, idProgram, Grup, Urut "+
+            strQuerySQL = "SELECT BILHAKAKSES.idPetugas, BILHAKAKSES.idProgram, BILHAKAKSES.Grup, BILHAKAKSES.Urut " +
                           "FROM BILHAKAKSES "+
-                          "WHERE idPetugas = '" + strUserID + "'";
+                            "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
+                          "WHERE BILHAKAKSES.idPetugas = '" + strUserID + 
+                            "' AND BILPROGRAM.NamaFormERD IS NOT NULL "+
+                            "AND BILPROGRAM.NamaFormERD <> ''";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
