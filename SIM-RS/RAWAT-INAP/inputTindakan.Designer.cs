@@ -75,13 +75,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.cmsDaftarTindakan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,9 +87,9 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label1.BackColor = System.Drawing.Color.Silver;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(47, 23);
+            this.label1.Location = new System.Drawing.Point(14, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(164, 23);
             this.label1.TabIndex = 0;
@@ -100,9 +98,9 @@
             // txtNoBilling
             // 
             this.txtNoBilling.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNoBilling.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtNoBilling.BackColor = System.Drawing.Color.White;
             this.txtNoBilling.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoBilling.Location = new System.Drawing.Point(209, 20);
+            this.txtNoBilling.Location = new System.Drawing.Point(176, 18);
             this.txtNoBilling.Name = "txtNoBilling";
             this.txtNoBilling.Size = new System.Drawing.Size(188, 30);
             this.txtNoBilling.TabIndex = 1;
@@ -113,7 +111,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(33, 78);
             this.label2.Name = "label2";
@@ -125,7 +123,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(247, 78);
             this.label4.Name = "label4";
@@ -137,7 +135,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(33, 105);
             this.label5.Name = "label5";
@@ -149,11 +147,11 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(596, 78);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 71;
             this.label6.Text = "Kelas : ";
             // 
@@ -161,11 +159,11 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(33, 136);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 72;
             this.label7.Text = "Alamat : ";
             // 
@@ -173,11 +171,11 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(596, 105);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 18);
+            this.label8.Size = new System.Drawing.Size(111, 18);
             this.label8.TabIndex = 73;
             this.label8.Text = "Status Pasien : ";
             // 
@@ -228,7 +226,7 @@
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(33, 339);
             this.label10.Name = "label10";
@@ -250,11 +248,11 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(33, 370);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(135, 18);
+            this.label11.Size = new System.Drawing.Size(133, 18);
             this.label11.TabIndex = 78;
             this.label11.Text = "Tempat Layanan : ";
             // 
@@ -262,7 +260,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(572, 339);
             this.label12.Name = "label12";
@@ -274,7 +272,7 @@
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Red;
             this.label13.Location = new System.Drawing.Point(684, 339);
@@ -287,7 +285,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(33, 418);
             this.label15.Name = "label15";
@@ -298,7 +296,7 @@
             // txtKodeTindakan
             // 
             this.txtKodeTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtKodeTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtKodeTindakan.BackColor = System.Drawing.Color.White;
             this.txtKodeTindakan.Location = new System.Drawing.Point(170, 415);
             this.txtKodeTindakan.Name = "txtKodeTindakan";
             this.txtKodeTindakan.Size = new System.Drawing.Size(175, 26);
@@ -312,7 +310,7 @@
             // 
             this.lblDeskripsiTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblDeskripsiTindakan.AutoSize = true;
-            this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.Transparent;
             this.lblDeskripsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDeskripsiTindakan.ForeColor = System.Drawing.Color.Red;
             this.lblDeskripsiTindakan.Location = new System.Drawing.Point(416, 450);
@@ -325,7 +323,7 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(34, 450);
             this.label17.Name = "label17";
@@ -337,7 +335,7 @@
             // 
             this.lblBiayaTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBiayaTindakan.AutoSize = true;
-            this.lblBiayaTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblBiayaTindakan.BackColor = System.Drawing.Color.Transparent;
             this.lblBiayaTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBiayaTindakan.ForeColor = System.Drawing.Color.Red;
             this.lblBiayaTindakan.Location = new System.Drawing.Point(167, 450);
@@ -350,7 +348,7 @@
             // 
             this.lblMRPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMRPasien.AutoSize = true;
-            this.lblMRPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblMRPasien.BackColor = System.Drawing.Color.Transparent;
             this.lblMRPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMRPasien.ForeColor = System.Drawing.Color.Red;
             this.lblMRPasien.Location = new System.Drawing.Point(125, 78);
@@ -363,7 +361,7 @@
             // 
             this.lblNamaPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblNamaPasien.AutoSize = true;
-            this.lblNamaPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblNamaPasien.BackColor = System.Drawing.Color.Transparent;
             this.lblNamaPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamaPasien.ForeColor = System.Drawing.Color.Red;
             this.lblNamaPasien.Location = new System.Drawing.Point(125, 105);
@@ -376,7 +374,7 @@
             // 
             this.lblAlamatPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAlamatPasien.AutoSize = true;
-            this.lblAlamatPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblAlamatPasien.BackColor = System.Drawing.Color.Transparent;
             this.lblAlamatPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlamatPasien.ForeColor = System.Drawing.Color.Red;
             this.lblAlamatPasien.Location = new System.Drawing.Point(125, 136);
@@ -400,11 +398,11 @@
             // 
             this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label22.BackColor = System.Drawing.Color.Transparent;
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(316, 450);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(79, 18);
+            this.label22.Size = new System.Drawing.Size(81, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi : ";
             // 
@@ -412,9 +410,9 @@
             // 
             this.label23.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label23.BackColor = System.Drawing.Color.Silver;
             this.label23.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(33, 497);
+            this.label23.Location = new System.Drawing.Point(22, 497);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(75, 18);
             this.label23.TabIndex = 93;
@@ -424,10 +422,10 @@
             // 
             this.lblPetugas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblPetugas.AutoSize = true;
-            this.lblPetugas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblPetugas.BackColor = System.Drawing.Color.Silver;
             this.lblPetugas.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPetugas.ForeColor = System.Drawing.Color.Red;
-            this.lblPetugas.Location = new System.Drawing.Point(105, 493);
+            this.lblPetugas.ForeColor = System.Drawing.Color.Black;
+            this.lblPetugas.Location = new System.Drawing.Point(94, 493);
             this.lblPetugas.Name = "lblPetugas";
             this.lblPetugas.Size = new System.Drawing.Size(28, 23);
             this.lblPetugas.TabIndex = 94;
@@ -437,18 +435,19 @@
             // 
             this.btnSimpanIsiTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSimpanIsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpanIsiTindakan.Location = new System.Drawing.Point(663, 491);
+            this.btnSimpanIsiTindakan.Location = new System.Drawing.Point(673, 497);
             this.btnSimpanIsiTindakan.Name = "btnSimpanIsiTindakan";
             this.btnSimpanIsiTindakan.Size = new System.Drawing.Size(95, 30);
             this.btnSimpanIsiTindakan.TabIndex = 95;
             this.btnSimpanIsiTindakan.Text = "&SIMPAN";
             this.btnSimpanIsiTindakan.UseVisualStyleBackColor = true;
+            this.btnSimpanIsiTindakan.Click += new System.EventHandler(this.btnSimpanIsiTindakan_Click);
             // 
             // btnKeluarIsiTindakan
             // 
             this.btnKeluarIsiTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnKeluarIsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(764, 491);
+            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(774, 497);
             this.btnKeluarIsiTindakan.Name = "btnKeluarIsiTindakan";
             this.btnKeluarIsiTindakan.Size = new System.Drawing.Size(101, 30);
             this.btnKeluarIsiTindakan.TabIndex = 96;
@@ -480,7 +479,7 @@
             // 
             this.label26.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label26.BackColor = System.Drawing.Color.Transparent;
             this.label26.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(394, 418);
             this.label26.Name = "label26";
@@ -491,7 +490,7 @@
             // txtNamaDokter
             // 
             this.txtNamaDokter.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNamaDokter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtNamaDokter.BackColor = System.Drawing.Color.White;
             this.txtNamaDokter.Location = new System.Drawing.Point(456, 417);
             this.txtNamaDokter.Name = "txtNamaDokter";
             this.txtNamaDokter.Size = new System.Drawing.Size(310, 26);
@@ -505,7 +504,7 @@
             // 
             this.lblRuangan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblRuangan.AutoSize = true;
-            this.lblRuangan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblRuangan.BackColor = System.Drawing.Color.Transparent;
             this.lblRuangan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRuangan.ForeColor = System.Drawing.Color.Red;
             this.lblRuangan.Location = new System.Drawing.Point(342, 78);
@@ -518,7 +517,7 @@
             // 
             this.lblKelas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblKelas.AutoSize = true;
-            this.lblKelas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblKelas.BackColor = System.Drawing.Color.Transparent;
             this.lblKelas.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKelas.ForeColor = System.Drawing.Color.Red;
             this.lblKelas.Location = new System.Drawing.Point(723, 78);
@@ -531,7 +530,7 @@
             // 
             this.lblStatusPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblStatusPasien.AutoSize = true;
-            this.lblStatusPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblStatusPasien.BackColor = System.Drawing.Color.Transparent;
             this.lblStatusPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatusPasien.ForeColor = System.Drawing.Color.Red;
             this.lblStatusPasien.Location = new System.Drawing.Point(723, 105);
@@ -543,7 +542,7 @@
             // txtTempatLayanan
             // 
             this.txtTempatLayanan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtTempatLayanan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtTempatLayanan.BackColor = System.Drawing.Color.White;
             this.txtTempatLayanan.Location = new System.Drawing.Point(170, 367);
             this.txtTempatLayanan.Name = "txtTempatLayanan";
             this.txtTempatLayanan.Size = new System.Drawing.Size(275, 26);
@@ -568,7 +567,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(11, 324);
             this.pictureBox1.Name = "pictureBox1";
@@ -579,7 +578,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.Location = new System.Drawing.Point(11, 65);
             this.pictureBox2.Name = "pictureBox2";
@@ -590,31 +589,20 @@
             // pictureBox3
             // 
             this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pictureBox3.BackColor = System.Drawing.Color.Silver;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(45, 12);
+            this.pictureBox3.Location = new System.Drawing.Point(12, 10);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(362, 47);
             this.pictureBox3.TabIndex = 108;
             this.pictureBox3.TabStop = false;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(654, 485);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(221, 43);
-            this.pictureBox4.TabIndex = 109;
-            this.pictureBox4.TabStop = false;
-            // 
             // pictureBox5
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pictureBox5.BackColor = System.Drawing.Color.Silver;
             this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox5.Location = new System.Drawing.Point(22, 485);
+            this.pictureBox5.Location = new System.Drawing.Point(11, 485);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(362, 47);
             this.pictureBox5.TabIndex = 110;
@@ -664,7 +652,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox5);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -680,7 +667,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -734,7 +720,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
         public System.Windows.Forms.TextBox txtKodeTindakan;
     }

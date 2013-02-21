@@ -379,6 +379,74 @@ namespace SIM_RS.RAWAT_INAP
             dtpTglTindakan.Value = halamanUtama.dtTglServer;
         }
 
+
+        private void pvSimpanData()
+        {
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            SqlTransaction trans = conn.BeginTransaction();
+
+            string strIDTransaksi = "";
+
+            /* CHECK THE PERFOMANCE */
+            this.strQuerySQL = "SELECT TOP 1 NoBukti "+
+                               "FROM BL_TRANSAKSI WITH (NOLOCK) "+
+                               "WHERE Regbilling = '" + txtNoBilling.Text + 
+                               "' AND sistem = 'IRNA' "+
+                               "ORDER BY TglTransaksi DESC";
+
+            SqlDataReader reader = modDb.pbreaderSQLTrans(conn,this.strQuerySQL,ref strErr,trans);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                strIDTransaksi = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            }
+            
+            reader.Close();
+
+
+            if (strIDTransaksi.Trim().ToString() == "")
+            {
+                /*berarti blm ada tindakan sama sekali..*/
+                strIDTransaksi = "001";
+
+            }
+
+
+            this.strQuerySQL = "INSERT BL_TRANSAKSI With (Rowlock) ( Idbl_transaksi, Idmr_mutasipasien, Idbl_pembayaran, Idmr_tempatlayanan, 
+			Idmr_truangan, Idmr_Tsmf, Idbl_tarip, uraiantarip, tgltransaksi, nobukti, jumlah, subsidi, tunai, 
+			klaimaskes, idmr_jenissubsidi, jml_kasus_tarip, tanggal_bayar, idmr_penjamin, idmr_pasnonrs, 
+			petugas, sistem, kasir, idmr_shift, batal, tglbatal, petugasbtl, regbilling, tglmskrwt, tglkelrwt, harirwt )  
+		values ( @xLastidtransaksi, @Idmr_mutasipasien, 0, @Idmr_tempatlayanan, @Idmr_truangan,
+			@Idmr_Tsmf, @Idbl_tarip, @Uraian, @tanggal, @nobukti, @xnilai, 0, 0, 0, @batal, 1, @batal, 
+			@batal, @batal, @petugas, 'IRNA', @batal, @batal, @batal, @batal, @batal, @regbilling, 
+			@batal, @batal, 0  )";
+
+
+
+
+
+            trans.Commit();
+            conn.Close();
+
+        }
+
         /* EOF FUNCTION*/
 
         public inputTindakan()
@@ -765,6 +833,11 @@ namespace SIM_RS.RAWAT_INAP
                 txtKodeTindakan.Focus();
 
             }
+
+        }
+
+        private void btnSimpanIsiTindakan_Click(object sender, EventArgs e)
+        {
 
         } 
 
