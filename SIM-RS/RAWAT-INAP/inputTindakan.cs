@@ -368,6 +368,7 @@ namespace SIM_RS.RAWAT_INAP
             modMain.pvUrutkanTab(dtpTglTindakan, ref intNoUrutObject,true);
             modMain.pvUrutkanTab(txtTempatLayanan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtKodeTindakan, ref intNoUrutObject);
+            modMain.pvUrutkanTab(label3, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnTampilDaftarTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtNamaDokter, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnTambahTindakan, ref intNoUrutObject);
@@ -574,7 +575,7 @@ namespace SIM_RS.RAWAT_INAP
                                                     "," + itemKomponen.dblHak3.ToString() +  ")";
 
                  }
-
+                 
 
             });
 
@@ -583,6 +584,41 @@ namespace SIM_RS.RAWAT_INAP
             trans.Rollback();
             conn.Close();
 
+        }
+
+
+        private void pvHapusList(string _strKodeTindakan)
+        {
+
+            DialogResult msgDlg = MessageBox.Show("Apakah akan dihapus ?", "Informasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (msgDlg == DialogResult.No)
+                return;
+
+            string strKodeTarif = _strKodeTindakan;
+
+            int intResult = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == strKodeTarif);
+            if (intResult == -1)
+            {
+                return;                
+            }
+
+            grpLstDaftarTindakan.RemoveAt(intResult);
+
+
+            lvDaftarTindakan.Items.Clear();
+
+            grpLstDaftarTindakan.ForEach(
+                    delegate(lstDaftarTindakan itemTindakanFetch)
+            {
+
+                lvDaftarTindakan.Items.Add(itemTindakanFetch.intNoUrut.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);   
+
+            });
         }
 
         /* EOF FUNCTION*/
@@ -1041,6 +1077,36 @@ namespace SIM_RS.RAWAT_INAP
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void lvDaftarTindakan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == System.Windows.Forms.MouseButtons.Right) && (lvDaftarTindakan.Items.Count > 0))
+            {
+                cmsDaftarTindakan.Show(this.lvDaftarTindakan, e.Location);
+            }
+        }
+
+        private void lvDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void hapusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.pvHapusList(lvDaftarTindakan.SelectedItems[0].SubItems[1].Text);
+        }
+
+        private void lvDaftarTindakan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                this.pvHapusList(lvDaftarTindakan.SelectedItems[0].SubItems[1].Text);
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                dtpTglTindakan.Focus();
+            }
         } 
 
       

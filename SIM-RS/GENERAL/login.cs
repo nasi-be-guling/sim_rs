@@ -161,6 +161,8 @@ namespace SIM_RS
                 fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
 
                 fTCN.pvLoadInfoUser(txtIdPetugas.Text.Trim().ToString());
+                fTCN.lbDaftarMenu.Select();
+                   
             }
         }
 
