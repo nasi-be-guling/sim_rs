@@ -66,6 +66,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
             public string strTSMFTindakan { get; set; }
+            public string strTempatLayanan { get; set; }
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
 
@@ -509,8 +510,8 @@ namespace SIM_RS.RAWAT_INAP
                                           "Idbl_transaksi, Idmr_mutasipasien,Idbl_pembayaran, " +
                                           "Idmr_tempatlayanan,Idmr_truangan, " +
                                           "Idmr_Tsmf, " +
-                                          "Idbl_tarip, "+
-                                          "uraiantarip, "+
+                                          "Idbl_tarip, " +
+                                          "uraiantarip, " +
                                           "tgltransaksi, " +
                                           "nobukti, jumlah, subsidi, " +
                                           "tunai, klaimaskes, idmr_jenissubsidi, " +
@@ -520,9 +521,9 @@ namespace SIM_RS.RAWAT_INAP
                                           "tglbatal, petugasbtl, regbilling, " +
                                           "tglmskrwt, tglkelrwt, harirwt) " +
                                   "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + "0, " +
-                                            "'" + strIdMR_TempatLayanan + "', '" + strIdMR_TRuangan + "', " + 
+                                            "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strTempatLayanan) + "', '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " + 
                                             "'" + itemTindakanFetch.strTSMFTindakan + 
-                                          "', '" + itemTindakanFetch.strKodeTarif + "', "+
+                                          "', '" + itemTindakanFetch.strKodeTarif + "', " +
                                           "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strUraianTarif) + 
                                           "', " + "'" + halamanUtama.dtTglServer.ToString("MM/dd/yyyy HH:mm:ss") + "', " +
                                           "'" + strNoBukti + "', " + itemTindakanFetch.dblBiaya.ToString() + ", 0, " +
@@ -540,8 +541,6 @@ namespace SIM_RS.RAWAT_INAP
                     conn.Close();
                     return;
                 }
-
-
 
 
                  var query = from i in grpLstDaftarKomponenTarif
@@ -573,7 +572,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
 
-            trans.Commit();
+            trans.Rollback();
             conn.Close();
 
         }
@@ -811,7 +810,28 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
-                this.Close();
+
+                if (!txtNoBilling.Enabled)
+                {
+                    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+                                                                     "Konfirmasi",
+                                                                     MessageBoxButtons.YesNo,
+                                                                     MessageBoxIcon.Question);
+
+                    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+                    {
+
+                        this.pvCleanInput();
+                        this.pvDisableInput();
+                        btnKeluarIsiTindakan.Text = "&KELUAR";
+                        txtNoBilling.Select();
+
+                    }
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -888,7 +908,8 @@ namespace SIM_RS.RAWAT_INAP
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
             itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
             itemTindakan.strNamaDokter = strNamaDokter;
-
+            itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
+                        
             grpLstDaftarTindakan.Add(itemTindakan);
 
 

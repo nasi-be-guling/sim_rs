@@ -37,13 +37,14 @@
             this.cmbPilihanFilter = new System.Windows.Forms.ComboBox();
             this.txtIsiFilter = new System.Windows.Forms.TextBox();
             this.btnCariSesuaiFilter = new System.Windows.Forms.Button();
+            this.bgWork = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -79,13 +80,14 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Biaya";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 18);
+            this.label1.Size = new System.Drawing.Size(91, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Filter Data : ";
             // 
@@ -112,6 +114,10 @@
             this.btnCariSesuaiFilter.TabIndex = 4;
             this.btnCariSesuaiFilter.Text = "Cari";
             this.btnCariSesuaiFilter.UseVisualStyleBackColor = true;
+            // 
+            // bgWork
+            // 
+            this.bgWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_DoWork);
             // 
             // daftarTindakan
             // 
@@ -148,5 +154,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.ComponentModel.BackgroundWorker bgWork;
     }
 }

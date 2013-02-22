@@ -94,28 +94,22 @@ namespace SIM_RS.RAWAT_INAP
         {
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 
-            
-
             fInputTindakan.grpLstDaftarTarif.ForEach(
-            delegate(inputTindakan.lstDaftarTarif itemTarif)
-            {
+           delegate(inputTindakan.lstDaftarTarif itemTarif)
+           {
 
-                ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
-                itemList.SubItems.Add(itemTarif.strUraianTarif);
-                itemList.SubItems.Add(itemTarif.strSMF);
-                itemList.SubItems.Add(itemTarif.dblBiaya.ToString());
+               ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
+               itemList.SubItems.Add(itemTarif.strUraianTarif);
+               itemList.SubItems.Add(itemTarif.strSMF);
+               itemList.SubItems.Add(itemTarif.dblBiaya.ToString());
 
-                lviDaftarTindakan.Add(itemList);
+               lviDaftarTindakan.Add(itemList);
 
-            });
+           });
 
-            lvDaftarTindakan.BeginUpdate();
-            lvDaftarTindakan.Items.Clear();
-            lvDaftarTindakan.Items.AddRange(lviDaftarTindakan.ToArray());
-            lvDaftarTindakan.EndUpdate();
+            this.bgWork.RunWorkerAsync();
 
-
-            modSQL.pvAutoResizeLV(lvDaftarTindakan, 4);
+           
 
         }
 
@@ -156,6 +150,19 @@ namespace SIM_RS.RAWAT_INAP
             isUserSelected = true;
 
             this.Close();
+        }
+
+        private void bgWork_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+
+            lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.BeginUpdate());
+            lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.Clear());
+            lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.AddRange(lviDaftarTindakan.ToArray()));
+            lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.EndUpdate());
+
+
+            lvDaftarTindakan.SafeControlInvoke(ListView => modSQL.pvAutoResizeLV(lvDaftarTindakan, 4));
         }
     }
 }
