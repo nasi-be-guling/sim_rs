@@ -22,6 +22,9 @@ namespace SIM_RS.RAWAT_INAP
         string strQuerySQL = "";
         string strErr = "";
 
+
+        bool isUserSelected = false;
+
         List<ListViewItem> lviDaftarTindakan = new List<ListViewItem>();
 
         private void pvTampilDataTindakan()
@@ -99,7 +102,7 @@ namespace SIM_RS.RAWAT_INAP
 
                 ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
                 itemList.SubItems.Add(itemTarif.strUraianTarif);
-                itemList.SubItems.Add(itemTarif.strTarifSMF);
+                itemList.SubItems.Add(itemTarif.strSMF);
                 itemList.SubItems.Add(itemTarif.dblBiaya.ToString());
 
                 lviDaftarTindakan.Add(itemList);
@@ -118,15 +121,41 @@ namespace SIM_RS.RAWAT_INAP
 
         private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
         {
-            string strKodeTindakan = lvDaftarTindakan.SelectedItems[0].Text;
+            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text;
 
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 
-            fInputTindakan.txtKodeTindakan.Text = strKodeTindakan;
-            fInputTindakan.Focus();
+            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
 
+            isUserSelected = true;
+            
             this.Close();
 
+        }
+
+        private void daftarTindakan_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (isUserSelected)
+            {
+                inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+                fInputTindakan.btnTampilDaftarTindakan.Enabled = false;
+                fInputTindakan.txtNamaDokter.Select();
+
+
+            }
+        }
+
+        private void lvDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text;
+
+            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+
+            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
+
+            isUserSelected = true;
+
+            this.Close();
         }
     }
 }

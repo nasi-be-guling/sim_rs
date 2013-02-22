@@ -22,6 +22,13 @@ namespace SIM_RS.RAWAT_INAP
         string strQuerySQL = "";
         string strErr = "";
 
+
+        /*VARIABLE INSERT TO BL_TRANSAKSI*/
+        string strIdMutasiPasien = "";
+        string strIdMR_TempatLayanan = "";
+        string strIdMR_TRuangan = "";
+
+
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listTempatLayanan = new AutoCompleteStringCollection();
@@ -32,7 +39,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strKodeTarif { get; set; }
             public string strUraianTarif { get; set; }
             public double dblBiaya { get; set; }
-            public string strTarifSMF { get; set; }
+            public string strSMF { get; set; }
 
         }
         public List<lstDaftarTarif> grpLstDaftarTarif = new List<lstDaftarTarif>();
@@ -58,6 +65,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblBiaya { get; set; }
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
+            public string strTSMFTindakan { get; set; }
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
 
@@ -139,7 +147,7 @@ namespace SIM_RS.RAWAT_INAP
                                 "BL_TARIP.idbl_tarip, " +        //0
                                 "BL_TARIP.uraiantarip, " +       //1
                                 "BL_TARIP.idmr_tsmf, " +         //2
-                                "BL_TARIP.nilai " +             //3
+                                "BL_TARIP.nilai " +              //3
                            "FROM BL_TARIP WITH (NOLOCK) " +
                            "WHERE BL_TARIP.nilai > 0 " +
                                 "AND BL_TARIP.dipakai = 'Y'";
@@ -164,7 +172,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemDaftarTarif.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                     itemDaftarTarif.strUraianTarif = modMain.pbstrgetCol(reader, 1, ref strErr, "");
                     itemDaftarTarif.dblBiaya = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-                    itemDaftarTarif.strTarifSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemDaftarTarif.strSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
                     grpLstDaftarTarif.Add(itemDaftarTarif);
                 }
             }
@@ -179,7 +187,7 @@ namespace SIM_RS.RAWAT_INAP
 
             this.strQuerySQL = "SELECT " +
                                 "MR_DOKTER.idmr_dokter, " +           //0
-                                "MR_DOKTER.nama " +                  //1
+                                "MR_DOKTER.nama " +                   //1
                                "FROM MR_DOKTER WITH (NOLOCK) " +
                                "WHERE MR_DOKTER.dipakai = 'Y'";
 
@@ -291,8 +299,13 @@ namespace SIM_RS.RAWAT_INAP
                 lblStatusPasien.Text = modMain.pbstrgetCol(reader, 7, ref strErr, "");
                 lblNamaPasien.Text = modMain.pbstrgetCol(reader, 0, ref strErr, "");
 
+                strIdMR_TempatLayanan = modMain.pbstrgetCol(reader, 5, ref strErr, "");
+                strIdMutasiPasien = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                strIdMR_TRuangan = modMain.pbstrgetCol(reader, 4, ref strErr, "");
+
                 this.pvEnableInput();
                 this.dtpTglTindakan.Focus();
+                btnKeluarIsiTindakan.Text = "&BATAL";
             }
             else
             {
@@ -369,16 +382,36 @@ namespace SIM_RS.RAWAT_INAP
         private void pvCleanInput()
         {
             txtNoBilling.Text = "";
-            lblAlamatPasien.Text = "";
-            lblKelas.Text = "";
-            lblMRPasien.Text = "";
-            lblNamaPasien.Text = "";
-            lblRuangan.Text = "";
-            lblStatusPasien.Text = "";
+            lblAlamatPasien.Text = "...";
+            lblKelas.Text = "...";
+            lblMRPasien.Text = "...";
+            lblNamaPasien.Text = "...";
+            lblRuangan.Text = "...";
+            lblStatusPasien.Text = "...";
             lvDaftarTindakan.Items.Clear();
             dtpTglTindakan.Value = halamanUtama.dtTglServer;
+
+            grpLstDaftarTindakan.Clear();
+            grpLstDaftarKomponenTarif.Clear();
+
         }
 
+
+        public void pvLoadDetailTarif(string _strKodeTarif)
+        {
+
+            txtKodeTindakan.Text = _strKodeTarif;
+
+            int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == _strKodeTarif);
+
+            if (intResultTarif != -1)
+            {
+                lblBiayaTindakan.Text = grpLstDaftarTarif[intResultTarif].dblBiaya.ToString();
+                lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultTarif].strUraianTarif;
+                                
+            }
+
+        }
 
         private void pvSimpanData()
         {
@@ -395,13 +428,15 @@ namespace SIM_RS.RAWAT_INAP
             SqlTransaction trans = conn.BeginTransaction();
 
             string strIDTransaksi = "";
+            double dblIDTransaksi = 0;
+            string strNoBukti = "";
+            int  intNoBukti = 0;
 
             /* CHECK THE PERFOMANCE */
-            this.strQuerySQL = "SELECT TOP 1 NoBukti "+
+            this.strQuerySQL = "SELECT MAX(CAST(NoBukti AS INT)) "+
                                "FROM BL_TRANSAKSI WITH (NOLOCK) "+
                                "WHERE Regbilling = '" + txtNoBilling.Text + 
-                               "' AND sistem = 'IRNA' "+
-                               "ORDER BY TglTransaksi DESC";
+                               "' AND sistem = 'IRNA'";
 
             SqlDataReader reader = modDb.pbreaderSQLTrans(conn,this.strQuerySQL,ref strErr,trans);
             if (strErr != "")
@@ -415,30 +450,126 @@ namespace SIM_RS.RAWAT_INAP
             if (reader.HasRows)
             {
                 reader.Read();
-                strIDTransaksi = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                strNoBukti = modMain.pbstrgetCol(reader, 0, ref strErr, "");
             }
             
             reader.Close();
 
 
-            if (strIDTransaksi.Trim().ToString() == "")
+            if (strNoBukti.Trim().ToString() == "")
             {
                 /*berarti blm ada tindakan sama sekali..*/
-                strIDTransaksi = "001";
+                strNoBukti = "001";
+            }
+            else
+            {
+                intNoBukti = Convert.ToInt32(strNoBukti);
+                intNoBukti = intNoBukti + 1;
+                strNoBukti = string.Format("000", intNoBukti);
 
             }
 
 
-            this.strQuerySQL = "INSERT BL_TRANSAKSI With (Rowlock) ( Idbl_transaksi, Idmr_mutasipasien, Idbl_pembayaran, Idmr_tempatlayanan, 
-			Idmr_truangan, Idmr_Tsmf, Idbl_tarip, uraiantarip, tgltransaksi, nobukti, jumlah, subsidi, tunai, 
-			klaimaskes, idmr_jenissubsidi, jml_kasus_tarip, tanggal_bayar, idmr_penjamin, idmr_pasnonrs, 
-			petugas, sistem, kasir, idmr_shift, batal, tglbatal, petugasbtl, regbilling, tglmskrwt, tglkelrwt, harirwt )  
-		values ( @xLastidtransaksi, @Idmr_mutasipasien, 0, @Idmr_tempatlayanan, @Idmr_truangan,
-			@Idmr_Tsmf, @Idbl_tarip, @Uraian, @tanggal, @nobukti, @xnilai, 0, 0, 0, @batal, 1, @batal, 
-			@batal, @batal, @petugas, 'IRNA', @batal, @batal, @batal, @batal, @batal, @regbilling, 
-			@batal, @batal, 0  )";
+            this.strQuerySQL = "SELECT MAX(idbl_transaksi) " +
+                               "FROM BL_TRANSAKSI";
+
+            reader = modDb.pbreaderSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                strIDTransaksi = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                dblIDTransaksi = Convert.ToDouble(strIDTransaksi);
+                dblIDTransaksi = dblIDTransaksi + 1;
+            }
+
+            reader.Close();
 
 
+            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemTindakanFetch)
+            {
+
+                /*                 
+                 INSERT INTO BL_TRANSAKSI WITH (Rowlock) " +
+                                          "( "+
+                                          "Idbl_transaksi, Idmr_mutasipasien, Idbl_pembayaran, " +
+                                          "Idmr_tempatlayanan, Idmr_truangan, "+
+                */
+                  
+
+                this.strQuerySQL = "INSERT INTO BL_TRANKSAKSI WITH (ROWLOCK) " + 
+                                          "( " +
+                                          "Idbl_transaksi, Idmr_mutasipasien,Idbl_pembayaran, " +
+                                          "Idmr_tempatlayanan,Idmr_truangan, " +
+                                          "Idmr_Tsmf, " +
+                                          "Idbl_tarip, "+
+                                          "uraiantarip, "+
+                                          "tgltransaksi, " +
+                                          "nobukti, jumlah, subsidi, " +
+                                          "tunai, klaimaskes, idmr_jenissubsidi, " +
+                                          "jml_kasus_tarip, tanggal_bayar, idmr_penjamin, " +
+                                          "idmr_pasnonrs, petugas, sistem, " +
+                                          "kasir, idmr_shift, batal, " +
+                                          "tglbatal, petugasbtl, regbilling, " +
+                                          "tglmskrwt, tglkelrwt, harirwt) " +
+                                  "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + "0, " +
+                                            "'" + strIdMR_TempatLayanan + "', '" + strIdMR_TRuangan + "', " + 
+                                            "'" + itemTindakanFetch.strTSMFTindakan + 
+                                          "', '" + itemTindakanFetch.strKodeTarif + "', "+
+                                          "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strUraianTarif) + 
+                                          "', " + "'" + halamanUtama.dtTglServer.ToString("MM/dd/yyyy HH:mm:ss") + "', " +
+                                          "'" + strNoBukti + "', " + itemTindakanFetch.dblBiaya.ToString() + ", 0, " +
+                                          "0, 0, '', " +
+                                          "1, '1900:01:01 00:00:00', '', " +
+                                          "'', '" + modMain.pbstrBersihkanInput( lblPetugas.Text) + "', 'IRNA', " +
+                                          "'', '', '', " +
+                                          "'1900:01:01 00:00:00', '', '" + txtNoBilling.Text + "',  " +
+                                          "'1900:01:01 00:00:00', '1900:01:01 00:00:00', 0  )";
+                modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+                if (strErr != "")
+                {
+                    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                    trans.Rollback();
+                    conn.Close();
+                    return;
+                }
+
+
+
+
+                 var query = from i in grpLstDaftarKomponenTarif
+                            where i.strKodeTarif == itemTindakanFetch.strKodeTarif
+                            select i;
+                 foreach (lstDaftarKomponenTarif itemKomponen in query)
+                 {
+
+                     string strKodeDokter = itemTindakanFetch.strKodeDokter;
+
+                     if (itemKomponen.strId_Komponen.Trim().ToString() != "JASA PELAYANAN")
+                     {
+                         strKodeDokter = "";
+                     }
+
+
+                     this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) "+
+                                            "(idmr_mutasipasien, idbl_transaksi, idbl_komponen, "+
+                                            "idmr_dokter, niltarip, niltam, "+
+                                            "nilai, nilaskes, hak1, "+
+                                            "hak2,hak3 ) VALUES "+
+                                            "(" + strIdMutasiPasien +"," + strIDTransaksi + ",'" + itemKomponen.strId_Komponen +
+                                            "','" + strKodeDokter + "')";
+
+                 }
+
+
+            });
 
 
 
@@ -479,21 +610,44 @@ namespace SIM_RS.RAWAT_INAP
 
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            if (!txtNoBilling.Enabled)
+            {
+                DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+                                                   "Konfirmasi",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
+
+                if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+                {
+
+                    this.pvCleanInput();
+                    this.pvDisableInput();
+                    btnKeluarIsiTindakan.Text = "&KELUAR";
+                    txtNoBilling.Select();
+
+                }
+            }
+            else
+            {
+                /*if not entry mode*/
+                this.Close();
+            }
+
+            
         }
 
         private void inputTindakan_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!txtNoBilling.Enabled)
-            {
-                DialogResult msgDlg = MessageBox.Show("Apakah anda akan melakukan pembatalan isi tindakan ?",
-                                                        "Konfirmasi",
-                                                        MessageBoxButtons.YesNo,
-                                                        MessageBoxIcon.Question);
+           
+            //DialogResult msgDlg = MessageBox.Show("Apakah anda akan kembali ke menu utama ?",
+            //                                        "Konfirmasi",
+            //                                        MessageBoxButtons.YesNo,
+            //                                        MessageBoxIcon.Question);
 
-                if (msgDlg == DialogResult.No)
-                    e.Cancel = true;
-            }
+            //if (msgDlg == DialogResult.No)
+            //    e.Cancel = true;
+            
         }
 
         private void txtKodeTindakan_KeyPress(object sender, KeyPressEventArgs e)
@@ -550,6 +704,7 @@ namespace SIM_RS.RAWAT_INAP
             txtKodeTindakan.CharacterCasing = CharacterCasing.Upper;
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
+            btnTampilDaftarTindakan.Enabled = true;
         }
 
         private void txtNamaDokter_Enter(object sender, EventArgs e)
@@ -611,7 +766,7 @@ namespace SIM_RS.RAWAT_INAP
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
 
-                    txtKodeTindakan.Focus();
+                    txtNamaDokter.Focus();
 
                 }
             }
@@ -714,6 +869,14 @@ namespace SIM_RS.RAWAT_INAP
                 if (intResultSearchDoctor != -1)
                 {
                     strKodeDokter = grpLstDaftarDokter[intResultSearchDoctor].strKodeDokter;
+                }
+                else
+                {
+                    MessageBox.Show("Nama Dokter yang anda masukkan tidak terdaftar",
+                                  "Informasi",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information);
+                    txtNamaDokter.Focus();
                 }
 
             }
@@ -839,6 +1002,10 @@ namespace SIM_RS.RAWAT_INAP
         private void btnSimpanIsiTindakan_Click(object sender, EventArgs e)
         {
 
+
+            /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
+
+            grpLstDaftarKomponenTarif.Clear();
         } 
 
       

@@ -59,6 +59,7 @@
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
             this.lvDaftarTindakan.DoubleClick += new System.EventHandler(this.lvDaftarTindakan_DoubleClick);
+            this.lvDaftarTindakan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lvDaftarTindakan_KeyPress);
             // 
             // columnHeader1
             // 
@@ -129,6 +130,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Daftar Nama Tarip Perawatan";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.daftarTindakan_FormClosed);
             this.Load += new System.EventHandler(this.daftarTindakan_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
