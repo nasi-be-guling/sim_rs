@@ -362,11 +362,11 @@
             this.lblNamaPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblNamaPasien.AutoSize = true;
             this.lblNamaPasien.BackColor = System.Drawing.Color.Transparent;
-            this.lblNamaPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNamaPasien.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamaPasien.ForeColor = System.Drawing.Color.Red;
-            this.lblNamaPasien.Location = new System.Drawing.Point(125, 102);
+            this.lblNamaPasien.Location = new System.Drawing.Point(124, 98);
             this.lblNamaPasien.Name = "lblNamaPasien";
-            this.lblNamaPasien.Size = new System.Drawing.Size(23, 18);
+            this.lblNamaPasien.Size = new System.Drawing.Size(28, 23);
             this.lblNamaPasien.TabIndex = 89;
             this.lblNamaPasien.Text = "...";
             // 
@@ -375,11 +375,11 @@
             this.lblAlamatPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAlamatPasien.AutoSize = true;
             this.lblAlamatPasien.BackColor = System.Drawing.Color.Transparent;
-            this.lblAlamatPasien.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlamatPasien.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlamatPasien.ForeColor = System.Drawing.Color.Red;
-            this.lblAlamatPasien.Location = new System.Drawing.Point(125, 133);
+            this.lblAlamatPasien.Location = new System.Drawing.Point(124, 129);
             this.lblAlamatPasien.Name = "lblAlamatPasien";
-            this.lblAlamatPasien.Size = new System.Drawing.Size(23, 18);
+            this.lblAlamatPasien.Size = new System.Drawing.Size(28, 23);
             this.lblAlamatPasien.TabIndex = 90;
             this.lblAlamatPasien.Text = "...";
             // 
@@ -574,6 +574,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(864, 155);
             this.pictureBox1.TabIndex = 106;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox2
             // 
@@ -625,9 +626,9 @@
             this.Controls.Add(this.btnSimpanIsiTindakan);
             this.Controls.Add(this.lblPetugas);
             this.Controls.Add(this.label23);
+            this.Controls.Add(this.lblMRPasien);
             this.Controls.Add(this.lblAlamatPasien);
             this.Controls.Add(this.lblNamaPasien);
-            this.Controls.Add(this.lblMRPasien);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.btnTambahTindakan);

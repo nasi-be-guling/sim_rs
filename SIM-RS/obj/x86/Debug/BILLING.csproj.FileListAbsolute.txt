@@ -38,3 +38,16 @@ G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resource
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
+F:\ERD\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe
+F:\ERD\SIM-RS\SIM-RS\bin\Debug\SIM-RS.pdb
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.halamanUtama.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.login.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Properties.Resources.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.read.1.tlog
+F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.write.1.tlog

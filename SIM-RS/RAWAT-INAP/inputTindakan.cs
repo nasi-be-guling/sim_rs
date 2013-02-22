@@ -212,18 +212,14 @@ namespace SIM_RS.RAWAT_INAP
                     lstDaftarDokter itemDaftarDokter = new lstDaftarDokter();
                     itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                     itemDaftarDokter.strNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemDaftarDokter.strNamaDokter = itemDaftarDokter.strNamaDokter.Trim().ToString();
 
                     grpLstDaftarDokter.Add(itemDaftarDokter);
-
-
                 }
             }
 
 
             reader.Close();
-
-
-
 
             txtNamaDokter.AutoCompleteCustomSource = listDokter;
             txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -391,6 +387,7 @@ namespace SIM_RS.RAWAT_INAP
             lblStatusPasien.Text = "...";
             lvDaftarTindakan.Items.Clear();
             dtpTglTindakan.Value = halamanUtama.dtTglServer;
+            txtTempatLayanan.Text = "";
 
             grpLstDaftarTindakan.Clear();
             grpLstDaftarKomponenTarif.Clear();
@@ -494,7 +491,9 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
-            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemTindakanFetch)
+            grpLstDaftarTindakan.ForEach(
+                delegate(
+                    lstDaftarTindakan itemTindakanFetch)
             {
 
                 /*                 
@@ -507,8 +506,10 @@ namespace SIM_RS.RAWAT_INAP
 
                 this.strQuerySQL = "INSERT INTO BL_TRANKSAKSI WITH (ROWLOCK) " + 
                                           "( " +
-                                          "Idbl_transaksi, Idmr_mutasipasien,Idbl_pembayaran, " +
-                                          "Idmr_tempatlayanan,Idmr_truangan, " +
+                                          "Idbl_transaksi, Idmr_mutasipasien, "+
+                                          "Idbl_pembayaran, " +
+                                          "Idmr_tempatlayanan, "+
+                                          "Idmr_truangan, " +
                                           "Idmr_Tsmf, " +
                                           "Idbl_tarip, " +
                                           "uraiantarip, " +
@@ -521,7 +522,8 @@ namespace SIM_RS.RAWAT_INAP
                                           "tglbatal, petugasbtl, regbilling, " +
                                           "tglmskrwt, tglkelrwt, harirwt) " +
                                   "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + "0, " +
-                                            "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strTempatLayanan) + "', '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " + 
+                                            "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strTempatLayanan) + 
+                                            "', '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " + 
                                             "'" + itemTindakanFetch.strTSMFTindakan + 
                                           "', '" + itemTindakanFetch.strKodeTarif + "', " +
                                           "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strUraianTarif) + 
@@ -558,12 +560,18 @@ namespace SIM_RS.RAWAT_INAP
 
 
                      this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) "+
-                                            "(idmr_mutasipasien, idbl_transaksi, idbl_komponen, "+
-                                            "idmr_dokter, niltarip, niltam, "+
-                                            "nilai, nilaskes, hak1, "+
-                                            "hak2,hak3 ) VALUES "+
-                                            "(" + strIdMutasiPasien +"," + strIDTransaksi + ",'" + itemKomponen.strId_Komponen +
-                                            "','" + strKodeDokter + "')";
+                                            "(idmr_mutasipasien, idbl_transaksi, "+
+                                            "idbl_komponen, idmr_dokter, "+
+                                            "niltarip, niltam, "+
+                                            "nilai, nilaskes, "+
+                                            "hak1, hak2, "+
+                                            "hak3 ) VALUES "+
+                                            "(" + strIdMutasiPasien +"," + strIDTransaksi + ",'" + 
+                                                    itemKomponen.strId_Komponen + "','" + strKodeDokter + 
+                                                    "', " + itemKomponen.dblByKomponen.ToString() + ", 0, " +
+                                                    itemKomponen.dblHak1.ToString() + 
+                                                    "," + itemKomponen.dblHak2.ToString() + 
+                                                    "," + itemKomponen.dblHak3.ToString() +  ")";
 
                  }
 
@@ -709,7 +717,7 @@ namespace SIM_RS.RAWAT_INAP
         private void txtNamaDokter_Enter(object sender, EventArgs e)
         {
             txtNamaDokter.Text = "";
-            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;
+            //txtNamaDokter.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void txtKodeTindakan_KeyDown(object sender, KeyEventArgs e)
@@ -884,7 +892,8 @@ namespace SIM_RS.RAWAT_INAP
 
             if(strNamaDokter != "")
             {
-                int intResultSearchDoctor = grpLstDaftarDokter.FindIndex(m => m.strNamaDokter == txtNamaDokter.Text.Trim().ToString());
+                int intResultSearchDoctor = grpLstDaftarDokter.FindIndex(
+                                                m => m.strNamaDokter == txtNamaDokter.Text.Trim().ToString());
 
                 if (intResultSearchDoctor != -1)
                 {
@@ -1027,6 +1036,11 @@ namespace SIM_RS.RAWAT_INAP
             /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
 
             grpLstDaftarKomponenTarif.Clear();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         } 
 
       

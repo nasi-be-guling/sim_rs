@@ -276,6 +276,9 @@ namespace SIM_RS
 
         private void halamanUtama_Load(object sender, EventArgs e)
         {
+
+            this.KeyPreview = true;
+
             lbDaftarMenu.Items.Clear();
 
             login fLogin = new login();
@@ -317,6 +320,17 @@ namespace SIM_RS
         {
             string strSelectedMenu = lbDaftarMenu.SelectedItem.ToString();
             this.pvLoadForm(strSelectedMenu);
+        }
+
+        private void halamanUtama_KeyPress(object sender, KeyPressEventArgs e)
+        {
+          
+        }
+
+        private void halamanUtama_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                this.Close();
         }
     }
 }
