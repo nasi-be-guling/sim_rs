@@ -1096,6 +1096,23 @@ namespace SIM_RS.RAWAT_INAP
 
         private void btnSimpanIsiTindakan_Click(object sender, EventArgs e)
         {
+            if (txtNoBilling.Enabled)
+                return;
+
+            if (lvDaftarTindakan.Items.Count == 0)
+            {
+                MessageBox.Show("Tidak ada yang disimpan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+            DialogResult msgDlg = MessageBox.Show("Apakah akan disimpan ?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (msgDlg == DialogResult.No)
+                return;
+
+
+            
+
 
 
             /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
@@ -1159,6 +1176,11 @@ namespace SIM_RS.RAWAT_INAP
         private void dtpTglTindakan_Enter(object sender, EventArgs e)
         {
             
+        }
+
+        private void inputTindakan_Shown(object sender, EventArgs e)
+        {
+            txtNoBilling.Focus();
         } 
 
       

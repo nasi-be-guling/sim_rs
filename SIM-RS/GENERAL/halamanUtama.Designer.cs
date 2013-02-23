@@ -37,14 +37,17 @@
             this.txtUnitKerja = new System.Windows.Forms.TextBox();
             this.txtShift = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.pbScreenCapture = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreenCapture)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbDaftarMenu
@@ -63,10 +66,10 @@
             "MENU 2",
             "MENU 3",
             "MENU 4"});
-            this.lbDaftarMenu.Location = new System.Drawing.Point(12, 180);
+            this.lbDaftarMenu.Location = new System.Drawing.Point(9, 39);
             this.lbDaftarMenu.Name = "lbDaftarMenu";
             this.lbDaftarMenu.ScrollAlwaysVisible = true;
-            this.lbDaftarMenu.Size = new System.Drawing.Size(518, 252);
+            this.lbDaftarMenu.Size = new System.Drawing.Size(502, 202);
             this.lbDaftarMenu.TabIndex = 0;
             this.lbDaftarMenu.DoubleClick += new System.EventHandler(this.lbDaftarMenu_DoubleClick);
             this.lbDaftarMenu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbDaftarMenu_KeyPress);
@@ -78,7 +81,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(740, 160);
+            this.pictureBox1.Size = new System.Drawing.Size(740, 164);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -93,7 +96,7 @@
             this.btnKeluarProgram.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKeluarProgram.Location = new System.Drawing.Point(581, 437);
             this.btnKeluarProgram.Name = "btnKeluarProgram";
-            this.btnKeluarProgram.Size = new System.Drawing.Size(171, 29);
+            this.btnKeluarProgram.Size = new System.Drawing.Size(171, 30);
             this.btnKeluarProgram.TabIndex = 3;
             this.btnKeluarProgram.Text = "&KELUAR PROGRAM";
             this.btnKeluarProgram.UseVisualStyleBackColor = false;
@@ -106,17 +109,17 @@
             this.label1.BackColor = System.Drawing.Color.DodgerBlue;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(562, 216);
+            this.label1.Location = new System.Drawing.Point(26, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 20);
+            this.label1.Size = new System.Drawing.Size(63, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Petugas : ";
+            this.label1.Text = "Nama : ";
             // 
             // txtPetugas
             // 
             this.txtPetugas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPetugas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPetugas.Location = new System.Drawing.Point(550, 237);
+            this.txtPetugas.Location = new System.Drawing.Point(14, 63);
             this.txtPetugas.Name = "txtPetugas";
             this.txtPetugas.ReadOnly = true;
             this.txtPetugas.Size = new System.Drawing.Size(189, 27);
@@ -130,7 +133,7 @@
             this.label2.BackColor = System.Drawing.Color.DodgerBlue;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(562, 287);
+            this.label2.Location = new System.Drawing.Point(26, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 20);
             this.label2.TabIndex = 6;
@@ -139,22 +142,22 @@
             // txtUnitKerja
             // 
             this.txtUnitKerja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUnitKerja.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUnitKerja.Location = new System.Drawing.Point(550, 308);
+            this.txtUnitKerja.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUnitKerja.Location = new System.Drawing.Point(14, 130);
             this.txtUnitKerja.Name = "txtUnitKerja";
             this.txtUnitKerja.ReadOnly = true;
-            this.txtUnitKerja.Size = new System.Drawing.Size(189, 27);
+            this.txtUnitKerja.Size = new System.Drawing.Size(189, 33);
             this.txtUnitKerja.TabIndex = 7;
             this.txtUnitKerja.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtShift
             // 
             this.txtShift.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtShift.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtShift.Location = new System.Drawing.Point(550, 379);
+            this.txtShift.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtShift.Location = new System.Drawing.Point(14, 201);
             this.txtShift.Name = "txtShift";
             this.txtShift.ReadOnly = true;
-            this.txtShift.Size = new System.Drawing.Size(189, 27);
+            this.txtShift.Size = new System.Drawing.Size(189, 33);
             this.txtShift.TabIndex = 9;
             this.txtShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -165,34 +168,24 @@
             this.label3.BackColor = System.Drawing.Color.DodgerBlue;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(562, 356);
+            this.label3.Location = new System.Drawing.Point(26, 178);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Shift : ";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.pictureBox2.Location = new System.Drawing.Point(536, 181);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(216, 250);
-            this.pictureBox2.TabIndex = 11;
-            this.pictureBox2.TabStop = false;
-            // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Black;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(585, 183);
+            this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 20);
+            this.label4.Size = new System.Drawing.Size(216, 33);
             this.label4.TabIndex = 12;
-            this.label4.Text = ": INFO PETUGAS : ";
+            this.label4.Text = "INFO PETUGAS";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // statusStrip1
             // 
@@ -221,25 +214,61 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lbDaftarMenu);
+            this.panel1.Location = new System.Drawing.Point(12, 182);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(518, 249);
+            this.panel1.TabIndex = 17;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.txtPetugas);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.txtShift);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.txtUnitKerja);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(536, 182);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(216, 249);
+            this.panel2.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Black;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(518, 33);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "MENU APLIKASI";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // halamanUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(764, 500);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lbDaftarMenu);
-            this.Controls.Add(this.txtUnitKerja);
             this.Controls.Add(this.pbScreenCapture);
-            this.Controls.Add(this.txtShift);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnKeluarProgram);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtPetugas);
-            this.Controls.Add(this.pictureBox2);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -255,8 +284,10 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.halamanUtama_KeyPress);
             this.Leave += new System.EventHandler(this.halamanUtama_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreenCapture)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,11 +304,13 @@
         public System.Windows.Forms.TextBox txtUnitKerja;
         public System.Windows.Forms.TextBox txtShift;
         public System.Windows.Forms.ListBox lbDaftarMenu;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.PictureBox pbScreenCapture;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label5;
 
     }
 }

@@ -219,21 +219,24 @@ namespace SIM_RS
 
         private void login_Shown(object sender, EventArgs e)
         {
-            halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
+            //halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
 
-            Bitmap bmpBlurr = Screenshot.TakeSnapshot(fTCN);
-            BitmapFilter.GaussianBlur(bmpBlurr, 100);
+            //Bitmap bmpBlurr = Screenshot.TakeSnapshot(fTCN);
+            ////BitmapFilter.GaussianBlur(bmpBlurr, 100);
 
-
-            fTCN.pbScreenCapture.Image = bmpBlurr;
-            fTCN.pbScreenCapture.Dock = DockStyle.Fill;
-            fTCN.pbScreenCapture.BringToFront();
-            fTCN.pbScreenCapture.Visible = true;
+            //fTCN.pbScreenCapture.Image = bmpBlurr;
+            //fTCN.pbScreenCapture.Dock = DockStyle.Fill;
+            //fTCN.pbScreenCapture.BringToFront();
+            //fTCN.pbScreenCapture.Visible = true;
 
             //fTCN.Opacity = 0.5;
         }
 
+       
+
     }
+       
+
 
     public class ConvMatrix
     {
