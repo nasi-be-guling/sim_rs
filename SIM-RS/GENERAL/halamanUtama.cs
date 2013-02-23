@@ -9,12 +9,12 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace SIM_RS
 {
     public partial class halamanUtama : Form
     {
-
         C4Module.MainModule modMain = new C4Module.MainModule();
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
@@ -117,6 +117,7 @@ namespace SIM_RS
         {
             lbDaftarMenu.Items.Clear();
 
+            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -170,6 +171,7 @@ namespace SIM_RS
 
             string strNamaMenu = "";
 
+            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -230,6 +232,7 @@ namespace SIM_RS
         private void pvLoadInitialData()
         {
 
+            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -280,6 +283,11 @@ namespace SIM_RS
             this.KeyPreview = true;
 
             lbDaftarMenu.Items.Clear();
+
+
+        
+            
+
 
             login fLogin = new login();
             fLogin.ShowDialog();
@@ -332,5 +340,38 @@ namespace SIM_RS
             if (e.KeyCode == Keys.Escape)
                 this.Close();
         }
+
+        private void halamanUtama_Activated(object sender, EventArgs e)
+        {
+            if (lbDaftarMenu.Items.Count > 0)
+            {
+                lbDaftarMenu.SelectedIndex = 0;
+
+            }
+
+        }
+
+        private void halamanUtama_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Bitmap bmpBlurr = Screenshot.TakeSnapshot(this);
+            //BitmapFilter.GaussianBlur(bmpBlurr, 1);
+
+
+            //pbScreenCapture.Image = bmpBlurr;
+            //pbScreenCapture.Dock = DockStyle.Fill;
+            //pbScreenCapture.BringToFront();
+            //pbScreenCapture.Visible = true;
+        }
+
+       
     }
+
+
+    
+
 }

@@ -36,7 +36,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cmbUnitKerja = new System.Windows.Forms.ComboBox();
             this.cmbShift = new System.Windows.Forms.ComboBox();
-            this.btnLoginLagi = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label16
@@ -105,6 +105,7 @@
             // cmbUnitKerja
             // 
             this.cmbUnitKerja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUnitKerja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbUnitKerja.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnitKerja.FormattingEnabled = true;
             this.cmbUnitKerja.Location = new System.Drawing.Point(161, 100);
@@ -117,6 +118,7 @@
             // cmbShift
             // 
             this.cmbShift.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbShift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbShift.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbShift.FormattingEnabled = true;
             this.cmbShift.Items.AddRange(new object[] {
@@ -129,21 +131,26 @@
             this.cmbShift.TabIndex = 72;
             this.cmbShift.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbShift_KeyPress);
             // 
-            // btnLoginLagi
+            // label5
             // 
-            this.btnLoginLagi.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoginLagi.Location = new System.Drawing.Point(353, 64);
-            this.btnLoginLagi.Name = "btnLoginLagi";
-            this.btnLoginLagi.Size = new System.Drawing.Size(35, 30);
-            this.btnLoginLagi.TabIndex = 73;
-            this.btnLoginLagi.UseVisualStyleBackColor = true;
+            this.label5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(0, 193);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(429, 20);
+            this.label5.TabIndex = 73;
+            this.label5.Text = "Tekan ESC untuk membatalkan login / Keluar dari Program";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(429, 213);
-            this.Controls.Add(this.btnLoginLagi);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbShift);
             this.Controls.Add(this.cmbUnitKerja);
             this.Controls.Add(this.label4);
@@ -153,15 +160,18 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label3);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Aplikasi Billing RSSA";
+            this.Activated += new System.EventHandler(this.login_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.login_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.login_FormClosed);
             this.Load += new System.EventHandler(this.login_Load);
+            this.Shown += new System.EventHandler(this.login_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.login_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +187,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbUnitKerja;
         private System.Windows.Forms.ComboBox cmbShift;
-        private System.Windows.Forms.Button btnLoginLagi;
+        private System.Windows.Forms.Label label5;
     }
 }

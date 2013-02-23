@@ -97,6 +97,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pvLoadDataInisialasi()
         {
+            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -246,6 +247,8 @@ namespace SIM_RS.RAWAT_INAP
         private void pvLoadDataPasien(string _strNoTransBilling)
         {
 
+            this.strErr = "";
+
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -365,12 +368,20 @@ namespace SIM_RS.RAWAT_INAP
             int intNoUrutObject = 0;
 
             modMain.pvUrutkanTab(txtNoBilling, ref intNoUrutObject);
+            modMain.pvUrutkanTab(lblDaftarTindakan, ref intNoUrutObject);
+            modMain.pvUrutkanTab(lvDaftarTindakan, ref intNoUrutObject);            
+            
             modMain.pvUrutkanTab(dtpTglTindakan, ref intNoUrutObject,true);
             modMain.pvUrutkanTab(txtTempatLayanan, ref intNoUrutObject);
+            
+            modMain.pvUrutkanTab(lblKodeTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtKodeTindakan, ref intNoUrutObject);
-            modMain.pvUrutkanTab(label3, ref intNoUrutObject);
+            
             modMain.pvUrutkanTab(btnTampilDaftarTindakan, ref intNoUrutObject);
+            
+            modMain.pvUrutkanTab(lblDokter, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtNamaDokter, ref intNoUrutObject);
+            
             modMain.pvUrutkanTab(btnTambahTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnSimpanIsiTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnKeluarIsiTindakan, ref intNoUrutObject);
@@ -414,6 +425,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pvSimpanData()
         {
+            this.strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
@@ -573,6 +585,14 @@ namespace SIM_RS.RAWAT_INAP
                                                     itemKomponen.dblHak1.ToString() + 
                                                     "," + itemKomponen.dblHak2.ToString() + 
                                                     "," + itemKomponen.dblHak3.ToString() +  ")";
+                     modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+                     if (strErr != "")
+                     {
+                         modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                         trans.Rollback();
+                         conn.Close();
+                         return;
+                     }
 
                  }
                  
@@ -619,6 +639,13 @@ namespace SIM_RS.RAWAT_INAP
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);   
 
             });
+
+
+            lvDaftarTindakan.Focus();
+            
+            if(lvDaftarTindakan.Items.Count > 0)
+                lvDaftarTindakan.Items[0].Selected = true;
+
         }
 
         /* EOF FUNCTION*/
@@ -942,6 +969,7 @@ namespace SIM_RS.RAWAT_INAP
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Information);
                     txtNamaDokter.Focus();
+                    return;
                 }
 
             }
@@ -958,7 +986,7 @@ namespace SIM_RS.RAWAT_INAP
             grpLstDaftarTindakan.Add(itemTindakan);
 
 
-
+            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -1030,8 +1058,9 @@ namespace SIM_RS.RAWAT_INAP
             lblDeskripsiTindakan.Text = "...";
             txtKodeTindakan.Text = "";
             txtNamaDokter.Text = "";
-            dtpTglTindakan.Focus();
-           
+            //dtpTglTindakan.Focus();
+            lvDaftarTindakan.HideSelection = false;
+            lvDaftarTindakan.Focus();           
 
         }
 
@@ -1107,6 +1136,29 @@ namespace SIM_RS.RAWAT_INAP
             {
                 dtpTglTindakan.Focus();
             }
+        }
+
+        private void lvDaftarTindakan_Enter(object sender, EventArgs e)
+        {
+            if (lvDaftarTindakan.Items.Count > 0)
+            {
+                lvDaftarTindakan.Items[0].Selected = true;
+            }
+        }
+
+        private void txtNoBilling_Enter(object sender, EventArgs e)
+        {
+            //txtNoBilling.BackColor = Color.BlanchedAlmond;
+        }
+
+        private void txtNoBilling_Leave(object sender, EventArgs e)
+        {
+            //txtNoBilling.BackColor = Color.White;
+        }
+
+        private void dtpTglTindakan_Enter(object sender, EventArgs e)
+        {
+            
         } 
 
       
