@@ -219,17 +219,133 @@ namespace SIM_RS
 
         private void login_Shown(object sender, EventArgs e)
         {
+            
+
+            //fTCN.Opacity = 0.5;
+        }
+
+        private void cmbUnitKerja_Leave(object sender, EventArgs e)
+        {
+            if (cmbUnitKerja.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus memilih Unit Kerja", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmbUnitKerja.Select();
+            }
+        }
+
+        private void cmbShift_Leave(object sender, EventArgs e)
+        {
+            if (cmbShift.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus memilih Shif", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmbShift.Select();
+            }
+        }
+
+        private void txtIdPetugas_Leave(object sender, EventArgs e)
+        {
+            if (txtIdPetugas.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus mengisi Sandi", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtIdPetugas.Select();
+                return;
+            }
+
+
+            bool boolPetugasAda = false;
+
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
+
+            strSqlQuery = "SELECT " +
+                                "Petugas " +
+                          "FROM BILPETUGAS " +
+                          "WHERE idPetugas = '" + strPetugas + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+
+                reader.Read();
+                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                boolPetugasAda = true;
+            }
+
+
+
+            reader.Close();
+
+            cmbUnitKerja.Items.Clear();
+
+            if (boolPetugasAda)
+            {
+
+                strSqlQuery = "SELECT Grup FROM BILHAKAKSES WHERE idPetugas = '" + strPetugas + "' GROUP BY Grup";
+
+                reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+                if (strErr != "")
+                {
+                    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                    //isLoginSuccess = false;
+                    conn.Close();
+                    return;
+                }
+
+                if (reader.HasRows)
+                {
+
+                    while (reader.Read())
+                    {
+                        cmbUnitKerja.Items.Add(modMain.pbstrgetCol(reader, 0, ref strErr, cmbUnitKerja.Name.ToString()));
+                    }
+
+                }
+
+                cmbUnitKerja.Text = cmbUnitKerja.Items[0].ToString();
+                cmbUnitKerja.Focus();
+                txtIdPetugas.Enabled = false;
+
+            }
+            else
+            {
+                MessageBox.Show("ID Petugas yang anda masukkan tidak ditemukan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtIdPetugas.Select();
+                txtIdPetugas.SelectAll();
+            }
+
+            conn.Close();
+
+
+
+        }
+
+        private void login_Paint(object sender, PaintEventArgs e)
+        {
             //halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
 
             //Bitmap bmpBlurr = Screenshot.TakeSnapshot(fTCN);
-            ////BitmapFilter.GaussianBlur(bmpBlurr, 100);
+            ////BitmapFilter.GaussianBlur(bmpBlurr, 2);
 
             //fTCN.pbScreenCapture.Image = bmpBlurr;
             //fTCN.pbScreenCapture.Dock = DockStyle.Fill;
             //fTCN.pbScreenCapture.BringToFront();
             //fTCN.pbScreenCapture.Visible = true;
-
-            //fTCN.Opacity = 0.5;
         }
 
        

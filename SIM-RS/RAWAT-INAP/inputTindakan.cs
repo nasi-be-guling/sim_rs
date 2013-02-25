@@ -648,6 +648,33 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
+
+        private void pvCetakTindakan()
+        {
+
+            /*PRINT NO BUKTI : xxx*/
+
+            /*                                                                      RUANG XXXX */
+            /* PRINT NAMA : xxxx                                                    REGISTER BILLING*/
+
+
+            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemFetchTindakan)
+            {
+
+                /*PRINT KODE TARIF         URAIAN TARIF                                             NOMINAL*/
+
+            });
+
+            /*                                                                                      PRINT TOTAL */
+            /*                                                                                      PRINT TANGGAL */
+
+
+
+
+            /*                                                                                      PRINT YG BUAT RINCIAN */
+
+        }
+
         /* EOF FUNCTION*/
 
         public inputTindakan()

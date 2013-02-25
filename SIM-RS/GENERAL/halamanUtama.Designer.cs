@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbDaftarMenu = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKeluarProgram = new System.Windows.Forms.Button();
@@ -42,9 +43,14 @@
             this.pbScreenCapture = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tssInfoServer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssTglLengkap = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timerWaktu = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreenCapture)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -189,6 +195,11 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssInfoServer,
+            this.toolStripStatusLabel1,
+            this.tssTglLengkap});
             this.statusStrip1.Location = new System.Drawing.Point(0, 478);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(764, 22);
@@ -227,6 +238,19 @@
             this.panel1.Size = new System.Drawing.Size(518, 249);
             this.panel1.TabIndex = 17;
             // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Black;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(518, 33);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "MENU APLIKASI";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -243,18 +267,32 @@
             this.panel2.Size = new System.Drawing.Size(216, 249);
             this.panel2.TabIndex = 18;
             // 
-            // label5
+            // tssInfoServer
             // 
-            this.label5.BackColor = System.Drawing.Color.Black;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(518, 33);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "MENU APLIKASI";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tssInfoServer.BackColor = System.Drawing.Color.Transparent;
+            this.tssInfoServer.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tssInfoServer.Name = "tssInfoServer";
+            this.tssInfoServer.Size = new System.Drawing.Size(131, 17);
+            this.tssInfoServer.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(20, 17);
+            this.toolStripStatusLabel1.Text = "   ";
+            // 
+            // tssTglLengkap
+            // 
+            this.tssTglLengkap.BackColor = System.Drawing.Color.Transparent;
+            this.tssTglLengkap.Name = "tssTglLengkap";
+            this.tssTglLengkap.Size = new System.Drawing.Size(131, 17);
+            this.tssTglLengkap.Text = "toolStripStatusLabel2";
+            // 
+            // timerWaktu
+            // 
+            this.timerWaktu.Interval = 1000;
+            this.timerWaktu.Tick += new System.EventHandler(this.timerWaktu_Tick);
             // 
             // halamanUtama
             // 
@@ -280,10 +318,14 @@
             this.Activated += new System.EventHandler(this.halamanUtama_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.halamanUtama_FormClosing);
             this.Load += new System.EventHandler(this.halamanUtama_Load);
+            this.Shown += new System.EventHandler(this.halamanUtama_Shown);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.halamanUtama_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.halamanUtama_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.halamanUtama_KeyPress);
             this.Leave += new System.EventHandler(this.halamanUtama_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreenCapture)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -311,6 +353,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripStatusLabel tssInfoServer;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tssTglLengkap;
+        private System.Windows.Forms.Timer timerWaktu;
 
     }
 }

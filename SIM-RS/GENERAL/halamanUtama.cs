@@ -15,6 +15,23 @@ namespace SIM_RS
 {
     public partial class halamanUtama : Form
     {
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SYSTEMTIME
+        {
+            public short wYear;
+            public short wMonth;
+            public short wDayOfWeek;
+            public short wDay;
+            public short wHour;
+            public short wMinute;
+            public short wSecond;
+            public short wMilliseconds;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetSystemTime(ref SYSTEMTIME st);
+
         C4Module.MainModule modMain = new C4Module.MainModule();
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
@@ -101,7 +118,14 @@ namespace SIM_RS
                 modMain.pbTulisRegistryItem("Aplikasi", "Operator");
 
               
-            }          
+            }
+
+            /*..READ SETTING FROM REGEDIT..*/
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            modMain.pbBacaRegistry(ref strNameDBServer, ref strPasswordDBServer, ref strIPDBServer, ref strPortDBServer, ref strNameDBServer);
+            
+            
+
 
         }
 
@@ -269,6 +293,7 @@ namespace SIM_RS
         public halamanUtama()
         {
             InitializeComponent();
+            this.pvLoadInitialData();
             this.pvInitialApp();
         }
 
@@ -279,6 +304,24 @@ namespace SIM_RS
 
         private void halamanUtama_Load(object sender, EventArgs e)
         {
+            /* i don't know this need administrator user or not */            
+
+            //SYSTEMTIME st = new SYSTEMTIME();
+            //st.wYear = Convert.ToInt16(dtTglServer.ToString("yyyy")); // must be short
+            //st.wMonth = Convert.ToInt16(dtTglServer.ToString("MM"));
+            //st.wDay = Convert.ToInt16(dtTglServer.ToString("dd"));
+            //st.wHour = Convert.ToInt16(dtTglServer.ToString("HH"));
+            //st.wMinute = Convert.ToInt16(dtTglServer.ToString("mm"));
+            //st.wSecond = Convert.ToInt16(dtTglServer.ToString("ss"));
+            
+
+            //SetSystemTime(ref st); // invoke this method.
+
+            //MessageBox.Show(dtTglServer.ToString("dd MMMM yyyy HH:mm:ss"));
+
+            tssInfoServer.Text = "Server : " + strIPDBServer.ToString();
+            timerWaktu.Interval = 1000;
+            timerWaktu.Enabled = true;
 
             this.KeyPreview = true;
 
@@ -289,10 +332,7 @@ namespace SIM_RS
             
 
 
-            login fLogin = new login();
-            fLogin.ShowDialog();
-
-            strNamaUser = txtPetugas.Text;
+           
 
         }
 
@@ -357,6 +397,25 @@ namespace SIM_RS
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void timerWaktu_Tick(object sender, EventArgs e)
+        {
+            tssTglLengkap.Text = DateTime.Now.ToString("dd MMMM yyyy") + " " + DateTime.Now.ToString("HH:mm:ss");
+
+        }
+
+        private void halamanUtama_Shown(object sender, EventArgs e)
+        {
+            login fLogin = new login();
+            fLogin.ShowDialog();
+
+            strNamaUser = txtPetugas.Text;
+        }
+
+        private void halamanUtama_Paint(object sender, PaintEventArgs e)
         {
             //Bitmap bmpBlurr = Screenshot.TakeSnapshot(this);
             //BitmapFilter.GaussianBlur(bmpBlurr, 1);
