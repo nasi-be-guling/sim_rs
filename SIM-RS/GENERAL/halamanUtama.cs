@@ -327,13 +327,6 @@ namespace SIM_RS
 
             lbDaftarMenu.Items.Clear();
 
-
-        
-            
-
-
-           
-
         }
 
         private void halamanUtama_FormClosing(object sender, FormClosingEventArgs e)
@@ -345,7 +338,7 @@ namespace SIM_RS
                 return;
             }
 
-            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program", "Informasi", 
+            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program test", "Informasi", 
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (msgDialog == DialogResult.No)
@@ -383,6 +376,8 @@ namespace SIM_RS
 
         private void halamanUtama_Activated(object sender, EventArgs e)
         {
+            lbDaftarMenu.Select();
+
             if (lbDaftarMenu.Items.Count > 0)
             {
                 lbDaftarMenu.SelectedIndex = 0;
@@ -394,12 +389,7 @@ namespace SIM_RS
         private void halamanUtama_Leave(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-          
-        }
+        }      
 
         private void timerWaktu_Tick(object sender, EventArgs e)
         {

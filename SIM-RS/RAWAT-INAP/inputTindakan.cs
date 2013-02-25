@@ -7,16 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
+
 
 namespace SIM_RS.RAWAT_INAP
 {
     public partial class inputTindakan : Form
     {
 
+        [DllImport("winspool.Drv",
+                  EntryPoint = "GetDefaultPrinter")]
+        public static extern bool GetDefaultPrinter(
+                    StringBuilder pszBuffer,   // printer name buffer
+                    ref int pcchBuffer  // size of name buffer
+        );
+
         C4Module.MainModule modMain = new C4Module.MainModule();
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
+        C4Module.PrintModule modPrint = new C4Module.PrintModule();
 
 
         string strQuerySQL = "";
@@ -423,7 +433,7 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
-        private void pvSimpanData()
+        private bool pvSimpanData()
         {
             this.strErr = "";
 
@@ -433,7 +443,7 @@ namespace SIM_RS.RAWAT_INAP
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
+                return false;
             }
 
             SqlTransaction trans = conn.BeginTransaction();
@@ -455,7 +465,7 @@ namespace SIM_RS.RAWAT_INAP
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                 trans.Rollback();
                 conn.Close();
-                return;
+                return false;
             }
 
             if (reader.HasRows)
@@ -490,7 +500,7 @@ namespace SIM_RS.RAWAT_INAP
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                 trans.Rollback();
                 conn.Close();
-                return;
+                return false;
             }
 
             if (reader.HasRows)
@@ -554,7 +564,7 @@ namespace SIM_RS.RAWAT_INAP
                     modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                     trans.Rollback();
                     conn.Close();
-                    return;
+                    return false;
                 }
 
 
@@ -582,6 +592,7 @@ namespace SIM_RS.RAWAT_INAP
                                             "(" + strIdMutasiPasien +"," + strIDTransaksi + ",'" + 
                                                     itemKomponen.strId_Komponen + "','" + strKodeDokter + 
                                                     "', " + itemKomponen.dblByKomponen.ToString() + ", 0, " +
+                                                    "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," + 
                                                     itemKomponen.dblHak1.ToString() + 
                                                     "," + itemKomponen.dblHak2.ToString() + 
                                                     "," + itemKomponen.dblHak3.ToString() +  ")";
@@ -591,7 +602,7 @@ namespace SIM_RS.RAWAT_INAP
                          modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                          trans.Rollback();
                          conn.Close();
-                         return;
+                         return false;
                      }
 
                  }
@@ -603,6 +614,8 @@ namespace SIM_RS.RAWAT_INAP
 
             trans.Rollback();
             conn.Close();
+
+            return true;
 
         }
 
@@ -651,32 +664,115 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pvCetakTindakan()
         {
+            string strInit = ((char)27).ToString() + "@";
+            string strBarisBaru  = ((char)10).ToString();
+            string strCondensed = ((char)15).ToString();
 
-            /*PRINT NO BUKTI : xxx*/
+            string strAwalBaris = modMain.karakter_spasi(0);
 
-            /*                                                                      RUANG XXXX */
-            /* PRINT NAMA : xxxx                                                    REGISTER BILLING*/
+            string strBold = ((char)27).ToString() + ((char)30).ToString() + ((char)1).ToString();
 
+            StringBuilder strbPrinterDefault = new StringBuilder(256);
+            int length = 100;
+            GetDefaultPrinter(strbPrinterDefault, ref length);
+            modPrint.pbstrNamaPrinter = strbPrinterDefault.ToString();
 
-            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemFetchTindakan)
+            if (!modPrint.pbboolBuka("Print Cetak Tindakan")) return;
+
+            modPrint.pbboolCetak(strInit + strCondensed + strAwalBaris + "     No Bukti : " + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + lblRuangan.Text + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(35) + lblNamaPasien.Text + modMain.karakter_spasi(58) + txtNoBilling.Text + strBarisBaru);
+            
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+            /*DETAIL TRANSAKSI*/
+
+            int intLenKode2Desc = 42;
+            int intLenSpaceKode2Desc = 0;
+
+            int intLenDesc2Nom = 70;
+            int intLenSpaceDesc2Nom = 0;
+
+            int intLenFirstSpace = 20;
+            //int intLenSecondSpace = 
+
+            /*ASUMSI TARIF TERBESAR 1.000.000.000*/
+            int intLenNominal = 13;
+
+            string strNominal = "";
+            int intSpaceNominal = 0;
+            string strSpaceNominal = "";
+
+            double dblTotalPerPrint = 0;
+
+            int intJmlFetchKosong = 4;
+
+            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemFetch)
             {
 
-                /*PRINT KODE TARIF         URAIAN TARIF                                             NOMINAL*/
+                strNominal = modMain.addPoint(itemFetch.dblBiaya.ToString());
+                intSpaceNominal = intLenNominal - strNominal.Length;
+                strSpaceNominal = modMain.karakter_spasi(Convert.ToByte(intSpaceNominal));
 
+                intLenSpaceKode2Desc = intLenKode2Desc - (intLenFirstSpace + itemFetch.strKodeTarif.Length);
+                intLenSpaceDesc2Nom = (intLenFirstSpace + itemFetch.strKodeTarif.Length + intLenSpaceKode2Desc + intLenDesc2Nom)
+                                - (intLenFirstSpace + itemFetch.strKodeTarif.Length + intLenSpaceKode2Desc + itemFetch.strUraianTarif.Length);
+                modPrint.pbboolCetak(strAwalBaris + 
+                        modMain.karakter_spasi(Convert.ToByte(intLenFirstSpace)) + itemFetch.strKodeTarif + 
+                        modMain.karakter_spasi(Convert.ToByte(intLenSpaceKode2Desc))  + itemFetch.strUraianTarif +
+                        modMain.karakter_spasi(Convert.ToByte(intLenSpaceDesc2Nom)) + strSpaceNominal + 
+                            modMain.addPoint(itemFetch.dblBiaya.ToString()) +                        
+                        strBarisBaru);
+
+                dblTotalPerPrint = dblTotalPerPrint + itemFetch.dblBiaya;
+
+
+
+                intJmlFetchKosong = intJmlFetchKosong - 1;
             });
 
-            /*                                                                                      PRINT TOTAL */
-            /*                                                                                      PRINT TANGGAL */
 
+            for (int i = 0; i < intJmlFetchKosong; i++)
+            {
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            }
 
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
 
+            /* TOTAL */
 
-            /*                                                                                      PRINT YG BUAT RINCIAN */
+            
+            int intSpaceTotal = intLenNominal - modMain.addPoint(dblTotalPerPrint.ToString()).Length;
+            string strSpaceTotal = modMain.karakter_spasi(Convert.ToByte(intSpaceTotal));
+
+            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(112) + strSpaceTotal +  
+                                    modMain.addPoint(dblTotalPerPrint.ToString()) + 
+                                    strBarisBaru);
+
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            
+            /* TANGGAL */
+            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(102) + 
+                            halamanUtama.dtTglServer.ToString("dd-MM-yyyy HH:mm:ss") +  strBarisBaru);
+
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+            /* OPRATOR*/
+            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + halamanUtama.strNamaUser + strBarisBaru);
+
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+            modPrint.pbboolTutup();
 
         }
 
         /* EOF FUNCTION*/
-
+        
         public inputTindakan()
         {
             InitializeComponent();
@@ -695,7 +791,10 @@ namespace SIM_RS.RAWAT_INAP
         }
 
         private void txtNoBilling_KeyPress(object sender, KeyPressEventArgs e)
-        {            
+        {
+
+            e.Handled = modMain.allowOnlyNumeric(e.KeyChar);
+
             if (e.KeyChar == 13)
             {
                 if (txtNoBilling.Text.Trim().ToString() == "")
@@ -1138,13 +1237,16 @@ namespace SIM_RS.RAWAT_INAP
                 return;
 
 
-            
-
-
+            if (this.pvSimpanData())
+            {
+                this.pvCetakTindakan();
+            }
 
             /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
 
             grpLstDaftarKomponenTarif.Clear();
+            this.pvCleanInput();
+            this.pvDisableInput();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -1208,6 +1310,11 @@ namespace SIM_RS.RAWAT_INAP
         private void inputTindakan_Shown(object sender, EventArgs e)
         {
             txtNoBilling.Focus();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.pvCetakTindakan();
         } 
 
       
