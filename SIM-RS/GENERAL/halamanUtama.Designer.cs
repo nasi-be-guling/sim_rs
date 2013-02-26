@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(halamanUtama));
             this.lbDaftarMenu = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKeluarProgram = new System.Windows.Forms.Button();
@@ -40,14 +41,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tssInfoServer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssTglLengkap = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbScreenCapture = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tssInfoServer = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssTglLengkap = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerWaktu = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -58,9 +59,9 @@
             // 
             // lbDaftarMenu
             // 
-            this.lbDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDaftarMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbDaftarMenu.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDaftarMenu.FormattingEnabled = true;
@@ -82,8 +83,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
@@ -206,6 +208,28 @@
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tssInfoServer
+            // 
+            this.tssInfoServer.BackColor = System.Drawing.Color.Transparent;
+            this.tssInfoServer.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tssInfoServer.Name = "tssInfoServer";
+            this.tssInfoServer.Size = new System.Drawing.Size(131, 17);
+            this.tssInfoServer.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(20, 17);
+            this.toolStripStatusLabel1.Text = "   ";
+            // 
+            // tssTglLengkap
+            // 
+            this.tssTglLengkap.BackColor = System.Drawing.Color.Transparent;
+            this.tssTglLengkap.Name = "tssTglLengkap";
+            this.tssTglLengkap.Size = new System.Drawing.Size(131, 17);
+            this.tssTglLengkap.Text = "toolStripStatusLabel2";
+            // 
             // pbScreenCapture
             // 
             this.pbScreenCapture.Location = new System.Drawing.Point(282, 437);
@@ -226,9 +250,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.lbDaftarMenu);
@@ -265,28 +289,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(216, 249);
             this.panel2.TabIndex = 18;
-            // 
-            // tssInfoServer
-            // 
-            this.tssInfoServer.BackColor = System.Drawing.Color.Transparent;
-            this.tssInfoServer.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tssInfoServer.Name = "tssInfoServer";
-            this.tssInfoServer.Size = new System.Drawing.Size(131, 17);
-            this.tssInfoServer.Text = "toolStripStatusLabel1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(20, 17);
-            this.toolStripStatusLabel1.Text = "   ";
-            // 
-            // tssTglLengkap
-            // 
-            this.tssTglLengkap.BackColor = System.Drawing.Color.Transparent;
-            this.tssTglLengkap.Name = "tssTglLengkap";
-            this.tssTglLengkap.Size = new System.Drawing.Size(131, 17);
-            this.tssTglLengkap.Text = "toolStripStatusLabel2";
             // 
             // timerWaktu
             // 

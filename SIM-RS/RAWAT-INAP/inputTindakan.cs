@@ -77,6 +77,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strNamaDokter { get; set; }
             public string strTSMFTindakan { get; set; }
             public string strTempatLayanan { get; set; }
+            public int intIdTempatLayanan { get; set; }
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
 
@@ -229,6 +230,7 @@ namespace SIM_RS.RAWAT_INAP
                 }
             }
 
+            
 
             reader.Close();
 
@@ -443,6 +445,7 @@ namespace SIM_RS.RAWAT_INAP
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                
                 return false;
             }
 
@@ -486,7 +489,13 @@ namespace SIM_RS.RAWAT_INAP
             {
                 intNoBukti = Convert.ToInt32(strNoBukti);
                 intNoBukti = intNoBukti + 1;
-                strNoBukti = string.Format("000", intNoBukti);
+                strNoBukti = intNoBukti.ToString();
+
+                for (int i = 0; i <= (3-strNoBukti.Length); i++)
+                {
+                    strNoBukti = "0" + strNoBukti;
+                }
+
 
             }
 
@@ -514,9 +523,7 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
-            grpLstDaftarTindakan.ForEach(
-                delegate(
-                    lstDaftarTindakan itemTindakanFetch)
+            foreach (lstDaftarTindakan itemTindakan in grpLstDaftarTindakan)
             {
 
                 /*                 
@@ -525,13 +532,13 @@ namespace SIM_RS.RAWAT_INAP
                                           "Idbl_transaksi, Idmr_mutasipasien, Idbl_pembayaran, " +
                                           "Idmr_tempatlayanan, Idmr_truangan, "+
                 */
-                  
 
-                this.strQuerySQL = "INSERT INTO BL_TRANKSAKSI WITH (ROWLOCK) " + 
+
+                this.strQuerySQL = "INSERT INTO BL_TRANSAKSI WITH (ROWLOCK) " +
                                           "( " +
-                                          "Idbl_transaksi, Idmr_mutasipasien, "+
+                                          "Idbl_transaksi, Idmr_mutasipasien, " +
                                           "Idbl_pembayaran, " +
-                                          "Idmr_tempatlayanan, "+
+                                          "Idmr_tempatlayanan, " +
                                           "Idmr_truangan, " +
                                           "Idmr_Tsmf, " +
                                           "Idbl_tarip, " +
@@ -544,20 +551,21 @@ namespace SIM_RS.RAWAT_INAP
                                           "kasir, idmr_shift, batal, " +
                                           "tglbatal, petugasbtl, regbilling, " +
                                           "tglmskrwt, tglkelrwt, harirwt) " +
-                                  "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + "0, " +
-                                            "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strTempatLayanan) + 
-                                            "', '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " + 
-                                            "'" + itemTindakanFetch.strTSMFTindakan + 
-                                          "', '" + itemTindakanFetch.strKodeTarif + "', " +
-                                          "'" + modMain.pbstrBersihkanInput(itemTindakanFetch.strUraianTarif) + 
+                                  "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + 
+                                            "0, " +
+                                            "" + itemTindakan.intIdTempatLayanan.ToString() +
+                                            ", '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " +
+                                            "'" + itemTindakan.strTSMFTindakan +
+                                          "', '" + itemTindakan.strKodeTarif + "', " +
+                                          "'" + modMain.pbstrBersihkanInput(itemTindakan.strUraianTarif) +
                                           "', " + "'" + halamanUtama.dtTglServer.ToString("MM/dd/yyyy HH:mm:ss") + "', " +
-                                          "'" + strNoBukti + "', " + itemTindakanFetch.dblBiaya.ToString() + ", 0, " +
+                                          "'" + strNoBukti + "', " + itemTindakan.dblBiaya.ToString() + ", 0, " +
                                           "0, 0, '', " +
-                                          "1, '1900:01:01 00:00:00', '', " +
-                                          "'', '" + modMain.pbstrBersihkanInput( lblPetugas.Text) + "', 'IRNA', " +
+                                          "1, '01/01/1900 00:00:00', '', " +
+                                          "'', '" + modMain.pbstrBersihkanInput(lblPetugas.Text) + "', 'IRNA', " +
                                           "'', '', '', " +
-                                          "'1900:01:01 00:00:00', '', '" + txtNoBilling.Text + "',  " +
-                                          "'1900:01:01 00:00:00', '1900:01:01 00:00:00', 0  )";
+                                          "'01/01/1900 00:00:00', '', '" + txtNoBilling.Text + "',  " +
+                                          "'01/01/1900 00:00:00', '01/01/1900 00:00:00', 0  )";
                 modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
                 if (strErr != "")
                 {
@@ -568,51 +576,52 @@ namespace SIM_RS.RAWAT_INAP
                 }
 
 
-                 var query = from i in grpLstDaftarKomponenTarif
-                            where i.strKodeTarif == itemTindakanFetch.strKodeTarif
+                var query = from i in grpLstDaftarKomponenTarif
+                            where i.strKodeTarif == itemTindakan.strKodeTarif
                             select i;
-                 foreach (lstDaftarKomponenTarif itemKomponen in query)
-                 {
+                foreach (lstDaftarKomponenTarif itemKomponen in query)
+                {
 
-                     string strKodeDokter = itemTindakanFetch.strKodeDokter;
+                    string strKodeDokter = itemTindakan.strKodeDokter;
 
-                     if (itemKomponen.strId_Komponen.Trim().ToString() != "JASA PELAYANAN")
-                     {
-                         strKodeDokter = "";
-                     }
+                    if (itemKomponen.strId_Komponen.Trim().ToString() != "JASA PELAYANAN")
+                    {
+                        strKodeDokter = "";
+                    }
+
+                    this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) " +
+                                           "(idmr_mutasipasien, idbl_transaksi, " +
+                                           "idbl_komponen, idmr_dokter, " +
+                                           "niltarip, niltamb, " +
+                                           "nilai, nilaskes, " +
+                                           "hak1, hak2, " +
+                                           "hak3 ) VALUES " +
+                                           "(" + strIdMutasiPasien + "," + strIDTransaksi + ",'" +
+                                                   itemKomponen.strId_Komponen + "','" + strKodeDokter +
+                                                   "', " + itemKomponen.dblByKomponen.ToString() + ", 0 " +
+                                                   "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," +
+                                                   itemKomponen.dblHak1.ToString() +
+                                                   "," + itemKomponen.dblHak2.ToString() +
+                                                   "," + itemKomponen.dblHak3.ToString() + ")";
+                    modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+                    if (strErr != "")
+                    {
+                        modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                        trans.Rollback();
+                        conn.Close();
+                        return false;
+                    }
+
+                }
+
+                dblIDTransaksi = dblIDTransaksi + 1;
+
+            }
 
 
-                     this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) "+
-                                            "(idmr_mutasipasien, idbl_transaksi, "+
-                                            "idbl_komponen, idmr_dokter, "+
-                                            "niltarip, niltam, "+
-                                            "nilai, nilaskes, "+
-                                            "hak1, hak2, "+
-                                            "hak3 ) VALUES "+
-                                            "(" + strIdMutasiPasien +"," + strIDTransaksi + ",'" + 
-                                                    itemKomponen.strId_Komponen + "','" + strKodeDokter + 
-                                                    "', " + itemKomponen.dblByKomponen.ToString() + ", 0, " +
-                                                    "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," + 
-                                                    itemKomponen.dblHak1.ToString() + 
-                                                    "," + itemKomponen.dblHak2.ToString() + 
-                                                    "," + itemKomponen.dblHak3.ToString() +  ")";
-                     modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
-                     if (strErr != "")
-                     {
-                         modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                         trans.Rollback();
-                         conn.Close();
-                         return false;
-                     }
-
-                 }
-                 
-
-            });
 
 
-
-            trans.Rollback();
+            trans.Commit();
             conn.Close();
 
             return true;
@@ -1107,10 +1116,21 @@ namespace SIM_RS.RAWAT_INAP
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
             itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
             itemTindakan.strNamaDokter = strNamaDokter;
+            
             itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
-                        
-            grpLstDaftarTindakan.Add(itemTindakan);
 
+            itemTindakan.intIdTempatLayanan = Convert.ToInt32(strIdMR_TempatLayanan);
+
+            //int intResult = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
+
+            //itemTindakan.intIdTempatLayanan = 0;
+
+            //if (intResult != -1)
+            //{
+            //    itemTindakan.intIdTempatLayanan = Convert.ToInt32(grpLstTempatLayanan[intResult].strKodeRuang);
+            //}
+            
+            grpLstDaftarTindakan.Add(itemTindakan);
 
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
@@ -1240,13 +1260,16 @@ namespace SIM_RS.RAWAT_INAP
             if (this.pvSimpanData())
             {
                 this.pvCetakTindakan();
+
+                /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
+                grpLstDaftarKomponenTarif.Clear();
+                this.pvCleanInput();
+                this.pvDisableInput();
             }
 
-            /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
+            
 
-            grpLstDaftarKomponenTarif.Clear();
-            this.pvCleanInput();
-            this.pvDisableInput();
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
