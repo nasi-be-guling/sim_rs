@@ -219,7 +219,7 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-                    listDokter.Add(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
 
                     lstDaftarDokter itemDaftarDokter = new lstDaftarDokter();
                     itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
@@ -435,7 +435,7 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
-        private bool pvSimpanData()
+        private bool pvSimpanData(ref string _strNoBukti)
         {
             this.strErr = "";
 
@@ -496,7 +496,7 @@ namespace SIM_RS.RAWAT_INAP
                     strNoBukti = "0" + strNoBukti;
                 }
 
-
+                _strNoBukti = strNoBukti;
             }
 
 
@@ -671,7 +671,7 @@ namespace SIM_RS.RAWAT_INAP
         }
 
 
-        private void pvCetakTindakan()
+        private void pvCetakTindakan(string _strNoBukti)
         {
             string strInit = ((char)27).ToString() + "@";
             string strBarisBaru  = ((char)10).ToString();
@@ -688,7 +688,7 @@ namespace SIM_RS.RAWAT_INAP
 
             if (!modPrint.pbboolBuka("Print Cetak Tindakan")) return;
 
-            modPrint.pbboolCetak(strInit + strCondensed + strAwalBaris + "     No Bukti : " + strBarisBaru);
+            modPrint.pbboolCetak(strInit + strCondensed + strAwalBaris + "     No Bukti : " + _strNoBukti + strBarisBaru);
             modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
             modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + lblRuangan.Text + strBarisBaru);
             modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(35) + lblNamaPasien.Text + modMain.karakter_spasi(58) + txtNoBilling.Text + strBarisBaru);
@@ -962,7 +962,7 @@ namespace SIM_RS.RAWAT_INAP
                 /*Cek kode tindakan di database*/
 
                 int intResultSearch = grpLstDaftarDokter.FindIndex(
-                                        m => m.strNamaDokter == txtNamaDokter.Text.Trim().ToString());
+                                        m => m.strKodeDokter == txtNamaDokter.Text.Trim().ToString());
 
                 if (intResultSearch == -1)
                 {
@@ -1091,11 +1091,12 @@ namespace SIM_RS.RAWAT_INAP
             if(strNamaDokter != "")
             {
                 int intResultSearchDoctor = grpLstDaftarDokter.FindIndex(
-                                                m => m.strNamaDokter == txtNamaDokter.Text.Trim().ToString());
+                                                m => m.strKodeDokter == txtNamaDokter.Text.Trim().ToString());
 
                 if (intResultSearchDoctor != -1)
                 {
-                    strKodeDokter = grpLstDaftarDokter[intResultSearchDoctor].strKodeDokter;
+                    //strKodeDokter = grpLstDaftarDokter[intResultSearchDoctor].strKodeDokter;
+                    strNamaDokter = grpLstDaftarDokter[intResultSearchDoctor].strNamaDokter;
                 }
                 else
                 {
@@ -1256,10 +1257,11 @@ namespace SIM_RS.RAWAT_INAP
             if (msgDlg == DialogResult.No)
                 return;
 
+            string strNoBukti = "";
 
-            if (this.pvSimpanData())
+            if (this.pvSimpanData(ref strNoBukti))
             {
-                this.pvCetakTindakan();
+                this.pvCetakTindakan(strNoBukti);
 
                 /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
                 grpLstDaftarKomponenTarif.Clear();
@@ -1337,7 +1339,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.pvCetakTindakan();
+            //this.pvCetakTindakan();
         } 
 
       
