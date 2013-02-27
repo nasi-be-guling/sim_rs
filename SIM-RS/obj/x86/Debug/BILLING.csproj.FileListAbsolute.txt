@@ -64,3 +64,15 @@ D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Drawing.dll
 D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Windows.Forms.dll
 D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
 D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe.manifest
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.application
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Data.DataSetExtensions.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Data.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Deployment.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Drawing.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Windows.Forms.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application

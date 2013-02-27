@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
-
+using System.Text.RegularExpressions;
 
 namespace SIM_RS.RAWAT_INAP
 {
@@ -219,7 +219,7 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-                    listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+                    listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
 
                     lstDaftarDokter itemDaftarDokter = new lstDaftarDokter();
                     itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
@@ -961,8 +961,15 @@ namespace SIM_RS.RAWAT_INAP
             {
                 /*Cek kode tindakan di database*/
 
+                string strKodeNama = txtNamaDokter.Text.Trim().ToString();
+
+                String[] strArrPart = Regex.Split( strKodeNama, "--");
+
+                string strKode =  strArrPart[0].Trim().ToString() ;
+                string strNama = strArrPart[1].Trim().ToString();
+
                 int intResultSearch = grpLstDaftarDokter.FindIndex(
-                                        m => m.strKodeDokter == txtNamaDokter.Text.Trim().ToString());
+                                        m => m.strKodeDokter == strKode);
 
                 if (intResultSearch == -1)
                 {
@@ -1085,13 +1092,34 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            string strNamaDokter = txtNamaDokter.Text.Trim().ToString();
-            string strKodeDokter = "";
-
-            if(strNamaDokter != "")
+            if (txtNamaDokter.Text.Trim().ToString() == "")
             {
+                MessageBox.Show("Untuk tindakan KELAS 1 harus disertakan nama dokter",
+                                 "Informasi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                txtNamaDokter.Focus();
+                return;
+            }
+
+            //string strNamaDokter = txtNamaDokter.Text.Trim().ToString();
+            //string strKodeDokter = "";
+
+            string strKodeNama = txtNamaDokter.Text.Trim().ToString();
+
+            string strKodeDokter = "";
+            string strNamaDokter = "";
+
+            if(strKodeNama != "")
+            {
+
+                String[] strArrPart = Regex.Split(strKodeNama, "--");
+
+                strKodeDokter = strArrPart[0].Trim().ToString();
+                strNamaDokter = strArrPart[1].Trim().ToString();
+
                 int intResultSearchDoctor = grpLstDaftarDokter.FindIndex(
-                                                m => m.strKodeDokter == txtNamaDokter.Text.Trim().ToString());
+                                                m => m.strKodeDokter == strKodeDokter);
 
                 if (intResultSearchDoctor != -1)
                 {
