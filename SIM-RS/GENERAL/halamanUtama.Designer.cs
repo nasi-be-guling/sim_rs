@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(halamanUtama));
             this.lbDaftarMenu = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKeluarProgram = new System.Windows.Forms.Button();
@@ -59,9 +58,9 @@
             // 
             // lbDaftarMenu
             // 
-            this.lbDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDaftarMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbDaftarMenu.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDaftarMenu.FormattingEnabled = true;
@@ -76,20 +75,19 @@
             this.lbDaftarMenu.Location = new System.Drawing.Point(9, 39);
             this.lbDaftarMenu.Name = "lbDaftarMenu";
             this.lbDaftarMenu.ScrollAlwaysVisible = true;
-            this.lbDaftarMenu.Size = new System.Drawing.Size(502, 202);
+            this.lbDaftarMenu.Size = new System.Drawing.Size(520, 202);
             this.lbDaftarMenu.TabIndex = 0;
             this.lbDaftarMenu.DoubleClick += new System.EventHandler(this.lbDaftarMenu_DoubleClick);
             this.lbDaftarMenu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbDaftarMenu_KeyPress);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(740, 164);
+            this.pictureBox1.Size = new System.Drawing.Size(758, 164);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -250,15 +248,15 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.lbDaftarMenu);
-            this.panel1.Location = new System.Drawing.Point(12, 182);
+            this.panel1.Location = new System.Drawing.Point(4, 170);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 249);
+            this.panel1.Size = new System.Drawing.Size(536, 249);
             this.panel1.TabIndex = 17;
             // 
             // label5
@@ -269,7 +267,7 @@
             this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(518, 33);
+            this.label5.Size = new System.Drawing.Size(536, 33);
             this.label5.TabIndex = 13;
             this.label5.Text = "MENU APLIKASI";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -285,7 +283,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.txtUnitKerja);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(536, 182);
+            this.panel2.Location = new System.Drawing.Point(544, 169);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(216, 249);
             this.panel2.TabIndex = 18;

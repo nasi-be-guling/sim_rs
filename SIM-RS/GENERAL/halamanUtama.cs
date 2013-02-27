@@ -123,9 +123,6 @@ namespace SIM_RS
             /*..READ SETTING FROM REGEDIT..*/
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
             modMain.pbBacaRegistry(ref strNameDBServer, ref strPasswordDBServer, ref strIPDBServer, ref strPortDBServer, ref strNameDBServer);
-            
-            
-
 
         }
 
@@ -293,8 +290,9 @@ namespace SIM_RS
         public halamanUtama()
         {
             InitializeComponent();
-            this.pvLoadInitialData();
             this.pvInitialApp();
+            this.pvLoadInitialData();
+            
         }
 
         private void btnKeluarProgram_Click(object sender, EventArgs e)
@@ -338,7 +336,7 @@ namespace SIM_RS
                 return;
             }
 
-            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program test", "Informasi", 
+            DialogResult msgDialog = MessageBox.Show("Apakah anda akan keluar dari program", "Informasi", 
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (msgDialog == DialogResult.No)

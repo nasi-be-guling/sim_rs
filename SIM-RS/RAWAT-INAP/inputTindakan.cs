@@ -1339,7 +1339,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //this.pvCetakTindakan();
+            this.pvCetakTindakan("007");
         } 
 
       

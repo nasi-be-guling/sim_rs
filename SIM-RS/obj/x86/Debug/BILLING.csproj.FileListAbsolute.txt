@@ -4,7 +4,6 @@ D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\C4Module.dll
 D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\C4Module.pdb
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Properties.Resources.resources
-D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Form1.resources
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
@@ -51,3 +50,17 @@ F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
 F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
 F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.read.1.tlog
 F:\ERD\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.write.1.tlog
+D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
+D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe.manifest
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.application
+D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
+D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Data.DataSetExtensions.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Data.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Deployment.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Drawing.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Windows.Forms.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
+D:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
