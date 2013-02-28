@@ -102,7 +102,7 @@
             this.btnKeluarProgram.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnKeluarProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarProgram.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarProgram.Location = new System.Drawing.Point(581, 437);
+            this.btnKeluarProgram.Location = new System.Drawing.Point(588, 437);
             this.btnKeluarProgram.Name = "btnKeluarProgram";
             this.btnKeluarProgram.Size = new System.Drawing.Size(171, 30);
             this.btnKeluarProgram.TabIndex = 3;

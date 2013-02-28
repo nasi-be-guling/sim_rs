@@ -78,6 +78,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strTSMFTindakan { get; set; }
             public string strTempatLayanan { get; set; }
             public int intIdTempatLayanan { get; set; }
+            public string strIdMRRuangan { get; set; }
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
 
@@ -180,7 +181,7 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-                    listTarif.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+                    listTarif.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
                     lstDaftarTarif itemDaftarTarif = new lstDaftarTarif();
                     itemDaftarTarif.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                     itemDaftarTarif.strUraianTarif = modMain.pbstrgetCol(reader, 1, ref strErr, "");
@@ -566,6 +567,7 @@ namespace SIM_RS.RAWAT_INAP
                                           "'', '', '', " +
                                           "'01/01/1900 00:00:00', '', '" + txtNoBilling.Text + "',  " +
                                           "'01/01/1900 00:00:00', '01/01/1900 00:00:00', 0  )";
+
                 modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
                 if (strErr != "")
                 {
@@ -596,7 +598,7 @@ namespace SIM_RS.RAWAT_INAP
                                            "nilai, nilaskes, " +
                                            "hak1, hak2, " +
                                            "hak3 ) VALUES " +
-                                           "(" + strIdMutasiPasien + "," + strIDTransaksi + ",'" +
+                                           "(" + strIdMutasiPasien + "," + dblIDTransaksi.ToString() + ",'" +
                                                    itemKomponen.strId_Komponen + "','" + strKodeDokter +
                                                    "', " + itemKomponen.dblByKomponen.ToString() + ", 0 " +
                                                    "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," +
@@ -647,6 +649,9 @@ namespace SIM_RS.RAWAT_INAP
 
             grpLstDaftarTindakan.RemoveAt(intResult);
 
+            List<lstDaftarKomponenTarif> grpDaftarHapus = new List<lstDaftarKomponenTarif>();
+
+            grpLstDaftarKomponenTarif.RemoveAll(m => m.strKodeTarif == strKodeTarif);
 
             lvDaftarTindakan.Items.Clear();
 
@@ -661,7 +666,6 @@ namespace SIM_RS.RAWAT_INAP
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);   
 
             });
-
 
             lvDaftarTindakan.Focus();
             
@@ -994,8 +998,13 @@ namespace SIM_RS.RAWAT_INAP
             {
                 /*Cek kode tindakan di database*/
 
+                String[] strArrPart = Regex.Split(txtKodeTindakan.Text.Trim().ToString(), "--");
+
+                string strKode = strArrPart[0].Trim().ToString();
+                string strUraian = strArrPart[1].Trim().ToString();
+
                 int intResultSearch = grpLstDaftarTarif.FindIndex(
-                                        m => m.strKodeTarif == txtKodeTindakan.Text);
+                                        m => m.strKodeTarif == strKode);
 
                 if (intResultSearch == -1)
                 {
@@ -1110,10 +1119,12 @@ namespace SIM_RS.RAWAT_INAP
             string strKodeDokter = "";
             string strNamaDokter = "";
 
+            String[] strArrPart = null;
+
             if(strKodeNama != "")
             {
 
-                String[] strArrPart = Regex.Split(strKodeNama, "--");
+                strArrPart = Regex.Split(strKodeNama, "--");
 
                 strKodeDokter = strArrPart[0].Trim().ToString();
                 strNamaDokter = strArrPart[1].Trim().ToString();
@@ -1138,10 +1149,15 @@ namespace SIM_RS.RAWAT_INAP
 
             }
 
+            strArrPart = Regex.Split(txtKodeTindakan.Text, "--");
+
+            string strKodeTindakan = strArrPart[0].Trim().ToString();
+            string strUraianTindakan = strArrPart[1].Trim().ToString();
+
             lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
-            itemTindakan.strKodeTarif = txtKodeTindakan.Text.Trim().ToString();
+            itemTindakan.strKodeTarif = strKodeTindakan;
             itemTindakan.strKodeDokter = strKodeDokter;
-            itemTindakan.strUraianTarif = lblDeskripsiTindakan.Text;
+            itemTindakan.strUraianTarif = strUraianTindakan;
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
             itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
             itemTindakan.strNamaDokter = strNamaDokter;
