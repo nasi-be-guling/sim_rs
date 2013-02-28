@@ -863,6 +863,7 @@ namespace SIM_RS.RAWAT_INAP
                     this.pvDisableInput();
                     btnKeluarIsiTindakan.Text = "&KELUAR";
                     txtNoBilling.Select();
+                    e.Cancel = false;
                 }
                 else
                 {
