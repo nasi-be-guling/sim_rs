@@ -139,7 +139,7 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-                    listTempatLayanan.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+                    listTempatLayanan.Add(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
 
                     lstTempatLayanan itemTempatLayanan = new lstTempatLayanan();
                     itemTempatLayanan.strKodeRuang = modMain.pbstrgetCol(reader, 1, ref strErr, "");
@@ -555,7 +555,7 @@ namespace SIM_RS.RAWAT_INAP
                                   "VALUES ( " + dblIDTransaksi.ToString() + ", " + strIdMutasiPasien + ", " + 
                                             "0, " +
                                             "" + itemTindakan.intIdTempatLayanan.ToString() +
-                                            ", '" + modMain.pbstrBersihkanInput(strIdMR_TRuangan) + "', " +
+                                            ", '" + modMain.pbstrBersihkanInput(itemTindakan.strTempatLayanan) + "', " +
                                             "'" + itemTindakan.strTSMFTindakan +
                                           "', '" + itemTindakan.strKodeTarif + "', " +
                                           "'" + modMain.pbstrBersihkanInput(itemTindakan.strUraianTarif) +
@@ -820,6 +820,35 @@ namespace SIM_RS.RAWAT_INAP
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
         {
 
+            //if (!txtNoBilling.Enabled)
+            //{
+            //    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+            //                                       "Konfirmasi",
+            //                                       MessageBoxButtons.YesNo,
+            //                                       MessageBoxIcon.Question);
+
+            //    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+            //    {
+
+            //        this.pvCleanInput();
+            //        this.pvDisableInput();
+            //        btnKeluarIsiTindakan.Text = "&KELUAR";
+            //        txtNoBilling.Select();
+
+            //    }
+            //}
+            //else
+            //{
+            //    /*if not entry mode*/
+                this.Close();
+            //}
+
+            
+        }
+
+        private void inputTindakan_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
             if (!txtNoBilling.Enabled)
             {
                 DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
@@ -834,28 +863,12 @@ namespace SIM_RS.RAWAT_INAP
                     this.pvDisableInput();
                     btnKeluarIsiTindakan.Text = "&KELUAR";
                     txtNoBilling.Select();
-
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
-            else
-            {
-                /*if not entry mode*/
-                this.Close();
-            }
-
-            
-        }
-
-        private void inputTindakan_FormClosing(object sender, FormClosingEventArgs e)
-        {
-           
-            //DialogResult msgDlg = MessageBox.Show("Apakah anda akan kembali ke menu utama ?",
-            //                                        "Konfirmasi",
-            //                                        MessageBoxButtons.YesNo,
-            //                                        MessageBoxIcon.Question);
-
-            //if (msgDlg == DialogResult.No)
-            //    e.Cancel = true;
             
         }
 
@@ -875,6 +888,8 @@ namespace SIM_RS.RAWAT_INAP
 
         private void txtTempatLayanan_KeyDown(object sender, KeyEventArgs e)
         {
+
+
             if ((e.KeyCode == Keys.Enter) && (txtTempatLayanan.Text != ""))
             {
                 int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
@@ -895,9 +910,18 @@ namespace SIM_RS.RAWAT_INAP
             else if ((e.KeyCode == Keys.Enter) && (txtTempatLayanan.Text == ""))
             {
                 /*  if EMPTY What should i do.. ;) */
-                txtTempatLayanan.Text = lblRuangan.Text;
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == lblRuangan.Text);
+                if (intResultSearch == -1)
+                    txtTempatLayanan.Text = lblRuangan.Text;
+                else
+                    txtTempatLayanan.Text = grpLstTempatLayanan[intResultSearch].strKodeRuang; 
+                
                 txtKodeTindakan.Focus();
 
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                this.Close();
             }
         }
 
@@ -1033,36 +1057,36 @@ namespace SIM_RS.RAWAT_INAP
             if (e.KeyChar == (char)Keys.Escape)
             {
 
-                if (!txtNoBilling.Enabled)
-                {
-                    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
-                                                                     "Konfirmasi",
-                                                                     MessageBoxButtons.YesNo,
-                                                                     MessageBoxIcon.Question);
+                //if (!txtNoBilling.Enabled)
+                //{
+                //    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+                //                                                     "Konfirmasi",
+                //                                                     MessageBoxButtons.YesNo,
+                //                                                     MessageBoxIcon.Question);
 
-                    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
-                    {
+                //    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+                //    {
 
-                        this.pvCleanInput();
-                        this.pvDisableInput();
-                        btnKeluarIsiTindakan.Text = "&KELUAR";
-                        txtNoBilling.Select();
+                //        this.pvCleanInput();
+                //        this.pvDisableInput();
+                //        btnKeluarIsiTindakan.Text = "&KELUAR";
+                //        txtNoBilling.Select();
 
-                    }
-                }
-                else
-                {
+                //    }
+                //}
+                //else
+                //{
                     this.Close();
-                }
+                //}
             }
         }
 
         private void txtTempatLayanan_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Escape)
-            {
-                this.Close();
-            }
+            //if (e.KeyChar == (char)Keys.Escape)
+            //{
+            //    this.Close();
+            //}
         }
 
         private void txtNamaDokter_KeyPress(object sender, KeyPressEventArgs e)
@@ -1154,8 +1178,11 @@ namespace SIM_RS.RAWAT_INAP
             string strKodeTindakan = strArrPart[0].Trim().ToString();
             string strUraianTindakan = strArrPart[1].Trim().ToString();
 
+            
+
             lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
             itemTindakan.strKodeTarif = strKodeTindakan;
+            
             itemTindakan.strKodeDokter = strKodeDokter;
             itemTindakan.strUraianTarif = strUraianTindakan;
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
@@ -1165,6 +1192,10 @@ namespace SIM_RS.RAWAT_INAP
             itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
 
             itemTindakan.intIdTempatLayanan = Convert.ToInt32(strIdMR_TempatLayanan);
+
+            int intResult = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
+            itemTindakan.strTSMFTindakan = grpLstDaftarTarif[intResult].strSMF;
+            
 
             //int intResult = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
 
@@ -1196,7 +1227,7 @@ namespace SIM_RS.RAWAT_INAP
                                     "Hak3, "+               //5
                                     "PrioritasTunai " +      //6
                                 "FROM BL_KOMPTARIP WITH (NOLOCK) " +
-                                "WHERE idbl_tarip = '" + txtKodeTindakan.Text.Trim() + "'";
+                                "WHERE idbl_tarip = '" + strKodeTindakan + "'";
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
             {
@@ -1260,7 +1291,7 @@ namespace SIM_RS.RAWAT_INAP
 
             if (txtTempatLayanan.Text != "")
             {
-                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strKodeRuang == txtTempatLayanan.Text);
 
                 if (intResultSearch == -1)
                 {
@@ -1278,7 +1309,14 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 /*  if EMPTY What should i do.. ;) */
-                txtTempatLayanan.Text = lblRuangan.Text;
+
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == lblRuangan.Text);
+                if (intResultSearch == -1)
+                    txtTempatLayanan.Text = lblRuangan.Text;
+                else
+                    txtTempatLayanan.Text = grpLstTempatLayanan[intResultSearch].strKodeRuang;
+
+                //txtTempatLayanan.Text = lblRuangan.Text;
                 txtKodeTindakan.Focus();
 
             }

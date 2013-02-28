@@ -157,7 +157,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(573, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 71;
             this.label6.Text = "Kelas : ";
             // 
@@ -169,7 +169,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(16, 124);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 72;
             this.label7.Text = "Alamat : ";
             // 
@@ -263,7 +263,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(16, 385);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -326,7 +326,7 @@
             this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.DodgerBlue;
             this.lblDeskripsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDeskripsiTindakan.ForeColor = System.Drawing.Color.White;
-            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(365, 456);
+            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(362, 456);
             this.lblDeskripsiTindakan.Name = "lblDeskripsiTindakan";
             this.lblDeskripsiTindakan.Size = new System.Drawing.Size(23, 18);
             this.lblDeskripsiTindakan.TabIndex = 85;
@@ -410,7 +410,7 @@
             this.btnTambahTindakan.Name = "btnTambahTindakan";
             this.btnTambahTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTambahTindakan.TabIndex = 91;
-            this.btnTambahTindakan.Text = "+";
+            this.btnTambahTindakan.Text = "&+";
             this.btnTambahTindakan.UseVisualStyleBackColor = false;
             this.btnTambahTindakan.Click += new System.EventHandler(this.btnTambahTindakan_Click);
             // 
@@ -420,11 +420,11 @@
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.Color.DodgerBlue;
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(293, 456);
+            this.label22.Location = new System.Drawing.Point(285, 456);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(79, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 92;
-            this.label22.Text = "Deskripsi : ";
+            this.label22.Text = "Deskripsi :";
             // 
             // label23
             // 
@@ -591,7 +591,7 @@
             this.btnTampilDaftarTindakan.Name = "btnTampilDaftarTindakan";
             this.btnTampilDaftarTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTampilDaftarTindakan.TabIndex = 105;
-            this.btnTampilDaftarTindakan.Text = "#";
+            this.btnTampilDaftarTindakan.Text = "&#";
             this.btnTampilDaftarTindakan.UseVisualStyleBackColor = false;
             this.btnTampilDaftarTindakan.Click += new System.EventHandler(this.btnTampilDaftarTindakan_Click);
             this.btnTampilDaftarTindakan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnTampilDaftarTindakan_KeyPress);
@@ -626,7 +626,7 @@
             this.lblDaftarTindakan.ForeColor = System.Drawing.Color.White;
             this.lblDaftarTindakan.Location = new System.Drawing.Point(0, 0);
             this.lblDaftarTindakan.Name = "lblDaftarTindakan";
-            this.lblDaftarTindakan.Size = new System.Drawing.Size(158, 20);
+            this.lblDaftarTindakan.Size = new System.Drawing.Size(157, 20);
             this.lblDaftarTindakan.TabIndex = 111;
             this.lblDaftarTindakan.Text = "D&AFTAR TINDAKAN ";
             this.lblDaftarTindakan.TextAlign = System.Drawing.ContentAlignment.TopRight;
