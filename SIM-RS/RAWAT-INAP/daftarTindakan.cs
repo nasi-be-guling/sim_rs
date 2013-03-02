@@ -26,7 +26,6 @@ namespace SIM_RS.RAWAT_INAP
         bool isUserSelected = false;
 
         List<ListViewItem> lviDaftarTindakan = new List<ListViewItem>();
-
         List<ListViewItem> lviDaftarTindakanDB = new List<ListViewItem>();
 
 
@@ -54,9 +53,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pvTampilDataTindakanDB( string _strFilter, string _strValue )
         {
-            string strPartWhere = "";          
-
-
+            string strPartWhere = "";
 
             if (_strFilter.Trim().ToString() == "Kode Tarif")
             {
@@ -79,7 +76,7 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            string strKodeTarif = "";
+            //string strKodeTarif = "";
 
             strQuerySQL = "SELECT "+
                                 "BL_TARIP.idbl_tarip, "+        //0
@@ -154,7 +151,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
         {
-            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text;
+            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
 
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 
@@ -180,7 +177,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void lvDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text;
+            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
 
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 

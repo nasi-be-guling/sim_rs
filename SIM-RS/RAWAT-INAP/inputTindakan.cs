@@ -38,6 +38,8 @@ namespace SIM_RS.RAWAT_INAP
         string strIdMR_TempatLayanan = "";
         string strIdMR_TRuangan = "";
 
+        int intUrutanTrans = 0;
+
 
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
@@ -79,6 +81,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strTempatLayanan { get; set; }
             public int intIdTempatLayanan { get; set; }
             public string strIdMRRuangan { get; set; }
+            public DateTime dtTgl { get; set; }            
         }
         List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
 
@@ -417,6 +420,9 @@ namespace SIM_RS.RAWAT_INAP
             grpLstDaftarTindakan.Clear();
             grpLstDaftarKomponenTarif.Clear();
 
+            intUrutanTrans = 0;
+            
+
         }
 
 
@@ -425,7 +431,15 @@ namespace SIM_RS.RAWAT_INAP
 
             txtKodeTindakan.Text = _strKodeTarif;
 
-            int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == _strKodeTarif);
+            string[] strArrPart = Regex.Split(txtKodeTindakan.Text, "--");
+
+            string strKodeTindakan = strArrPart[0].Trim().ToString();
+            string strUraianTindakan = strArrPart[1].Trim().ToString();
+
+
+            
+
+            int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
 
             if (intResultTarif != -1)
             {
@@ -559,7 +573,7 @@ namespace SIM_RS.RAWAT_INAP
                                             "'" + itemTindakan.strTSMFTindakan +
                                           "', '" + itemTindakan.strKodeTarif + "', " +
                                           "'" + modMain.pbstrBersihkanInput(itemTindakan.strUraianTarif) +
-                                          "', " + "'" + halamanUtama.dtTglServer.ToString("MM/dd/yyyy HH:mm:ss") + "', " +
+                                          "', " + "'" + itemTindakan.dtTgl.ToString("MM/dd/yyyy HH:mm:ss") + "', " +
                                           "'" + strNoBukti + "', " + itemTindakan.dblBiaya.ToString() + ", 0, " +
                                           "0, 0, '', " +
                                           "1, '01/01/1900 00:00:00', '', " +
@@ -820,28 +834,28 @@ namespace SIM_RS.RAWAT_INAP
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
         {
 
-            //if (!txtNoBilling.Enabled)
-            //{
-            //    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
-            //                                       "Konfirmasi",
-            //                                       MessageBoxButtons.YesNo,
-            //                                       MessageBoxIcon.Question);
+            if (!txtNoBilling.Enabled)
+            {
+                DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+                                                   "Konfirmasi",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
 
-            //    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
-            //    {
+                if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+                {
 
-            //        this.pvCleanInput();
-            //        this.pvDisableInput();
-            //        btnKeluarIsiTindakan.Text = "&KELUAR";
-            //        txtNoBilling.Select();
+                    this.pvCleanInput();
+                    this.pvDisableInput();
+                    btnKeluarIsiTindakan.Text = "&KELUAR";
+                    txtNoBilling.Select();
 
-            //    }
-            //}
-            //else
-            //{
-            //    /*if not entry mode*/
+                }
+            }
+            else
+            {
+                /*if not entry mode*/
                 this.Close();
-            //}
+            }
 
             
         }
@@ -869,6 +883,10 @@ namespace SIM_RS.RAWAT_INAP
                 {
                     e.Cancel = true;
                 }
+            }
+            else
+            {
+                e.Cancel = false;
             }
             
         }
@@ -1183,7 +1201,7 @@ namespace SIM_RS.RAWAT_INAP
 
             lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
             itemTindakan.strKodeTarif = strKodeTindakan;
-            
+            itemTindakan.intNoUrut = intUrutanTrans;
             itemTindakan.strKodeDokter = strKodeDokter;
             itemTindakan.strUraianTarif = strUraianTindakan;
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
@@ -1193,6 +1211,7 @@ namespace SIM_RS.RAWAT_INAP
             itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
 
             itemTindakan.intIdTempatLayanan = Convert.ToInt32(strIdMR_TempatLayanan);
+            itemTindakan.dtTgl = dtpTglTindakan.Value;
 
             int intResult = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
             itemTindakan.strTSMFTindakan = grpLstDaftarTarif[intResult].strSMF;
@@ -1206,7 +1225,10 @@ namespace SIM_RS.RAWAT_INAP
             //{
             //    itemTindakan.intIdTempatLayanan = Convert.ToInt32(grpLstTempatLayanan[intResult].strKodeRuang);
             //}
-            
+
+            /*increment for identified every input kode for twice..*/
+            intUrutanTrans++;
+
             grpLstDaftarTindakan.Add(itemTindakan);
 
             this.strErr = "";
@@ -1283,7 +1305,8 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.Text = "";
             //dtpTglTindakan.Focus();
             lvDaftarTindakan.HideSelection = false;
-            lvDaftarTindakan.Focus();           
+            lvDaftarTindakan.Focus();
+            
 
         }
 
