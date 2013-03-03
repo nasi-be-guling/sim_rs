@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+
+
 namespace SIM_RS
 {
     public partial class halamanUtama : Form
@@ -76,10 +78,35 @@ namespace SIM_RS
         string strQuerySQL = "";
         string strErr = "";
 
-        /* EOF PRIVATE VARIABLE */
+        /* EOF PRIVATE VARIABLE */      
+
 
 
         /*PRIVATE FUNCTION*/
+
+        private void pvAsignColor()
+        {
+
+            //Color clrBack = System.Drawing.ColorTranslator.FromHtml("#cecece");
+            //Color clrBackForm = System.Drawing.ColorTranslator.FromHtml("#F1F1F1");
+            //Color clrBackButton = System.Drawing.ColorTranslator.FromHtml("#DD4B39");
+            //Color clrBackTitle = System.Drawing.ColorTranslator.FromHtml("#333333");
+            //Color clrFontTitleColor = System.Drawing.ColorTranslator.FromHtml("#F1F1F1");
+
+            //panel1.BackColor = clrBack;
+            //panel2.BackColor = clrBack;
+            //btnKeluarProgram.BackColor = clrBackButton;
+
+            //label5.BackColor = clrBackTitle;
+            //label5.ForeColor = clrFontTitleColor;
+
+
+            //this.BackColor = clrBackForm;
+
+        }
+
+
+
 
         /*
          *  NAME        : pvInitialApp
@@ -91,6 +118,8 @@ namespace SIM_RS
         private void pvInitialApp()
         {
             bool isAdaRegistry = modMain.checkRegistry(FULL_REG_CONN.ToString());
+
+            
 
             if (!isAdaRegistry)
             {
@@ -290,6 +319,9 @@ namespace SIM_RS
         public halamanUtama()
         {
             InitializeComponent();
+
+            this.pvAsignColor();
+
             this.pvInitialApp();
             this.pvLoadInitialData();
             

@@ -40,22 +40,22 @@
             // 
             // label16
             // 
-            this.label16.BackColor = System.Drawing.Color.Black;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.label16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label16.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.White;
             this.label16.Location = new System.Drawing.Point(0, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(377, 25);
+            this.label16.Size = new System.Drawing.Size(377, 38);
             this.label16.TabIndex = 64;
             this.label16.Text = "LOGIN APLIKASI";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(31, 56);
+            this.label1.Location = new System.Drawing.Point(31, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 21);
             this.label1.TabIndex = 65;
@@ -64,8 +64,9 @@
             // 
             // txtIdPetugas
             // 
+            this.txtIdPetugas.BackColor = System.Drawing.Color.White;
             this.txtIdPetugas.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdPetugas.Location = new System.Drawing.Point(164, 51);
+            this.txtIdPetugas.Location = new System.Drawing.Point(164, 57);
             this.txtIdPetugas.Name = "txtIdPetugas";
             this.txtIdPetugas.PasswordChar = '*';
             this.txtIdPetugas.Size = new System.Drawing.Size(176, 30);
@@ -77,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(31, 92);
+            this.label2.Location = new System.Drawing.Point(31, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 21);
             this.label2.TabIndex = 67;
@@ -88,7 +89,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(31, 129);
+            this.label4.Location = new System.Drawing.Point(31, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 21);
             this.label4.TabIndex = 69;
@@ -99,11 +100,11 @@
             // 
             this.cmbUnitKerja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUnitKerja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbUnitKerja.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbUnitKerja.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnitKerja.FormattingEnabled = true;
-            this.cmbUnitKerja.Location = new System.Drawing.Point(164, 87);
+            this.cmbUnitKerja.Location = new System.Drawing.Point(164, 93);
             this.cmbUnitKerja.Name = "cmbUnitKerja";
-            this.cmbUnitKerja.Size = new System.Drawing.Size(176, 31);
+            this.cmbUnitKerja.Size = new System.Drawing.Size(176, 33);
             this.cmbUnitKerja.TabIndex = 71;
             this.cmbUnitKerja.SelectedIndexChanged += new System.EventHandler(this.cmbUnitKerja_SelectedIndexChanged);
             this.cmbUnitKerja.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbUnitKerja_KeyPress);
@@ -113,40 +114,40 @@
             // 
             this.cmbShift.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbShift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbShift.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbShift.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbShift.FormattingEnabled = true;
             this.cmbShift.Items.AddRange(new object[] {
             "PAGI",
             "SORE",
             "MALAM"});
-            this.cmbShift.Location = new System.Drawing.Point(164, 124);
+            this.cmbShift.Location = new System.Drawing.Point(164, 133);
             this.cmbShift.Name = "cmbShift";
-            this.cmbShift.Size = new System.Drawing.Size(176, 31);
+            this.cmbShift.Size = new System.Drawing.Size(176, 33);
             this.cmbShift.TabIndex = 72;
             this.cmbShift.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbShift_KeyPress);
             this.cmbShift.Leave += new System.EventHandler(this.cmbShift_Leave);
             // 
             // label5
             // 
-            this.label5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label5.BackColor = System.Drawing.Color.Silver;
             this.label5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label5.Font = new System.Drawing.Font("Segoe UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.Location = new System.Drawing.Point(0, 196);
+            this.label5.Location = new System.Drawing.Point(0, 199);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(377, 17);
+            this.label5.Size = new System.Drawing.Size(377, 19);
             this.label5.TabIndex = 73;
             this.label5.Text = "Tekan ESC untuk membatalkan login / Keluar dari Program";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DodgerBlue;
-            this.ClientSize = new System.Drawing.Size(377, 213);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ClientSize = new System.Drawing.Size(377, 218);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbShift);
             this.Controls.Add(this.cmbUnitKerja);
@@ -155,7 +156,7 @@
             this.Controls.Add(this.txtIdPetugas);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label16);
-            this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;

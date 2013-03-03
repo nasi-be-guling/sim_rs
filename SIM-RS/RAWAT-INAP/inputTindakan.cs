@@ -65,6 +65,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblHak2 { get; set; }
             public double dblHak3 { get; set; }
             public int intPrioritasTunai {get; set;}
+            public int intNoUrut { get; set; }
 
         }
         public List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
@@ -593,7 +594,8 @@ namespace SIM_RS.RAWAT_INAP
 
 
                 var query = from i in grpLstDaftarKomponenTarif
-                            where i.strKodeTarif == itemTindakan.strKodeTarif
+                            where i.strKodeTarif == itemTindakan.strKodeTarif && 
+                                    i.intNoUrut == itemTindakan.intNoUrut
                             select i;
                 foreach (lstDaftarKomponenTarif itemKomponen in query)
                 {
@@ -645,7 +647,7 @@ namespace SIM_RS.RAWAT_INAP
         }
 
 
-        private void pvHapusList(string _strKodeTindakan)
+        private void pvHapusList(string _strKodeTindakan, string _strNoUrut)
         {
 
             DialogResult msgDlg = MessageBox.Show("Apakah akan dihapus ?", "Informasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -654,8 +656,11 @@ namespace SIM_RS.RAWAT_INAP
                 return;
 
             string strKodeTarif = _strKodeTindakan;
+            string strNoUrut = _strNoUrut;
 
-            int intResult = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == strKodeTarif);
+            int intResult = grpLstDaftarTindakan.FindIndex(
+                                    m => m.strKodeTarif == strKodeTarif && 
+                                        m.intNoUrut.ToString() == strNoUrut );
             if (intResult == -1)
             {
                 return;                
@@ -665,7 +670,7 @@ namespace SIM_RS.RAWAT_INAP
 
             List<lstDaftarKomponenTarif> grpDaftarHapus = new List<lstDaftarKomponenTarif>();
 
-            grpLstDaftarKomponenTarif.RemoveAll(m => m.strKodeTarif == strKodeTarif);
+            grpLstDaftarKomponenTarif.RemoveAll(m => m.strKodeTarif == strKodeTarif && m.intNoUrut.ToString() == strNoUrut);
 
             lvDaftarTindakan.Items.Clear();
 
@@ -691,28 +696,13 @@ namespace SIM_RS.RAWAT_INAP
 
         private void pvCetakTindakan(string _strNoBukti)
         {
-            string strInit = ((char)27).ToString() + "@";
-            string strBarisBaru  = ((char)10).ToString();
-            string strCondensed = ((char)15).ToString();
+           
 
-            string strAwalBaris = modMain.karakter_spasi(0);
-
-            string strBold = ((char)27).ToString() + ((char)30).ToString() + ((char)1).ToString();
-
-            StringBuilder strbPrinterDefault = new StringBuilder(256);
-            int length = 100;
-            GetDefaultPrinter(strbPrinterDefault, ref length);
-            modPrint.pbstrNamaPrinter = strbPrinterDefault.ToString();
+            int intJumlahData = lvDaftarTindakan.Items.Count - 1;
 
             if (!modPrint.pbboolBuka("Print Cetak Tindakan")) return;
 
-            modPrint.pbboolCetak(strInit + strCondensed + strAwalBaris + "     No Bukti : " + _strNoBukti + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + lblRuangan.Text + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(35) + lblNamaPasien.Text + modMain.karakter_spasi(58) + txtNoBilling.Text + strBarisBaru);
-            
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            int intLastPrintID = 0;
 
             /*DETAIL TRANSAKSI*/
 
@@ -732,67 +722,119 @@ namespace SIM_RS.RAWAT_INAP
             int intSpaceNominal = 0;
             string strSpaceNominal = "";
 
-            double dblTotalPerPrint = 0;
+            double dblTotalPerCetak = 0;
 
-            int intJmlFetchKosong = 4;
 
-            grpLstDaftarTindakan.ForEach(delegate(lstDaftarTindakan itemFetch)
+            int intMaxPerCetak = 4;
+            int intJmlFetchKosong = intMaxPerCetak;
+
+
+            string strInit = ((char)27).ToString() + "@";
+            string strBarisBaru = ((char)10).ToString();
+            string strCondensed = ((char)15).ToString();
+
+            string strAwalBaris = modMain.karakter_spasi(0);
+
+            string strBold = ((char)27).ToString() + ((char)30).ToString() + ((char)1).ToString();
+
+            StringBuilder strbPrinterDefault = new StringBuilder(256);
+            int length = 100;
+            GetDefaultPrinter(strbPrinterDefault, ref length);
+            modPrint.pbstrNamaPrinter = strbPrinterDefault.ToString();
+
+            
+
+            /* inisialisasi variable do not care with this... */
+            var queryResult = (from i in grpLstDaftarTindakan where i.intNoUrut == 0 select i).Take(0);
+
+
+            do
             {
 
-                strNominal = modMain.addPoint(itemFetch.dblBiaya.ToString());
-                intSpaceNominal = intLenNominal - strNominal.Length;
-                strSpaceNominal = modMain.karakter_spasi(Convert.ToByte(intSpaceNominal));
+                if (intLastPrintID > 0)
+                {
+                    modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                    modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                }
 
-                intLenSpaceKode2Desc = intLenKode2Desc - (intLenFirstSpace + itemFetch.strKodeTarif.Length);
-                intLenSpaceDesc2Nom = (intLenFirstSpace + itemFetch.strKodeTarif.Length + intLenSpaceKode2Desc + intLenDesc2Nom)
-                                - (intLenFirstSpace + itemFetch.strKodeTarif.Length + intLenSpaceKode2Desc + itemFetch.strUraianTarif.Length);
-                modPrint.pbboolCetak(strAwalBaris + 
-                        modMain.karakter_spasi(Convert.ToByte(intLenFirstSpace)) + itemFetch.strKodeTarif + 
-                        modMain.karakter_spasi(Convert.ToByte(intLenSpaceKode2Desc))  + itemFetch.strUraianTarif +
-                        modMain.karakter_spasi(Convert.ToByte(intLenSpaceDesc2Nom)) + strSpaceNominal + 
-                            modMain.addPoint(itemFetch.dblBiaya.ToString()) +                        
-                        strBarisBaru);
-
-                dblTotalPerPrint = dblTotalPerPrint + itemFetch.dblBiaya;
-
-
-
-                intJmlFetchKosong = intJmlFetchKosong - 1;
-            });
-
-
-            for (int i = 0; i < intJmlFetchKosong; i++)
-            {
+                modPrint.pbboolCetak(strInit + strCondensed + strAwalBaris + "     No Bukti : " + _strNoBukti + strBarisBaru);
                 modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            }
+                modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + lblRuangan.Text + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(35) + lblNamaPasien.Text + modMain.karakter_spasi(58) + txtNoBilling.Text + strBarisBaru);
 
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
 
-            /* TOTAL */
+                dblTotalPerCetak = 0;                
 
-            
-            int intSpaceTotal = intLenNominal - modMain.addPoint(dblTotalPerPrint.ToString()).Length;
-            string strSpaceTotal = modMain.karakter_spasi(Convert.ToByte(intSpaceTotal));
+                if(intLastPrintID > 0)
+                   queryResult = (from i in grpLstDaftarTindakan
+                                   where  (i.intNoUrut > intLastPrintID)
+                                   select i).Take(intMaxPerCetak);
+                else
+                   queryResult = (from i in grpLstDaftarTindakan
+                                   where (i.intNoUrut >= intLastPrintID) 
+                                   select i).Take(intMaxPerCetak);
 
-            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(112) + strSpaceTotal +  
-                                    modMain.addPoint(dblTotalPerPrint.ToString()) + 
-                                    strBarisBaru);
 
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            
-            /* TANGGAL */
-            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(102) + 
-                            halamanUtama.dtTglServer.ToString("dd-MM-yyyy HH:mm:ss") +  strBarisBaru);
+                intJmlFetchKosong = intMaxPerCetak;
 
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                foreach (lstDaftarTindakan itemTindakan in queryResult)
+                {
+                    strNominal = modMain.addPoint(itemTindakan.dblBiaya.ToString());
+                    intSpaceNominal = intLenNominal - strNominal.Length;
+                    strSpaceNominal = modMain.karakter_spasi(Convert.ToByte(intSpaceNominal));
 
-            /* OPRATOR*/
-            modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + halamanUtama.strNamaUser + strBarisBaru);
+                    intLenSpaceKode2Desc = intLenKode2Desc - (intLenFirstSpace + itemTindakan.strKodeTarif.Length);
+                    intLenSpaceDesc2Nom = (intLenFirstSpace + itemTindakan.strKodeTarif.Length + intLenSpaceKode2Desc + intLenDesc2Nom)
+                                    - (intLenFirstSpace + itemTindakan.strKodeTarif.Length + intLenSpaceKode2Desc + itemTindakan.strUraianTarif.Length);
+                    modPrint.pbboolCetak(strAwalBaris +
+                            modMain.karakter_spasi(Convert.ToByte(intLenFirstSpace)) + itemTindakan.strKodeTarif +
+                            modMain.karakter_spasi(Convert.ToByte(intLenSpaceKode2Desc)) + itemTindakan.strUraianTarif +
+                            modMain.karakter_spasi(Convert.ToByte(intLenSpaceDesc2Nom)) + strSpaceNominal +
+                                modMain.addPoint(itemTindakan.dblBiaya.ToString()) +
+                            strBarisBaru);
 
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
-            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                    dblTotalPerCetak = dblTotalPerCetak + itemTindakan.dblBiaya;
+                    intLastPrintID = itemTindakan.intNoUrut;
+                    intJmlFetchKosong = intJmlFetchKosong - 1;
+                }             
+
+
+                for (int i = 0; i < intJmlFetchKosong; i++)
+                {
+                    modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                }
+
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+                /* TOTAL */
+
+
+                int intSpaceTotal = intLenNominal - modMain.addPoint(dblTotalPerCetak.ToString()).Length;
+                string strSpaceTotal = modMain.karakter_spasi(Convert.ToByte(intSpaceTotal));
+
+                modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(112) + strSpaceTotal +
+                                        modMain.addPoint(dblTotalPerCetak.ToString()) +
+                                        strBarisBaru);
+
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+                /* TANGGAL */
+                modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(102) +
+                                halamanUtama.dtTglServer.ToString("dd-MM-yyyy HH:mm:ss") + strBarisBaru);
+
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+                /* OPRATOR*/
+                modPrint.pbboolCetak(strAwalBaris + modMain.karakter_spasi(98) + halamanUtama.strNamaUser + strBarisBaru);
+
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+                modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+            } while ((intJumlahData % intMaxPerCetak) > 0);
 
             modPrint.pbboolTutup();
 
@@ -1227,7 +1269,7 @@ namespace SIM_RS.RAWAT_INAP
             //}
 
             /*increment for identified every input kode for twice..*/
-            intUrutanTrans++;
+            
 
             grpLstDaftarTindakan.Add(itemTindakan);
 
@@ -1273,6 +1315,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemKomponenTarif.dblHak2 = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
                     itemKomponenTarif.dblHak3 = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
                     itemKomponenTarif.intPrioritasTunai = Convert.ToInt32(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                    itemKomponenTarif.intNoUrut = intUrutanTrans;
 
                     grpLstDaftarKomponenTarif.Add(itemKomponenTarif);
                 }
@@ -1294,11 +1337,13 @@ namespace SIM_RS.RAWAT_INAP
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.intNoUrut.ToString());
 
             });
 
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 5);
 
+            intUrutanTrans++;
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
             txtKodeTindakan.Text = "";
@@ -1400,14 +1445,20 @@ namespace SIM_RS.RAWAT_INAP
 
         private void hapusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.pvHapusList(lvDaftarTindakan.SelectedItems[0].SubItems[1].Text);
+            string strNoUrut = lvDaftarTindakan.SelectedItems[0].SubItems[5].Text;
+            string strKodeTarif = lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
+
+            this.pvHapusList(strKodeTarif, strNoUrut);
         }
 
         private void lvDaftarTindakan_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
-                this.pvHapusList(lvDaftarTindakan.SelectedItems[0].SubItems[1].Text);
+                string strNoUrut = lvDaftarTindakan.SelectedItems[0].SubItems[5].Text;
+                string strKodeTarif = lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
+
+                this.pvHapusList(strKodeTarif, strNoUrut);
             }
             else if (e.KeyCode == Keys.Enter)
             {

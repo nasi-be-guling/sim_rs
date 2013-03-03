@@ -48,9 +48,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -60,9 +60,9 @@
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(7, 26);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(7, 36);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(757, 357);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(757, 348);
             this.lvDaftarTindakan.TabIndex = 0;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -96,7 +96,7 @@
             "Kode Tarif",
             "Nama Tarif",
             "Nama SMF"});
-            this.cmbPilihanFilter.Location = new System.Drawing.Point(120, 8);
+            this.cmbPilihanFilter.Location = new System.Drawing.Point(229, 8);
             this.cmbPilihanFilter.Name = "cmbPilihanFilter";
             this.cmbPilihanFilter.Size = new System.Drawing.Size(121, 28);
             this.cmbPilihanFilter.TabIndex = 2;
@@ -106,7 +106,7 @@
             this.txtIsiFilter.BackColor = System.Drawing.Color.White;
             this.txtIsiFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtIsiFilter.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIsiFilter.Location = new System.Drawing.Point(247, 8);
+            this.txtIsiFilter.Location = new System.Drawing.Point(363, 8);
             this.txtIsiFilter.Name = "txtIsiFilter";
             this.txtIsiFilter.Size = new System.Drawing.Size(250, 28);
             this.txtIsiFilter.TabIndex = 3;
@@ -119,16 +119,16 @@
             // btnCariSesuaiFilter
             // 
             this.btnCariSesuaiFilter.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCariSesuaiFilter.BackColor = System.Drawing.Color.Gold;
+            this.btnCariSesuaiFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnCariSesuaiFilter.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnCariSesuaiFilter.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.btnCariSesuaiFilter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnCariSesuaiFilter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnCariSesuaiFilter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnCariSesuaiFilter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnCariSesuaiFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCariSesuaiFilter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(503, 8);
+            this.btnCariSesuaiFilter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCariSesuaiFilter.Location = new System.Drawing.Point(619, 8);
             this.btnCariSesuaiFilter.Name = "btnCariSesuaiFilter";
-            this.btnCariSesuaiFilter.Size = new System.Drawing.Size(101, 28);
+            this.btnCariSesuaiFilter.Size = new System.Drawing.Size(71, 28);
             this.btnCariSesuaiFilter.TabIndex = 96;
             this.btnCariSesuaiFilter.Text = "&Cari";
             this.btnCariSesuaiFilter.UseVisualStyleBackColor = false;
@@ -136,10 +136,10 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel1.Controls.Add(this.lblDaftarTindakan);
             this.panel1.Controls.Add(this.lvDaftarTindakan);
             this.panel1.Location = new System.Drawing.Point(6, 56);
@@ -150,22 +150,22 @@
             // lblDaftarTindakan
             // 
             this.lblDaftarTindakan.AutoSize = true;
-            this.lblDaftarTindakan.BackColor = System.Drawing.Color.Black;
+            this.lblDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lblDaftarTindakan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDaftarTindakan.ForeColor = System.Drawing.Color.White;
             this.lblDaftarTindakan.Location = new System.Drawing.Point(0, 0);
             this.lblDaftarTindakan.Name = "lblDaftarTindakan";
-            this.lblDaftarTindakan.Size = new System.Drawing.Size(268, 20);
+            this.lblDaftarTindakan.Size = new System.Drawing.Size(306, 25);
             this.lblDaftarTindakan.TabIndex = 111;
             this.lblDaftarTindakan.Text = "DAFTAR NAMA TARIF PERAWATAN";
-            this.lblDaftarTindakan.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblDaftarTindakan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel3.Controls.Add(this.label23);
             this.panel3.Controls.Add(this.cmbPilihanFilter);
             this.panel3.Controls.Add(this.btnCariSesuaiFilter);
@@ -177,16 +177,16 @@
             // 
             // label23
             // 
-            this.label23.BackColor = System.Drawing.Color.Black;
+            this.label23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.label23.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.White;
             this.label23.Location = new System.Drawing.Point(0, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(114, 43);
+            this.label23.Size = new System.Drawing.Size(223, 43);
             this.label23.TabIndex = 93;
-            this.label23.Text = "Filter Data : ";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label23.Text = "Filter Pencarian  : ";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // bgWork2
             // 
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(782, 452);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
