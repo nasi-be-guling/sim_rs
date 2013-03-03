@@ -157,7 +157,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(573, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 71;
             this.label6.Text = "Kelas : ";
             // 
@@ -169,7 +169,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(16, 124);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 72;
             this.label7.Text = "Alamat : ";
             // 
@@ -197,9 +197,9 @@
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(11, 22);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(5, 22);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(773, 147);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(784, 147);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -263,7 +263,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(16, 385);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -422,7 +422,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(285, 456);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi :";
             // 
@@ -680,6 +680,7 @@
             this.button1.TabIndex = 115;
             this.button1.Text = "&Cetak";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // inputTindakan

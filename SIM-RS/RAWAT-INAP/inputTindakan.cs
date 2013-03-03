@@ -876,28 +876,28 @@ namespace SIM_RS.RAWAT_INAP
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
         {
 
-            if (!txtNoBilling.Enabled)
-            {
-                DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
-                                                   "Konfirmasi",
-                                                   MessageBoxButtons.YesNo,
-                                                   MessageBoxIcon.Question);
+            //if (!txtNoBilling.Enabled)
+            //{
+            //    DialogResult msgDlg = MessageBox.Show("Apakah anda akan membatalkan pengisian tindakan ?",
+            //                                       "Konfirmasi",
+            //                                       MessageBoxButtons.YesNo,
+            //                                       MessageBoxIcon.Question);
 
-                if (msgDlg == System.Windows.Forms.DialogResult.Yes)
-                {
+            //    if (msgDlg == System.Windows.Forms.DialogResult.Yes)
+            //    {
 
-                    this.pvCleanInput();
-                    this.pvDisableInput();
-                    btnKeluarIsiTindakan.Text = "&KELUAR";
-                    txtNoBilling.Select();
+            //        this.pvCleanInput();
+            //        this.pvDisableInput();
+            //        btnKeluarIsiTindakan.Text = "&KELUAR";
+            //        txtNoBilling.Select();
 
-                }
-            }
-            else
-            {
+            //    }
+            //}
+            //else
+            //{
                 /*if not entry mode*/
                 this.Close();
-            }
+            //}
 
             
         }
@@ -919,7 +919,7 @@ namespace SIM_RS.RAWAT_INAP
                     this.pvDisableInput();
                     btnKeluarIsiTindakan.Text = "&KELUAR";
                     txtNoBilling.Select();
-                    e.Cancel = false;
+                    e.Cancel = true;
                 }
                 else
                 {
@@ -935,10 +935,10 @@ namespace SIM_RS.RAWAT_INAP
 
         private void txtKodeTindakan_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Escape)
-            {
-                this.Close();
-            }
+            //if (e.KeyChar == (char)Keys.Escape)
+            //{
+            //    this.Close();
+            //}
         }
        
 
@@ -980,7 +980,7 @@ namespace SIM_RS.RAWAT_INAP
                 txtKodeTindakan.Focus();
 
             }
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
