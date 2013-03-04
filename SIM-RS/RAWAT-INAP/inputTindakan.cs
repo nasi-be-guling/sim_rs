@@ -674,15 +674,19 @@ namespace SIM_RS.RAWAT_INAP
 
             lvDaftarTindakan.Items.Clear();
 
+            int intNoUrut = 1;
+
             grpLstDaftarTindakan.ForEach(
                     delegate(lstDaftarTindakan itemTindakanFetch)
             {
 
-                lvDaftarTindakan.Items.Add(itemTindakanFetch.intNoUrut.ToString());
+                lvDaftarTindakan.Items.Add(intNoUrut.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);   
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);
+
+                intNoUrut++;
 
             });
 
@@ -698,7 +702,7 @@ namespace SIM_RS.RAWAT_INAP
         {
            
 
-            int intJumlahData = lvDaftarTindakan.Items.Count - 1;
+            int intJumlahData = lvDaftarTindakan.Items.Count;
 
             if (!modPrint.pbboolBuka("Print Cetak Tindakan")) return;
 
@@ -747,6 +751,7 @@ namespace SIM_RS.RAWAT_INAP
             /* inisialisasi variable do not care with this... */
             var queryResult = (from i in grpLstDaftarTindakan where i.intNoUrut == 0 select i).Take(0);
 
+            //MessageBox.Show((intJumlahData % intMaxPerCetak).ToString());
 
             do
             {
@@ -778,6 +783,8 @@ namespace SIM_RS.RAWAT_INAP
 
 
                 intJmlFetchKosong = intMaxPerCetak;
+
+               
 
                 foreach (lstDaftarTindakan itemTindakan in queryResult)
                 {
@@ -833,6 +840,8 @@ namespace SIM_RS.RAWAT_INAP
 
                 modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
                 modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
+                intJumlahData = intJumlahData - 4;
 
             } while ((intJumlahData % intMaxPerCetak) > 0);
 
