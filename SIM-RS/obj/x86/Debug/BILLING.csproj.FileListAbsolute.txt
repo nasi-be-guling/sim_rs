@@ -89,3 +89,4 @@ G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
 G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csprojResolveAssemblyReference.cache
