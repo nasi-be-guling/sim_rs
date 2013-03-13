@@ -100,6 +100,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADMIN\LapCheckTransAndDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADMIN\LapCheckTransAndDetail.Designer.cs">
+      <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlInvoke.cs" />
     <Compile Include="GENERAL\halamanUtama.cs">
       <SubType>Form</SubType>
@@ -139,6 +145,9 @@
     <Compile Include="RAWAT-INAP\pendaftaran.Designer.cs">
       <DependentUpon>pendaftaran.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ADMIN\LapCheckTransAndDetail.resx">
+      <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GENERAL\halamanUtama.resx">
       <DependentUpon>halamanUtama.cs</DependentUpon>
     </EmbeddedResource>

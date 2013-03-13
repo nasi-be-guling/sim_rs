@@ -89,7 +89,8 @@ G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
 G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
-E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csprojResolveAssemblyReference.cache
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.ADMIN.LapCheckTransAndDetail.resources
