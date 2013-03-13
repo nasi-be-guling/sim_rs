@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace SIM_RS.RAWAT_INAP
 {
@@ -146,8 +147,12 @@ namespace SIM_RS.RAWAT_INAP
                     listTempatLayanan.Add(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
 
                     lstTempatLayanan itemTempatLayanan = new lstTempatLayanan();
-                    itemTempatLayanan.strKodeRuang = modMain.pbstrgetCol(reader, 1, ref strErr, "");
                     itemTempatLayanan.strNamaRuang = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemTempatLayanan.strKodeRuang = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+
+                    //Debug.Print("Kode Ruang : " + itemTempatLayanan.strKodeRuang);
+                    //Debug.Print("Nama Ruang : " + itemTempatLayanan.strNamaRuang);
+
                     grpLstTempatLayanan.Add(itemTempatLayanan);
                 }
 
@@ -963,7 +968,9 @@ namespace SIM_RS.RAWAT_INAP
 
             if ((e.KeyCode == Keys.Enter) && (txtTempatLayanan.Text != ""))
             {
-                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strNamaRuang == txtTempatLayanan.Text);
+                //MessageBox.Show(txtTempatLayanan.Text.Trim().ToString());
+
+                int intResultSearch = grpLstTempatLayanan.FindIndex(m => m.strKodeRuang.Trim().ToString() == txtTempatLayanan.Text.Trim().ToString());
 
                 if (intResultSearch == -1)
                 {
@@ -1014,7 +1021,7 @@ namespace SIM_RS.RAWAT_INAP
         private void txtNamaDokter_Enter(object sender, EventArgs e)
         {
             txtNamaDokter.Text = "";
-            //txtNamaDokter.CharacterCasing = CharacterCasing.Upper;
+            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void txtKodeTindakan_KeyDown(object sender, KeyEventArgs e)

@@ -56,7 +56,7 @@ namespace SIM_RS
 
 
         /* DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
-        public static string strIPDBServer = "192.168.3.5";
+        public static string strIPDBServer = "192.168.2.5";
         public static string strUserDBServer = "sa";
         public static string strPasswordDBServer = "";
         public static string strPortDBServer = "1032";
