@@ -121,3 +121,6 @@ X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.read.1.tlog
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.write.1.tlog
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.Common.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.xml

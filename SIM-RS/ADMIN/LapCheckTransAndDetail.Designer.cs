@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,6 +37,27 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnBatal = new System.Windows.Forms.Button();
+            this.btnSimpan = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtNamaDokter = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.lblBiayaTindakan = new System.Windows.Forms.Label();
+            this.lblKodeTindakan = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lblDeskripsiTindakan = new System.Windows.Forms.Label();
+            this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dtpFilterTgl = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,26 +66,6 @@
             this.btnCari = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnKeluar = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.lblBiayaTindakan = new System.Windows.Forms.Label();
-            this.lblKodeTindakan = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.lblDeskripsiTindakan = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtNamaDokter = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.btnBatal = new System.Windows.Forms.Button();
-            this.btnSimpan = new System.Windows.Forms.Button();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmsPerbaikan = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rubahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
@@ -98,20 +98,6 @@
             this.panel1.Size = new System.Drawing.Size(794, 465);
             this.panel1.TabIndex = 113;
             // 
-            // lblDaftarTindakan
-            // 
-            this.lblDaftarTindakan.AutoSize = true;
-            this.lblDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblDaftarTindakan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDaftarTindakan.ForeColor = System.Drawing.Color.White;
-            this.lblDaftarTindakan.Location = new System.Drawing.Point(0, 0);
-            this.lblDaftarTindakan.Name = "lblDaftarTindakan";
-            this.lblDaftarTindakan.Size = new System.Drawing.Size(146, 20);
-            this.lblDaftarTindakan.TabIndex = 111;
-            this.lblDaftarTindakan.Text = "D&AFTAR TINDAKAN ";
-            this.lblDaftarTindakan.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // lvDaftarTindakan
             // 
             this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -133,6 +119,7 @@
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
+            this.lvDaftarTindakan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvDaftarTindakan_MouseClick);
             // 
             // columnHeader1
             // 
@@ -163,6 +150,231 @@
             // 
             this.columnHeader6.Text = "Id Transaksi";
             this.columnHeader6.Width = 93;
+            // 
+            // btnBatal
+            // 
+            this.btnBatal.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBatal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnBatal.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnBatal.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnBatal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatal.Location = new System.Drawing.Point(687, 429);
+            this.btnBatal.Name = "btnBatal";
+            this.btnBatal.Size = new System.Drawing.Size(101, 26);
+            this.btnBatal.TabIndex = 124;
+            this.btnBatal.Text = "&Batal";
+            this.btnBatal.UseVisualStyleBackColor = false;
+            this.btnBatal.Click += new System.EventHandler(this.btnBatal_Click);
+            // 
+            // btnSimpan
+            // 
+            this.btnSimpan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSimpan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnSimpan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnSimpan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnSimpan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpan.Location = new System.Drawing.Point(580, 429);
+            this.btnSimpan.Name = "btnSimpan";
+            this.btnSimpan.Size = new System.Drawing.Size(101, 26);
+            this.btnSimpan.TabIndex = 123;
+            this.btnSimpan.Text = "&Simpan";
+            this.btnSimpan.UseVisualStyleBackColor = false;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13});
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(5, 300);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(783, 126);
+            this.listView1.TabIndex = 122;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Kode Tarif";
+            this.columnHeader7.Width = 100;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Id Komponen";
+            this.columnHeader8.Width = 106;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Nilai Komponen";
+            this.columnHeader9.Width = 130;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Hak 1";
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Hak 2";
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Hak 3";
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Prioritas Tunai";
+            this.columnHeader13.Width = 126;
+            // 
+            // txtNamaDokter
+            // 
+            this.txtNamaDokter.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtNamaDokter.BackColor = System.Drawing.Color.White;
+            this.txtNamaDokter.Location = new System.Drawing.Point(117, 267);
+            this.txtNamaDokter.Name = "txtNamaDokter";
+            this.txtNamaDokter.Size = new System.Drawing.Size(612, 27);
+            this.txtNamaDokter.TabIndex = 121;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(3, 271);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(104, 18);
+            this.label7.TabIndex = 120;
+            this.label7.Text = "Kode Dokter : ";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(114, 184);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 18);
+            this.label4.TabIndex = 119;
+            this.label4.Text = "...";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 184);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 18);
+            this.label5.TabIndex = 118;
+            this.label5.Text = "Id Transaksi :";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(114, 211);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(23, 18);
+            this.label3.TabIndex = 117;
+            this.label3.Text = "...";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label22.AutoSize = true;
+            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(191, 241);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(76, 18);
+            this.label22.TabIndex = 116;
+            this.label22.Text = "Deskripsi :";
+            // 
+            // lblBiayaTindakan
+            // 
+            this.lblBiayaTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblBiayaTindakan.AutoSize = true;
+            this.lblBiayaTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblBiayaTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBiayaTindakan.ForeColor = System.Drawing.Color.Black;
+            this.lblBiayaTindakan.Location = new System.Drawing.Point(114, 241);
+            this.lblBiayaTindakan.Name = "lblBiayaTindakan";
+            this.lblBiayaTindakan.Size = new System.Drawing.Size(23, 18);
+            this.lblBiayaTindakan.TabIndex = 115;
+            this.lblBiayaTindakan.Text = "...";
+            // 
+            // lblKodeTindakan
+            // 
+            this.lblKodeTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblKodeTindakan.AutoSize = true;
+            this.lblKodeTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblKodeTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKodeTindakan.Location = new System.Drawing.Point(4, 211);
+            this.lblKodeTindakan.Name = "lblKodeTindakan";
+            this.lblKodeTindakan.Size = new System.Drawing.Size(91, 18);
+            this.lblKodeTindakan.TabIndex = 112;
+            this.lblKodeTindakan.Text = "K&ode Tarif : ";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label17.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(4, 241);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 18);
+            this.label17.TabIndex = 114;
+            this.label17.Text = "Biaya : ";
+            // 
+            // lblDeskripsiTindakan
+            // 
+            this.lblDeskripsiTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblDeskripsiTindakan.AutoSize = true;
+            this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblDeskripsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeskripsiTindakan.ForeColor = System.Drawing.Color.Black;
+            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(268, 241);
+            this.lblDeskripsiTindakan.Name = "lblDeskripsiTindakan";
+            this.lblDeskripsiTindakan.Size = new System.Drawing.Size(23, 18);
+            this.lblDeskripsiTindakan.TabIndex = 113;
+            this.lblDeskripsiTindakan.Text = "...";
+            // 
+            // lblDaftarTindakan
+            // 
+            this.lblDaftarTindakan.AutoSize = true;
+            this.lblDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblDaftarTindakan.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDaftarTindakan.ForeColor = System.Drawing.Color.White;
+            this.lblDaftarTindakan.Location = new System.Drawing.Point(0, 0);
+            this.lblDaftarTindakan.Name = "lblDaftarTindakan";
+            this.lblDaftarTindakan.Size = new System.Drawing.Size(146, 20);
+            this.lblDaftarTindakan.TabIndex = 111;
+            this.lblDaftarTindakan.Text = "D&AFTAR TINDAKAN ";
+            this.lblDaftarTindakan.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel2
             // 
@@ -272,228 +484,19 @@
             this.btnKeluar.UseVisualStyleBackColor = false;
             this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
             // 
-            // label22
-            // 
-            this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(191, 241);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
-            this.label22.TabIndex = 116;
-            this.label22.Text = "Deskripsi :";
-            // 
-            // lblBiayaTindakan
-            // 
-            this.lblBiayaTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblBiayaTindakan.AutoSize = true;
-            this.lblBiayaTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblBiayaTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBiayaTindakan.ForeColor = System.Drawing.Color.Black;
-            this.lblBiayaTindakan.Location = new System.Drawing.Point(114, 241);
-            this.lblBiayaTindakan.Name = "lblBiayaTindakan";
-            this.lblBiayaTindakan.Size = new System.Drawing.Size(23, 18);
-            this.lblBiayaTindakan.TabIndex = 115;
-            this.lblBiayaTindakan.Text = "...";
-            // 
-            // lblKodeTindakan
-            // 
-            this.lblKodeTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblKodeTindakan.AutoSize = true;
-            this.lblKodeTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblKodeTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKodeTindakan.Location = new System.Drawing.Point(4, 211);
-            this.lblKodeTindakan.Name = "lblKodeTindakan";
-            this.lblKodeTindakan.Size = new System.Drawing.Size(91, 18);
-            this.lblKodeTindakan.TabIndex = 112;
-            this.lblKodeTindakan.Text = "K&ode Tarif : ";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label17.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(4, 241);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(58, 18);
-            this.label17.TabIndex = 114;
-            this.label17.Text = "Biaya : ";
-            // 
-            // lblDeskripsiTindakan
-            // 
-            this.lblDeskripsiTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblDeskripsiTindakan.AutoSize = true;
-            this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblDeskripsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeskripsiTindakan.ForeColor = System.Drawing.Color.Black;
-            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(268, 241);
-            this.lblDeskripsiTindakan.Name = "lblDeskripsiTindakan";
-            this.lblDeskripsiTindakan.Size = new System.Drawing.Size(23, 18);
-            this.lblDeskripsiTindakan.TabIndex = 113;
-            this.lblDeskripsiTindakan.Text = "...";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(114, 211);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 18);
-            this.label3.TabIndex = 117;
-            this.label3.Text = "...";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(114, 184);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 18);
-            this.label4.TabIndex = 119;
-            this.label4.Text = "...";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 184);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 18);
-            this.label5.TabIndex = 118;
-            this.label5.Text = "Id Transaksi :";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 271);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 18);
-            this.label7.TabIndex = 120;
-            this.label7.Text = "Kode Dokter : ";
-            // 
-            // txtNamaDokter
-            // 
-            this.txtNamaDokter.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNamaDokter.BackColor = System.Drawing.Color.White;
-            this.txtNamaDokter.Location = new System.Drawing.Point(117, 267);
-            this.txtNamaDokter.Name = "txtNamaDokter";
-            this.txtNamaDokter.Size = new System.Drawing.Size(612, 27);
-            this.txtNamaDokter.TabIndex = 121;
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(4, 300);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(784, 126);
-            this.listView1.TabIndex = 122;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // btnBatal
-            // 
-            this.btnBatal.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnBatal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
-            this.btnBatal.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.btnBatal.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.btnBatal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatal.Location = new System.Drawing.Point(687, 429);
-            this.btnBatal.Name = "btnBatal";
-            this.btnBatal.Size = new System.Drawing.Size(101, 26);
-            this.btnBatal.TabIndex = 124;
-            this.btnBatal.Text = "&Batal";
-            this.btnBatal.UseVisualStyleBackColor = false;
-            // 
-            // btnSimpan
-            // 
-            this.btnSimpan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSimpan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
-            this.btnSimpan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.btnSimpan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.btnSimpan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpan.Location = new System.Drawing.Point(580, 429);
-            this.btnSimpan.Name = "btnSimpan";
-            this.btnSimpan.Size = new System.Drawing.Size(101, 26);
-            this.btnSimpan.TabIndex = 123;
-            this.btnSimpan.Text = "&Simpan";
-            this.btnSimpan.UseVisualStyleBackColor = false;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Kode Tarif";
-            this.columnHeader7.Width = 100;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Id Komponen";
-            this.columnHeader8.Width = 106;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Nilai Komponen";
-            this.columnHeader9.Width = 130;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Hak 1";
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Hak 2";
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Hak 3";
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "Prioritas Tunai";
-            this.columnHeader13.Width = 126;
-            // 
             // cmsPerbaikan
             // 
             this.cmsPerbaikan.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rubahToolStripMenuItem});
             this.cmsPerbaikan.Name = "cmsPerbaikan";
-            this.cmsPerbaikan.Size = new System.Drawing.Size(106, 26);
+            this.cmsPerbaikan.Size = new System.Drawing.Size(109, 26);
             // 
             // rubahToolStripMenuItem
             // 
             this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";
-            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
+            this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
             // 
             // LapCheckTransAndDetail
             // 

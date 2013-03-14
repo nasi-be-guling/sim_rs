@@ -34,6 +34,8 @@ namespace SIM_RS.ADMIN
         private void pvCariData()
         {
 
+            btnCari.Enabled = false;
+
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
 
@@ -100,6 +102,8 @@ namespace SIM_RS.ADMIN
             reader.Close();
             conn.Close();
 
+            btnCari.Enabled = true;
+
         }
 
         private void LapCheckTransAndDetail_Load(object sender, EventArgs e)
@@ -125,6 +129,24 @@ namespace SIM_RS.ADMIN
         private void btnCari_Click(object sender, EventArgs e)
         {
             this.pvCariData();
+        }
+
+        private void lvDaftarTindakan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == System.Windows.Forms.MouseButtons.Right) && (lvDaftarTindakan.Items.Count > 0))
+            {
+                cmsPerbaikan.Show(this.lvDaftarTindakan, e.Location);
+            }
+        }
+
+        private void rubahToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lvDaftarTindakan.Height = 157;
+        }
+
+        private void btnBatal_Click(object sender, EventArgs e)
+        {
+            lvDaftarTindakan.Height = 431;
         }
     }
 }
