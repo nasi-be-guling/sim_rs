@@ -43,21 +43,27 @@ namespace SIM_RS.ADMIN
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                 return;
             }
-           
 
-            strQuerySQL = "SELECT a.regbilling, a.idbl_tarip, a.jumlah,  "+
-                            "(SELECT SUM(niltarip) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi) "+
-                          "FROM BL_TRANSAKSI AS a "+
-                          "WHERE a.Tgltransaksi BETWEEN '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 00:00:00") + 
-                          "' AND  '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 23:59:59") + "' ";
+            MessageBox.Show(conn.ConnectionTimeout.ToString());
 
-            strQuerySQL = "SELECT a.regbilling, a.idbl_tarip, a.jumlah,  " +
-                            "(SELECT SUM(niltarip) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi) " +
+            //strQuerySQL = "SELECT a.regbilling, a.idbl_tarip, a.jumlah,  "+
+            //                "(SELECT SUM(niltarip) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi) "+
+            //              "FROM BL_TRANSAKSI AS a "+
+            //              "WHERE a.Tgltransaksi BETWEEN '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 00:00:00") + 
+            //              "' AND  '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 23:59:59") + "' ";
+
+            strQuerySQL = "SELECT "+
+                                "a.regbilling, "+
+                                "a.idbl_tarip, "+
+                                "a.jumlah,  "+
+                                "(SELECT SUM(nilai) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi), "+
+                                "a.idbl_transaksi, a.TglTransaksi "+
                             "FROM BL_TRANSAKSI AS a " +
-                            "INNER JOIN BL_TARIP AS C ON a.idbl_tarip = c.IdBl_tarip " +
+                                "INNER JOIN BL_TARIP AS C ON a.idbl_tarip = c.IdBl_tarip " +
                             "WHERE (a.Tgltransaksi BETWEEN '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 00:00:00") + 
-                                    "' AND  ''" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 23:59:59") + "') " +
-                            "AND c.Idmr_jeniskelas = 'SATU'";
+                                    "' AND  '" + dtpFilterTgl.Value.ToString("MM/dd/yyyy 23:59:59") + "') " +
+                            "AND c.Idmr_jeniskelas = 'SATU' AND a.Batal = '' AND "+
+                            "(SELECT SUM(nilai) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi) IS NULL";
 
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
@@ -68,12 +74,27 @@ namespace SIM_RS.ADMIN
                 return;
             }
 
+
+            lvDaftarTindakan.Items.Clear();
+
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
+
+                    lvDaftarTindakan.Items.Add(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(modMain.pbstrgetCol(reader, 2, ref strErr, ""));
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+
                     //lbDaftarMenu.Items.Add(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
                 }
+            }
+            else
+            {
+                MessageBox.Show("Data tidak ditemukan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             reader.Close();
@@ -84,8 +105,8 @@ namespace SIM_RS.ADMIN
         private void LapCheckTransAndDetail_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-
-            this.pvCariData();
+            this.cmbPilihanKelas.SelectedIndex = 0;
+            //this.pvCariData();
         }
 
         private void btnKeluar_Click(object sender, EventArgs e)
@@ -99,6 +120,11 @@ namespace SIM_RS.ADMIN
             {  
                 this.Close();
             }
+        }
+
+        private void btnCari_Click(object sender, EventArgs e)
+        {
+            this.pvCariData();
         }
     }
 }

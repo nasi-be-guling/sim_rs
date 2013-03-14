@@ -94,3 +94,30 @@ X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.ADMIN.LapCheckTransAndDetail.resources
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe.manifest
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.application
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.pdb
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\C4Module.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Data.DataSetExtensions.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Data.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Deployment.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Drawing.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Windows.Forms.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\System.Xml.Linq.dll
+X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\C4Module.pdb
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResolveAssemblyReference.cache
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.ADMIN.LapCheckTransAndDetail.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.halamanUtama.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.login.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Properties.Resources.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.read.1.tlog
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.write.1.tlog
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application

@@ -602,6 +602,18 @@ namespace SIM_RS.RAWAT_INAP
                             where i.strKodeTarif == itemTindakan.strKodeTarif && 
                                     i.intNoUrut == itemTindakan.intNoUrut
                             select i;
+
+                if (query.Count() == 0)
+                {
+                    MessageBox.Show("Ada Permasalah dalam proses penyimpanan data, hubungi Administrator", 
+                                    "Informasi", 
+                                    MessageBoxButtons.OK, 
+                                    MessageBoxIcon.Error);
+                    trans.Rollback();
+                    conn.Close();
+                    return false;
+                }
+
                 foreach (lstDaftarKomponenTarif itemKomponen in query)
                 {
 
