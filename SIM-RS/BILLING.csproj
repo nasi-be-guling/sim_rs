@@ -26,7 +26,7 @@
     <ProductName>SIM-RS</ProductName>
     <PublisherName>RSSA</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -138,10 +138,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RAWAT-INAP\LapPerOperator.cs">
+    <Compile Include="RAWAT-INAP\LAPORAN\LaporanJasaPelayanan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RAWAT-INAP\LapPerOperator.Designer.cs">
+    <Compile Include="RAWAT-INAP\LAPORAN\LaporanJasaPelayanan.Designer.cs">
+      <DependentUpon>LaporanJasaPelayanan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-INAP\LAPORAN\LapPerOperator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\LAPORAN\LapPerOperator.Designer.cs">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
     </Compile>
     <Compile Include="RAWAT-INAP\pendaftaran.cs">
@@ -174,7 +180,10 @@
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RAWAT-INAP\LapPerOperator.resx">
+    <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LaporanJasaPelayanan.resx">
+      <DependentUpon>LaporanJasaPelayanan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapPerOperator.resx">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\pendaftaran.resx">
@@ -208,9 +217,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="REPORTING\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

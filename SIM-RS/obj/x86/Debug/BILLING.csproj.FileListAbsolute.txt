@@ -115,7 +115,6 @@ X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.login.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.Properties.Resources.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.daftarTindakan.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.inputTindakan.resources
-X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.pendaftaran.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.read.1.tlog
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\ResGen.write.1.tlog
@@ -127,3 +126,5 @@ E:\ERD\PROJECT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.xml
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.Common.dll
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.dll
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.xml
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources

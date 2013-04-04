@@ -269,73 +269,7 @@ namespace SIM_RS.RAWAT_INAP
         private void pvLoadDataPasien(string _strNoTransBilling)
         {
 
-            this.strErr = "";
-
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
-
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
-            }
-
-            this.strQuerySQL = "SELECT " +
-                                    "MR_PASIEN.nama, " +                        //0
-                                    "MR_PASIEN.alamat, " +                      //1
-                                    "MR_PASIEN.idmr_pasien, " +                 //2
-                                    "MR_MUTASIPASIEN.idmr_mutasipasien, " +     //3
-                                    "MR_TRUANGAN.ruangan, " +                   //4
-                                    "MR_TEMPATLAYANAN.idmr_tempatlayanan, " +   //5
-                                    "MR_TRUANGAN.idmr_jeniskelas, " +           //6
-                                    "MR_MUTASIPASIEN.idmr_tstatus, " +          //7
-                                    "MR_TRUANGAN.idmr_truangan, " +             //8
-                                    "MR_MUTASIPASIEN.tanggal_mrs " +            //9
-                               "FROM MR_PASIEN WITH (NOLOCK) " +
-                               "INNER JOIN MR_MUTASIPASIEN " +
-                                    "ON MR_PASIEN.idmr_pasien = MR_MUTASIPASIEN.idmr_pasien " +
-                               "INNER JOIN MR_TEMPATLAYANAN " +
-                                    "ON MR_MUTASIPASIEN.idmr_tempatlayanan = MR_TEMPATLAYANAN.idmr_tempatlayanan " +
-                               "INNER JOIN MR_TRUANGAN " +
-                                    "ON MR_TEMPATLAYANAN.idmr_truangan = MR_TRUANGAN.idmr_truangan " +
-                               "WHERE MR_MUTASIPASIEN.sistem = 'IRNA' " +
-                                    "AND MR_MUTASIPASIEN.batal = '' " +
-                                    "AND MR_MUTASIPASIEN.lunas = '' " +
-                                    "AND MR_MUTASIPASIEN.regbilling = '" + txtNoBilling.Text.Trim().ToString() + "'";
-            SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
-
-            if (reader.HasRows)
-            {
-                reader.Read();
-
-                lblMRPasien.Text = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                lblAlamatPasien.Text = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                lblRuangan.Text = modMain.pbstrgetCol(reader, 4, ref strErr, "");
-                lblKelas.Text = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-                lblStatusPasien.Text = modMain.pbstrgetCol(reader, 7, ref strErr, "");
-                lblNamaPasien.Text = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-
-                strIdMR_TempatLayanan = modMain.pbstrgetCol(reader, 5, ref strErr, "");
-                strIdMutasiPasien = modMain.pbstrgetCol(reader, 3, ref strErr, "");
-                strIdMR_TRuangan = modMain.pbstrgetCol(reader, 4, ref strErr, "");
-
-                this.pvEnableInput();
-                this.dtpTglTindakan.Focus();
-                btnKeluarIsiTindakan.Text = "&BATAL";
-            }
-            else
-            {
-                MessageBox.Show("No Register Billing tidak ditemukan ", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-
-            conn.Close();
+          
 
         }
 
@@ -368,14 +302,14 @@ namespace SIM_RS.RAWAT_INAP
      */
         private void pvEnableInput()
         {
-            txtNoBilling.Enabled = false;
-            lvDaftarTindakan.Enabled = true;
-            txtTempatLayanan.Enabled = true;
-            txtKodeTindakan.Enabled = true;
-            txtNamaDokter.Enabled = true;
-            dtpTglTindakan.Enabled = true;
-            btnTampilDaftarTindakan.Enabled = true;
-            btnTambahTindakan.Enabled = true;
+            txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = false);
+            lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Enabled = true);
+            txtTempatLayanan.SafeControlInvoke(TextBox => txtTempatLayanan.Enabled = true);
+            txtKodeTindakan.SafeControlInvoke(TextBox => txtKodeTindakan.Enabled = true);
+            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = true);
+            dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Enabled = true);
+            btnTampilDaftarTindakan.SafeControlInvoke(Button => btnTampilDaftarTindakan.Enabled = true);
+            btnTambahTindakan.SafeControlInvoke(Button => btnTambahTindakan.Enabled = true);
         }
 
         /*
@@ -598,14 +532,25 @@ namespace SIM_RS.RAWAT_INAP
                 }
 
 
+                //foreach (lstDaftarKomponenTarif itemKomponen in grpLstDaftarKomponenTarif)
+                //{
+
+                //    //if ((itemKomponen.strKodeTarif == itemTindakan.strKodeTarif) && (itemKomponen.intNoUrut == itemTindakan.intNoUrut))
+                //        MessageBox.Show(itemKomponen.strKodeTarif.ToString() + "," + itemTindakan.strKodeTarif + 
+                //                        " - " + itemKomponen.strId_Komponen.ToString() +
+                //                    " - " + itemKomponen.intNoUrut.ToString() + "," + itemTindakan.intNoUrut.ToString());
+
+                //}              
+
                 var query = from i in grpLstDaftarKomponenTarif
-                            where i.strKodeTarif == itemTindakan.strKodeTarif && 
-                                    i.intNoUrut == itemTindakan.intNoUrut
+                            where i.strKodeTarif.Trim().ToString() == itemTindakan.strKodeTarif.Trim().ToString() 
+                                && i.intNoUrut == itemTindakan.intNoUrut                             
                             select i;
 
                 if (query.Count() == 0)
                 {
-                    MessageBox.Show("Ada Permasalah dalam proses penyimpanan data, hubungi Administrator", 
+                    MessageBox.Show("Ada Permasalah dalam proses penyimpanan data dengan kode Tarif  : " + itemTindakan.strKodeTarif + 
+                                    ", hubungi Administrator", 
                                     "Informasi", 
                                     MessageBoxButtons.OK, 
                                     MessageBoxIcon.Error);
@@ -863,6 +808,10 @@ namespace SIM_RS.RAWAT_INAP
 
             } while ((intJumlahData % intMaxPerCetak) > 0);
 
+
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+            modPrint.pbboolCetak(strAwalBaris + strBarisBaru);
+
             modPrint.pbboolTutup();
 
         }
@@ -896,7 +845,13 @@ namespace SIM_RS.RAWAT_INAP
                 if (txtNoBilling.Text.Trim().ToString() == "")
                     return;
 
-                this.pvLoadDataPasien(txtNoBilling.Text.Trim());
+                
+                timerBlink.Enabled = true;
+                timerBlink.Start();
+
+                this.bgWork.RunWorkerAsync();
+
+                //this.pvLoadDataPasien(txtNoBilling.Text.Trim());
             }
         }
 
@@ -1276,7 +1231,7 @@ namespace SIM_RS.RAWAT_INAP
             itemTindakan.strKodeDokter = strKodeDokter;
             itemTindakan.strUraianTarif = strUraianTindakan;
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
-            itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
+            //itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
             itemTindakan.strNamaDokter = strNamaDokter;
             
             itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
@@ -1361,7 +1316,7 @@ namespace SIM_RS.RAWAT_INAP
                     lstDaftarTindakan itemTindakanFetch) 
             {
 
-                lvDaftarTindakan.Items.Add(itemTindakanFetch.intNoUrut.ToString());
+                lvDaftarTindakan.Items.Add((itemTindakanFetch.intNoUrut+1).ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
@@ -1380,7 +1335,10 @@ namespace SIM_RS.RAWAT_INAP
             //dtpTglTindakan.Focus();
             lvDaftarTindakan.HideSelection = false;
             lvDaftarTindakan.Focus();
-            
+
+
+           
+
 
         }
 
@@ -1447,6 +1405,7 @@ namespace SIM_RS.RAWAT_INAP
                 grpLstDaftarKomponenTarif.Clear();
                 this.pvCleanInput();
                 this.pvDisableInput();
+                MessageBox.Show("Data sudah berhasil dimasukkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             
@@ -1526,6 +1485,130 @@ namespace SIM_RS.RAWAT_INAP
         private void button1_Click(object sender, EventArgs e)
         {
             this.pvCetakTindakan("007");
+        }
+
+        private void bgWork_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = false);
+            
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
+
+            this.strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                timerBlink.Stop();
+                timerBlink.Enabled = false;
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+
+            string strNoBilling = "";
+            txtNoBilling.SafeControlInvoke(TextBox => strNoBilling = txtNoBilling.Text.Trim().ToString() );
+
+
+            this.strQuerySQL = "SELECT " +
+                                    "MR_PASIEN.nama, " +                        //0
+                                    "MR_PASIEN.alamat, " +                      //1
+                                    "MR_PASIEN.idmr_pasien, " +                 //2
+                                    "MR_MUTASIPASIEN.idmr_mutasipasien, " +     //3
+                                    "MR_TRUANGAN.ruangan, " +                   //4
+                                    "MR_TEMPATLAYANAN.idmr_tempatlayanan, " +   //5
+                                    "MR_TRUANGAN.idmr_jeniskelas, " +           //6
+                                    "MR_MUTASIPASIEN.idmr_tstatus, " +          //7
+                                    "MR_TRUANGAN.idmr_truangan, " +             //8
+                                    "MR_MUTASIPASIEN.tanggal_mrs " +            //9
+                               "FROM MR_PASIEN WITH (NOLOCK) " +
+                               "INNER JOIN MR_MUTASIPASIEN " +
+                                    "ON MR_PASIEN.idmr_pasien = MR_MUTASIPASIEN.idmr_pasien " +
+                               "INNER JOIN MR_TEMPATLAYANAN " +
+                                    "ON MR_MUTASIPASIEN.idmr_tempatlayanan = MR_TEMPATLAYANAN.idmr_tempatlayanan " +
+                               "INNER JOIN MR_TRUANGAN " +
+                                    "ON MR_TEMPATLAYANAN.idmr_truangan = MR_TRUANGAN.idmr_truangan " +
+                               "WHERE MR_MUTASIPASIEN.sistem = 'IRNA' " +
+                                    "AND MR_MUTASIPASIEN.batal = '' " +
+                                    "AND MR_MUTASIPASIEN.lunas = '' " +
+                                    "AND MR_MUTASIPASIEN.regbilling = '" + strNoBilling + "'";
+            SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                timerBlink.Stop();
+                timerBlink.Enabled = false;
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
+
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+
+                string strKelas = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+
+                if (strKelas.Trim().ToString() != "SATU")
+                {
+
+                    timerBlink.Stop();
+                    timerBlink.Enabled = false;
+                    lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                    txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
+
+                    MessageBox.Show("Pengentrian Tindakan ini hanya untuk Pasien Kelas 1", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    reader.Close();
+                    conn.Close();
+                    return;
+                }
+
+                lblMRPasien.SafeControlInvoke(Label => lblMRPasien.Text = modMain.pbstrgetCol(reader, 2, ref strErr, ""));
+                lblAlamatPasien.SafeControlInvoke(Label => lblAlamatPasien.Text = modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                lblRuangan.SafeControlInvoke(Label => lblRuangan.Text = modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                lblKelas.SafeControlInvoke(Label => lblKelas.Text = modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                lblStatusPasien.SafeControlInvoke(Label => lblStatusPasien.Text = modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                lblNamaPasien.SafeControlInvoke(Label => lblNamaPasien.Text = modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+
+                strIdMR_TempatLayanan = modMain.pbstrgetCol(reader, 5, ref strErr, "");
+                strIdMutasiPasien = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                strIdMR_TRuangan = modMain.pbstrgetCol(reader, 4, ref strErr, "");
+
+                this.pvEnableInput();
+                dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Focus());
+                btnKeluarIsiTindakan.SafeControlInvoke(Button => btnKeluarIsiTindakan.Text = "&BATAL");
+            }
+            else
+            {
+
+                timerBlink.Stop();
+                timerBlink.Enabled = false;
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
+
+                MessageBox.Show("No Register Billing tidak ditemukan ", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);                
+            }
+
+
+            conn.Close();
+
+            timerBlink.Stop();
+            timerBlink.Enabled = false;
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+        }
+
+        private void timerBlink_Tick(object sender, EventArgs e)
+        {
+            if (lblInfoPencarian.ForeColor == Color.Black)
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.ForeColor = Color.Red);
+            else
+                lblInfoPencarian.SafeControlInvoke(Label =>  lblInfoPencarian.ForeColor = Color.Black);
+
         } 
 
       

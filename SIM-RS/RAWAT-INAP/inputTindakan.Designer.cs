@@ -76,8 +76,11 @@
             this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.bgWork = new System.ComponentModel.BackgroundWorker();
+            this.timerBlink = new System.Windows.Forms.Timer(this.components);
             this.cmsDaftarTindakan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -104,7 +107,7 @@
             this.txtNoBilling.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNoBilling.BackColor = System.Drawing.Color.White;
             this.txtNoBilling.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoBilling.Location = new System.Drawing.Point(209, 7);
+            this.txtNoBilling.Location = new System.Drawing.Point(193, 8);
             this.txtNoBilling.Name = "txtNoBilling";
             this.txtNoBilling.Size = new System.Drawing.Size(188, 30);
             this.txtNoBilling.TabIndex = 1;
@@ -157,7 +160,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(573, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 18);
+            this.label6.Size = new System.Drawing.Size(57, 18);
             this.label6.TabIndex = 71;
             this.label6.Text = "Kelas : ";
             // 
@@ -169,7 +172,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(16, 124);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 18);
+            this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 72;
             this.label7.Text = "Alamat : ";
             // 
@@ -263,7 +266,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(16, 385);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -422,7 +425,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(285, 456);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(76, 18);
+            this.label22.Size = new System.Drawing.Size(74, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi :";
             // 
@@ -492,12 +495,12 @@
             this.cmsDaftarTindakan.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hapusToolStripMenuItem});
             this.cmsDaftarTindakan.Name = "cmsDaftarTindakan";
-            this.cmsDaftarTindakan.Size = new System.Drawing.Size(109, 26);
+            this.cmsDaftarTindakan.Size = new System.Drawing.Size(105, 26);
             // 
             // hapusToolStripMenuItem
             // 
             this.hapusToolStripMenuItem.Name = "hapusToolStripMenuItem";
-            this.hapusToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.hapusToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.hapusToolStripMenuItem.Text = "Hapus";
             this.hapusToolStripMenuItem.Click += new System.EventHandler(this.hapusToolStripMenuItem_Click);
             // 
@@ -646,12 +649,23 @@
             // 
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel2.Controls.Add(this.lblInfoPencarian);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txtNoBilling);
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(418, 45);
+            this.panel2.Size = new System.Drawing.Size(794, 45);
             this.panel2.TabIndex = 113;
+            // 
+            // lblInfoPencarian
+            // 
+            this.lblInfoPencarian.AutoSize = true;
+            this.lblInfoPencarian.Location = new System.Drawing.Point(596, 15);
+            this.lblInfoPencarian.Name = "lblInfoPencarian";
+            this.lblInfoPencarian.Size = new System.Drawing.Size(191, 18);
+            this.lblInfoPencarian.TabIndex = 2;
+            this.lblInfoPencarian.Text = "Proses Menampilkan Data...";
+            this.lblInfoPencarian.Visible = false;
             // 
             // panel3
             // 
@@ -682,6 +696,15 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // bgWork
+            // 
+            this.bgWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_DoWork);
+            // 
+            // timerBlink
+            // 
+            this.timerBlink.Interval = 1000;
+            this.timerBlink.Tick += new System.EventHandler(this.timerBlink_Tick);
             // 
             // inputTindakan
             // 
@@ -801,6 +824,9 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button1;
+        private System.ComponentModel.BackgroundWorker bgWork;
+        private System.Windows.Forms.Label lblInfoPencarian;
+        private System.Windows.Forms.Timer timerBlink;
     }
 }
 
