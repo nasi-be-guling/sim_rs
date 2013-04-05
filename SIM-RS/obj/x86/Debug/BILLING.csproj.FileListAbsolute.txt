@@ -92,7 +92,6 @@ G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
 D:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
-E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapTindPerOperator.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.ADMIN.LapCheckTransAndDetail.resources
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.exe.manifest
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\SIM-RS.application
@@ -128,3 +127,6 @@ X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.dll
 X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.xml
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\BILLING.csprojResolveAssemblyReference.cache
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
+E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources

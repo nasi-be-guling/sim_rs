@@ -153,6 +153,7 @@
             this.btnCari.TabIndex = 96;
             this.btnCari.Text = "&CARI";
             this.btnCari.UseVisualStyleBackColor = false;
+            this.btnCari.Click += new System.EventHandler(this.btnCari_Click);
             // 
             // dtpFilterTgl1
             // 

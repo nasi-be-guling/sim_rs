@@ -161,6 +161,46 @@ namespace SIM_RS.RAWAT_INAP
         List<lstKASJKM> grpLstKASJKM = new List<lstKASJKM>();
         List<lstKASJKD> grpLstKASJKD = new List<lstKASJKD>();
 
+
+        public class lstKasumJP
+        {
+            public string strRegBilling { get; set; }
+            public string strNama { get; set; }
+            public string strRuangan { get; set; }
+            public string strIdMR_TUPF { get; set; }
+            public string strIdBl_Komponen { get; set; }
+            public string strIdMR_TSMF { get; set; }
+            public double dblTunainya { get; set; }
+            public string strLapJP { get; set; }
+            public string strRekapJP { get; set; }
+        }
+
+        public class lstKasumJA
+        {
+            public string strRegBilling { get; set; }
+            public string strNama { get; set; }
+            public string strRuangan { get; set; }
+            public string strIdMR_TUPF { get; set; }
+            public string strIdBl_Komponen { get; set; }
+            public string strIdMR_TSMF { get; set; }
+            public double dblTunainya { get; set; }
+            public string strLapJP { get; set; }
+            public string strRekapJP { get; set; }
+        }
+
+        public class lstReg
+        {
+            public string strRegBilling { get; set; }
+            public string strNama { get; set; }
+            public string strRuangan { get; set; }
+            public string strIdMR_TUPF { get; set; }
+            public string strIdMR_TSMF { get; set; }
+        }
+
+        List<lstKasumJP> grpLstKasumJP = new List<lstKasumJP>();
+        List<lstKasumJA> grpLstKasumJA = new List<lstKasumJA>();
+        List<lstReg> grpLstReg = new List<lstReg>();
+
         public LaporanJasaPelayanan()
         {
             InitializeComponent();
@@ -295,344 +335,353 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
-            /* QUERY ASKESGAKIN*/
-            this.strQuerySQL = " SELECT  "+
-                                    "BL_TRANSAKSI.Regbilling, "+                                            //0
-                                    "MR_PASIEN.Nama, "+                                                     //1
-                                    "MR_TRUANGAN.ruangan, "+                                                //2
-                                    "BL_TRANSAKSI.Jumlah, "+                                                //3
-                                    "BL_TRANSAKSI.subsidi, "+                                               //4
-                                    "BL_TRANSAKSI.tunai, "+                                                 //5
-                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-                                    "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
-                                    "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-                                    "BL_KELTARIP.urutan, "+                                                 //9
-                                    "BL_KELTARIP.rekapjp,"+                                                 //10
-                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
-                                    "BL_TRANSAKSIDETAIL.Noambil, "+                                         //12
-                                    "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
-                                    "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-                                    "BL_KELTARIP.Lapjp, "+                                                  //15
-                                    "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
-                                    "MR_SMFTARIP.idmr_tupf, "+                                              //17
-                                    "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-                                    "BL_TRANSAKSI.uraiantarip, "+                                           //19
-                                    "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-                                    "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
-                                    "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-                                    "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-                                    "BL_KASASKES.Tanggal, "+                                                //24
-                                    "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-                                    "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
-                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
-                                    "MR_DOKTER.Nama " +                                                     //28
-                               " FROM BL_KELTARIP With (nolock)  "+
-                               " INNER JOIN BL_TRANSAKSI "+
-                               " INNER JOIN BL_TRANSAKSIDETAIL "+
-                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
-                               " INNER JOIN BL_TARIP "+
-                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-                                    "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-                               " INNER JOIN MR_SMFTARIP "+
-                                    "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
-                               " INNER JOIN BL_KASASKES "+
-                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
-                                        "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
-                               " INNER JOIN MR_PASIEN "+
-                                    "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
-                               " INNER JOIN MR_TRUANGAN "+
-                                    "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
-                               " INNER JOIN MR_SJASKES "+
-                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
-                               "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-                               " WHERE (BL_TRANSAKSI.Batal <> 'Y') "+
-                                  " AND (BL_KASASKES.Batal = '') "+
-                                  " AND (MR_SJASKES.BATAL = '') "+
-                                  " AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN' "+
-                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
-                                  " AND BL_KASASKES.Tanggal BETWEEN '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-                                    "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
-                                  " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 "+
-                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
-                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 AND BL_KELTARIP.Lapjp <> '-'";
-
-            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            if (strErr != "")
+            if (grpLstKASUM.Count > 0)
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
+                /*JIKA DITEMUKAN DATA PADA grpLstKASUM maka lakukan perhitungan disini*/
+
+
+
             }
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    lstKASASKIN itemKASASKIN = new lstKASASKIN();
 
-                    itemKASASKIN.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemKASASKIN.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    itemKASASKIN.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    itemKASASKIN.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-                    itemKASASKIN.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-                    itemKASASKIN.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-                    itemKASASKIN.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-                    itemKASASKIN.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-                    itemKASASKIN.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-                    itemKASASKIN.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASASKIN.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-                    itemKASASKIN.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-                    itemKASASKIN.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-                    itemKASASKIN.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-                    itemKASASKIN.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-                    itemKASASKIN.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-                    itemKASASKIN.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-                    itemKASASKIN.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-                    itemKASASKIN.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-                    itemKASASKIN.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-                    itemKASASKIN.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-                    itemKASASKIN.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-                    itemKASASKIN.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-                    itemKASASKIN.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-                    itemKASASKIN.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-                    itemKASASKIN.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-                    itemKASASKIN.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-                    itemKASASKIN.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-                    itemKASASKIN.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+            ///* QUERY ASKESGAKIN*/
+            //this.strQuerySQL = " SELECT  "+
+            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
+            //                        "MR_PASIEN.Nama, "+                                                     //1
+            //                        "MR_TRUANGAN.ruangan, "+                                                //2
+            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
+            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
+            //                        "BL_TRANSAKSI.tunai, "+                                                 //5
+            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
+            //                        "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
+            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
+            //                        "BL_KELTARIP.urutan, "+                                                 //9
+            //                        "BL_KELTARIP.rekapjp,"+                                                 //10
+            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
+            //                        "BL_TRANSAKSIDETAIL.Noambil, "+                                         //12
+            //                        "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
+            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
+            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
+            //                        "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
+            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
+            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
+            //                        "BL_TRANSAKSI.uraiantarip, "+                                           //19
+            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
+            //                        "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
+            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
+            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
+            //                        "BL_KASASKES.Tanggal, "+                                                //24
+            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
+            //                        "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
+            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
+            //                        "MR_DOKTER.Nama " +                                                     //28
+            //                   " FROM BL_KELTARIP With (nolock)  "+
+            //                   " INNER JOIN BL_TRANSAKSI "+
+            //                   " INNER JOIN BL_TRANSAKSIDETAIL "+
+            //                        "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
+            //                   " INNER JOIN BL_TARIP "+
+            //                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
+            //                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
+            //                   " INNER JOIN MR_SMFTARIP "+
+            //                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
+            //                   " INNER JOIN BL_KASASKES "+
+            //                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
+            //                            "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
+            //                   " INNER JOIN MR_PASIEN "+
+            //                        "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
+            //                   " INNER JOIN MR_TRUANGAN "+
+            //                        "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
+            //                   " INNER JOIN MR_SJASKES "+
+            //                        "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
+            //                   "INNER JOIN MR_DOKTER " +
+            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+            //                   " WHERE (BL_TRANSAKSI.Batal <> 'Y') "+
+            //                      " AND (BL_KASASKES.Batal = '') "+
+            //                      " AND (MR_SJASKES.BATAL = '') "+
+            //                      " AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN' "+
+            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
+            //                      " AND BL_KASASKES.Tanggal BETWEEN '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
+            //                        "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
+            //                      " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 "+
+            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
+            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 AND BL_KELTARIP.Lapjp <> '-'";
 
-                    grpLstKASASKIN.Add(itemKASASKIN);
-                }
-            }
+            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            //if (strErr != "")
+            //{
+            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+            //    conn.Close();
+            //    return;
+            //}
 
-            reader.Close();
+            //if (reader.HasRows)
+            //{
+            //    while (reader.Read())
+            //    {
+            //        lstKASASKIN itemKASASKIN = new lstKASASKIN();
 
-            /* QUERY ASKES JAMKESMAS*/
-            this.strQuerySQL = "SELECT  "+
-                                    "BL_TRANSAKSI.Regbilling, "+                                            //0
-                                    "MR_PASIEN.Nama, "+                                                     //1
-                                    "MR_TRUANGAN.ruangan, "+                                                //2
-                                    "BL_TRANSAKSI.Jumlah, "+                                                //3
-                                    "BL_TRANSAKSI.subsidi, "+                                               //4
-                                    "BL_TRANSAKSI.tunai, "+                                                 //5
-                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-                                    "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
-                                    "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-                                    "BL_KELTARIP.urutan, "+                                                 //9
-                                    "BL_KELTARIP.rekapjp,"+                                                 //10
-                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
-                                    "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
-                                    "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
-                                    "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-                                    "BL_KELTARIP.Lapjp, "+                                                  //15
-                                    "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
-                                    "MR_SMFTARIP.idmr_tupf, "+                                              //17
-                                    "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-                                    "BL_TRANSAKSI.uraiantarip, "+                                           //19
-                                    "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-                                    "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
-                                    "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-                                    "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-                                    "BL_KASASKES.Tanggal, "+                                                //24
-                                    "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-                                    "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
-                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
-                                    "MR_DOKTER.Nama " +                                                     //28
-                               "FROM BL_KELTARIP With (nolock)  "+
-                               "INNER JOIN BL_TRANSAKSI "+
-                               "INNER JOIN BL_TRANSAKSIDETAIL "+
-                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
-                               "INNER JOIN BL_TARIP "+
-                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-                                    "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-                               "INNER JOIN MR_SMFTARIP "+
-                                    "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
-                               "INNER JOIN BL_KASASKES "+
-                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
-                                    "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
-                               "INNER JOIN MR_PASIEN "+
-                                    "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
-                               "INNER JOIN MR_TRUANGAN "+
-                                    "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
-                               "INNER JOIN MR_SJASKES "+
-                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
-                               "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-                               "WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') "+
-                                  " AND (MR_SJASKES.BATAL = '') AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS' "+
-                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
-                                  " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-                                    "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
-                                  " AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 "+
-                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
-                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+            //        itemKASASKIN.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            //        itemKASASKIN.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+            //        itemKASASKIN.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+            //        itemKASASKIN.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+            //        itemKASASKIN.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+            //        itemKASASKIN.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+            //        itemKASASKIN.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+            //        itemKASASKIN.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+            //        itemKASASKIN.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+            //        itemKASASKIN.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+            //        itemKASASKIN.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+            //        itemKASASKIN.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+            //        itemKASASKIN.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+            //        itemKASASKIN.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+            //        itemKASASKIN.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+            //        itemKASASKIN.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+            //        itemKASASKIN.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+            //        itemKASASKIN.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+            //        itemKASASKIN.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+            //        itemKASASKIN.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+            //        itemKASASKIN.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+            //        itemKASASKIN.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+            //        itemKASASKIN.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+            //        itemKASASKIN.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+            //        itemKASASKIN.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+            //        itemKASASKIN.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+            //        itemKASASKIN.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+            //        itemKASASKIN.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+            //        itemKASASKIN.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
 
-            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
+            //        grpLstKASASKIN.Add(itemKASASKIN);
+            //    }
+            //}
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    lstKASJKM itemKASJKM = new lstKASJKM();
+            //reader.Close();
 
-                    itemKASJKM.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemKASJKM.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    itemKASJKM.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    itemKASJKM.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-                    itemKASJKM.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-                    itemKASJKM.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-                    itemKASJKM.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-                    itemKASJKM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-                    itemKASJKM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-                    itemKASJKM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASJKM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-                    itemKASJKM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-                    itemKASJKM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-                    itemKASJKM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-                    itemKASJKM.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-                    itemKASJKM.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-                    itemKASJKM.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-                    itemKASJKM.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-                    itemKASJKM.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-                    itemKASJKM.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-                    itemKASJKM.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-                    itemKASJKM.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-                    itemKASJKM.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-                    itemKASJKM.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-                    itemKASJKM.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-                    itemKASJKM.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-                    itemKASJKM.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-                    itemKASJKM.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-                    itemKASJKM.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+            ///* QUERY ASKES JAMKESMAS*/
+            //this.strQuerySQL = "SELECT  "+
+            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
+            //                        "MR_PASIEN.Nama, "+                                                     //1
+            //                        "MR_TRUANGAN.ruangan, "+                                                //2
+            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
+            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
+            //                        "BL_TRANSAKSI.tunai, "+                                                 //5
+            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
+            //                        "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
+            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
+            //                        "BL_KELTARIP.urutan, "+                                                 //9
+            //                        "BL_KELTARIP.rekapjp,"+                                                 //10
+            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
+            //                        "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
+            //                        "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
+            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
+            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
+            //                        "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
+            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
+            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
+            //                        "BL_TRANSAKSI.uraiantarip, "+                                           //19
+            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
+            //                        "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
+            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
+            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
+            //                        "BL_KASASKES.Tanggal, "+                                                //24
+            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
+            //                        "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
+            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
+            //                        "MR_DOKTER.Nama " +                                                     //28
+            //                   "FROM BL_KELTARIP With (nolock)  "+
+            //                   "INNER JOIN BL_TRANSAKSI "+
+            //                   "INNER JOIN BL_TRANSAKSIDETAIL "+
+            //                        "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
+            //                   "INNER JOIN BL_TARIP "+
+            //                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
+            //                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
+            //                   "INNER JOIN MR_SMFTARIP "+
+            //                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
+            //                   "INNER JOIN BL_KASASKES "+
+            //                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
+            //                        "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
+            //                   "INNER JOIN MR_PASIEN "+
+            //                        "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
+            //                   "INNER JOIN MR_TRUANGAN "+
+            //                        "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
+            //                   "INNER JOIN MR_SJASKES "+
+            //                        "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
+            //                   "INNER JOIN MR_DOKTER " +
+            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+            //                   "WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') "+
+            //                      " AND (MR_SJASKES.BATAL = '') AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS' "+
+            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
+            //                      " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
+            //                        "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
+            //                      " AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 "+
+            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
+            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
 
-                    grpLstKASJKM.Add(itemKASJKM);
-                }
-            }
+            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            //if (strErr != "")
+            //{
+            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+            //    conn.Close();
+            //    return;
+            //}
 
-            reader.Close();
+            //if (reader.HasRows)
+            //{
+            //    while (reader.Read())
+            //    {
+            //        lstKASJKM itemKASJKM = new lstKASJKM();
+
+            //        itemKASJKM.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            //        itemKASJKM.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+            //        itemKASJKM.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+            //        itemKASJKM.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+            //        itemKASJKM.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+            //        itemKASJKM.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+            //        itemKASJKM.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+            //        itemKASJKM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+            //        itemKASJKM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+            //        itemKASJKM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+            //        itemKASJKM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+            //        itemKASJKM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+            //        itemKASJKM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+            //        itemKASJKM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+            //        itemKASJKM.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+            //        itemKASJKM.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+            //        itemKASJKM.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+            //        itemKASJKM.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+            //        itemKASJKM.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+            //        itemKASJKM.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+            //        itemKASJKM.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+            //        itemKASJKM.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+            //        itemKASJKM.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+            //        itemKASJKM.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+            //        itemKASJKM.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+            //        itemKASJKM.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+            //        itemKASJKM.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+            //        itemKASJKM.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+            //        itemKASJKM.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+
+            //        grpLstKASJKM.Add(itemKASJKM);
+            //    }
+            //}
+
+            //reader.Close();
 
 
 
-            /* QUERY ASKES JAMKESDA*/
-            this.strQuerySQL = "SELECT  "+
-                                    "BL_TRANSAKSI.Regbilling, "+                                            //0
-                                    "MR_PASIEN.Nama, "+                                                     //1
-                                    "MR_TRUANGAN.ruangan, " +                                               //2
-                                    "BL_TRANSAKSI.Jumlah, "+                                                //3
-                                    "BL_TRANSAKSI.subsidi, "+                                               //4
-                                    "BL_TRANSAKSI.tunai, " +                                                //5
-                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-                                    "BL_TRANSAKSIDETAIL.Nilai, " +                                          //7
-                                    "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-                                    "BL_KELTARIP.urutan, "+                                                 //9
-                                    "BL_KELTARIP.rekapjp," +                                                //10
-                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " + //11
-                                    "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
-                                    "BL_TRANSAKSIDETAIL.tglambil, " +                                       //13
-                                    "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-                                    "BL_KELTARIP.Lapjp, "+                                                  //15
-                                    "BL_TRANSAKSI.idmr_tsmf, " +                                            //16
-                                    "MR_SMFTARIP.idmr_tupf, "+                                              //17
-                                    "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-                                    "BL_TRANSAKSI.uraiantarip, " +                                          //19
-                                    "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-                                    "BL_TRANSAKSI.idbl_transaksi, " +                                       //21
-                                    "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-                                    "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-                                    "BL_KASASKES.Tanggal, " +                                               //24
-                                    "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-                                    "BL_TRANSAKSI.Idmr_truangan, " +                                        //26
-                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
-                                    "MR_DOKTER.Nama " +                                                     //28
-                                " FROM BL_KELTARIP With (nolock)  "+
-                                " INNER JOIN BL_TRANSAKSI "+
-                                " INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
-                                " INNER JOIN BL_TARIP "+
-                                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-                                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-                                " INNER JOIN MR_SMFTARIP "+
-                                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
-                                " INNER JOIN BL_KASASKES "+
-                                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
-                                  " AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
-                                " INNER JOIN MR_PASIEN ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
-                                " INNER JOIN MR_TRUANGAN ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
-                                " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
-                                "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-                                " WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
-                                  " AND (MR_SJASKES.BATAL = '') and MR_SJASKES.idmr_tstatus = 'ASKESJAMKESDA' " +
-                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
-                                  " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-                                  "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
-                                  " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 " +
-                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
-                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
-                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+            ///* QUERY ASKES JAMKESDA*/
+            //this.strQuerySQL = "SELECT  "+
+            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
+            //                        "MR_PASIEN.Nama, "+                                                     //1
+            //                        "MR_TRUANGAN.ruangan, " +                                               //2
+            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
+            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
+            //                        "BL_TRANSAKSI.tunai, " +                                                //5
+            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
+            //                        "BL_TRANSAKSIDETAIL.Nilai, " +                                          //7
+            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
+            //                        "BL_KELTARIP.urutan, "+                                                 //9
+            //                        "BL_KELTARIP.rekapjp," +                                                //10
+            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " + //11
+            //                        "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
+            //                        "BL_TRANSAKSIDETAIL.tglambil, " +                                       //13
+            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
+            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
+            //                        "BL_TRANSAKSI.idmr_tsmf, " +                                            //16
+            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
+            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
+            //                        "BL_TRANSAKSI.uraiantarip, " +                                          //19
+            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
+            //                        "BL_TRANSAKSI.idbl_transaksi, " +                                       //21
+            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
+            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
+            //                        "BL_KASASKES.Tanggal, " +                                               //24
+            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
+            //                        "BL_TRANSAKSI.Idmr_truangan, " +                                        //26
+            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
+            //                        "MR_DOKTER.Nama " +                                                     //28
+            //                    " FROM BL_KELTARIP With (nolock)  "+
+            //                    " INNER JOIN BL_TRANSAKSI "+
+            //                    " INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
+            //                    " INNER JOIN BL_TARIP "+
+            //                            "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
+            //                            "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
+            //                    " INNER JOIN MR_SMFTARIP "+
+            //                            "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
+            //                    " INNER JOIN BL_KASASKES "+
+            //                            "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
+            //                      " AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
+            //                    " INNER JOIN MR_PASIEN ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
+            //                    " INNER JOIN MR_TRUANGAN ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
+            //                    " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
+            //                    "INNER JOIN MR_DOKTER " +
+            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+            //                    " WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
+            //                      " AND (MR_SJASKES.BATAL = '') and MR_SJASKES.idmr_tstatus = 'ASKESJAMKESDA' " +
+            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
+            //                      " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
+            //                      "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+            //                      " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 " +
+            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
+            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
+            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
 
-            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
+            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            //if (strErr != "")
+            //{
+            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+            //    conn.Close();
+            //    return;
+            //}
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    lstKASJKD itemKASJKD = new lstKASJKD();
+            //if (reader.HasRows)
+            //{
+            //    while (reader.Read())
+            //    {
+            //        lstKASJKD itemKASJKD = new lstKASJKD();
 
-                    itemKASJKD.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemKASJKD.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    itemKASJKD.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    itemKASJKD.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-                    itemKASJKD.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-                    itemKASJKD.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-                    itemKASJKD.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-                    itemKASJKD.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-                    itemKASJKD.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-                    itemKASJKD.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASJKD.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-                    itemKASJKD.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-                    itemKASJKD.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-                    itemKASJKD.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-                    itemKASJKD.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-                    itemKASJKD.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-                    itemKASJKD.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-                    itemKASJKD.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-                    itemKASJKD.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-                    itemKASJKD.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-                    itemKASJKD.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-                    itemKASJKD.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-                    itemKASJKD.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-                    itemKASJKD.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-                    itemKASJKD.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-                    itemKASJKD.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-                    itemKASJKD.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-                    itemKASJKD.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-                    itemKASJKD.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+            //        itemKASJKD.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            //        itemKASJKD.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+            //        itemKASJKD.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+            //        itemKASJKD.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+            //        itemKASJKD.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+            //        itemKASJKD.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+            //        itemKASJKD.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+            //        itemKASJKD.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+            //        itemKASJKD.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+            //        itemKASJKD.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+            //        itemKASJKD.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+            //        itemKASJKD.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+            //        itemKASJKD.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+            //        itemKASJKD.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+            //        itemKASJKD.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+            //        itemKASJKD.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+            //        itemKASJKD.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+            //        itemKASJKD.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+            //        itemKASJKD.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+            //        itemKASJKD.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+            //        itemKASJKD.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+            //        itemKASJKD.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+            //        itemKASJKD.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+            //        itemKASJKD.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+            //        itemKASJKD.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+            //        itemKASJKD.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+            //        itemKASJKD.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+            //        itemKASJKD.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+            //        itemKASJKD.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
 
-                    grpLstKASJKD.Add(itemKASJKD);
-                }
-            }
+            //        grpLstKASJKD.Add(itemKASJKD);
+            //    }
+            //}
 
-            reader.Close();
+            //reader.Close();
 
 
             conn.Close();
@@ -648,6 +697,11 @@ namespace SIM_RS.RAWAT_INAP
         private void btnKeluar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnCari_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
