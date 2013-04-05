@@ -94,9 +94,9 @@
             this.cmbUnitKerja.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnitKerja.FormattingEnabled = true;
             this.cmbUnitKerja.Items.AddRange(new object[] {
-            "REKAP",
-            "REKAP PER UNIT",
-            "RINCIAN PER UNIT"});
+            "1. REKAP",
+            "2. REKAP PER UNIT",
+            "3. RINCIAN PER UNIT"});
             this.cmbUnitKerja.Location = new System.Drawing.Point(178, 41);
             this.cmbUnitKerja.Name = "cmbUnitKerja";
             this.cmbUnitKerja.Size = new System.Drawing.Size(176, 28);
@@ -197,7 +197,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(793, 437);
             this.panel1.TabIndex = 116;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // lvDaftarTindakan
             // 
@@ -244,6 +243,7 @@
             this.btnKeluar.TabIndex = 117;
             this.btnKeluar.Text = "&KELUAR";
             this.btnKeluar.UseVisualStyleBackColor = false;
+            this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
             // 
             // bgWorkLoadFromDB
             // 
@@ -264,6 +264,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LaporanJasaPelayanan";
             this.Text = "LaporanJasaPelayanan";
+            this.Load += new System.EventHandler(this.LaporanJasaPelayanan_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
