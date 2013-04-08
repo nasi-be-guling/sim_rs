@@ -339,7 +339,9 @@ namespace SIM_RS.RAWAT_INAP
             {
                 /*JIKA DITEMUKAN DATA PADA grpLstKASUM maka lakukan perhitungan disini*/
 
-
+                var KasumJP = from fetchKasum in grpLstKASUM
+                              where (fetchKasum.strIdBl_Komponen == "JASA PELAYANAN" && fetchKasum.dblTunainya > 0)
+                              select new (regBilling = fetchKasum.strRegBilling, )
 
             }
 
