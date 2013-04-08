@@ -201,6 +201,25 @@ namespace SIM_RS.RAWAT_INAP
         List<lstKasumJA> grpLstKasumJA = new List<lstKasumJA>();
         List<lstReg> grpLstReg = new List<lstReg>();
 
+
+        public class lstTransak
+        {
+            public string strRegbilling { get; set; }
+            public string strNama { get; set; }
+            public string strRuangan { get; set; }
+            public string strUnit { get; set; }
+            public string strSMF { get; set; }
+            public double dblKonsul { get; set; }
+            public double dblVisite { get; set; }
+            public double dblOperasi { get; set; }
+            public double dblTindakan { get; set; }
+            public double dblDiagelect { get; set; }
+            public double dblPemRK { get; set; }
+        }
+        List<lstTransak> grpTransak = new List<lstTransak>();
+
+
+
         public LaporanJasaPelayanan()
         {
             InitializeComponent();
@@ -339,9 +358,98 @@ namespace SIM_RS.RAWAT_INAP
             {
                 /*JIKA DITEMUKAN DATA PADA grpLstKASUM maka lakukan perhitungan disini*/
 
-                var KasumJP = from fetchKasum in grpLstKASUM
+                var KasumJP = (from fetchKasum in grpLstKASUM
                               where (fetchKasum.strIdBl_Komponen == "JASA PELAYANAN" && fetchKasum.dblTunainya > 0)
-                              select new (regBilling = fetchKasum.strRegBilling, )
+                               group fetchKasum by new 
+                                    {fetchKasum.strRegBilling, 
+                                     fetchKasum.strNama, 
+                                     fetchKasum.strIdBl_Komponen, 
+                                     fetchKasum.strLapJP, 
+                                     fetchKasum.strIdMR_TUPF, 
+                                     fetchKasum.strIdMR_TSMF, 
+                                     fetchKasum.strRuangan
+                                    } into groupKasum                              
+                              select new {
+                                            regBilling = groupKasum.Key.strRegBilling, 
+                                            Nama = groupKasum.Key.strNama,
+                                            Ruangan = groupKasum.Key.strRuangan.Substring(1,10), 
+                                            TUPF = groupKasum.Key.strIdMR_TUPF,
+                                            IdBl_Komponen = groupKasum.Key.strIdBl_Komponen, 
+                                            IdMR_TSMF = groupKasum.Key.strIdMR_TSMF, 
+                                            tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya)
+                              }).OrderBy(groupKasum => groupKasum.regBilling).ToList();
+
+
+                var KasumJA = (from fetchKasum in grpLstKASUM
+                               where (fetchKasum.strIdBl_Komponen != "JASA PELAYANAN" && fetchKasum.dblTunainya > 0)
+                               group fetchKasum by new
+                               {
+                                   fetchKasum.strRegBilling,
+                                   fetchKasum.strNama,
+                                   fetchKasum.strIdBl_Komponen,
+                                   fetchKasum.strLapJP,
+                                   fetchKasum.strIdMR_TUPF,
+                                   fetchKasum.strIdMR_TSMF,
+                                   fetchKasum.strRuangan
+                               } into groupKasum
+                               select new
+                               {
+                                   regBilling = groupKasum.Key.strRegBilling,
+                                   Nama = groupKasum.Key.strNama,
+                                   Ruangan = groupKasum.Key.strRuangan.Substring(1, 10),
+                                   TUPF = groupKasum.Key.strIdMR_TUPF,
+                                   IdBl_Komponen = groupKasum.Key.strIdBl_Komponen,
+                                   IdMR_TSMF = groupKasum.Key.strIdMR_TSMF,
+                                   tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya)
+                               }).OrderBy(groupKasum => groupKasum.regBilling).ToList();
+
+
+                var reg = (from fetchKasum in grpLstKASUM
+                          select new
+                          {
+                              Regbilling = fetchKasum.strRegBilling,
+                              Nama = fetchKasum.strNama,
+                              Ruangan = fetchKasum.strRuangan,
+                              idmr_tupf = fetchKasum.strIdMR_TUPF,
+                              idmr_tsmf = fetchKasum.strIdMR_TSMF
+                          }).Distinct().OrderBy( a => a.Regbilling).ToList();
+
+
+                if (reg.Count > 0)
+                {
+                    foreach (var fetch in reg)
+                    {
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.Regbilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = fetch.idmr_tupf;
+                        itemTransak.strSMF = fetch.idmr_tsmf;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = 0;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+                        grpTransak.Add(itemTransak);
+                    }
+                }
+
+
+                if (grpTransak.Count > 0)
+                {
+
+                    foreach (var fetch in grpTransak)
+                    {
+
+
+
+                    }
+
+
+                }
+
+
 
             }
 
