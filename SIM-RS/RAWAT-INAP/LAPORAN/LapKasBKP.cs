@@ -59,7 +59,6 @@ namespace SIM_RS.RAWAT_INAP
 
         public class lstKasAskin
         {
-            public string strIdBl_Tarip { get; set; }
             public string strIdBl_KelTarip { get; set; }
             public string strPisahSetor { get; set; }
             public string strIdMR_TSMF { get; set; }
@@ -75,9 +74,10 @@ namespace SIM_RS.RAWAT_INAP
 
         public class lstKasJamkesmas
         {
-            public string strIdBl_Tarip { get; set; }
+            public string strIdBl_KelTarip { get; set; }
             public string strPisahSetor { get; set; }
             public string strIdMR_TSMF { get; set; }
+            public string strIdBl_Komponen { get; set; }
             public int intLapUrut { get; set; }
             public double dblTunainya { get; set; }
             public double dblNilai { get; set; }
@@ -89,9 +89,10 @@ namespace SIM_RS.RAWAT_INAP
 
         public class lstKasJamkesda
         {
-            public string strIdBl_Tarip { get; set; }
+            public string strIdBl_KelTarip { get; set; }
             public string strPisahSetor { get; set; }
             public string strIdMR_TSMF { get; set; }
+            public string strIdBl_Komponen { get; set; }
             public int intLapUrut { get; set; }
             public double dblTunainya { get; set; }
             public double dblNilai { get; set; }
@@ -369,26 +370,198 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
-            this.strQuerySQL = "SELECT BL_TARIP.Idbl_keltarip,BL_TARIP.pisahsetor,"+
-  " BL_TRANSAKSI.idmr_tsmf, "+
-  " BL_TRANSAKSIDETAIL.idbl_komponen, BL_KOMPONEN.Lapurut, "+
-  " BL_TRANSAKSIDETAIL.nilai - BL_TRANSAKSIDETAIL.Ringan AS TUNAINYA, "+;
-  " BL_TRANSAKSIDETAIL.nilai,BL_TRANSAKSIDETAIL.Ringan, "+;
-  " BL_TRANSAKSI.JUMLAH AS TUNAI,BL_TRANSAKSIDETAIL.idbl_transaksi "+;
-  " FROM BL_TRANSAKSI  With (nolock) INNER JOIN BL_TRANSAKSIDETAIL ON "+;
-  " BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi "+;
-  " INNER JOIN BL_TARIP ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+;
-  " INNER JOIN BL_KASASKES ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+;
-  " AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+;
-  " INNER JOIN BL_KOMPONEN ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen"+;
-  " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+;
-  " WHERE BL_KASASKES.Batal = '' and BL_TRANSAKSI.batal = '' AND MR_SJASKES.Batal = ''"+;
-  " and BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+;
-  " and BL_TRANSAKSI.idmr_tsmf <> 'DEPO FARMASI' "+;
-  " and BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+;
-  " AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 "+;
-  " AND BL_KASASKES.Tanggal between ?xtglaw and ?xtglak "+;
-  " AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN'";
+            this.strQuerySQL = "SELECT "+
+                                    "BL_TARIP.Idbl_keltarip, "+
+                                    "BL_TARIP.pisahsetor,"+
+                                    "BL_TRANSAKSI.idmr_tsmf, "+
+                                    "BL_TRANSAKSIDETAIL.idbl_komponen, "+
+                                    "BL_KOMPONEN.Lapurut, "+
+                                    "BL_TRANSAKSIDETAIL.nilai - BL_TRANSAKSIDETAIL.Ringan AS TUNAINYA,"+
+                                    "BL_TRANSAKSIDETAIL.nilai, "+
+                                    "BL_TRANSAKSIDETAIL.Ringan, "+
+                                    "BL_TRANSAKSI.JUMLAH AS TUNAI, "+
+                                    "BL_TRANSAKSIDETAIL.idbl_transaksi "+
+                               "FROM BL_TRANSAKSI  With (nolock) "+
+                               "INNER JOIN BL_TRANSAKSIDETAIL "+
+                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi "+
+                               "INNER JOIN BL_TARIP "+
+                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
+                               "INNER JOIN BL_KASASKES "+
+                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
+                                    "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
+                               "INNER JOIN BL_KOMPONEN "+
+                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                               "INNER JOIN MR_SJASKES "+
+                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
+                               "WHERE BL_KASASKES.Batal = '' "+
+                                    "AND BL_TRANSAKSI.batal = '' "+
+                                    "AND MR_SJASKES.Batal = '' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'  "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'DEPO FARMASI' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI' "+
+                                    "AND BL_TARIP.pisahsetor = '' "+
+                                    "AND BL_KASASKES.jumlah > 0 "+
+                                    "AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                        "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                    "AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN'";
+
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstKasAskin itemKasAskin = new lstKasAskin();
+                    itemKasAskin.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKasAskin.strPisahSetor = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKasAskin.strIdMR_TSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKasAskin.strIdBl_Komponen = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                    itemKasAskin.intLapUrut = Convert.ToInt32(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKasAskin.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKasAskin.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                    itemKasAskin.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    itemKasAskin.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    itemKasAskin.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 9, ref strErr, "");
+                    grpKasAskin.Add(itemKasAskin);
+
+                }
+            }
+
+            reader.Close();
+
+
+            this.strQuerySQL = "SELECT "+
+                                    "BL_TARIP.Idbl_keltarip, "+
+                                    "BL_TARIP.pisahsetor,"+
+                                    "BL_TRANSAKSI.idmr_tsmf, "+
+                                    "BL_TRANSAKSIDETAIL.idbl_komponen, "+
+                                    "BL_KOMPONEN.Lapurut, "+
+                                    "BL_TRANSAKSIDETAIL.nilai - BL_TRANSAKSIDETAIL.Ringan AS TUNAINYA, "+
+                                    "BL_TRANSAKSIDETAIL.nilai, "+
+                                    "BL_TRANSAKSIDETAIL.Ringan, "+
+                                    "BL_TRANSAKSI.JUMLAH AS TUNAI, "+
+                                    "BL_TRANSAKSIDETAIL.idbl_transaksi "+
+                               "FROM BL_TRANSAKSI  With (nolock) "+
+                                "INNER JOIN BL_TRANSAKSIDETAIL "+
+                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi "+
+                               "INNER JOIN BL_TARIP "+
+                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
+                               "INNER JOIN BL_KASASKES "+
+                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
+                                    "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
+                               "INNER JOIN BL_KOMPONEN "+
+                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                               "INNER JOIN MR_SJASKES "+
+                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
+                               "WHERE BL_KASASKES.Batal = '' "+
+                                    "AND BL_TRANSAKSI.batal = '' "+
+                                    "AND MR_SJASKES.Batal = ''"+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'DEPO FARMASI' "+
+                                    "AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI' "+
+                                    "AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 "+
+                                    "AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                        "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                    "AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS'";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstKasJamkesmas itemKasJamkesmas = new lstKasJamkesmas();
+                    itemKasJamkesmas.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKasJamkesmas.strPisahSetor = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKasJamkesmas.strIdMR_TSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKasJamkesmas.strIdBl_Komponen = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                    itemKasJamkesmas.intLapUrut = Convert.ToInt32(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKasJamkesmas.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKasJamkesmas.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                    itemKasJamkesmas.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    itemKasJamkesmas.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    itemKasJamkesmas.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 9, ref strErr, "");
+                    grpKasJamkesmas.Add(itemKasJamkesmas);
+
+                }
+            }
+
+            reader.Close();
+
+
+            this.strQuerySQL = "SELECT "+
+                                    "BL_TARIP.Idbl_keltarip, "+
+                                    "BL_TRANSLAIN.idmr_tsmf, "+
+                                    "BL_TRANSLAINDET.idbl_komponen, "+
+                                    "BL_KOMPONEN.Lapurut, "+
+                                    "BL_TRANSLAINDET.nilai AS TUNAINYA, "+
+                                    "BL_TRANSLAINDET.nilai, "+
+                                    "BL_TRANSLAIN.jumlah, "+
+                                    "BL_TRANSLAINDET.idbl_translain "+
+                            "FROM BL_TRANSLAIN  With (nolock) "+
+                            "INNER JOIN BL_TRANSLAINDET "+
+                                    "ON BL_TRANSLAIN.idbl_translain = BL_TRANSLAINDET.idbl_translain "+
+                            "INNER JOIN BL_TARIP "+
+                                    "ON BL_TRANSLAIN.idbl_tarip = BL_TARIP.IdBl_tarip "+
+                            "INNER JOIN BL_KASLAIN "+
+                                    "ON BL_TRANSLAIN.idbl_kaslain = BL_KASLAIN.Idbl_kaslain "+
+                            "INNER JOIN BL_KOMPONEN "+
+                                    "ON BL_TRANSLAINDET.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                            "WHERE BL_KASLAIN.Batal = '' "+
+                                    "AND BL_TRANSLAIN.Batal = '' "+
+                                    "AND BL_KASLAIN.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                        "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                    "AND BL_TRANSLAIN.idmr_tsmf <> 'DARAH' "+
+                                    "AND BL_TRANSLAIN.idmr_tsmf <> 'PENDORONG' "+
+                                    "AND BL_TRANSLAIN.idmr_tsmf <> 'DEPO FARMASI' "+
+                                    "AND BL_TRANSLAIN.idmr_tsmf <> 'OBAT/ALKES-KPRI' "+
+                                    "ORDER BY BL_TARIP.Idbl_keltarip, BL_TRANSLAINDET.idbl_komponen";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstKasLain itemKasLain = new lstKasLain();
+                    itemKasLain.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKasLain.strIdMR_TSMF = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKasLain.strIdBl_Komponen = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKasLain.intLapUrut = Convert.ToInt32(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKasLain.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKasLain.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKasLain.strIdBl_TransLain = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+                    grpKasLain.Add(itemKasLain);
+
+                }
+            }
+
+            reader.Close();
+
 
             conn.Close();
 

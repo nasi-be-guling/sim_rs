@@ -130,3 +130,10 @@ X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resourc
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources
 E:\ERD\PROJECT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapKasBKP.resources
+G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.Common.dll
+G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+G:\GIT REPO\SIM-RS\SIM-RS\bin\Debug\Microsoft.ReportViewer.WinForms.xml
+G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.ADMIN.LapCheckTransAndDetail.resources
+G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapKasBKP.resources
+G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
+G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources
