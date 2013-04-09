@@ -218,6 +218,17 @@ namespace SIM_RS.RAWAT_INAP
         }
         List<lstTransak> grpTransak = new List<lstTransak>();
 
+        public class lstKelTarip
+        {
+            public string strIdBl_KelTarip { get; set; }
+            public int intUrutan { get; set; }
+            public string strLapJP { get; set; }
+            public string strRekapJP { get; set; }
+        }
+        List<lstKelTarip> grpKelTarip = new List<lstKelTarip>();
+
+
+        
 
 
         public LaporanJasaPelayanan()
@@ -238,6 +249,39 @@ namespace SIM_RS.RAWAT_INAP
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                 return;
             }
+
+
+            this.strQuerySQL = "SELECT Idbl_keltarip,Urutan,Lapjp,Rekapjp "+
+                               "FROM BL_KELTARIP WITH (NOLOCK) "+
+                               "WHERE lapjp <> '-' "+
+                               "ORDER BY lapjp, urutan";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstKelTarip itemKelTarip = new lstKelTarip();
+                    itemKelTarip.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKelTarip.intUrutan = Convert.ToInt32(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    itemKelTarip.strLapJP = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKelTarip.strRekapJP = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+
+                    grpKelTarip.Add(itemKelTarip);
+
+                }
+            }
+
+            reader.Close();
+
 
 
             /* QUERY KASUM */
@@ -303,7 +347,7 @@ namespace SIM_RS.RAWAT_INAP
                                     " AND BL_TRANSAKSI_1.idbl_pembayaran > 0 "+
                                     " AND BL_KELTARIP.Lapjp <> '-'";
 
-            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
@@ -376,7 +420,8 @@ namespace SIM_RS.RAWAT_INAP
                                             TUPF = groupKasum.Key.strIdMR_TUPF,
                                             IdBl_Komponen = groupKasum.Key.strIdBl_Komponen, 
                                             IdMR_TSMF = groupKasum.Key.strIdMR_TSMF, 
-                                            tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya)
+                                            tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                            LapJP = groupKasum.Key.strLapJP
                               }).OrderBy(groupKasum => groupKasum.regBilling).ToList();
 
 
@@ -400,7 +445,8 @@ namespace SIM_RS.RAWAT_INAP
                                    TUPF = groupKasum.Key.strIdMR_TUPF,
                                    IdBl_Komponen = groupKasum.Key.strIdBl_Komponen,
                                    IdMR_TSMF = groupKasum.Key.strIdMR_TSMF,
-                                   tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya)
+                                   tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                   LapJP = groupKasum.Key.strLapJP
                                }).OrderBy(groupKasum => groupKasum.regBilling).ToList();
 
 
@@ -439,17 +485,106 @@ namespace SIM_RS.RAWAT_INAP
                 if (grpTransak.Count > 0)
                 {
 
-                    foreach (var fetch in grpTransak)
+                    /*JASA PELAYANAN*/
+                    foreach (var fetchKasumJP in KasumJP)
                     {
+                        
+                        if (fetchKasumJP.LapJP.Substring(1, 1) == "1")
+                        {
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "1"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
+                                }
+                            }
+                        }
 
-
+                        /* 2 SAMPAI 6 */
 
                     }
 
+                    /*JASA ANASTHESI*/
+                    foreach (var fetchKasumJA in KasumJA)
+                    {
 
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetchKasumJA.regBilling;
+                        itemTransak.strNama = fetchKasumJA.Nama;
+                        itemTransak.strRuangan = fetchKasumJA.Ruangan;
+                        itemTransak.strUnit = "ANASTHESI";
+                        itemTransak.strSMF = fetchKasumJA.IdMR_TSMF;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = fetchKasumJA.tunainya;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+
+                        grpTransak.Add(itemTransak);
+
+                    } /* EOF foreach (var fetchKasumJA in KasumJA) */
+
+
+                } /* EOF if (grpTransak.Count > 0) */
+
+
+                if (grpTransak.Count > 0)
+                {
+                    var transaknya = (from x in grpTransak
+                               group x by new 
+                                    {x.strRegbilling,
+                                     x.strUnit,
+                                     x.strRuangan,
+                                     x.strNama
+                                     } into groupTransak                              
+                              select new {
+                                            regBilling = groupTransak.Key.strRegbilling, 
+                                            Nama = groupTransak.Key.strNama,
+                                            Ruangan = groupTransak.Key.strRuangan, 
+                                            Unit = groupTransak.Key.strUnit,
+                                            konsul = groupTransak.Sum(x => x.dblKonsul), 
+                                            visite = groupTransak.Sum(x => x.dblVisite), 
+                                            operasi = groupTransak.Sum(x => x.dblOperasi),
+                                            tindakan = groupTransak.Sum(x => x.dblTindakan),
+                                            diagelect = groupTransak.Sum(x => x.dblDiagelect),
+                                            pemrk = groupTransak.Sum(x => x.dblPemRK)
+                              }).ToList();
                 }
 
 
+                if (grpKelTarip.Count > 0)
+                {
+
+                    var xsatu = from x in grpKelTarip
+                                where x.strIdBl_KelTarip.Substring(1, 1) == "1"
+                                select x.strLapJP;
+                    
+                    var xdua = from x in grpKelTarip
+                               where x.strIdBl_KelTarip.Substring(1, 1) == "2"
+                               select x.strLapJP;
+
+                    var xtiga = from x in grpKelTarip
+                               where x.strIdBl_KelTarip.Substring(1, 1) == "3"
+                               select x.strLapJP;
+
+                    var xempat = from x in grpKelTarip
+                               where x.strIdBl_KelTarip.Substring(1, 1) == "4"
+                               select x.strLapJP;
+
+                    var xlima = from x in grpKelTarip
+                               where x.strIdBl_KelTarip.Substring(1, 1) == "5"
+                               select x.strLapJP;
+
+                    var xenam = from x in grpKelTarip
+                               where x.strIdBl_KelTarip.Substring(1, 1) == "6"
+                               select x.strLapJP;
+
+
+                }
 
             }
 

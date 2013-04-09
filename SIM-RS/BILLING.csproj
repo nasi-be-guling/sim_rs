@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\PUBLISH\SIM-RS\</PublishUrl>
+    <PublishUrl>publish\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -138,6 +138,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RAWAT-INAP\LAPORAN\LapKasBKP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\LAPORAN\LapKasBKP.Designer.cs">
+      <DependentUpon>LapKasBKP.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\LAPORAN\LaporanJasaPelayanan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">
+      <DependentUpon>LapKasBKP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LaporanJasaPelayanan.resx">
       <DependentUpon>LaporanJasaPelayanan.cs</DependentUpon>
