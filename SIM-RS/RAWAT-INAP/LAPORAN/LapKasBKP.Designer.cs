@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtTempatLayanan = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.txtHari = new System.Windows.Forms.TextBox();
+            this.txtNomor = new System.Windows.Forms.TextBox();
+            this.cmbKode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,6 +46,7 @@
             this.btnKeluar = new System.Windows.Forms.Button();
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.bgWork = new System.ComponentModel.BackgroundWorker();
+            this.bgWork_1 = new System.ComponentModel.BackgroundWorker();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -53,9 +54,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Controls.Add(this.txtTempatLayanan);
-            this.panel2.Controls.Add(this.comboBox2);
+            this.panel2.Controls.Add(this.txtHari);
+            this.panel2.Controls.Add(this.txtNomor);
+            this.panel2.Controls.Add(this.cmbKode);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
@@ -70,38 +71,38 @@
             this.panel2.Size = new System.Drawing.Size(794, 110);
             this.panel2.TabIndex = 116;
             // 
-            // textBox1
+            // txtHari
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(404, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(176, 27);
-            this.textBox1.TabIndex = 118;
+            this.txtHari.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtHari.BackColor = System.Drawing.Color.White;
+            this.txtHari.Location = new System.Drawing.Point(404, 41);
+            this.txtHari.Name = "txtHari";
+            this.txtHari.Size = new System.Drawing.Size(176, 27);
+            this.txtHari.TabIndex = 118;
             // 
-            // txtTempatLayanan
+            // txtNomor
             // 
-            this.txtTempatLayanan.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtTempatLayanan.BackColor = System.Drawing.Color.White;
-            this.txtTempatLayanan.Location = new System.Drawing.Point(176, 41);
-            this.txtTempatLayanan.Name = "txtTempatLayanan";
-            this.txtTempatLayanan.Size = new System.Drawing.Size(176, 27);
-            this.txtTempatLayanan.TabIndex = 117;
+            this.txtNomor.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtNomor.BackColor = System.Drawing.Color.White;
+            this.txtNomor.Location = new System.Drawing.Point(176, 41);
+            this.txtNomor.Name = "txtNomor";
+            this.txtNomor.Size = new System.Drawing.Size(176, 27);
+            this.txtNomor.TabIndex = 117;
             // 
-            // comboBox2
+            // cmbKode
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cmbKode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbKode.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbKode.FormattingEnabled = true;
+            this.cmbKode.Items.AddRange(new object[] {
             "KELOMPOK TARIP",
             "UNIT KERJA",
             "REKENING"});
-            this.comboBox2.Location = new System.Drawing.Point(176, 75);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(176, 28);
-            this.comboBox2.TabIndex = 106;
+            this.cmbKode.Location = new System.Drawing.Point(176, 75);
+            this.cmbKode.Name = "cmbKode";
+            this.cmbKode.Size = new System.Drawing.Size(176, 28);
+            this.cmbKode.TabIndex = 106;
             // 
             // label6
             // 
@@ -253,6 +254,10 @@
             // 
             this.bgWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_DoWork);
             // 
+            // bgWork_1
+            // 
+            this.bgWork_1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_1_DoWork);
+            // 
             // LapKasBKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -286,14 +291,15 @@
         private System.Windows.Forms.Button btnCari;
         private System.Windows.Forms.DateTimePicker dtpFilterTgl1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbKode;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox txtTempatLayanan;
+        private System.Windows.Forms.TextBox txtHari;
+        private System.Windows.Forms.TextBox txtNomor;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView lvDaftarTindakan;
         private System.Windows.Forms.Button btnKeluar;
         private System.Windows.Forms.Label lblInfoPencarian;
         private System.ComponentModel.BackgroundWorker bgWork;
+        private System.ComponentModel.BackgroundWorker bgWork_1;
     }
 }

@@ -136,6 +136,21 @@ namespace SIM_RS.RAWAT_INAP
         List<lstNOREK> grpNorek = new List<lstNOREK>();
 
 
+        public class lstTransak
+        {
+            public string strUraian { get; set; }
+            public double dblJSum { get; set; }
+            public double dblJPum { get; set; }
+            public double dblJaum { get; set; }
+            public double dblJSAsk { get; set; }
+            public double dblJPAsk { get; set; }
+            public double dblJAAsk { get; set; }
+            public double dblJSPav { get; set; }
+            public double dblJPPav { get; set; }
+            public double dblJAPav { get; set; }
+        }
+        List<lstTransak> grpTransak = new List<lstTransak>();
+
         public LapKasBKP()
         {
             InitializeComponent();
@@ -566,6 +581,104 @@ namespace SIM_RS.RAWAT_INAP
             conn.Close();
 
 
+        }
+        
+
+        private void bgWork_1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            string strKode = "";
+            string strNomor = "";
+            string strHari = "";
+
+            cmbKode.SafeControlInvoke(ComboBox => strKode =  cmbKode.Text);
+            txtNomor.SafeControlInvoke(TextBox => strNomor = txtNomor.Text);
+            txtHari.SafeControlInvoke(TextBox => strHari = txtHari.Text);
+
+            if (strKode != "")                
+            {
+
+                string strJudulNo = "NOMOR : " + strNomor+"/RET/RSU";
+                string strJudulHr = "HARI  : " + strHari;
+
+                if (strKode == "KELOMPOK TARIP")
+                {
+
+                    if (grpKelTarip.Count > 0)
+                    {
+
+                        foreach (var fetch in grpKelTarip)
+                        {
+
+                            lstTransak itemTransak = new lstTransak();
+                            itemTransak.strUraian = fetch.strIdBl_KelTarip;
+                            itemTransak.dblJSum = 0;
+                            itemTransak.dblJPum = 0;
+                            itemTransak.dblJaum = 0;
+                            itemTransak.dblJSAsk = 0;
+                            itemTransak.dblJPAsk = 0;
+                            itemTransak.dblJAAsk = 0;
+                            itemTransak.dblJSPav = 0;
+                            itemTransak.dblJPPav = 0;
+                            itemTransak.dblJAPav = 0;
+                        }                    
+                    }
+
+                    /* UMUM */
+                    if (grpKasum.Count > 0)
+                    {
+                        var Kasumum = (from x in grpKasum
+                                       group x by new 
+                                       { 
+                                           x.strIdBl_KelTarip, 
+                                           x.strIdBl_Komponen,
+                                           x.intLapUrut
+                                       } into groupKasum
+                                       select new 
+                                       { 
+                                           KelTarip = groupKasum.Key.strIdBl_KelTarip,
+                                           Komponen = groupKasum.Key.strIdBl_Komponen,
+                                           LapUrut = groupKasum.Key.intLapUrut,
+                                           Tunainya = groupKasum.Sum(x => x.dblTunainya)
+                                       }).ToList();
+
+                        int intUrutan = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            foreach (var fetchKasUmum in Kasumum)
+                            {
+                                if (fetchTransak.strUraian == fetchKasUmum.KelTarip)
+                                {
+                                    if (fetchKasUmum.LapUrut == 1)
+                                        grpTransak[intUrutan].dblJSum= fetchKasUmum.Tunainya;
+                                    else if (fetchKasUmum.LapUrut == 2)
+                                        grpTransak[intUrutan].dblJPum = fetchKasUmum.Tunainya;
+                                    else if (fetchKasUmum.LapUrut == 3)
+                                        grpTransak[intUrutan].dblJaum = fetchKasUmum.Tunainya;
+                                }
+                            }
+                            intUrutan++;
+                        }
+                    }
+
+
+                    if (grpKasAskes.Count > 0)
+                    {
+
+
+
+                    }
+
+
+                }
+                else if (strKode == "")
+                {
+
+                }
+
+
+
+            }
         }
 
        
