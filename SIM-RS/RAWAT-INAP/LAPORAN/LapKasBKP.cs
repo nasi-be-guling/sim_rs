@@ -258,16 +258,16 @@ namespace SIM_RS.RAWAT_INAP
                                     "ON BL_TRANSAKSI_1.idbl_pembayaran = BL_KASUMUM.Idbl_Pembayaran "+
                                     "AND BL_TRANSAKSI_1.idmr_mutasipasien = BL_KASUMUM.idmr_mutasipasien " +
                                "INNER JOIN BL_KOMPONEN "+
-                                    "ON BL_TRANSAKSIDETAIL_1.idbl_komponen = BL_KOMPONEN.idbl_komponen" +
+                                    "ON BL_TRANSAKSIDETAIL_1.idbl_komponen = BL_KOMPONEN.idbl_komponen " +
                                "WHERE "+
                                     "BL_KASUMUM.Batal = '' "+
-                                    "AND BL_TRANSAKSI_1.batal = ''" +
+                                    "AND BL_TRANSAKSI_1.batal = '' " +
                                     "AND BL_KASUMUM.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
                                         "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
                                     "AND BL_TRANSAKSI_1.idmr_tsmf <> 'DARAH' "+
-                                    "AND BL_TRANSAKSI_1.idmr_tsmf <> 'PENDORONG'" +
+                                    "AND BL_TRANSAKSI_1.idmr_tsmf <> 'PENDORONG' " +
                                     "AND BL_TRANSAKSI_1.idmr_tsmf <> 'DEPO FARMASI' " +
-                                    "AND BL_TRANSAKSI_1.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
+                                    "AND BL_TRANSAKSI_1.idmr_tsmf <> 'OBAT/ALKES-KPRI' " +
                                     "AND BL_TARIP.pisahsetor = ''";
 
             reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
@@ -328,8 +328,8 @@ namespace SIM_RS.RAWAT_INAP
                 {
 
                     lstKasAskes itemKasAskes = new lstKasAskes();
-                    itemKasAskes.strIdMR_Status = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemKasAskes.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    itemKasAskes.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 0, ref strErr, ""));
+                    itemKasAskes.strIdMR_Status = modMain.pbstrgetCol(reader, 1, ref strErr, "");                    
                     grpKasAskes.Add(itemKasAskes);
 
                 }
@@ -405,7 +405,7 @@ namespace SIM_RS.RAWAT_INAP
                                     "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
                                     "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
                                "INNER JOIN BL_KOMPONEN "+
-                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen "+
                                "INNER JOIN MR_SJASKES "+
                                     "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
                                "WHERE BL_KASASKES.Batal = '' "+
@@ -474,12 +474,12 @@ namespace SIM_RS.RAWAT_INAP
                                     "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
                                     "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
                                "INNER JOIN BL_KOMPONEN "+
-                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                                    "ON BL_TRANSAKSIDETAIL.idbl_komponen = BL_KOMPONEN.idbl_komponen "+
                                "INNER JOIN MR_SJASKES "+
                                     "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
                                "WHERE BL_KASASKES.Batal = '' "+
                                     "AND BL_TRANSAKSI.batal = '' "+
-                                    "AND MR_SJASKES.Batal = ''"+
+                                    "AND MR_SJASKES.Batal = '' "+
                                     "AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' "+
                                     "AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG' "+
                                     "AND BL_TRANSAKSI.idmr_tsmf <> 'DEPO FARMASI' "+
@@ -538,7 +538,7 @@ namespace SIM_RS.RAWAT_INAP
                             "INNER JOIN BL_KASLAIN "+
                                     "ON BL_TRANSLAIN.idbl_kaslain = BL_KASLAIN.Idbl_kaslain "+
                             "INNER JOIN BL_KOMPONEN "+
-                                    "ON BL_TRANSLAINDET.idbl_komponen = BL_KOMPONEN.idbl_komponen"+
+                                    "ON BL_TRANSLAINDET.idbl_komponen = BL_KOMPONEN.idbl_komponen "+
                             "WHERE BL_KASLAIN.Batal = '' "+
                                     "AND BL_TRANSLAIN.Batal = '' "+
                                     "AND BL_KASLAIN.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
@@ -580,6 +580,8 @@ namespace SIM_RS.RAWAT_INAP
 
             conn.Close();
 
+
+            MessageBox.Show("OK");
 
         }
         
@@ -661,7 +663,7 @@ namespace SIM_RS.RAWAT_INAP
                         }
                     }
 
-
+                    /* gak setor bu netty */
                     if (grpKasAskes.Count > 0)
                     {
                         var Kasaskes = (from x in grpKasAskes select x.dblTunai).Sum();
@@ -678,7 +680,7 @@ namespace SIM_RS.RAWAT_INAP
                                     grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + AdmAskes;
                                 intUrut++;
                             }
-                        }
+                        } 
                         else
                         {
                             int intUrut = 0;
@@ -690,7 +692,7 @@ namespace SIM_RS.RAWAT_INAP
                                 intUrut++;
                             }
                         } /* EOF if (grpAdmAkses.Count > 0) */
-                    }
+                    } /* EOF if (grpKasAskes.Count > 0) */
                     else
                     {
                         int intUrut = 0;
@@ -704,14 +706,699 @@ namespace SIM_RS.RAWAT_INAP
                     } /* EOF  if (grpKasAskes.Count > 0) */
 
 
+                    /* ASKES GAKIN */
+                    if (grpKasAskin.Count > 0)
+                    {
+
+                        var Gakin = from x in grpKasAskin
+                                    group x by new
+                                    {
+                                        x.strIdBl_KelTarip,
+                                        x.strIdBl_Komponen,
+                                        x.intLapUrut
+                                    }
+                                        into groupKasAskin
+                                        select new
+                                        {
+                                            KelTarip = groupKasAskin.Key.strIdBl_KelTarip,
+                                            Komponen = groupKasAskin.Key.strIdBl_Komponen,
+                                            Lapurut = groupKasAskin.Key.intLapUrut,
+                                            Tunainya = groupKasAskin.Sum(x => x.dblTunainya)
+                                        };
+
+                        int intNoUrut = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            foreach (var fetchGakin in Gakin)
+                            {
+                                if (fetchTransak.strUraian == fetchGakin.KelTarip)
+                                {
+                                    if (fetchGakin.Lapurut == 1)
+                                        grpTransak[intNoUrut].dblJSum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
+                                    else if(fetchGakin.Lapurut == 2)
+                                        grpTransak[intNoUrut].dblJPum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
+                                    else if (fetchGakin.Lapurut == 3)
+                                        grpTransak[intNoUrut].dblJaum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
+                                }
+
+                            }
+
+                            intNoUrut++;
+                        }
+                    } /* if (grpKasAskin.Count > 0) */
+
+
+                    /* ASKES JAMKESMAS */
+                    if (grpKasJamkesmas.Count > 0)
+                    {
+
+                        var KASJKM = from x in grpKasJamkesmas
+                                     group x by new 
+                                     { 
+                                         x.strIdBl_KelTarip, 
+                                         x.strIdBl_Komponen, 
+                                         x.intLapUrut 
+                                     } 
+                                     into groupKasJamkesmas
+                                     select new
+                                     {
+                                         KelTarip = groupKasJamkesmas.Key.strIdBl_KelTarip,
+                                         Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
+                                         Lapurut = groupKasJamkesmas.Key.intLapUrut,
+                                         Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
+                                     };
+
+                        int intUrut = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            foreach (var fetchKASJKM in KASJKM)
+                            {
+                                if (fetchTransak.strUraian == fetchKASJKM.KelTarip)
+                                {
+                                    if (fetchKASJKM.Lapurut == 1)
+                                        grpTransak[intUrut].dblJSum = grpTransak[intUrut].dblJSum + fetchKASJKM.Tunainya;
+                                    else if (fetchKASJKM.Lapurut == 2)
+                                        grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + fetchKASJKM.Tunainya;
+                                    else if (fetchKASJKM.Lapurut == 3)
+                                        grpTransak[intUrut].dblJaum = grpTransak[intUrut].dblJaum + fetchKASJKM.Tunainya;
+                                }
+                            }
+
+                            intUrut++;
+                        }
+
+                    } /* EOF if (grpKasJamkesmas.Count > 0) */
+
+                    /* ASKES JAMKESDA */
+                    if (grpKasJamkesda.Count > 0)
+                    {
+                        var KASJKD = from x in grpKasJamkesda
+                                     group x by new  
+                                     { 
+                                         x.strIdBl_KelTarip,
+                                         x.strIdBl_Komponen,
+                                         x.intLapUrut 
+                                     } 
+                                     into groupKasJamkesda
+                                     select new 
+                                     { 
+                                         KelTarip = groupKasJamkesda.Key.strIdBl_KelTarip, 
+                                         Komponen = groupKasJamkesda.Key.strIdBl_Komponen, 
+                                         LapUrut = groupKasJamkesda.Key.intLapUrut, 
+                                         Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
+                                     };
+
+                        int intUrut = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            foreach (var fetchKASJKD in KASJKD)
+                            {
+                                if (fetchTransak.strUraian == fetchKASJKD.KelTarip)
+                                {
+                                    if (fetchKASJKD.LapUrut == 1)
+                                        grpTransak[intUrut].dblJSum = grpTransak[intUrut].dblJSum + fetchKASJKD.Tunainya;
+                                    else if (fetchKASJKD.LapUrut == 2)
+                                        grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + fetchKASJKD.Tunainya;
+                                    else if (fetchKASJKD.LapUrut == 3)
+                                        grpTransak[intUrut].dblJaum = grpTransak[intUrut].dblJaum + fetchKASJKD.Tunainya;
+                                }
+                            }
+
+                            intUrut++;
+                        }
+
+                    } /* EOF if (grpKasJamkesda.Count > 0) */
+
+                    /* KAS LAIN */
+                    if (grpKasLain.Count > 0)
+                    {
+                        var KASLAIN = from x in grpKasLain
+                                     group x by new
+                                     {
+                                         x.strIdBl_KelTarip,
+                                         x.strIdBl_Komponen,
+                                         x.intLapUrut
+                                     }
+                                         into groupKasLain
+                                         select new
+                                         {
+                                             KelTarip = groupKasLain.Key.strIdBl_KelTarip,
+                                             Komponen = groupKasLain.Key.strIdBl_Komponen,
+                                             LapUrut = groupKasLain.Key.intLapUrut,
+                                             Tunainya = groupKasLain.Sum(x => x.dblTunainya)
+                                         };
+
+                        int intUrut = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            foreach (var fetchKasLain in KASLAIN)
+                            {
+                                if (fetchTransak.strUraian == fetchKasLain.KelTarip)
+                                {
+                                    if (fetchKasLain.LapUrut == 1)
+                                        grpTransak[intUrut].dblJSum = grpTransak[intUrut].dblJSum + fetchKasLain.Tunainya;
+                                    else if (fetchKasLain.LapUrut == 2)
+                                        grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + fetchKasLain.Tunainya;
+                                    else if (fetchKasLain.LapUrut == 3)
+                                        grpTransak[intUrut].dblJaum = grpTransak[intUrut].dblJaum + fetchKasLain.Tunainya;
+                                }
+                            }
+
+                            intUrut++;
+                        }
+
+
+                    } /* EOF if (grpKasLain.Count > 0) */
+
+
                 }
-                else if (strKode == "")
+                else if (strKode == "UNIT KERJA")
                 {
 
-                }
+                    var SMFUm = (from x in grpKasum select x.strIdMR_TSMF).Distinct();
+                    var SMFKin = (from x in grpKasAskin select x.strIdMR_TSMF).Distinct();
+                    var SMFJKM = (from x in grpKasJamkesmas select x.strIdMR_TSMF).Distinct();
+                    var SMFJKD = (from x in grpKasJamkesda select x.strIdMR_TSMF).Distinct();
+                    var SMFLain = (from x in grpKasLain select x.strIdMR_TSMF).Distinct();
+
+                    if (SMFUm.Count() > 0)
+                    {
+                        foreach (var fetchSMFUm in SMFUm)
+                        {
+                            lstTransak itemTransak = new lstTransak();
+                            itemTransak.strUraian = fetchSMFUm;
+                            itemTransak.dblJSum = 0;
+                            itemTransak.dblJPum = 0;
+                            itemTransak.dblJaum = 0;
+                            itemTransak.dblJSAsk = 0;
+                            itemTransak.dblJPAsk = 0;
+                            itemTransak.dblJAAsk = 0;
+                            itemTransak.dblJSPav = 0;
+                            itemTransak.dblJPPav = 0;
+                            itemTransak.dblJAPav = 0;
+                            grpTransak.Add(itemTransak);
+                        }
+                    }
+
+
+                    /* ASKES GAKIN*/
+                    if (grpTransak.Count > 0)
+                    {
+                        if (SMFKin.Count() > 0)
+                        {
+                            foreach (var fetchSMFKin in SMFKin)
+                            {
+                                foreach (var fetchTransak in grpTransak)
+                                {
+                                    if (fetchSMFKin == fetchTransak.strUraian)
+                                    {
+                                        lstTransak itemTransak = new lstTransak();
+                                        itemTransak.strUraian = fetchSMFKin;
+                                        itemTransak.dblJSum = 0;
+                                        itemTransak.dblJPum = 0;
+                                        itemTransak.dblJaum = 0;
+                                        itemTransak.dblJSAsk = 0;
+                                        itemTransak.dblJPAsk = 0;
+                                        itemTransak.dblJAAsk = 0;
+                                        itemTransak.dblJSPav = 0;
+                                        itemTransak.dblJPPav = 0;
+                                        itemTransak.dblJAPav = 0;
+                                        grpTransak.Add(itemTransak);
+                                    }
+                                }
+                            }
+                        } /* EOF if (SMFKin.Count() > 0) */
+                    } /* EOF if (grpTransak.Count > 0) */
+                    else
+                    {
+                        if (SMFKin.Count() > 0)
+                        {
+                            foreach (var fetchSMFKin in SMFKin)
+                            {
+                                lstTransak itemTransak = new lstTransak();
+                                itemTransak.strUraian = fetchSMFKin;
+                                itemTransak.dblJSum = 0;
+                                itemTransak.dblJPum = 0;
+                                itemTransak.dblJaum = 0;
+                                itemTransak.dblJSAsk = 0;
+                                itemTransak.dblJPAsk = 0;
+                                itemTransak.dblJAAsk = 0;
+                                itemTransak.dblJSPav = 0;
+                                itemTransak.dblJPPav = 0;
+                                itemTransak.dblJAPav = 0;
+                                grpTransak.Add(itemTransak);
+                            }
+                        }
+                    }/* EOF ELSE if (grpTransak.Count > 0) */
+                    /* EOF ASKES GAKIN*/
+
+
+                    /* ASKES JAMKESMAS*/
+                    if (grpTransak.Count > 0)
+                    {
+                        if (SMFJKM.Count() > 0)
+                        {
+                            foreach (var fetchSMFJKM in SMFJKM)
+                            {
+                                foreach (var fetchTransak in grpTransak)
+                                {
+                                    if (fetchSMFJKM == fetchTransak.strUraian)
+                                    {
+                                        lstTransak itemTransak = new lstTransak();
+                                        itemTransak.strUraian = fetchSMFJKM;
+                                        itemTransak.dblJSum = 0;
+                                        itemTransak.dblJPum = 0;
+                                        itemTransak.dblJaum = 0;
+                                        itemTransak.dblJSAsk = 0;
+                                        itemTransak.dblJPAsk = 0;
+                                        itemTransak.dblJAAsk = 0;
+                                        itemTransak.dblJSPav = 0;
+                                        itemTransak.dblJPPav = 0;
+                                        itemTransak.dblJAPav = 0;
+                                        grpTransak.Add(itemTransak);
+                                    }
+                                }
+                            }
+                        } /* EOF if (SMFKin.Count() > 0) */
+                    } /* EOF if (grpTransak.Count > 0) */
+                    else
+                    {
+                        if (SMFJKM.Count() > 0)
+                        {
+                            foreach (var fetchSMFJKM in SMFJKM)
+                            {
+                                lstTransak itemTransak = new lstTransak();
+                                itemTransak.strUraian = fetchSMFJKM;
+                                itemTransak.dblJSum = 0;
+                                itemTransak.dblJPum = 0;
+                                itemTransak.dblJaum = 0;
+                                itemTransak.dblJSAsk = 0;
+                                itemTransak.dblJPAsk = 0;
+                                itemTransak.dblJAAsk = 0;
+                                itemTransak.dblJSPav = 0;
+                                itemTransak.dblJPPav = 0;
+                                itemTransak.dblJAPav = 0;
+                                grpTransak.Add(itemTransak);
+                            }
+                        }
+                    }/* EOF ELSE if (grpTransak.Count > 0) */
+                    
+                    /* EOF ASKES JAMKESMAS*/
+
+                    /* ASKES JAMKESDA*/
+                    if (grpTransak.Count > 0)
+                    {
+                        if (SMFJKD.Count() > 0)
+                        {
+                            foreach (var fetchSMFJKD in SMFJKD)
+                            {
+                                foreach (var fetchTransak in grpTransak)
+                                {
+                                    if (fetchSMFJKD == fetchTransak.strUraian)
+                                    {
+                                        lstTransak itemTransak = new lstTransak();
+                                        itemTransak.strUraian = fetchSMFJKD;
+                                        itemTransak.dblJSum = 0;
+                                        itemTransak.dblJPum = 0;
+                                        itemTransak.dblJaum = 0;
+                                        itemTransak.dblJSAsk = 0;
+                                        itemTransak.dblJPAsk = 0;
+                                        itemTransak.dblJAAsk = 0;
+                                        itemTransak.dblJSPav = 0;
+                                        itemTransak.dblJPPav = 0;
+                                        itemTransak.dblJAPav = 0;
+                                        grpTransak.Add(itemTransak);
+                                    }
+                                }
+                            }
+                        } /* EOF if (SMFKin.Count() > 0) */
+                    } /* EOF if (grpTransak.Count > 0) */
+                    else
+                    {
+                        if (SMFJKD.Count() > 0)
+                        {
+                            foreach (var fetchSMFJKD in SMFJKD)
+                            {
+                                lstTransak itemTransak = new lstTransak();
+                                itemTransak.strUraian = fetchSMFJKD;
+                                itemTransak.dblJSum = 0;
+                                itemTransak.dblJPum = 0;
+                                itemTransak.dblJaum = 0;
+                                itemTransak.dblJSAsk = 0;
+                                itemTransak.dblJPAsk = 0;
+                                itemTransak.dblJAAsk = 0;
+                                itemTransak.dblJSPav = 0;
+                                itemTransak.dblJPPav = 0;
+                                itemTransak.dblJAPav = 0;
+                                grpTransak.Add(itemTransak);
+                            }
+                        }
+                    }/* EOF ELSE if (grpTransak.Count > 0) */
+
+                    /* EOF ASKES JAMKESDA*/
+
+                    /* KAS LAIN*/
+                    if (grpTransak.Count > 0)
+                    {
+                        if (SMFLain.Count() > 0)
+                        {
+                            foreach (var fetchSMFLain in SMFLain)
+                            {
+                                foreach (var fetchTransak in grpTransak)
+                                {
+                                    if (fetchSMFLain == fetchTransak.strUraian)
+                                    {
+                                        lstTransak itemTransak = new lstTransak();
+                                        itemTransak.strUraian = fetchSMFLain;
+                                        itemTransak.dblJSum = 0;
+                                        itemTransak.dblJPum = 0;
+                                        itemTransak.dblJaum = 0;
+                                        itemTransak.dblJSAsk = 0;
+                                        itemTransak.dblJPAsk = 0;
+                                        itemTransak.dblJAAsk = 0;
+                                        itemTransak.dblJSPav = 0;
+                                        itemTransak.dblJPPav = 0;
+                                        itemTransak.dblJAPav = 0;
+                                        grpTransak.Add(itemTransak);
+                                    }
+                                }
+                            }
+                        } /* EOF if (SMFKin.Count() > 0) */
+                    } /* EOF if (grpTransak.Count > 0) */
+                    else
+                    {
+                        if (SMFLain.Count() > 0)
+                        {
+                            foreach (var fetchSMFLain in SMFLain)
+                            {
+                                lstTransak itemTransak = new lstTransak();
+                                itemTransak.strUraian = fetchSMFLain;
+                                itemTransak.dblJSum = 0;
+                                itemTransak.dblJPum = 0;
+                                itemTransak.dblJaum = 0;
+                                itemTransak.dblJSAsk = 0;
+                                itemTransak.dblJPAsk = 0;
+                                itemTransak.dblJAAsk = 0;
+                                itemTransak.dblJSPav = 0;
+                                itemTransak.dblJPPav = 0;
+                                itemTransak.dblJAPav = 0;
+                                grpTransak.Add(itemTransak);
+                            }
+                        }
+                    }/* EOF ELSE if (grpTransak.Count > 0) */
+
+                    /* EOF KAS LAIN*/
 
 
 
+                   
+                    if (grpTransak.Count > 0)
+                    {
+                        /* UMUM */
+                        if (grpKasum.Count > 0)
+                        {
+                            var Kasumum = from x in grpKasum
+                                          group x by new 
+                                          { 
+                                              x.strIdMR_TSMF, 
+                                              x.strIdBl_Komponen, 
+                                              x.intLapUrut 
+                                          } into groupKasum
+                                          select new
+                                          {
+                                              TSMF = groupKasum.Key.strIdMR_TSMF,
+                                              Komponen = groupKasum.Key.strIdBl_Komponen,
+                                              LapUrut = groupKasum.Key.intLapUrut,
+                                              Tunainya = groupKasum.Sum(x => x.dblTunainya)
+                                          };
+
+
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                foreach (var fetchKasUmum in Kasumum)
+                                {
+                                    if (fetchTransak.strUraian == fetchKasUmum.TSMF)
+                                    {
+                                        if (fetchKasUmum.LapUrut == 1)
+                                            grpTransak[intUrut].dblJSum = fetchKasUmum.Tunainya;
+                                        else if (fetchKasUmum.LapUrut == 2)
+                                            grpTransak[intUrut].dblJPum = fetchKasUmum.Tunainya;
+                                        else if (fetchKasUmum.LapUrut == 3)
+                                            grpTransak[intUrut].dblJaum = fetchKasUmum.Tunainya;
+                                    }
+                                }
+                                intUrut++;
+                            }
+                        } /* EOF if (grpKasum.Count > 0) */
+                        /* EOF UMUM */
+
+
+                        /* KASASK */
+
+                        if (grpKasAskes.Count > 0)
+                        {
+                            var Kasaskes = (from x in grpKasAskes
+                                            select x.dblTunai).Sum();
+
+                            if (Kasaskes > 0)
+                            {
+                                var Admaskes = (from x in grpAdmAkses
+                                                select x.dblJumlah).Sum();
+                                if (Admaskes > 0)
+                                {
+                                    int intUrut = 0;
+                                    foreach (var fetchTransak in grpTransak)
+                                    {
+                                        if (fetchTransak.strUraian == "ASKES")
+                                        {
+                                            grpTransak[intUrut].dblJSum = Kasaskes - Admaskes;
+                                        }
+
+                                        if (fetchTransak.strUraian == "ADMINISTRASI")
+                                        {
+                                            grpTransak[intUrut].dblJPum = Kasaskes + Admaskes;
+                                        }
+                                        intUrut++;
+                                    }
+                                } /* EOF if (Admaskes > 0) */
+                                else
+                                {
+                                    int intUrut = 0;
+                                    foreach (var fetchTransak in grpTransak)
+                                    {
+                                        if (fetchTransak.strUraian == "ASKES")
+                                        {
+                                            grpTransak[intUrut].dblJSum = Kasaskes;
+                                        }
+                                        intUrut++;
+                                    }
+                                } /* EOF ELSE if (Admaskes > 0) */
+
+                            } /* EOF if (Kasaskes > 0) */
+                            else
+                            {
+                                int intUrut = 0;
+                                foreach (var fetchTransak in grpTransak)
+                                {
+                                    if (fetchTransak.strUraian == "ASKES")
+                                    {
+                                        grpTransak[intUrut].dblJSum = 0;
+                                    }
+                                    intUrut++;
+                                }
+                            } /* EOF ELSE if (Kasaskes > 0) */
+                        }
+                        /* EOF KASASK */
+
+
+                        /* ASKES GAKIN */
+                        if (grpKasAskin.Count > 0)
+                        {
+                            var Kasaskin = from x in grpKasAskin
+                                          group x by new
+                                          {
+                                              x.strIdMR_TSMF,
+                                              x.strIdBl_Komponen,
+                                              x.intLapUrut
+                                          } into groupKasaskin
+                                          select new
+                                          {
+                                              TSMF = groupKasaskin.Key.strIdMR_TSMF,
+                                              Komponen = groupKasaskin.Key.strIdBl_Komponen,
+                                              LapUrut = groupKasaskin.Key.intLapUrut,
+                                              Tunainya = groupKasaskin.Sum(x => x.dblTunainya)
+                                          };
+
+
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                foreach (var fetchKasaskin in Kasaskin)
+                                {
+                                    if (fetchTransak.strUraian == fetchKasaskin.TSMF)
+                                    {
+                                        if (fetchKasaskin.LapUrut == 1)
+                                            grpTransak[intUrut].dblJSum = fetchKasaskin.Tunainya;
+                                        else if (fetchKasaskin.LapUrut == 2)
+                                            grpTransak[intUrut].dblJPum = fetchKasaskin.Tunainya;
+                                        else if (fetchKasaskin.LapUrut == 3)
+                                            grpTransak[intUrut].dblJaum = fetchKasaskin.Tunainya;
+                                    }
+                                }
+                                intUrut++;
+                            }
+                        } /* EOF if (grpKasAskin.Count > 0) */
+                        /* ASKES GAKIN */
+
+
+
+
+                        /* ASKES JAMKESMAS */
+                        if (grpKasJamkesmas.Count > 0)
+                        {
+                            var KasJamkesmas = from x in grpKasJamkesmas
+                                           group x by new
+                                           {
+                                               x.strIdMR_TSMF,
+                                               x.strIdBl_Komponen,
+                                               x.intLapUrut
+                                           } into groupKasJamkesmas
+                                           select new
+                                           {
+                                               TSMF = groupKasJamkesmas.Key.strIdMR_TSMF,
+                                               Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
+                                               LapUrut = groupKasJamkesmas.Key.intLapUrut,
+                                               Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
+                                           };
+
+
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                foreach (var fetchKasJamkesmas in KasJamkesmas)
+                                {
+                                    if (fetchTransak.strUraian == fetchKasJamkesmas.TSMF)
+                                    {
+                                        if (fetchKasJamkesmas.LapUrut == 1)
+                                            grpTransak[intUrut].dblJSum = fetchKasJamkesmas.Tunainya;
+                                        else if (fetchKasJamkesmas.LapUrut == 2)
+                                            grpTransak[intUrut].dblJPum = fetchKasJamkesmas.Tunainya;
+                                        else if (fetchKasJamkesmas.LapUrut == 3)
+                                            grpTransak[intUrut].dblJaum = fetchKasJamkesmas.Tunainya;
+                                    }
+                                }
+                                intUrut++;
+                            }
+                        } /* EOF if (grpKasJamkesmas.Count > 0) */
+                        /* EOF ASKES JAMKESMAS */
+
+
+                        /* ASKES JAMKESDA */
+                        if (grpKasJamkesda.Count > 0)
+                        {
+                            var KasJamkesda = from x in grpKasJamkesda
+                                               group x by new
+                                               {
+                                                   x.strIdMR_TSMF,
+                                                   x.strIdBl_Komponen,
+                                                   x.intLapUrut
+                                               } into groupKasJamkesda
+                                               select new
+                                               {
+                                                   TSMF = groupKasJamkesda.Key.strIdMR_TSMF,
+                                                   Komponen = groupKasJamkesda.Key.strIdBl_Komponen,
+                                                   LapUrut = groupKasJamkesda.Key.intLapUrut,
+                                                   Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
+                                               };
+
+
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                foreach (var fetchKasJamkesda in KasJamkesda)
+                                {
+                                    if (fetchTransak.strUraian == fetchKasJamkesda.TSMF)
+                                    {
+                                        if (fetchKasJamkesda.LapUrut == 1)
+                                            grpTransak[intUrut].dblJSum = fetchKasJamkesda.Tunainya;
+                                        else if (fetchKasJamkesda.LapUrut == 2)
+                                            grpTransak[intUrut].dblJPum = fetchKasJamkesda.Tunainya;
+                                        else if (fetchKasJamkesda.LapUrut == 3)
+                                            grpTransak[intUrut].dblJaum = fetchKasJamkesda.Tunainya;
+                                    }
+                                }
+                                intUrut++;
+                            }
+                        } /* EOF if (grpKasJamkesda.Count > 0) */
+                        /* EOF ASKES JAMKESDA */
+
+
+                        /* KAS LAIN*/
+                        if (grpKasLain.Count > 0)
+                        {
+                            var KasLain = from x in grpKasLain
+                                              group x by new
+                                              {
+                                                  x.strIdMR_TSMF,
+                                                  x.strIdBl_Komponen,
+                                                  x.intLapUrut
+                                              } into groupKasLain
+                                              select new
+                                              {
+                                                  TSMF = groupKasLain.Key.strIdMR_TSMF,
+                                                  Komponen = groupKasLain.Key.strIdBl_Komponen,
+                                                  LapUrut = groupKasLain.Key.intLapUrut,
+                                                  Tunainya = groupKasLain.Sum(x => x.dblTunainya)
+                                              };
+
+
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                foreach (var fetchKasLain in KasLain)
+                                {
+                                    if (fetchTransak.strUraian == fetchKasLain.TSMF)
+                                    {
+                                        if (fetchKasLain.LapUrut == 1)
+                                            grpTransak[intUrut].dblJSum = fetchKasLain.Tunainya;
+                                        else if (fetchKasLain.LapUrut == 2)
+                                            grpTransak[intUrut].dblJPum = fetchKasLain.Tunainya;
+                                        else if (fetchKasLain.LapUrut == 3)
+                                            grpTransak[intUrut].dblJaum = fetchKasLain.Tunainya;
+                                    }
+                                }
+                                intUrut++;
+                            }
+                        } /* EOF if (grpKasLain.Count > 0) */
+                        /* EOF KAS LAIN */
+
+
+                        /* PERLU DI SORTING SESUAI URIAN PADA TRANSAK*/
+
+
+                    } /* EOF if (grpTransak.Count > 0) */
+
+                    
+
+                    
+
+
+                } /* EOF if (strKode == "BLABLABLA") */
+
+
+
+               
+
+
+            }
+        }
+
+        private void dtpFilterTgl2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                bgWork.RunWorkerAsync();
             }
         }
 

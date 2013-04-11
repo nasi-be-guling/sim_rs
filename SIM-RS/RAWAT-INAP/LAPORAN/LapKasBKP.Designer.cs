@@ -97,8 +97,7 @@
             this.cmbKode.FormattingEnabled = true;
             this.cmbKode.Items.AddRange(new object[] {
             "KELOMPOK TARIP",
-            "UNIT KERJA",
-            "REKENING"});
+            "UNIT KERJA"});
             this.cmbKode.Location = new System.Drawing.Point(176, 75);
             this.cmbKode.Name = "cmbKode";
             this.cmbKode.Size = new System.Drawing.Size(176, 28);
@@ -157,6 +156,7 @@
             this.dtpFilterTgl2.Name = "dtpFilterTgl2";
             this.dtpFilterTgl2.Size = new System.Drawing.Size(186, 27);
             this.dtpFilterTgl2.TabIndex = 98;
+            this.dtpFilterTgl2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpFilterTgl2_KeyPress);
             // 
             // btnCari
             // 
