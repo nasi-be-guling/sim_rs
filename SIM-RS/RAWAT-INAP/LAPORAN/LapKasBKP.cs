@@ -664,10 +664,44 @@ namespace SIM_RS.RAWAT_INAP
 
                     if (grpKasAskes.Count > 0)
                     {
+                        var Kasaskes = (from x in grpKasAskes select x.dblTunai).Sum();
+                        if (grpAdmAkses.Count > 0)
+                        {
+                            var AdmAskes = (from x in grpAdmAkses select x.dblJumlah).Sum();
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strUraian == "IUR BEA ASKES")
+                                    grpTransak[intUrut].dblJSum = Kasaskes - AdmAskes;
 
+                                if (fetchTransak.strUraian == "JASA ADMINISTRASI")
+                                    grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + AdmAskes;
+                                intUrut++;
+                            }
+                        }
+                        else
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strUraian == "IUR BEA ASKES")
+                                    grpTransak[intUrut].dblJSum = Kasaskes;
 
-
+                                intUrut++;
+                            }
+                        } /* EOF if (grpAdmAkses.Count > 0) */
                     }
+                    else
+                    {
+                        int intUrut = 0;
+                        foreach (var fetchTransak in grpTransak)
+                        {
+                            if (fetchTransak.strUraian == "IUR BEA ASKES")
+                                grpTransak[intUrut].dblJSum = 0;
+
+                            intUrut++;
+                        }
+                    } /* EOF  if (grpKasAskes.Count > 0) */
 
 
                 }
