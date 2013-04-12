@@ -285,36 +285,36 @@ namespace SIM_RS.RAWAT_INAP
 
 
             /* QUERY KASUM */
-            this.strQuerySQL = "SELECT "+
-                                    "BL_TRANSAKSI_1.Regbilling, "+                                              //0
-                                    "MR_PASIEN.Nama, "+                                                         //1
-                                    "MR_TRUANGAN.ruangan, " +                                                   //2
-                                    "BL_TRANSAKSI_1.Jumlah, "+                                                  //3
-                                    "BL_TRANSAKSI_1.subsidi, "+                                                 //4
-                                    "BL_TRANSAKSI_1.tunai, " +                                                  //5
-                                    "BL_TRANSAKSIDETAIL_1.Idbl_komponen, "+                                     //6
-                                    "BL_TRANSAKSIDETAIL_1.Nilai, "+                                             //7
-                                    "BL_TRANSAKSIDETAIL_1.Ringan, "+                                            //8
-                                    "BL_KELTARIP.urutan, "+                                                     //9
-                                    "BL_KELTARIP.rekapjp,"+                                                     //10
-                                    "BL_TRANSAKSIDETAIL_1.Nilai - BL_TRANSAKSIDETAIL_1.Ringan as tunainya , "+  //11
-                                    "BL_TRANSAKSIDETAIL_1.Noambil, "+                                           //12
-                                    "BL_TRANSAKSIDETAIL_1.tglambil, "+                                          //13
-                                    "BL_KELTARIP.Idbl_keltarip, "+                                              //14
-                                    "BL_KELTARIP.Lapjp, "+                                                      //15
-                                    "BL_TRANSAKSI_1.idmr_tsmf, "+                                               //16
-                                    "MR_SMFTARIP.idmr_tupf, "+                                                  //17
-                                    "BL_TRANSAKSI_1.idbl_tarip, "+                                              //18
-                                    "BL_TRANSAKSI_1.uraiantarip, "+                                             //19
-                                    "BL_TRANSAKSI_1.jml_kasus_tarip, "+                                         //20
-                                    "BL_TRANSAKSI_1.idbl_transaksi, "+                                          //21
-                                    "BL_KASUMUM.Idbl_Pembayaran, "+                                             //22
-                                    "BL_TRANSAKSI_1.Tgltransaksi, "+                                            //23
-                                    "BL_KASUMUM.Tanggal, "+                                                     //24
-                                    "BL_TARIP.Idmr_jeniskelas, "+                                               //25
-                                    "BL_TRANSAKSI_1.Idmr_truangan, "+                                           //26
-                                    "MR_DOKTER.Idmr_dokter, "+                                                  //27
-                                    "MR_DOKTER.Nama "+                                                          //28
+            this.strQuerySQL = "SELECT " +
+                                    "BL_TRANSAKSI_1.Regbilling, " +                                              //0
+                                    "MR_PASIEN.Nama, " +                                                         //1
+                                    "MR_TRUANGAN.ruangan, " +                                                    //2
+                                    "BL_TRANSAKSI_1.Jumlah, " +                                                  //3
+                                    "BL_TRANSAKSI_1.subsidi, " +                                                 //4
+                                    "BL_TRANSAKSI_1.tunai, " +                                                   //5
+                                    "BL_TRANSAKSIDETAIL_1.Idbl_komponen, " +                                     //6
+                                    "BL_TRANSAKSIDETAIL_1.Nilai, " +                                             //7
+                                    "BL_TRANSAKSIDETAIL_1.Ringan, " +                                            //8
+                                    "BL_KELTARIP.urutan, " +                                                     //9
+                                    "BL_KELTARIP.rekapjp," +                                                     //10
+                                    "BL_TRANSAKSIDETAIL_1.Nilai - BL_TRANSAKSIDETAIL_1.Ringan as tunainya , " +  //11
+                                    "BL_TRANSAKSIDETAIL_1.Noambil, " +                                           //12
+                                    "BL_TRANSAKSIDETAIL_1.tglambil, " +                                          //13
+                                    "BL_KELTARIP.Idbl_keltarip, " +                                              //14
+                                    "BL_KELTARIP.Lapjp, " +                                                      //15
+                                    "BL_TRANSAKSI_1.idmr_tsmf, " +                                               //16
+                                    "MR_SMFTARIP.idmr_tupf, " +                                                  //17
+                                    "BL_TRANSAKSI_1.idbl_tarip, " +                                              //18
+                                    "BL_TRANSAKSI_1.uraiantarip, " +                                             //19
+                                    "BL_TRANSAKSI_1.jml_kasus_tarip, " +                                         //20
+                                    "BL_TRANSAKSI_1.idbl_transaksi, " +                                          //21
+                                    "BL_KASUMUM.Idbl_Pembayaran, " +                                             //22
+                                    "BL_TRANSAKSI_1.Tgltransaksi, " +                                            //23
+                                    "BL_KASUMUM.Tanggal, " +                                                     //24
+                                    "BL_TARIP.Idmr_jeniskelas, " +                                               //25
+                                    "BL_TRANSAKSI_1.Idmr_truangan, " +                                           //26
+                                    "MR_DOKTER.Idmr_dokter, " +                                                  //27
+                                    "MR_DOKTER.Nama " +                                                          //28
                                "FROM BL_KELTARIP  With (nolock) "+
                                "INNER JOIN BL_TRANSAKSI_1 "+
                                "INNER JOIN BL_TRANSAKSIDETAIL_1 "+
@@ -405,23 +405,25 @@ namespace SIM_RS.RAWAT_INAP
                 var KasumJP = (from fetchKasum in grpLstKASUM
                               where (fetchKasum.strIdBl_Komponen == "JASA PELAYANAN" && fetchKasum.dblTunainya > 0)
                                group fetchKasum by new 
-                                    {fetchKasum.strRegBilling, 
-                                     fetchKasum.strNama, 
-                                     fetchKasum.strIdBl_Komponen, 
-                                     fetchKasum.strLapJP, 
-                                     fetchKasum.strIdMR_TUPF, 
-                                     fetchKasum.strIdMR_TSMF, 
-                                     fetchKasum.strRuangan
-                                    } into groupKasum                              
-                              select new {
-                                            regBilling = groupKasum.Key.strRegBilling, 
-                                            Nama = groupKasum.Key.strNama,
-                                            Ruangan = groupKasum.Key.strRuangan.Substring(1,10), 
-                                            TUPF = groupKasum.Key.strIdMR_TUPF,
-                                            IdBl_Komponen = groupKasum.Key.strIdBl_Komponen, 
-                                            IdMR_TSMF = groupKasum.Key.strIdMR_TSMF, 
-                                            tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya),
-                                            LapJP = groupKasum.Key.strLapJP
+                               {                                      
+                                   fetchKasum.strRegBilling, 
+                                   fetchKasum.strNama, 
+                                   fetchKasum.strIdBl_Komponen, 
+                                   fetchKasum.strLapJP, 
+                                   fetchKasum.strIdMR_TUPF, 
+                                   fetchKasum.strIdMR_TSMF, 
+                                   fetchKasum.strRuangan
+                                } into groupKasum                              
+                              select new 
+                              {
+                                    regBilling = groupKasum.Key.strRegBilling, 
+                                    Nama = groupKasum.Key.strNama,
+                                    Ruangan = groupKasum.Key.strRuangan.Substring(1,10), 
+                                    TUPF = groupKasum.Key.strIdMR_TUPF,
+                                    IdBl_Komponen = groupKasum.Key.strIdBl_Komponen, 
+                                    IdMR_TSMF = groupKasum.Key.strIdMR_TSMF, 
+                                    tunainya = groupKasum.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                    LapJP = groupKasum.Key.strLapJP
                               }).OrderBy(groupKasum => groupKasum.regBilling).ToList();
 
 
@@ -484,13 +486,13 @@ namespace SIM_RS.RAWAT_INAP
 
                 if (grpTransak.Count > 0)
                 {
-
                     /*JASA PELAYANAN*/
                     foreach (var fetchKasumJP in KasumJP)
                     {
                         
                         if (fetchKasumJP.LapJP.Substring(1, 1) == "1")
                         {
+                            int intUrut = 0;
                             foreach (var fetchTransak in grpTransak)
                             {
                                 if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
@@ -498,14 +500,16 @@ namespace SIM_RS.RAWAT_INAP
                                     && fetchTransak.strRuangan == fetchKasumJP.Ruangan
                                     && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
                                 {
-                                    fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
+                                    grpTransak[intUrut].dblKonsul = grpTransak[intUrut].dblKonsul + fetchKasumJP.tunainya;
+                                    //fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
                                 }
-                            }
-                        }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+                        } /* EOF if (fetchKasumJP.LapJP.Substring(1, 1) == "1") */
 
                         /* 2 SAMPAI 6 */
 
-                    }
+                    } /* EOF foreach (var fetchKasumJP in KasumJP) */
 
                     /*JASA ANASTHESI*/
                     foreach (var fetchKasumJA in KasumJA)
@@ -542,16 +546,16 @@ namespace SIM_RS.RAWAT_INAP
                                      x.strNama
                                      } into groupTransak                              
                               select new {
-                                            regBilling = groupTransak.Key.strRegbilling, 
-                                            Nama = groupTransak.Key.strNama,
-                                            Ruangan = groupTransak.Key.strRuangan, 
-                                            Unit = groupTransak.Key.strUnit,
-                                            konsul = groupTransak.Sum(x => x.dblKonsul), 
-                                            visite = groupTransak.Sum(x => x.dblVisite), 
-                                            operasi = groupTransak.Sum(x => x.dblOperasi),
-                                            tindakan = groupTransak.Sum(x => x.dblTindakan),
-                                            diagelect = groupTransak.Sum(x => x.dblDiagelect),
-                                            pemrk = groupTransak.Sum(x => x.dblPemRK)
+                                        regBilling = groupTransak.Key.strRegbilling, 
+                                        Nama = groupTransak.Key.strNama,
+                                        Ruangan = groupTransak.Key.strRuangan, 
+                                        Unit = groupTransak.Key.strUnit,
+                                        konsul = groupTransak.Sum(x => x.dblKonsul), 
+                                        visite = groupTransak.Sum(x => x.dblVisite), 
+                                        operasi = groupTransak.Sum(x => x.dblOperasi),
+                                        tindakan = groupTransak.Sum(x => x.dblTindakan),
+                                        diagelect = groupTransak.Sum(x => x.dblDiagelect),
+                                        pemrk = groupTransak.Sum(x => x.dblPemRK)
                               }).ToList();
                 }
 

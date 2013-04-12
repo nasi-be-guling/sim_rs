@@ -1461,11 +1461,11 @@ namespace SIM_RS.RAWAT_INAP
 
 
             /*MEMULAI FETCHING TRANSAK*/
-            FileInfo newFile = new FileInfo("X:\\FOLDER EXCEL" + @"\sample1.xlsx");
+            FileInfo newFile = new FileInfo("E:" + @"\sample1.xlsx");
             if (newFile.Exists)
             {
                 newFile.Delete();  // ensures we create a new workbook
-                newFile = new FileInfo("X:\\FOLDER EXCEL" + @"\sample1.xlsx");
+                newFile = new FileInfo("E:" + @"\sample1.xlsx");
             }
 
 
