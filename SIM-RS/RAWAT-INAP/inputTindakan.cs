@@ -360,8 +360,7 @@ namespace SIM_RS.RAWAT_INAP
             grpLstDaftarTindakan.Clear();
             grpLstDaftarKomponenTarif.Clear();
 
-            intUrutanTrans = 0;
-            
+            intUrutanTrans = 0;           
 
         }
 

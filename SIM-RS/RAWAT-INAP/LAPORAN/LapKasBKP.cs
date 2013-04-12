@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using OfficeOpenXml;
+using System.IO;
 
 namespace SIM_RS.RAWAT_INAP
 {
@@ -151,9 +153,45 @@ namespace SIM_RS.RAWAT_INAP
         }
         List<lstTransak> grpTransak = new List<lstTransak>();
 
+
+        /* OWN FUNCTION*/
+
+        private void pvCleanInput()
+        {
+            dtpFilterTgl1.Value = DateTime.Now;
+            dtpFilterTgl2.Value = DateTime.Now;
+            txtNomor.Text = "";
+            txtHari.Text = "";
+            cmbKode.SelectedIndex = -1;
+
+        }
+
+        private void pvIniSialisasiObject()
+        {
+            int intNoUrutObject = 0;
+
+            modMain.pvUrutkanTab(dtpFilterTgl1, ref intNoUrutObject,true);
+            modMain.pvUrutkanTab(dtpFilterTgl2, ref intNoUrutObject,true);
+            modMain.pvUrutkanTab(txtNomor, ref intNoUrutObject,true);
+
+            modMain.pvUrutkanTab(txtHari, ref intNoUrutObject, true);
+            modMain.pvUrutkanTab(cmbKode, ref intNoUrutObject);
+
+            modMain.pvUrutkanTab(btnCari, ref intNoUrutObject);
+            modMain.pvUrutkanTab(lvDaftarTindakan, ref intNoUrutObject,true);
+
+           
+
+        }
+
+        /* EOF OWN FUNCTION */
+
         public LapKasBKP()
         {
             InitializeComponent();
+
+            this.pvCleanInput();
+            this.pvIniSialisasiObject();
         }       
 
         private void btnKeluar_Click(object sender, EventArgs e)
@@ -163,6 +201,16 @@ namespace SIM_RS.RAWAT_INAP
 
         private void bgWork_DoWork(object sender, DoWorkEventArgs e)
         {
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Loading Database");
+            dtpFilterTgl1.SafeControlInvoke(DateTimePicker => dtpFilterTgl1.Enabled = false);
+            dtpFilterTgl2.SafeControlInvoke(DateTimePicker => dtpFilterTgl2.Enabled = false);
+            txtHari.SafeControlInvoke(TextBox => txtHari.Enabled = false);
+            txtNomor.SafeControlInvoke(TextBox => txtNomor.Enabled = false);
+            cmbKode.SafeControlInvoke(ComboBox => cmbKode.Enabled = false);
+            btnCari.SafeControlInvoke(Button => btnCari.Enabled = false);
+
+   
 
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
@@ -581,13 +629,27 @@ namespace SIM_RS.RAWAT_INAP
             conn.Close();
 
 
-            MessageBox.Show("OK");
+            //MessageBox.Show("OK");
+
+
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "");
+
+            dtpFilterTgl1.SafeControlInvoke(DateTimePicker => dtpFilterTgl1.Enabled = true);
+            dtpFilterTgl2.SafeControlInvoke(DateTimePicker => dtpFilterTgl2.Enabled = true);
+            txtHari.SafeControlInvoke(TextBox => txtHari.Enabled = true);
+            txtNomor.SafeControlInvoke(TextBox => txtNomor.Enabled = true);
+            cmbKode.SafeControlInvoke(ComboBox => cmbKode.Enabled = true);
+            btnCari.SafeControlInvoke(Button => btnCari.Enabled = true);
+            txtNomor.SafeControlInvoke(TextBox => txtNomor.Focus());
 
         }
         
 
         private void bgWork_1_DoWork(object sender, DoWorkEventArgs e)
         {
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Perhitungan Data");
 
             string strKode = "";
             string strNomor = "";
@@ -597,10 +659,10 @@ namespace SIM_RS.RAWAT_INAP
             txtNomor.SafeControlInvoke(TextBox => strNomor = txtNomor.Text);
             txtHari.SafeControlInvoke(TextBox => strHari = txtHari.Text);
 
-            if (strKode != "")                
+            if (strKode != "")
             {
 
-                string strJudulNo = "NOMOR : " + strNomor+"/RET/RSU";
+                string strJudulNo = "NOMOR : " + strNomor + "/RET/RSU";
                 string strJudulHr = "HARI  : " + strHari;
 
                 if (strKode == "KELOMPOK TARIP")
@@ -623,21 +685,22 @@ namespace SIM_RS.RAWAT_INAP
                             itemTransak.dblJSPav = 0;
                             itemTransak.dblJPPav = 0;
                             itemTransak.dblJAPav = 0;
-                        }                    
+                            grpTransak.Add(itemTransak);
+                        }
                     }
 
                     /* UMUM */
                     if (grpKasum.Count > 0)
                     {
                         var Kasumum = (from x in grpKasum
-                                       group x by new 
-                                       { 
-                                           x.strIdBl_KelTarip, 
+                                       group x by new
+                                       {
+                                           x.strIdBl_KelTarip,
                                            x.strIdBl_Komponen,
                                            x.intLapUrut
                                        } into groupKasum
-                                       select new 
-                                       { 
+                                       select new
+                                       {
                                            KelTarip = groupKasum.Key.strIdBl_KelTarip,
                                            Komponen = groupKasum.Key.strIdBl_Komponen,
                                            LapUrut = groupKasum.Key.intLapUrut,
@@ -652,7 +715,7 @@ namespace SIM_RS.RAWAT_INAP
                                 if (fetchTransak.strUraian == fetchKasUmum.KelTarip)
                                 {
                                     if (fetchKasUmum.LapUrut == 1)
-                                        grpTransak[intUrutan].dblJSum= fetchKasUmum.Tunainya;
+                                        grpTransak[intUrutan].dblJSum = fetchKasUmum.Tunainya;
                                     else if (fetchKasUmum.LapUrut == 2)
                                         grpTransak[intUrutan].dblJPum = fetchKasUmum.Tunainya;
                                     else if (fetchKasUmum.LapUrut == 3)
@@ -680,7 +743,7 @@ namespace SIM_RS.RAWAT_INAP
                                     grpTransak[intUrut].dblJPum = grpTransak[intUrut].dblJPum + AdmAskes;
                                 intUrut++;
                             }
-                        } 
+                        }
                         else
                         {
                             int intUrut = 0;
@@ -735,7 +798,7 @@ namespace SIM_RS.RAWAT_INAP
                                 {
                                     if (fetchGakin.Lapurut == 1)
                                         grpTransak[intNoUrut].dblJSum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
-                                    else if(fetchGakin.Lapurut == 2)
+                                    else if (fetchGakin.Lapurut == 2)
                                         grpTransak[intNoUrut].dblJPum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
                                     else if (fetchGakin.Lapurut == 3)
                                         grpTransak[intNoUrut].dblJaum = grpTransak[intNoUrut].dblJSum + fetchGakin.Tunainya;
@@ -753,20 +816,20 @@ namespace SIM_RS.RAWAT_INAP
                     {
 
                         var KASJKM = from x in grpKasJamkesmas
-                                     group x by new 
-                                     { 
-                                         x.strIdBl_KelTarip, 
-                                         x.strIdBl_Komponen, 
-                                         x.intLapUrut 
-                                     } 
-                                     into groupKasJamkesmas
-                                     select new
+                                     group x by new
                                      {
-                                         KelTarip = groupKasJamkesmas.Key.strIdBl_KelTarip,
-                                         Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
-                                         Lapurut = groupKasJamkesmas.Key.intLapUrut,
-                                         Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
-                                     };
+                                         x.strIdBl_KelTarip,
+                                         x.strIdBl_Komponen,
+                                         x.intLapUrut
+                                     }
+                                         into groupKasJamkesmas
+                                         select new
+                                         {
+                                             KelTarip = groupKasJamkesmas.Key.strIdBl_KelTarip,
+                                             Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
+                                             Lapurut = groupKasJamkesmas.Key.intLapUrut,
+                                             Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
+                                         };
 
                         int intUrut = 0;
                         foreach (var fetchTransak in grpTransak)
@@ -793,20 +856,20 @@ namespace SIM_RS.RAWAT_INAP
                     if (grpKasJamkesda.Count > 0)
                     {
                         var KASJKD = from x in grpKasJamkesda
-                                     group x by new  
-                                     { 
+                                     group x by new
+                                     {
                                          x.strIdBl_KelTarip,
                                          x.strIdBl_Komponen,
-                                         x.intLapUrut 
-                                     } 
-                                     into groupKasJamkesda
-                                     select new 
-                                     { 
-                                         KelTarip = groupKasJamkesda.Key.strIdBl_KelTarip, 
-                                         Komponen = groupKasJamkesda.Key.strIdBl_Komponen, 
-                                         LapUrut = groupKasJamkesda.Key.intLapUrut, 
-                                         Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
-                                     };
+                                         x.intLapUrut
+                                     }
+                                         into groupKasJamkesda
+                                         select new
+                                         {
+                                             KelTarip = groupKasJamkesda.Key.strIdBl_KelTarip,
+                                             Komponen = groupKasJamkesda.Key.strIdBl_Komponen,
+                                             LapUrut = groupKasJamkesda.Key.intLapUrut,
+                                             Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
+                                         };
 
                         int intUrut = 0;
                         foreach (var fetchTransak in grpTransak)
@@ -833,20 +896,20 @@ namespace SIM_RS.RAWAT_INAP
                     if (grpKasLain.Count > 0)
                     {
                         var KASLAIN = from x in grpKasLain
-                                     group x by new
-                                     {
-                                         x.strIdBl_KelTarip,
-                                         x.strIdBl_Komponen,
-                                         x.intLapUrut
-                                     }
-                                         into groupKasLain
-                                         select new
-                                         {
-                                             KelTarip = groupKasLain.Key.strIdBl_KelTarip,
-                                             Komponen = groupKasLain.Key.strIdBl_Komponen,
-                                             LapUrut = groupKasLain.Key.intLapUrut,
-                                             Tunainya = groupKasLain.Sum(x => x.dblTunainya)
-                                         };
+                                      group x by new
+                                      {
+                                          x.strIdBl_KelTarip,
+                                          x.strIdBl_Komponen,
+                                          x.intLapUrut
+                                      }
+                                          into groupKasLain
+                                          select new
+                                          {
+                                              KelTarip = groupKasLain.Key.strIdBl_KelTarip,
+                                              Komponen = groupKasLain.Key.strIdBl_Komponen,
+                                              LapUrut = groupKasLain.Key.intLapUrut,
+                                              Tunainya = groupKasLain.Sum(x => x.dblTunainya)
+                                          };
 
                         int intUrut = 0;
                         foreach (var fetchTransak in grpTransak)
@@ -1002,7 +1065,7 @@ namespace SIM_RS.RAWAT_INAP
                             }
                         }
                     }/* EOF ELSE if (grpTransak.Count > 0) */
-                    
+
                     /* EOF ASKES JAMKESMAS*/
 
                     /* ASKES JAMKESDA*/
@@ -1111,18 +1174,18 @@ namespace SIM_RS.RAWAT_INAP
 
 
 
-                   
+
                     if (grpTransak.Count > 0)
                     {
                         /* UMUM */
                         if (grpKasum.Count > 0)
                         {
                             var Kasumum = from x in grpKasum
-                                          group x by new 
-                                          { 
-                                              x.strIdMR_TSMF, 
-                                              x.strIdBl_Komponen, 
-                                              x.intLapUrut 
+                                          group x by new
+                                          {
+                                              x.strIdMR_TSMF,
+                                              x.strIdBl_Komponen,
+                                              x.intLapUrut
                                           } into groupKasum
                                           select new
                                           {
@@ -1216,19 +1279,19 @@ namespace SIM_RS.RAWAT_INAP
                         if (grpKasAskin.Count > 0)
                         {
                             var Kasaskin = from x in grpKasAskin
-                                          group x by new
-                                          {
-                                              x.strIdMR_TSMF,
-                                              x.strIdBl_Komponen,
-                                              x.intLapUrut
-                                          } into groupKasaskin
-                                          select new
-                                          {
-                                              TSMF = groupKasaskin.Key.strIdMR_TSMF,
-                                              Komponen = groupKasaskin.Key.strIdBl_Komponen,
-                                              LapUrut = groupKasaskin.Key.intLapUrut,
-                                              Tunainya = groupKasaskin.Sum(x => x.dblTunainya)
-                                          };
+                                           group x by new
+                                           {
+                                               x.strIdMR_TSMF,
+                                               x.strIdBl_Komponen,
+                                               x.intLapUrut
+                                           } into groupKasaskin
+                                           select new
+                                           {
+                                               TSMF = groupKasaskin.Key.strIdMR_TSMF,
+                                               Komponen = groupKasaskin.Key.strIdBl_Komponen,
+                                               LapUrut = groupKasaskin.Key.intLapUrut,
+                                               Tunainya = groupKasaskin.Sum(x => x.dblTunainya)
+                                           };
 
 
                             int intUrut = 0;
@@ -1258,19 +1321,19 @@ namespace SIM_RS.RAWAT_INAP
                         if (grpKasJamkesmas.Count > 0)
                         {
                             var KasJamkesmas = from x in grpKasJamkesmas
-                                           group x by new
-                                           {
-                                               x.strIdMR_TSMF,
-                                               x.strIdBl_Komponen,
-                                               x.intLapUrut
-                                           } into groupKasJamkesmas
-                                           select new
-                                           {
-                                               TSMF = groupKasJamkesmas.Key.strIdMR_TSMF,
-                                               Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
-                                               LapUrut = groupKasJamkesmas.Key.intLapUrut,
-                                               Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
-                                           };
+                                               group x by new
+                                               {
+                                                   x.strIdMR_TSMF,
+                                                   x.strIdBl_Komponen,
+                                                   x.intLapUrut
+                                               } into groupKasJamkesmas
+                                               select new
+                                               {
+                                                   TSMF = groupKasJamkesmas.Key.strIdMR_TSMF,
+                                                   Komponen = groupKasJamkesmas.Key.strIdBl_Komponen,
+                                                   LapUrut = groupKasJamkesmas.Key.intLapUrut,
+                                                   Tunainya = groupKasJamkesmas.Sum(x => x.dblTunainya)
+                                               };
 
 
                             int intUrut = 0;
@@ -1298,19 +1361,19 @@ namespace SIM_RS.RAWAT_INAP
                         if (grpKasJamkesda.Count > 0)
                         {
                             var KasJamkesda = from x in grpKasJamkesda
-                                               group x by new
-                                               {
-                                                   x.strIdMR_TSMF,
-                                                   x.strIdBl_Komponen,
-                                                   x.intLapUrut
-                                               } into groupKasJamkesda
-                                               select new
-                                               {
-                                                   TSMF = groupKasJamkesda.Key.strIdMR_TSMF,
-                                                   Komponen = groupKasJamkesda.Key.strIdBl_Komponen,
-                                                   LapUrut = groupKasJamkesda.Key.intLapUrut,
-                                                   Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
-                                               };
+                                              group x by new
+                                              {
+                                                  x.strIdMR_TSMF,
+                                                  x.strIdBl_Komponen,
+                                                  x.intLapUrut
+                                              } into groupKasJamkesda
+                                              select new
+                                              {
+                                                  TSMF = groupKasJamkesda.Key.strIdMR_TSMF,
+                                                  Komponen = groupKasJamkesda.Key.strIdBl_Komponen,
+                                                  LapUrut = groupKasJamkesda.Key.intLapUrut,
+                                                  Tunainya = groupKasJamkesda.Sum(x => x.dblTunainya)
+                                              };
 
 
                             int intUrut = 0;
@@ -1338,19 +1401,19 @@ namespace SIM_RS.RAWAT_INAP
                         if (grpKasLain.Count > 0)
                         {
                             var KasLain = from x in grpKasLain
-                                              group x by new
-                                              {
-                                                  x.strIdMR_TSMF,
-                                                  x.strIdBl_Komponen,
-                                                  x.intLapUrut
-                                              } into groupKasLain
-                                              select new
-                                              {
-                                                  TSMF = groupKasLain.Key.strIdMR_TSMF,
-                                                  Komponen = groupKasLain.Key.strIdBl_Komponen,
-                                                  LapUrut = groupKasLain.Key.intLapUrut,
-                                                  Tunainya = groupKasLain.Sum(x => x.dblTunainya)
-                                              };
+                                          group x by new
+                                          {
+                                              x.strIdMR_TSMF,
+                                              x.strIdBl_Komponen,
+                                              x.intLapUrut
+                                          } into groupKasLain
+                                          select new
+                                          {
+                                              TSMF = groupKasLain.Key.strIdMR_TSMF,
+                                              Komponen = groupKasLain.Key.strIdBl_Komponen,
+                                              LapUrut = groupKasLain.Key.intLapUrut,
+                                              Tunainya = groupKasLain.Sum(x => x.dblTunainya)
+                                          };
 
 
                             int intUrut = 0;
@@ -1379,19 +1442,92 @@ namespace SIM_RS.RAWAT_INAP
 
                     } /* EOF if (grpTransak.Count > 0) */
 
-                    
 
-                    
+
+
 
 
                 } /* EOF if (strKode == "BLABLABLA") */
 
+                //MessageBox.Show("strKode == ADA");
+
+            } /* EOF if (strKode != "") */
+            else
+            {
+                //MessageBox.Show("strKode == KOSONG");
+            }
 
 
-               
 
+
+            /*MEMULAI FETCHING TRANSAK*/
+            FileInfo newFile = new FileInfo("X:\\FOLDER EXCEL" + @"\sample1.xlsx");
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                newFile = new FileInfo("X:\\FOLDER EXCEL" + @"\sample1.xlsx");
+            }
+
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                    
+            
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(strKode);
+                
+
+                /*
+                    public string strUraian { get; set; }
+                    public double dblJSum { get; set; }
+                    public double dblJPum { get; set; }
+                    public double dblJaum { get; set; }
+                    public double dblJSAsk { get; set; }
+                    public double dblJPAsk { get; set; }
+                    public double dblJAAsk { get; set; }
+                    public double dblJSPav { get; set; }
+                    public double dblJPPav { get; set; }
+                    public double dblJAPav { get; set; }
+                    */
+
+
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Uraian";
+                worksheet.Cells[1, 2].Value = "JSUM";
+                worksheet.Cells[1, 3].Value = "JPUM";
+                worksheet.Cells[1, 4].Value = "JAUM";
+                worksheet.Cells[1, 5].Value = "JSASK";
+                worksheet.Cells[1, 6].Value = "JPASK";
+                worksheet.Cells[1, 7].Value = "JAASK";
+                worksheet.Cells[1, 8].Value = "JSPAV";
+                worksheet.Cells[1, 9].Value = "JPPAV";
+                worksheet.Cells[1, 10].Value = "JAPAV";
+
+
+                int intStartRow = 2;
+
+                foreach (var fetchTransak in grpTransak)
+                {
+                    worksheet.Cells[intStartRow, 1].Value = fetchTransak.strUraian;
+                    worksheet.Cells[intStartRow, 2].Value = fetchTransak.dblJSum.ToString();
+                    worksheet.Cells[intStartRow, 3].Value = fetchTransak.dblJPum.ToString();
+                    worksheet.Cells[intStartRow, 4].Value = fetchTransak.dblJaum.ToString();
+                    worksheet.Cells[intStartRow, 5].Value = fetchTransak.dblJSAsk.ToString();
+                    worksheet.Cells[intStartRow, 6].Value = fetchTransak.dblJPAsk.ToString();
+                    worksheet.Cells[intStartRow, 7].Value = fetchTransak.dblJAAsk.ToString();
+                    worksheet.Cells[intStartRow, 8].Value = fetchTransak.dblJSPav.ToString();
+                    worksheet.Cells[intStartRow, 9].Value = fetchTransak.dblJPPav.ToString();
+                    worksheet.Cells[intStartRow, 10].Value = fetchTransak.dblJAPav.ToString();
+
+                    intStartRow++;
+                }
+
+                package.Save();
 
             }
+            
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "");
+
         }
 
         private void dtpFilterTgl2_KeyPress(object sender, KeyPressEventArgs e)
@@ -1400,6 +1536,33 @@ namespace SIM_RS.RAWAT_INAP
             {
                 bgWork.RunWorkerAsync();
             }
+        }
+
+        private void LapKasBKP_Load(object sender, EventArgs e)
+        {
+            this.KeyPreview = true;
+        }
+
+        private void LapKasBKP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {                
+                 this.Close();
+            }
+        }
+
+        private void LapKasBKP_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ((bgWork.IsBusy) || (bgWork_1.IsBusy))
+            {
+                MessageBox.Show("Masih ada proses backgroung yang sedang berjalan, silakan tunggu sebentar..");
+                e.Cancel = true;
+            }   
+        }
+
+        private void btnCari_Click(object sender, EventArgs e)
+        {
+            this.bgWork_1.RunWorkerAsync();
         }
 
        

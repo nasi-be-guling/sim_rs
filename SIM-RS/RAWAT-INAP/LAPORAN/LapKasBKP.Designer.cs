@@ -173,6 +173,7 @@
             this.btnCari.TabIndex = 96;
             this.btnCari.Text = "&CARI";
             this.btnCari.UseVisualStyleBackColor = false;
+            this.btnCari.Click += new System.EventHandler(this.btnCari_Click);
             // 
             // dtpFilterTgl1
             // 
@@ -242,6 +243,7 @@
             // 
             // lblInfoPencarian
             // 
+            this.lblInfoPencarian.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblInfoPencarian.AutoSize = true;
             this.lblInfoPencarian.Location = new System.Drawing.Point(5, 538);
             this.lblInfoPencarian.Name = "lblInfoPencarian";
@@ -272,6 +274,9 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LapKasBKP";
             this.Text = "LapKasBKP";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LapKasBKP_FormClosing);
+            this.Load += new System.EventHandler(this.LapKasBKP_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LapKasBKP_KeyPress);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
