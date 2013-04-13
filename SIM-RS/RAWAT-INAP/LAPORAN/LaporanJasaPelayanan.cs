@@ -228,12 +228,54 @@ namespace SIM_RS.RAWAT_INAP
         List<lstKelTarip> grpKelTarip = new List<lstKelTarip>();
 
 
+        public class lstTind
+        {
+            public string strUnit { get; set; }
+            public double dblKonsul { get; set; }
+            public double dblVisite { get; set; }
+            public double dblOperasi { get; set; }
+            public double dblTindakan { get; set; }
+            public double dblDiagelect { get; set; }
+            public double dblPemRK { get; set; }
+        }
+        List<lstTind> grpTind = new List<lstTind>();
+
+
+        /* OWN FUNCTION */
+
+        private void pvCleanInput()
+        {
+            dtpFilterTgl1.Value = DateTime.Now;
+            dtpFilterTgl2.Value = DateTime.Now;
+            cmbJenisLaporan.SelectedIndex = -1;
+            cmbUnit.SelectedIndex = -1;
+            lvDaftarTindakan.Items.Clear();
+
+        }
+
+        private void pvIniSialisasiObject()
+        {
+            int intNoUrutObject = 0;
+
+            modMain.pvUrutkanTab(dtpFilterTgl1, ref intNoUrutObject, true);
+            modMain.pvUrutkanTab(dtpFilterTgl2, ref intNoUrutObject, true);
+            modMain.pvUrutkanTab(cmbJenisLaporan, ref intNoUrutObject, true);
+            modMain.pvUrutkanTab(cmbUnit, ref intNoUrutObject, true);
+            modMain.pvUrutkanTab(btnCari, ref intNoUrutObject);
+            modMain.pvUrutkanTab(lvDaftarTindakan, ref intNoUrutObject, true);
+        }
+
+        /* EOF OWN FUNCTION */
         
 
 
         public LaporanJasaPelayanan()
         {
             InitializeComponent();
+
+            this.pvCleanInput();
+            this.pvIniSialisasiObject();
+
         }    
 
         private void bgWorkLoadFromDB_DoWork(object sender, DoWorkEventArgs e)
@@ -507,6 +549,88 @@ namespace SIM_RS.RAWAT_INAP
                             } /* EOF foreach (var fetchTransak in grpTransak) */
                         } /* EOF if (fetchKasumJP.LapJP.Substring(1, 1) == "1") */
 
+                        else if (fetchKasumJP.LapJP.Substring(1, 1) == "2")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "2"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblVisite = grpTransak[intUrut].dblVisite + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "2") */
+                        else if (fetchKasumJP.LapJP.Substring(1, 1) == "3")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "3"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblOperasi = grpTransak[intUrut].dblOperasi + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "3") */
+                        else if (fetchKasumJP.LapJP.Substring(1, 1) == "4")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "4"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblTindakan = grpTransak[intUrut].dblTindakan + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "4") */
+                        else if (fetchKasumJP.LapJP.Substring(1, 1) == "5")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "5"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblDiagelect = grpTransak[intUrut].dblDiagelect + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "5") */
+                        else if (fetchKasumJP.LapJP.Substring(1, 1) == "6")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetchKasumJP.regBilling
+                                    && fetchKasumJP.LapJP.Substring(1, 1) == "6"
+                                    && fetchTransak.strRuangan == fetchKasumJP.Ruangan
+                                    && fetchTransak.strSMF == fetchKasumJP.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblPemRK = grpTransak[intUrut].dblPemRK + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "6") */
+
+
                         /* 2 SAMPAI 6 */
 
                     } /* EOF foreach (var fetchKasumJP in KasumJP) */
@@ -534,403 +658,1081 @@ namespace SIM_RS.RAWAT_INAP
 
 
                 } /* EOF if (grpTransak.Count > 0) */
+               
+
+            } /* EOF if(grpLstKasum.Count > 0) */
+
+
+            /* QUERY ASKESGAKIN*/
+            this.strQuerySQL = " SELECT  " +
+                                    "BL_TRANSAKSI.Regbilling, " +                                            //0
+                                    "MR_PASIEN.Nama, " +                                                     //1
+                                    "MR_TRUANGAN.ruangan, " +                                                //2
+                                    "BL_TRANSAKSI.Jumlah, " +                                                //3
+                                    "BL_TRANSAKSI.subsidi, " +                                               //4
+                                    "BL_TRANSAKSI.tunai, " +                                                 //5
+                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, " +                                   //6
+                                    "BL_TRANSAKSIDETAIL.Nilai, " +                                           //7
+                                    "BL_TRANSAKSIDETAIL.Ringan, " +                                          //8
+                                    "BL_KELTARIP.urutan, " +                                                 //9
+                                    "BL_KELTARIP.rekapjp," +                                                 //10
+                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " +  //11
+                                    "BL_TRANSAKSIDETAIL.Noambil, " +                                         //12
+                                    "BL_TRANSAKSIDETAIL.tglambil, " +                                        //13
+                                    "BL_KELTARIP.Idbl_keltarip, " +                                          //14
+                                    "BL_KELTARIP.Lapjp, " +                                                  //15
+                                    "BL_TRANSAKSI.idmr_tsmf, " +                                             //16
+                                    "MR_SMFTARIP.idmr_tupf, " +                                              //17
+                                    "BL_TRANSAKSI.idbl_tarip, " +                                            //18
+                                    "BL_TRANSAKSI.uraiantarip, " +                                           //19
+                                    "BL_TRANSAKSI.jml_kasus_tarip, " +                                       //20
+                                    "BL_TRANSAKSI.idbl_transaksi, " +                                        //21
+                                    "BL_KASASKES.Idbl_Pembayaran, " +                                        //22
+                                    "BL_TRANSAKSI.Tgltransaksi, " +                                          //23
+                                    "BL_KASASKES.Tanggal, " +                                                //24
+                                    "BL_TARIP.Idmr_jeniskelas, " +                                           //25
+                                    "BL_TRANSAKSI.Idmr_truangan, " +                                         //26
+                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
+                                    "MR_DOKTER.Nama " +                                                     //28
+                               " FROM BL_KELTARIP With (nolock)  " +
+                               " INNER JOIN BL_TRANSAKSI " +
+                               " INNER JOIN BL_TRANSAKSIDETAIL " +
+                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
+                               " INNER JOIN BL_TARIP " +
+                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip " +
+                                    "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip " +
+                               " INNER JOIN MR_SMFTARIP " +
+                                    "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
+                               " INNER JOIN BL_KASASKES " +
+                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
+                                        "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
+                               " INNER JOIN MR_PASIEN " +
+                                    "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
+                               " INNER JOIN MR_TRUANGAN " +
+                                    "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
+                               " INNER JOIN MR_SJASKES " +
+                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
+                               "INNER JOIN MR_DOKTER " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                               " WHERE (BL_TRANSAKSI.Batal <> 'Y') " +
+                                  " AND (BL_KASASKES.Batal = '') " +
+                                  " AND (MR_SJASKES.BATAL = '') " +
+                                  " AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN' " +
+                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
+                                  " AND BL_KASASKES.Tanggal BETWEEN '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                    "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                  " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 " +
+                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
+                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 AND BL_KELTARIP.Lapjp <> '-'";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lstKASASKIN itemKASASKIN = new lstKASASKIN();
+
+                    itemKASASKIN.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKASASKIN.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKASASKIN.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKASASKIN.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKASASKIN.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKASASKIN.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKASASKIN.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+                    itemKASASKIN.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    itemKASASKIN.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    itemKASASKIN.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+                    itemKASASKIN.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASASKIN.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+                    itemKASASKIN.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+                    itemKASASKIN.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+                    itemKASASKIN.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+                    itemKASASKIN.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+                    itemKASASKIN.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+                    itemKASASKIN.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+                    itemKASASKIN.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+                    itemKASASKIN.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+                    itemKASASKIN.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+                    itemKASASKIN.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+                    itemKASASKIN.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+                    itemKASASKIN.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+                    itemKASASKIN.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+                    itemKASASKIN.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+                    itemKASASKIN.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+                    itemKASASKIN.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+                    itemKASASKIN.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+
+                    grpLstKASASKIN.Add(itemKASASKIN);
+                }
+            }
+            reader.Close();
+
+            if (grpLstKASASKIN.Count > 0)
+            {
+
+                var KaskinJP = (from fetch in grpLstKASASKIN
+                               where (fetch.strIdBl_Komponen == "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                               group fetch by new
+                               {
+                                   fetch.strRegBilling,
+                                   fetch.strNama,
+                                   fetch.strIdBl_Komponen,
+                                   fetch.strLapJP,
+                                   fetch.strIdMR_TUPF,
+                                   fetch.strIdMR_TSMF,
+                                   fetch.strRuangan
+                               } into groupData
+                               select new
+                               {
+                                   regBilling = groupData.Key.strRegBilling,
+                                   Nama = groupData.Key.strNama,
+                                   Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                   TUPF = groupData.Key.strIdMR_TUPF,
+                                   IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                   IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                   tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                   LapJP = groupData.Key.strLapJP
+                               }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var KaskinJA = (from fetch in grpLstKASASKIN
+                               where (fetch.strIdBl_Komponen != "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                               group fetch by new
+                               {
+                                   fetch.strRegBilling,
+                                   fetch.strNama,
+                                   fetch.strIdBl_Komponen,
+                                   fetch.strLapJP,
+                                   fetch.strIdMR_TUPF,
+                                   fetch.strIdMR_TSMF,
+                                   fetch.strRuangan
+                               } into groupData
+                               select new
+                               {
+                                   regBilling = groupData.Key.strRegBilling,
+                                   Nama = groupData.Key.strNama,
+                                   Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                   TUPF = groupData.Key.strIdMR_TUPF,
+                                   IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                   IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                   tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                   LapJP = groupData.Key.strLapJP
+                               }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var reg = (from fetch in grpLstKASASKIN
+                           select new
+                           {
+                               Regbilling = fetch.strRegBilling,
+                               Nama = fetch.strNama,
+                               Ruangan = fetch.strRuangan,
+                               idmr_tupf = fetch.strIdMR_TUPF,
+                               idmr_tsmf = fetch.strIdMR_TSMF
+                           }).Distinct().OrderBy(a => a.Regbilling).ToList();
+
+
+                if (reg.Count > 0)
+                {
+                    foreach (var fetch in reg)
+                    {
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.Regbilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = fetch.idmr_tupf;
+                        itemTransak.strSMF = fetch.idmr_tsmf;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = 0;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+                        grpTransak.Add(itemTransak);
+                    }
+                }
 
 
                 if (grpTransak.Count > 0)
                 {
-                    var transaknya = (from x in grpTransak
-                               group x by new 
-                                    {x.strRegbilling,
-                                     x.strUnit,
-                                     x.strRuangan,
-                                     x.strNama
-                                     } into groupTransak                              
-                              select new {
-                                        regBilling = groupTransak.Key.strRegbilling, 
-                                        Nama = groupTransak.Key.strNama,
-                                        Ruangan = groupTransak.Key.strRuangan, 
-                                        Unit = groupTransak.Key.strUnit,
-                                        konsul = groupTransak.Sum(x => x.dblKonsul), 
-                                        visite = groupTransak.Sum(x => x.dblVisite), 
-                                        operasi = groupTransak.Sum(x => x.dblOperasi),
-                                        tindakan = groupTransak.Sum(x => x.dblTindakan),
-                                        diagelect = groupTransak.Sum(x => x.dblDiagelect),
-                                        pemrk = groupTransak.Sum(x => x.dblPemRK)
-                              }).ToList();
-                }
+                    /*JASA PELAYANAN*/
+                    foreach (var fetch in KaskinJP)
+                    {
+
+                        if (fetch.LapJP.Substring(1, 1) == "1")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "1"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblKonsul = grpTransak[intUrut].dblKonsul + fetch.tunainya;
+                                    //fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+                        } /* EOF if (fetchKasumJP.LapJP.Substring(1, 1) == "1") */
+
+                        else if (fetch.LapJP.Substring(1, 1) == "2")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "2"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblVisite = grpTransak[intUrut].dblVisite + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "2") */
+                        else if (fetch.LapJP.Substring(1, 1) == "3")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "3"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblOperasi = grpTransak[intUrut].dblOperasi + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "3") */
+                        else if (fetch.LapJP.Substring(1, 1) == "4")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "4"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblTindakan = grpTransak[intUrut].dblTindakan + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "4") */
+                        else if (fetch.LapJP.Substring(1, 1) == "5")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "5"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblDiagelect = grpTransak[intUrut].dblDiagelect + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "5") */
+                        else if (fetch.LapJP.Substring(1, 1) == "6")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "6"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblPemRK = grpTransak[intUrut].dblPemRK + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "6") */
 
 
-                if (grpKelTarip.Count > 0)
+                        /* 2 SAMPAI 6 */
+
+                    } /* EOF foreach (var fetchKasumJP in KasumJP) */
+
+                    /*JASA ANASTHESI*/
+                    foreach (var fetch in KaskinJA)
+                    {
+
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.regBilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = "ANASTHESI";
+                        itemTransak.strSMF = fetch.IdMR_TSMF;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = fetch.tunainya;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+
+                        grpTransak.Add(itemTransak);
+
+                    } /* EOF foreach (var fetchKasumJA in KasumJA) */
+
+
+                } /* EOF if (grpTransak.Count > 0) */
+
+
+
+            } /* EOF  if (grpLstKASASKIN.Count > 0) */
+
+
+
+            
+
+            /* QUERY ASKES JAMKESMAS*/
+            this.strQuerySQL = "SELECT  " +
+                                    "BL_TRANSAKSI.Regbilling, " +                                            //0
+                                    "MR_PASIEN.Nama, " +                                                     //1
+                                    "MR_TRUANGAN.ruangan, " +                                                //2
+                                    "BL_TRANSAKSI.Jumlah, " +                                                //3
+                                    "BL_TRANSAKSI.subsidi, " +                                               //4
+                                    "BL_TRANSAKSI.tunai, " +                                                 //5
+                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, " +                                   //6
+                                    "BL_TRANSAKSIDETAIL.Nilai, " +                                           //7
+                                    "BL_TRANSAKSIDETAIL.Ringan, " +                                          //8
+                                    "BL_KELTARIP.urutan, " +                                                 //9
+                                    "BL_KELTARIP.rekapjp," +                                                 //10
+                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " +  //11
+                                    "BL_TRANSAKSIDETAIL.Noambil," +                                          //12
+                                    "BL_TRANSAKSIDETAIL.tglambil, " +                                        //13
+                                    "BL_KELTARIP.Idbl_keltarip, " +                                          //14
+                                    "BL_KELTARIP.Lapjp, " +                                                  //15
+                                    "BL_TRANSAKSI.idmr_tsmf, " +                                             //16
+                                    "MR_SMFTARIP.idmr_tupf, " +                                              //17
+                                    "BL_TRANSAKSI.idbl_tarip, " +                                            //18
+                                    "BL_TRANSAKSI.uraiantarip, " +                                           //19
+                                    "BL_TRANSAKSI.jml_kasus_tarip, " +                                       //20
+                                    "BL_TRANSAKSI.idbl_transaksi, " +                                        //21
+                                    "BL_KASASKES.Idbl_Pembayaran, " +                                        //22
+                                    "BL_TRANSAKSI.Tgltransaksi, " +                                          //23
+                                    "BL_KASASKES.Tanggal, " +                                                //24
+                                    "BL_TARIP.Idmr_jeniskelas, " +                                           //25
+                                    "BL_TRANSAKSI.Idmr_truangan, " +                                         //26
+                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
+                                    "MR_DOKTER.Nama " +                                                     //28
+                               "FROM BL_KELTARIP With (nolock)  " +
+                               "INNER JOIN BL_TRANSAKSI " +
+                               "INNER JOIN BL_TRANSAKSIDETAIL " +
+                                    "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
+                               "INNER JOIN BL_TARIP " +
+                                    "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip " +
+                                    "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip " +
+                               "INNER JOIN MR_SMFTARIP " +
+                                    "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
+                               "INNER JOIN BL_KASASKES " +
+                                    "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
+                                    "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
+                               "INNER JOIN MR_PASIEN " +
+                                    "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
+                               "INNER JOIN MR_TRUANGAN " +
+                                    "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
+                               "INNER JOIN MR_SJASKES " +
+                                    "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
+                               "INNER JOIN MR_DOKTER " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                               "WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
+                                  " AND (MR_SJASKES.BATAL = '') AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS' " +
+                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
+                                  " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                    "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                  " AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 " +
+                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
+                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
                 {
+                    lstKASJKM itemKASJKM = new lstKASJKM();
 
-                    var xsatu = from x in grpKelTarip
-                                where x.strIdBl_KelTarip.Substring(1, 1) == "1"
-                                select x.strLapJP;
-                    
-                    var xdua = from x in grpKelTarip
-                               where x.strIdBl_KelTarip.Substring(1, 1) == "2"
-                               select x.strLapJP;
+                    itemKASJKM.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKASJKM.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKASJKM.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKASJKM.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKASJKM.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKASJKM.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKASJKM.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+                    itemKASJKM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    itemKASJKM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    itemKASJKM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+                    itemKASJKM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASJKM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+                    itemKASJKM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+                    itemKASJKM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+                    itemKASJKM.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+                    itemKASJKM.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+                    itemKASJKM.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+                    itemKASJKM.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+                    itemKASJKM.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+                    itemKASJKM.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+                    itemKASJKM.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+                    itemKASJKM.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+                    itemKASJKM.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+                    itemKASJKM.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+                    itemKASJKM.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+                    itemKASJKM.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+                    itemKASJKM.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+                    itemKASJKM.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+                    itemKASJKM.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
 
-                    var xtiga = from x in grpKelTarip
-                               where x.strIdBl_KelTarip.Substring(1, 1) == "3"
-                               select x.strLapJP;
+                    grpLstKASJKM.Add(itemKASJKM);
+                }
+            }
 
-                    var xempat = from x in grpKelTarip
-                               where x.strIdBl_KelTarip.Substring(1, 1) == "4"
-                               select x.strLapJP;
-
-                    var xlima = from x in grpKelTarip
-                               where x.strIdBl_KelTarip.Substring(1, 1) == "5"
-                               select x.strLapJP;
-
-                    var xenam = from x in grpKelTarip
-                               where x.strIdBl_KelTarip.Substring(1, 1) == "6"
-                               select x.strLapJP;
+            reader.Close();
 
 
+            if (grpLstKASJKM.Count > 0)
+            {
+
+                var KasJKMJP = (from fetch in grpLstKASJKM
+                                where (fetch.strIdBl_Komponen == "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                                group fetch by new
+                                {
+                                    fetch.strRegBilling,
+                                    fetch.strNama,
+                                    fetch.strIdBl_Komponen,
+                                    fetch.strLapJP,
+                                    fetch.strIdMR_TUPF,
+                                    fetch.strIdMR_TSMF,
+                                    fetch.strRuangan
+                                } into groupData
+                                select new
+                                {
+                                    regBilling = groupData.Key.strRegBilling,
+                                    Nama = groupData.Key.strNama,
+                                    Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                    TUPF = groupData.Key.strIdMR_TUPF,
+                                    IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                    IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                    tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                    LapJP = groupData.Key.strLapJP
+                                }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var KasJKMJA = (from fetch in grpLstKASJKM
+                                where (fetch.strIdBl_Komponen != "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                                group fetch by new
+                                {
+                                    fetch.strRegBilling,
+                                    fetch.strNama,
+                                    fetch.strIdBl_Komponen,
+                                    fetch.strLapJP,
+                                    fetch.strIdMR_TUPF,
+                                    fetch.strIdMR_TSMF,
+                                    fetch.strRuangan
+                                } into groupData
+                                select new
+                                {
+                                    regBilling = groupData.Key.strRegBilling,
+                                    Nama = groupData.Key.strNama,
+                                    Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                    TUPF = groupData.Key.strIdMR_TUPF,
+                                    IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                    IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                    tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                    LapJP = groupData.Key.strLapJP
+                                }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var reg = (from fetch in grpLstKASJKM
+                           select new
+                           {
+                               Regbilling = fetch.strRegBilling,
+                               Nama = fetch.strNama,
+                               Ruangan = fetch.strRuangan,
+                               idmr_tupf = fetch.strIdMR_TUPF,
+                               idmr_tsmf = fetch.strIdMR_TSMF
+                           }).Distinct().OrderBy(a => a.Regbilling).ToList();
+
+
+                if (reg.Count > 0)
+                {
+                    foreach (var fetch in reg)
+                    {
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.Regbilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = fetch.idmr_tupf;
+                        itemTransak.strSMF = fetch.idmr_tsmf;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = 0;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+                        grpTransak.Add(itemTransak);
+                    }
                 }
 
+
+                if (grpTransak.Count > 0)
+                {
+                    /*JASA PELAYANAN*/
+                    foreach (var fetch in KasJKMJP)
+                    {
+
+                        if (fetch.LapJP.Substring(1, 1) == "1")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "1"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblKonsul = grpTransak[intUrut].dblKonsul + fetch.tunainya;
+                                    //fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+                        } /* EOF if (fetchKasumJP.LapJP.Substring(1, 1) == "1") */
+
+                        else if (fetch.LapJP.Substring(1, 1) == "2")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "2"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblVisite = grpTransak[intUrut].dblVisite + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "2") */
+                        else if (fetch.LapJP.Substring(1, 1) == "3")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "3"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblOperasi = grpTransak[intUrut].dblOperasi + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "3") */
+                        else if (fetch.LapJP.Substring(1, 1) == "4")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "4"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblTindakan = grpTransak[intUrut].dblTindakan + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "4") */
+                        else if (fetch.LapJP.Substring(1, 1) == "5")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "5"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblDiagelect = grpTransak[intUrut].dblDiagelect + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "5") */
+                        else if (fetch.LapJP.Substring(1, 1) == "6")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "6"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblPemRK = grpTransak[intUrut].dblPemRK + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "6") */
+
+
+                        /* 2 SAMPAI 6 */
+
+                    } /* EOF foreach (var fetchKasumJP in KasumJP) */
+
+                    /*JASA ANASTHESI*/
+                    foreach (var fetch in KasJKMJA)
+                    {
+
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.regBilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = "ANASTHESI";
+                        itemTransak.strSMF = fetch.IdMR_TSMF;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = fetch.tunainya;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+
+                        grpTransak.Add(itemTransak);
+
+                    } /* EOF foreach (var fetch in KasJKMJA) */
+
+
+                } /* EOF if (grpTransak.Count > 0) */
+
+
+
+            } /* EOF  if (grpLstKasJKM.Count > 0) */
+
+
+
+
+
+            /* QUERY ASKES JAMKESDA*/
+            this.strQuerySQL = "SELECT  " +
+                                    "BL_TRANSAKSI.Regbilling, " +                                            //0
+                                    "MR_PASIEN.Nama, " +                                                     //1
+                                    "MR_TRUANGAN.ruangan, " +                                               //2
+                                    "BL_TRANSAKSI.Jumlah, " +                                                //3
+                                    "BL_TRANSAKSI.subsidi, " +                                               //4
+                                    "BL_TRANSAKSI.tunai, " +                                                //5
+                                    "BL_TRANSAKSIDETAIL.Idbl_komponen, " +                                   //6
+                                    "BL_TRANSAKSIDETAIL.Nilai, " +                                          //7
+                                    "BL_TRANSAKSIDETAIL.Ringan, " +                                          //8
+                                    "BL_KELTARIP.urutan, " +                                                 //9
+                                    "BL_KELTARIP.rekapjp," +                                                //10
+                                    "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " + //11
+                                    "BL_TRANSAKSIDETAIL.Noambil," +                                          //12
+                                    "BL_TRANSAKSIDETAIL.tglambil, " +                                       //13
+                                    "BL_KELTARIP.Idbl_keltarip, " +                                          //14
+                                    "BL_KELTARIP.Lapjp, " +                                                  //15
+                                    "BL_TRANSAKSI.idmr_tsmf, " +                                            //16
+                                    "MR_SMFTARIP.idmr_tupf, " +                                              //17
+                                    "BL_TRANSAKSI.idbl_tarip, " +                                            //18
+                                    "BL_TRANSAKSI.uraiantarip, " +                                          //19
+                                    "BL_TRANSAKSI.jml_kasus_tarip, " +                                       //20
+                                    "BL_TRANSAKSI.idbl_transaksi, " +                                       //21
+                                    "BL_KASASKES.Idbl_Pembayaran, " +                                        //22
+                                    "BL_TRANSAKSI.Tgltransaksi, " +                                          //23
+                                    "BL_KASASKES.Tanggal, " +                                               //24
+                                    "BL_TARIP.Idmr_jeniskelas, " +                                           //25
+                                    "BL_TRANSAKSI.Idmr_truangan, " +                                        //26
+                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
+                                    "MR_DOKTER.Nama " +                                                     //28
+                                " FROM BL_KELTARIP With (nolock)  " +
+                                " INNER JOIN BL_TRANSAKSI " +
+                                " INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
+                                " INNER JOIN BL_TARIP " +
+                                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip " +
+                                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip " +
+                                " INNER JOIN MR_SMFTARIP " +
+                                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
+                                " INNER JOIN BL_KASASKES " +
+                                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
+                                  " AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
+                                " INNER JOIN MR_PASIEN ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
+                                " INNER JOIN MR_TRUANGAN ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
+                                " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
+                                "INNER JOIN MR_DOKTER " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                                " WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
+                                  " AND (MR_SJASKES.BATAL = '') and MR_SJASKES.idmr_tstatus = 'ASKESJAMKESDA' " +
+                                  " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
+                                  " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                  "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
+                                  " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 " +
+                                  " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
+                                  " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
+                                  " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+
+            reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lstKASJKD itemKASJKD = new lstKASJKD();
+
+                    itemKASJKD.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKASJKD.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKASJKD.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    itemKASJKD.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKASJKD.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKASJKD.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKASJKD.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+                    itemKASJKD.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    itemKASJKD.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    itemKASJKD.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
+                    itemKASJKD.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASJKD.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
+                    itemKASJKD.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
+                    itemKASJKD.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
+                    itemKASJKD.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
+                    itemKASJKD.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
+                    itemKASJKD.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
+                    itemKASJKD.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
+                    itemKASJKD.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
+                    itemKASJKD.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
+                    itemKASJKD.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
+                    itemKASJKD.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
+                    itemKASJKD.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
+                    itemKASJKD.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
+                    itemKASJKD.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
+                    itemKASJKD.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
+                    itemKASJKD.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
+                    itemKASJKD.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
+                    itemKASJKD.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+
+                    grpLstKASJKD.Add(itemKASJKD);
+                }
+            }
+
+            reader.Close();
+
+
+            if (grpLstKASJKD.Count > 0)
+            {
+
+                var KasJKDJP = (from fetch in grpLstKASJKD
+                                where (fetch.strIdBl_Komponen == "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                                group fetch by new
+                                {
+                                    fetch.strRegBilling,
+                                    fetch.strNama,
+                                    fetch.strIdBl_Komponen,
+                                    fetch.strLapJP,
+                                    fetch.strIdMR_TUPF,
+                                    fetch.strIdMR_TSMF,
+                                    fetch.strRuangan
+                                } into groupData
+                                select new
+                                {
+                                    regBilling = groupData.Key.strRegBilling,
+                                    Nama = groupData.Key.strNama,
+                                    Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                    TUPF = groupData.Key.strIdMR_TUPF,
+                                    IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                    IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                    tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                    LapJP = groupData.Key.strLapJP
+                                }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var KasJKDJA = (from fetch in grpLstKASJKD
+                                where (fetch.strIdBl_Komponen != "JASA PELAYANAN" && fetch.dblTunainya > 0)
+                                group fetch by new
+                                {
+                                    fetch.strRegBilling,
+                                    fetch.strNama,
+                                    fetch.strIdBl_Komponen,
+                                    fetch.strLapJP,
+                                    fetch.strIdMR_TUPF,
+                                    fetch.strIdMR_TSMF,
+                                    fetch.strRuangan
+                                } into groupData
+                                select new
+                                {
+                                    regBilling = groupData.Key.strRegBilling,
+                                    Nama = groupData.Key.strNama,
+                                    Ruangan = groupData.Key.strRuangan.Substring(1, 10),
+                                    TUPF = groupData.Key.strIdMR_TUPF,
+                                    IdBl_Komponen = groupData.Key.strIdBl_Komponen,
+                                    IdMR_TSMF = groupData.Key.strIdMR_TSMF,
+                                    tunainya = groupData.Sum(fetchKasum => fetchKasum.dblTunainya),
+                                    LapJP = groupData.Key.strLapJP
+                                }).OrderBy(groupData => groupData.regBilling).ToList();
+
+
+                var reg = (from fetch in grpLstKASJKD
+                           select new
+                           {
+                               Regbilling = fetch.strRegBilling,
+                               Nama = fetch.strNama,
+                               Ruangan = fetch.strRuangan,
+                               idmr_tupf = fetch.strIdMR_TUPF,
+                               idmr_tsmf = fetch.strIdMR_TSMF
+                           }).Distinct().OrderBy(a => a.Regbilling).ToList();
+
+
+                if (reg.Count > 0)
+                {
+                    foreach (var fetch in reg)
+                    {
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.Regbilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = fetch.idmr_tupf;
+                        itemTransak.strSMF = fetch.idmr_tsmf;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = 0;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+                        grpTransak.Add(itemTransak);
+                    }
+                }
+
+
+                if (grpTransak.Count > 0)
+                {
+                    /*JASA PELAYANAN*/
+                    foreach (var fetch in KasJKDJP)
+                    {
+
+                        if (fetch.LapJP.Substring(1, 1) == "1")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "1"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblKonsul = grpTransak[intUrut].dblKonsul + fetch.tunainya;
+                                    //fetchTransak.dblKonsul = fetchTransak.dblKonsul + fetchKasumJP.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+                        } /* EOF if (fetchKasumJP.LapJP.Substring(1, 1) == "1") */
+
+                        else if (fetch.LapJP.Substring(1, 1) == "2")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "2"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblVisite = grpTransak[intUrut].dblVisite + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "2") */
+                        else if (fetch.LapJP.Substring(1, 1) == "3")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "3"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblOperasi = grpTransak[intUrut].dblOperasi + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "3") */
+                        else if (fetch.LapJP.Substring(1, 1) == "4")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "4"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblTindakan = grpTransak[intUrut].dblTindakan + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "4") */
+                        else if (fetch.LapJP.Substring(1, 1) == "5")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "5"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblDiagelect = grpTransak[intUrut].dblDiagelect + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "5") */
+                        else if (fetch.LapJP.Substring(1, 1) == "6")
+                        {
+                            int intUrut = 0;
+                            foreach (var fetchTransak in grpTransak)
+                            {
+                                if (fetchTransak.strRegbilling == fetch.regBilling
+                                    && fetch.LapJP.Substring(1, 1) == "6"
+                                    && fetchTransak.strRuangan == fetch.Ruangan
+                                    && fetchTransak.strSMF == fetch.IdMR_TSMF)
+                                {
+                                    grpTransak[intUrut].dblPemRK = grpTransak[intUrut].dblPemRK + fetch.tunainya;
+                                }
+                                intUrut++;
+                            } /* EOF foreach (var fetchTransak in grpTransak) */
+
+                        } /* EOF else if (fetchKasumJP.LapJP.Substring(1, 1) == "6") */
+
+
+                        /* 2 SAMPAI 6 */
+
+                    } /* EOF foreach (var fetchKasumJP in KasumJP) */
+
+                    /*JASA ANASTHESI*/
+                    foreach (var fetch in KasJKDJA)
+                    {
+
+                        lstTransak itemTransak = new lstTransak();
+                        itemTransak.strRegbilling = fetch.regBilling;
+                        itemTransak.strNama = fetch.Nama;
+                        itemTransak.strRuangan = fetch.Ruangan;
+                        itemTransak.strUnit = "ANASTHESI";
+                        itemTransak.strSMF = fetch.IdMR_TSMF;
+                        itemTransak.dblKonsul = 0;
+                        itemTransak.dblVisite = 0;
+                        itemTransak.dblOperasi = fetch.tunainya;
+                        itemTransak.dblTindakan = 0;
+                        itemTransak.dblDiagelect = 0;
+                        itemTransak.dblPemRK = 0;
+
+                        grpTransak.Add(itemTransak);
+
+                    } /* EOF foreach (var fetch in KasJKMJA) */
+
+
+                } /* EOF if (grpTransak.Count > 0) */
+
+
+
+            } /* EOF  if (grpLstKasJKM.Count > 0) */
+
+
+
+
+            if (grpTransak.Count > 0)
+            {
+                var transaknya = (from x in grpTransak
+                                  group x by new
+                                  {
+                                      x.strRegbilling,
+                                      x.strUnit,
+                                      x.strRuangan,
+                                      x.strNama
+                                  } into groupTransak
+                                  select new
+                                  {
+                                      regBilling = groupTransak.Key.strRegbilling,
+                                      Nama = groupTransak.Key.strNama,
+                                      Ruangan = groupTransak.Key.strRuangan,
+                                      Unit = groupTransak.Key.strUnit,
+                                      konsul = groupTransak.Sum(x => x.dblKonsul),
+                                      visite = groupTransak.Sum(x => x.dblVisite),
+                                      operasi = groupTransak.Sum(x => x.dblOperasi),
+                                      tindakan = groupTransak.Sum(x => x.dblTindakan),
+                                      diagelect = groupTransak.Sum(x => x.dblDiagelect),
+                                      pemrk = groupTransak.Sum(x => x.dblPemRK)
+                                  }).ToList();
             }
 
 
-            ///* QUERY ASKESGAKIN*/
-            //this.strQuerySQL = " SELECT  "+
-            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
-            //                        "MR_PASIEN.Nama, "+                                                     //1
-            //                        "MR_TRUANGAN.ruangan, "+                                                //2
-            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
-            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
-            //                        "BL_TRANSAKSI.tunai, "+                                                 //5
-            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-            //                        "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
-            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-            //                        "BL_KELTARIP.urutan, "+                                                 //9
-            //                        "BL_KELTARIP.rekapjp,"+                                                 //10
-            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
-            //                        "BL_TRANSAKSIDETAIL.Noambil, "+                                         //12
-            //                        "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
-            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
-            //                        "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
-            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
-            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-            //                        "BL_TRANSAKSI.uraiantarip, "+                                           //19
-            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-            //                        "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
-            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-            //                        "BL_KASASKES.Tanggal, "+                                                //24
-            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-            //                        "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
-            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
-            //                        "MR_DOKTER.Nama " +                                                     //28
-            //                   " FROM BL_KELTARIP With (nolock)  "+
-            //                   " INNER JOIN BL_TRANSAKSI "+
-            //                   " INNER JOIN BL_TRANSAKSIDETAIL "+
-            //                        "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
-            //                   " INNER JOIN BL_TARIP "+
-            //                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-            //                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-            //                   " INNER JOIN MR_SMFTARIP "+
-            //                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
-            //                   " INNER JOIN BL_KASASKES "+
-            //                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
-            //                            "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
-            //                   " INNER JOIN MR_PASIEN "+
-            //                        "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
-            //                   " INNER JOIN MR_TRUANGAN "+
-            //                        "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
-            //                   " INNER JOIN MR_SJASKES "+
-            //                        "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
-            //                   "INNER JOIN MR_DOKTER " +
-            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-            //                   " WHERE (BL_TRANSAKSI.Batal <> 'Y') "+
-            //                      " AND (BL_KASASKES.Batal = '') "+
-            //                      " AND (MR_SJASKES.BATAL = '') "+
-            //                      " AND MR_SJASKES.idmr_tstatus = 'ASKESGAKIN' "+
-            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
-            //                      " AND BL_KASASKES.Tanggal BETWEEN '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-            //                        "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
-            //                      " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 "+
-            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
-            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 AND BL_KELTARIP.Lapjp <> '-'";
+            if (grpKelTarip.Count > 0)
+            {
 
-            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            //if (strErr != "")
-            //{
-            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-            //    conn.Close();
-            //    return;
-            //}
+                var xsatu = (from x in grpKelTarip
+                             where x.strIdBl_KelTarip.Substring(1, 1) == "1"
+                             select x.strLapJP);
 
-            //if (reader.HasRows)
-            //{
-            //    while (reader.Read())
-            //    {
-            //        lstKASASKIN itemKASASKIN = new lstKASASKIN();
+                var xdua = from x in grpKelTarip
+                           where x.strIdBl_KelTarip.Substring(1, 1) == "2"
+                           select x.strLapJP;
 
-            //        itemKASASKIN.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-            //        itemKASASKIN.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-            //        itemKASASKIN.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-            //        itemKASASKIN.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-            //        itemKASASKIN.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-            //        itemKASASKIN.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-            //        itemKASASKIN.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-            //        itemKASASKIN.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-            //        itemKASASKIN.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-            //        itemKASASKIN.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-            //        itemKASASKIN.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-            //        itemKASASKIN.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-            //        itemKASASKIN.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-            //        itemKASASKIN.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-            //        itemKASASKIN.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-            //        itemKASASKIN.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-            //        itemKASASKIN.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-            //        itemKASASKIN.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-            //        itemKASASKIN.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-            //        itemKASASKIN.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-            //        itemKASASKIN.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-            //        itemKASASKIN.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-            //        itemKASASKIN.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-            //        itemKASASKIN.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-            //        itemKASASKIN.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-            //        itemKASASKIN.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-            //        itemKASASKIN.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-            //        itemKASASKIN.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-            //        itemKASASKIN.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
+                var xtiga = from x in grpKelTarip
+                            where x.strIdBl_KelTarip.Substring(1, 1) == "3"
+                            select x.strLapJP;
 
-            //        grpLstKASASKIN.Add(itemKASASKIN);
-            //    }
-            //}
+                var xempat = from x in grpKelTarip
+                             where x.strIdBl_KelTarip.Substring(1, 1) == "4"
+                             select x.strLapJP;
 
-            //reader.Close();
+                var xlima = from x in grpKelTarip
+                            where x.strIdBl_KelTarip.Substring(1, 1) == "5"
+                            select x.strLapJP;
 
-            ///* QUERY ASKES JAMKESMAS*/
-            //this.strQuerySQL = "SELECT  "+
-            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
-            //                        "MR_PASIEN.Nama, "+                                                     //1
-            //                        "MR_TRUANGAN.ruangan, "+                                                //2
-            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
-            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
-            //                        "BL_TRANSAKSI.tunai, "+                                                 //5
-            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-            //                        "BL_TRANSAKSIDETAIL.Nilai, "+                                           //7
-            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-            //                        "BL_KELTARIP.urutan, "+                                                 //9
-            //                        "BL_KELTARIP.rekapjp,"+                                                 //10
-            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , "+  //11
-            //                        "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
-            //                        "BL_TRANSAKSIDETAIL.tglambil, "+                                        //13
-            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
-            //                        "BL_TRANSAKSI.idmr_tsmf, "+                                             //16
-            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
-            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-            //                        "BL_TRANSAKSI.uraiantarip, "+                                           //19
-            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-            //                        "BL_TRANSAKSI.idbl_transaksi, "+                                        //21
-            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-            //                        "BL_KASASKES.Tanggal, "+                                                //24
-            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-            //                        "BL_TRANSAKSI.Idmr_truangan, "+                                         //26
-            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
-            //                        "MR_DOKTER.Nama " +                                                     //28
-            //                   "FROM BL_KELTARIP With (nolock)  "+
-            //                   "INNER JOIN BL_TRANSAKSI "+
-            //                   "INNER JOIN BL_TRANSAKSIDETAIL "+
-            //                        "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
-            //                   "INNER JOIN BL_TARIP "+
-            //                        "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-            //                        "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-            //                   "INNER JOIN MR_SMFTARIP "+
-            //                        "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf "+
-            //                   "INNER JOIN BL_KASASKES "+
-            //                        "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran "+
-            //                        "AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien "+
-            //                   "INNER JOIN MR_PASIEN "+
-            //                        "ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN "+
-            //                   "INNER JOIN MR_TRUANGAN "+
-            //                        "ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
-            //                   "INNER JOIN MR_SJASKES "+
-            //                        "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien "+
-            //                   "INNER JOIN MR_DOKTER " +
-            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-            //                   "WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') "+
-            //                      " AND (MR_SJASKES.BATAL = '') AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS' "+
-            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') "+
-            //                      " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-            //                        "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' "+
-            //                      " AND BL_TARIP.pisahsetor = '' and BL_KASASKES.jumlah > 0 "+
-            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 "+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' AND BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'"+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' "+
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'"+
-            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
-
-            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            //if (strErr != "")
-            //{
-            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-            //    conn.Close();
-            //    return;
-            //}
-
-            //if (reader.HasRows)
-            //{
-            //    while (reader.Read())
-            //    {
-            //        lstKASJKM itemKASJKM = new lstKASJKM();
-
-            //        itemKASJKM.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-            //        itemKASJKM.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-            //        itemKASJKM.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-            //        itemKASJKM.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-            //        itemKASJKM.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-            //        itemKASJKM.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-            //        itemKASJKM.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-            //        itemKASJKM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-            //        itemKASJKM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-            //        itemKASJKM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-            //        itemKASJKM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-            //        itemKASJKM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-            //        itemKASJKM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-            //        itemKASJKM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-            //        itemKASJKM.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-            //        itemKASJKM.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-            //        itemKASJKM.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-            //        itemKASJKM.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-            //        itemKASJKM.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-            //        itemKASJKM.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-            //        itemKASJKM.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-            //        itemKASJKM.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-            //        itemKASJKM.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-            //        itemKASJKM.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-            //        itemKASJKM.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-            //        itemKASJKM.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-            //        itemKASJKM.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-            //        itemKASJKM.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-            //        itemKASJKM.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
-
-            //        grpLstKASJKM.Add(itemKASJKM);
-            //    }
-            //}
-
-            //reader.Close();
+                var xenam = from x in grpKelTarip
+                            where x.strIdBl_KelTarip.Substring(1, 1) == "6"
+                            select x.strLapJP;
 
 
-
-            ///* QUERY ASKES JAMKESDA*/
-            //this.strQuerySQL = "SELECT  "+
-            //                        "BL_TRANSAKSI.Regbilling, "+                                            //0
-            //                        "MR_PASIEN.Nama, "+                                                     //1
-            //                        "MR_TRUANGAN.ruangan, " +                                               //2
-            //                        "BL_TRANSAKSI.Jumlah, "+                                                //3
-            //                        "BL_TRANSAKSI.subsidi, "+                                               //4
-            //                        "BL_TRANSAKSI.tunai, " +                                                //5
-            //                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+                                   //6
-            //                        "BL_TRANSAKSIDETAIL.Nilai, " +                                          //7
-            //                        "BL_TRANSAKSIDETAIL.Ringan, "+                                          //8
-            //                        "BL_KELTARIP.urutan, "+                                                 //9
-            //                        "BL_KELTARIP.rekapjp," +                                                //10
-            //                        "BL_TRANSAKSIDETAIL.Nilai - BL_TRANSAKSIDETAIL.Ringan as tunainya , " + //11
-            //                        "BL_TRANSAKSIDETAIL.Noambil,"+                                          //12
-            //                        "BL_TRANSAKSIDETAIL.tglambil, " +                                       //13
-            //                        "BL_KELTARIP.Idbl_keltarip, "+                                          //14
-            //                        "BL_KELTARIP.Lapjp, "+                                                  //15
-            //                        "BL_TRANSAKSI.idmr_tsmf, " +                                            //16
-            //                        "MR_SMFTARIP.idmr_tupf, "+                                              //17
-            //                        "BL_TRANSAKSI.idbl_tarip, "+                                            //18
-            //                        "BL_TRANSAKSI.uraiantarip, " +                                          //19
-            //                        "BL_TRANSAKSI.jml_kasus_tarip, "+                                       //20
-            //                        "BL_TRANSAKSI.idbl_transaksi, " +                                       //21
-            //                        "BL_KASASKES.Idbl_Pembayaran, "+                                        //22
-            //                        "BL_TRANSAKSI.Tgltransaksi, "+                                          //23
-            //                        "BL_KASASKES.Tanggal, " +                                               //24
-            //                        "BL_TARIP.Idmr_jeniskelas, "+                                           //25
-            //                        "BL_TRANSAKSI.Idmr_truangan, " +                                        //26
-            //                        "MR_DOKTER.Idmr_dokter, " +                                             //27
-            //                        "MR_DOKTER.Nama " +                                                     //28
-            //                    " FROM BL_KELTARIP With (nolock)  "+
-            //                    " INNER JOIN BL_TRANSAKSI "+
-            //                    " INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi " +
-            //                    " INNER JOIN BL_TARIP "+
-            //                            "ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip "+
-            //                            "ON BL_KELTARIP.Idbl_keltarip = BL_TARIP.Idbl_keltarip "+
-            //                    " INNER JOIN MR_SMFTARIP "+
-            //                            "ON BL_TRANSAKSI.idmr_tsmf = MR_SMFTARIP.idmr_tsmf " +
-            //                    " INNER JOIN BL_KASASKES "+
-            //                            "ON BL_TRANSAKSI.idbl_pembayaran = BL_KASASKES.Idbl_Pembayaran " +
-            //                      " AND BL_TRANSAKSI.idmr_mutasipasien = BL_KASASKES.idmr_mutasipasien " +
-            //                    " INNER JOIN MR_PASIEN ON BL_KASASKES.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
-            //                    " INNER JOIN MR_TRUANGAN ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
-            //                    " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
-            //                    "INNER JOIN MR_DOKTER " +
-            //                        "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-            //                    " WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
-            //                      " AND (MR_SJASKES.BATAL = '') and MR_SJASKES.idmr_tstatus = 'ASKESJAMKESDA' " +
-            //                      " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
-            //                      " AND BL_KASASKES.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
-            //                      "' and '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") + "' " +
-            //                      " AND BL_TARIP.pisahsetor = '' AND BL_KASASKES.jumlah > 0 " +
-            //                      " AND BL_TRANSAKSIDETAIL.noambil <> 999 " +
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'DARAH' and BL_TRANSAKSI.idmr_tsmf <> 'PENDORONG'" +
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
-            //                      " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
-            //                      " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
-
-            //reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
-            //if (strErr != "")
-            //{
-            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-            //    conn.Close();
-            //    return;
-            //}
-
-            //if (reader.HasRows)
-            //{
-            //    while (reader.Read())
-            //    {
-            //        lstKASJKD itemKASJKD = new lstKASJKD();
-
-            //        itemKASJKD.strRegBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-            //        itemKASJKD.strNama = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-            //        itemKASJKD.strRuangan = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-            //        itemKASJKD.dblJumlah = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
-            //        itemKASJKD.dblSubsidi = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-            //        itemKASJKD.dblTunai = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-            //        itemKASJKD.strIdBl_Komponen = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-            //        itemKASJKD.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-            //        itemKASJKD.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-            //        itemKASJKD.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-            //        itemKASJKD.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
-            //        itemKASJKD.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
-            //        itemKASJKD.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
-            //        itemKASJKD.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
-            //        itemKASJKD.strIdBl_KelTarip = modMain.pbstrgetCol(reader, 14, ref strErr, "");
-            //        itemKASJKD.strLapJP = modMain.pbstrgetCol(reader, 15, ref strErr, "");
-            //        itemKASJKD.strIdMR_TSMF = modMain.pbstrgetCol(reader, 16, ref strErr, "");
-            //        itemKASJKD.strIdMR_TUPF = modMain.pbstrgetCol(reader, 17, ref strErr, "");
-            //        itemKASJKD.strIdBl_Tarip = modMain.pbstrgetCol(reader, 18, ref strErr, "");
-            //        itemKASJKD.strUraianTarip = modMain.pbstrgetCol(reader, 19, ref strErr, "");
-            //        itemKASJKD.dblJumlahKasusTarip = Convert.ToDouble(modMain.pbstrgetCol(reader, 20, ref strErr, ""));
-            //        itemKASJKD.strIdBl_Transaksi = modMain.pbstrgetCol(reader, 21, ref strErr, "");
-            //        itemKASJKD.strIdBl_Pembayaran = modMain.pbstrgetCol(reader, 22, ref strErr, "");
-            //        itemKASJKD.dtTglTransaksi = Convert.ToDateTime(modMain.pbstrgetCol(reader, 23, ref strErr, ""));
-            //        itemKASJKD.dtTgl = Convert.ToDateTime(modMain.pbstrgetCol(reader, 24, ref strErr, ""));
-            //        itemKASJKD.strIdMR_JenisKelas = modMain.pbstrgetCol(reader, 25, ref strErr, "");
-            //        itemKASJKD.strIdMR_Ruangan = modMain.pbstrgetCol(reader, 26, ref strErr, "");
-            //        itemKASJKD.strIdMR_Dokter = modMain.pbstrgetCol(reader, 27, ref strErr, "");
-            //        itemKASJKD.strNamaDokter = modMain.pbstrgetCol(reader, 28, ref strErr, "");
-
-            //        grpLstKASJKD.Add(itemKASJKD);
-            //    }
-            //}
-
-            //reader.Close();
+            }
 
 
             conn.Close();
@@ -951,6 +1753,69 @@ namespace SIM_RS.RAWAT_INAP
         private void btnCari_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbJenisLaporan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (cmbJenisLaporan.Text.Trim().ToString() != "")
+                {
+                    if (cmbJenisLaporan.Text.Substring(1, 1) != "1")
+                    {
+                        var query = (from x in grpTransak
+                                     select x.strUnit).Distinct();
+                        cmbUnit.Items.Clear();
+                        foreach (var fetch in query)
+                        {
+                            cmbUnit.Items.Add(fetch);
+                        }
+                    } /* EOF if (cmbJenisLaporan.Text.Substring(1, 1) != "1") */
+                    else
+                    {
+                        cmbUnit.Enabled = false;
+
+                        var KasumJP = (from x in grpTransak
+                                       group x by new
+                                       {
+                                           x.strUnit
+                                       } into groupData
+                                       select new
+                                       {
+                                           groupData.Key.strUnit,
+                                           konsul = groupData.Sum(x => x.dblKonsul),
+                                           visite = groupData.Sum(x => x.dblVisite),
+                                           operasi = groupData.Sum(x => x.dblOperasi),
+                                           tindakan = groupData.Sum(x => x.dblTindakan),
+                                           diagelect = groupData.Sum(x => x.dblDiagelect),
+                                           pemrk = groupData.Sum(x => x.dblPemRK)
+                                       });
+
+
+                        if (KasumJP.Count() > 0)
+                        {
+                            foreach (var fetch in KasumJP)
+                            {
+                                lstTind itemTind = new lstTind();
+                                itemTind.strUnit = fetch.strUnit;
+                                itemTind.dblKonsul = fetch.konsul;
+                                itemTind.dblVisite = fetch.visite;
+                                itemTind.dblOperasi = fetch.operasi;
+                                itemTind.dblTindakan = fetch.tindakan;
+                                itemTind.dblDiagelect = fetch.diagelect;
+                                itemTind.dblPemRK = fetch.pemrk;
+                                grpTind.Add(itemTind);
+                            }
+                        }
+
+
+
+
+                    } /* EOF else if (cmbJenisLaporan.Text.Substring(1, 1) != "1") */
+
+                }
+
+            }
         }
     }
 }

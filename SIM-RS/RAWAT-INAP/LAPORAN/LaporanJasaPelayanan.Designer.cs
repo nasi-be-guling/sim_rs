@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbUnit = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbUnitKerja = new System.Windows.Forms.ComboBox();
+            this.cmbJenisLaporan = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,9 +52,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.cmbUnit);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.cmbUnitKerja);
+            this.panel2.Controls.Add(this.cmbJenisLaporan);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
@@ -67,16 +67,16 @@
             this.panel2.Size = new System.Drawing.Size(794, 76);
             this.panel2.TabIndex = 115;
             // 
-            // comboBox1
+            // cmbUnit
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(402, 41);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(176, 28);
-            this.comboBox1.TabIndex = 104;
+            this.cmbUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbUnit.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbUnit.FormattingEnabled = true;
+            this.cmbUnit.Location = new System.Drawing.Point(402, 41);
+            this.cmbUnit.Name = "cmbUnit";
+            this.cmbUnit.Size = new System.Drawing.Size(176, 28);
+            this.cmbUnit.TabIndex = 104;
             // 
             // label5
             // 
@@ -87,20 +87,21 @@
             this.label5.TabIndex = 103;
             this.label5.Text = "Unit : ";
             // 
-            // cmbUnitKerja
+            // cmbJenisLaporan
             // 
-            this.cmbUnitKerja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUnitKerja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbUnitKerja.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbUnitKerja.FormattingEnabled = true;
-            this.cmbUnitKerja.Items.AddRange(new object[] {
+            this.cmbJenisLaporan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbJenisLaporan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbJenisLaporan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbJenisLaporan.FormattingEnabled = true;
+            this.cmbJenisLaporan.Items.AddRange(new object[] {
             "1. REKAP",
             "2. REKAP PER UNIT",
             "3. RINCIAN PER UNIT"});
-            this.cmbUnitKerja.Location = new System.Drawing.Point(178, 41);
-            this.cmbUnitKerja.Name = "cmbUnitKerja";
-            this.cmbUnitKerja.Size = new System.Drawing.Size(176, 28);
-            this.cmbUnitKerja.TabIndex = 102;
+            this.cmbJenisLaporan.Location = new System.Drawing.Point(178, 41);
+            this.cmbJenisLaporan.Name = "cmbJenisLaporan";
+            this.cmbJenisLaporan.Size = new System.Drawing.Size(176, 28);
+            this.cmbJenisLaporan.TabIndex = 102;
+            this.cmbJenisLaporan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbJenisLaporan_KeyPress);
             // 
             // label4
             // 
@@ -188,9 +189,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.lvDaftarTindakan);
             this.panel1.Controls.Add(this.lblDaftarTindakan);
@@ -201,9 +202,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
@@ -290,8 +291,8 @@
         private System.Windows.Forms.Button btnKeluar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmbUnitKerja;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbJenisLaporan;
+        private System.Windows.Forms.ComboBox cmbUnit;
         private System.Windows.Forms.Label label5;
         private System.ComponentModel.BackgroundWorker bgWorkLoadFromDB;
     }
