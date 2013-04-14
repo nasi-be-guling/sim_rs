@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using OfficeOpenXml;
+using System.IO;
 
 namespace SIM_RS.RAWAT_INAP
 {
@@ -239,6 +241,22 @@ namespace SIM_RS.RAWAT_INAP
             public double dblPemRK { get; set; }
         }
         List<lstTind> grpTind = new List<lstTind>();
+
+        public class lstTransaknya
+        {
+            public string strRegBilling { get; set; }
+            public string strNama {get; set;}
+            public string strRuangan {get; set;}
+            public string strUnit { get; set; }
+            public double dblKonsul { get; set; }
+            public double dblVisite { get; set; }
+            public double dblOperasi { get; set; }
+            public double dblTindakan { get; set; }
+            public double dblDiagelect { get; set; }
+            public double dblPemRK { get; set; }
+        }
+        List<lstTransaknya> grpTransaknya = new List<lstTransaknya>();
+
 
 
         /* OWN FUNCTION */
@@ -1732,7 +1750,31 @@ namespace SIM_RS.RAWAT_INAP
                                       diagelect = groupTransak.Sum(x => x.dblDiagelect),
                                       pemrk = groupTransak.Sum(x => x.dblPemRK)
                                   }).ToList();
+
+                foreach (var fetch in transaknya)
+                {
+
+                    lstTransaknya itemTransaknya = new lstTransaknya();
+                    itemTransaknya.strRegBilling = fetch.regBilling;
+                    itemTransaknya.strNama = fetch.Nama;
+                    itemTransaknya.strRuangan = fetch.Ruangan;
+                    itemTransaknya.strUnit = fetch.Unit;
+                    itemTransaknya.dblKonsul = fetch.konsul;
+                    itemTransaknya.dblVisite = fetch.visite;
+                    itemTransaknya.dblOperasi = fetch.operasi;
+                    itemTransaknya.dblTindakan = fetch.tindakan;
+                    itemTransaknya.dblDiagelect = fetch.diagelect;
+                    itemTransaknya.dblPemRK = fetch.pemrk;
+
+                    grpTransaknya.Add(itemTransaknya);
+
+
+                }
+
             }
+
+            
+
 
 
             if (grpKelTarip.Count > 0)
@@ -1863,6 +1905,123 @@ namespace SIM_RS.RAWAT_INAP
             {
                 this.bgWorkLoadFromDB.RunWorkerAsync();
             }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void bgWorkExport_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            if (cmbPilihanExport.Text.Trim().ToString() != "")
+            {
+
+                string strNamaFile = "";
+
+                DialogResult messageResult = MessageBox.Show("Save this file?", "Save", MessageBoxButtons.OKCancel);
+                if (messageResult == DialogResult.OK)
+                {
+                    using (var dialog = new System.Windows.Forms.SaveFileDialog())
+                    {
+                        dialog.DefaultExt = "*.xlsx";
+                        dialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                        DialogResult result = dialog.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            strNamaFile = dialog.FileName;
+                            // Save here
+                        }
+                    }
+                }
+
+
+
+                /* EXPORT REKAP*/
+                if (cmbPilihanExport.Text.Substring(1, 1) == "1")
+                {
+
+                    /*MEMULAI FETCHING TRANSAK*/
+                    FileInfo newFile = new FileInfo(strNamaFile);
+                    if (newFile.Exists)
+                    {
+                        newFile.Delete();  // ensures we create a new workbook
+                        newFile = new FileInfo(strNamaFile);
+                    }
+
+
+                    using (ExcelPackage package = new ExcelPackage(newFile))
+                    {
+
+
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(cmbPilihanExport.Text);
+
+
+                        /*
+                            public string strRegBilling { get; set; }
+                            public string strNama {get; set;}
+                            public string strRuangan {get; set;}
+                            public string strUnit { get; set; }
+                            public double dblKonsul { get; set; }
+                            public double dblVisite { get; set; }
+                            public double dblOperasi { get; set; }
+                            public double dblTindakan { get; set; }
+                            public double dblDiagelect { get; set; }
+                            public double dblPemRK { get; set; }
+                            */
+
+
+                        //Add the headers
+                        worksheet.Cells[1, 1].Value = "RegBilling";
+                        worksheet.Cells[1, 2].Value = "Nama";
+                        worksheet.Cells[1, 3].Value = "Ruangan";
+                        worksheet.Cells[1, 4].Value = "Unit";
+                        worksheet.Cells[1, 5].Value = "Konsul";
+                        worksheet.Cells[1, 6].Value = "Visite";
+                        worksheet.Cells[1, 7].Value = "Operasi";
+                        worksheet.Cells[1, 8].Value = "Tindakan";
+                        worksheet.Cells[1, 9].Value = "Diagelect";
+                        worksheet.Cells[1, 10].Value = "PemRK";
+
+
+                        int intStartRow = 2;
+
+                        foreach (var fetchTransak in grpTransaknya)
+                        {
+                            worksheet.Cells[intStartRow, 1].Value = fetchTransak.strRegBilling;
+                            worksheet.Cells[intStartRow, 2].Value = fetchTransak.strNama;
+                            worksheet.Cells[intStartRow, 3].Value = fetchTransak.strRuangan;
+                            worksheet.Cells[intStartRow, 4].Value = fetchTransak.strUnit;
+                            worksheet.Cells[intStartRow, 5].Value = fetchTransak.dblKonsul.ToString();
+                            worksheet.Cells[intStartRow, 6].Value = fetchTransak.dblVisite.ToString();
+                            worksheet.Cells[intStartRow, 7].Value = fetchTransak.dblOperasi.ToString();
+                            worksheet.Cells[intStartRow, 8].Value = fetchTransak.dblTindakan.ToString();
+                            worksheet.Cells[intStartRow, 9].Value = fetchTransak.dblDiagelect.ToString();
+                            worksheet.Cells[intStartRow, 10].Value = fetchTransak.dblPemRK.ToString();
+
+                            intStartRow++;
+                        }
+
+                        package.Save();
+
+                    }
+
+                }
+
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("Anda harus memilih yang akan di export ?", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+
+           
+            
         }
     }
 }
