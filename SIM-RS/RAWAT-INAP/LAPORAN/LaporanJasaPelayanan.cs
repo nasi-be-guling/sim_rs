@@ -35,7 +35,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblNilai { get; set; }
             public double dblRingan { get; set; }
             public double dblUrutan { get; set; }
-            public double dblRekapJp { get; set; }
+            public string strRekapJp { get; set; }
             public double dblTunainya { get; set; }
             public double dblNoAmbil { get; set; }
             public DateTime dtTglAmbil { get; set; }
@@ -68,7 +68,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblNilai { get; set; }
             public double dblRingan { get; set; }
             public double dblUrutan { get; set; }
-            public double dblRekapJp { get; set; }
+            public string strRekapJp { get; set; }
             public double dblTunainya { get; set; }
             public double dblNoAmbil { get; set; }
             public DateTime dtTglAmbil { get; set; }
@@ -101,7 +101,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblNilai { get; set; }
             public double dblRingan { get; set; }
             public double dblUrutan { get; set; }
-            public double dblRekapJp { get; set; }
+            public string strRekapJp { get; set; }
             public double dblTunainya { get; set; }
             public double dblNoAmbil { get; set; }
             public DateTime dtTglAmbil { get; set; }
@@ -134,7 +134,7 @@ namespace SIM_RS.RAWAT_INAP
             public double dblNilai { get; set; }
             public double dblRingan { get; set; }
             public double dblUrutan { get; set; }
-            public double dblRekapJp { get; set; }
+            public string strRekapJp { get; set; }
             public double dblTunainya { get; set; }
             public double dblNoAmbil { get; set; }
             public DateTime dtTglAmbil { get; set; }
@@ -280,6 +280,12 @@ namespace SIM_RS.RAWAT_INAP
 
         private void bgWorkLoadFromDB_DoWork(object sender, DoWorkEventArgs e)
         {
+            dtpFilterTgl1.SafeControlInvoke(DateTimePicker => dtpFilterTgl1.Enabled = false);
+            dtpFilterTgl2.SafeControlInvoke(DateTimePicker => dtpFilterTgl2.Enabled = false);
+            cmbJenisLaporan.SafeControlInvoke(ComboBox => cmbJenisLaporan.Enabled = false);
+            cmbUnit.SafeControlInvoke(ComboBox => cmbUnit.Enabled = false);
+            btnCari.SafeControlInvoke(Button => btnCari.Enabled = false);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
 
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
@@ -292,7 +298,7 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - KELOMPOK TARIP");
             this.strQuerySQL = "SELECT Idbl_keltarip,Urutan,Lapjp,Rekapjp "+
                                "FROM BL_KELTARIP WITH (NOLOCK) "+
                                "WHERE lapjp <> '-' "+
@@ -325,6 +331,8 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
 
 
+            
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - KASUM");
 
             /* QUERY KASUM */
             this.strQuerySQL = "SELECT " +
@@ -355,7 +363,7 @@ namespace SIM_RS.RAWAT_INAP
                                     "BL_KASUMUM.Tanggal, " +                                                     //24
                                     "BL_TARIP.Idmr_jeniskelas, " +                                               //25
                                     "BL_TRANSAKSI_1.Idmr_truangan, " +                                           //26
-                                    "MR_DOKTER.Idmr_dokter, " +                                                  //27
+                                    "BL_TRANSAKSIDETAIL_1.idmr_dokter, " +                                                  //27
                                     "MR_DOKTER.Nama " +                                                          //28
                                "FROM BL_KELTARIP  With (nolock) "+
                                "INNER JOIN BL_TRANSAKSI_1 "+
@@ -374,9 +382,9 @@ namespace SIM_RS.RAWAT_INAP
                                "INNER JOIN MR_TRUANGAN "+
                                     "ON BL_KASUMUM.Idmr_truangan = MR_TRUANGAN.idmr_truangan "+
                                "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
-                               "WHERE (BL_TRANSAKSI_1.Batal <> 'Y') "+
-                                    "AND (BL_KASUMUM.Batal = '') "+
+                                    "ON MR_DOKTER.idmr_dokter = BL_TRANSAKSIDETAIL_1.idmr_dokter " +
+                               "WHERE (BL_TRANSAKSI_1.Batal <> 'Y') " +
+                                    "AND (BL_KASUMUM.Batal = '') " +
                                     " AND (BL_TRANSAKSIDETAIL_1.Idbl_komponen <> 'JASA SARANA') "+
                                     " AND BL_KASUMUM.Tanggal between '" + dtpFilterTgl1.Value.ToString("MM/dd/yyyy 00:00:00") + 
                                         "' AND '" + dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59") +  "' "+
@@ -413,7 +421,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemKASUM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
                     itemKASUM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
                     itemKASUM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASUM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASUM.strRekapJp = modMain.pbstrgetCol(reader, 10, ref strErr, "");
                     itemKASUM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
                     itemKASUM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
                     itemKASUM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
@@ -438,7 +446,7 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             reader.Close();
-
+            conn.Close();
 
             if (grpLstKASUM.Count > 0)
             {
@@ -662,6 +670,7 @@ namespace SIM_RS.RAWAT_INAP
 
             } /* EOF if(grpLstKasum.Count > 0) */
 
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - ASKESGAKIN");
 
             /* QUERY ASKESGAKIN*/
             this.strQuerySQL = " SELECT  " +
@@ -692,7 +701,7 @@ namespace SIM_RS.RAWAT_INAP
                                     "BL_KASASKES.Tanggal, " +                                                //24
                                     "BL_TARIP.Idmr_jeniskelas, " +                                           //25
                                     "BL_TRANSAKSI.Idmr_truangan, " +                                         //26
-                                    "MR_DOKTER.Idmr_dokter, " +                                             //27
+                                    "BL_TRANSAKSIDETAIL.Idmr_dokter, " +                                             //27
                                     "MR_DOKTER.Nama " +                                                     //28
                                " FROM BL_KELTARIP With (nolock)  " +
                                " INNER JOIN BL_TRANSAKSI " +
@@ -713,7 +722,7 @@ namespace SIM_RS.RAWAT_INAP
                                " INNER JOIN MR_SJASKES " +
                                     "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
                                "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSIDETAIL.Idmr_dokter " +
                                " WHERE (BL_TRANSAKSI.Batal <> 'Y') " +
                                   " AND (BL_KASASKES.Batal = '') " +
                                   " AND (MR_SJASKES.BATAL = '') " +
@@ -727,6 +736,13 @@ namespace SIM_RS.RAWAT_INAP
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
                                   " AND BL_TRANSAKSI.idbl_pembayaran > 0 AND BL_KELTARIP.Lapjp <> '-'";
+
+            conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
 
             reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -752,7 +768,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemKASASKIN.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
                     itemKASASKIN.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
                     itemKASASKIN.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASASKIN.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASASKIN.strRekapJp = modMain.pbstrgetCol(reader, 10, ref strErr, "");
                     itemKASASKIN.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
                     itemKASASKIN.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
                     itemKASASKIN.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
@@ -776,6 +792,7 @@ namespace SIM_RS.RAWAT_INAP
                 }
             }
             reader.Close();
+            conn.Close();
 
             if (grpLstKASASKIN.Count > 0)
             {
@@ -1001,7 +1018,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
 
-            
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - ASKESJAMKESMAS");
 
             /* QUERY ASKES JAMKESMAS*/
             this.strQuerySQL = "SELECT  " +
@@ -1053,7 +1070,7 @@ namespace SIM_RS.RAWAT_INAP
                                "INNER JOIN MR_SJASKES " +
                                     "ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
                                "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSIDETAIL.Idmr_dokter " +
                                "WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
                                   " AND (MR_SJASKES.BATAL = '') AND MR_SJASKES.idmr_tstatus = 'ASKESJAMKESMAS' " +
                                   " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
@@ -1065,6 +1082,13 @@ namespace SIM_RS.RAWAT_INAP
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
                                   " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+
+            conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
 
             reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -1090,7 +1114,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemKASJKM.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
                     itemKASJKM.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
                     itemKASJKM.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASJKM.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASJKM.strRekapJp = modMain.pbstrgetCol(reader, 10, ref strErr, "");
                     itemKASJKM.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
                     itemKASJKM.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
                     itemKASJKM.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
@@ -1115,7 +1139,7 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             reader.Close();
-
+            conn.Close();
 
             if (grpLstKASJKM.Count > 0)
             {
@@ -1341,7 +1365,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
 
-
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - ASKESJAMKESDA");
 
             /* QUERY ASKES JAMKESDA*/
             this.strQuerySQL = "SELECT  " +
@@ -1389,7 +1413,7 @@ namespace SIM_RS.RAWAT_INAP
                                 " INNER JOIN MR_TRUANGAN ON BL_KASASKES.Idmr_truangan = MR_TRUANGAN.idmr_truangan " +
                                 " INNER JOIN MR_SJASKES ON BL_KASASKES.idmr_mutasipasien = MR_SJASKES.idmr_mutasipasien " +
                                 "INNER JOIN MR_DOKTER " +
-                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSI_1.Idmr_dokter " +
+                                    "ON MR_DOKTER.Idmr_dokter = BL_TRANSAKSIDETAIL.Idmr_dokter " +
                                 " WHERE (BL_TRANSAKSI.Batal <> 'Y') AND (BL_KASASKES.Batal = '') " +
                                   " AND (MR_SJASKES.BATAL = '') and MR_SJASKES.idmr_tstatus = 'ASKESJAMKESDA' " +
                                   " AND (BL_TRANSAKSIDETAIL.Idbl_komponen <> 'JASA SARANA') " +
@@ -1401,6 +1425,13 @@ namespace SIM_RS.RAWAT_INAP
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-FARMASI' " +
                                   " AND BL_TRANSAKSI.idmr_tsmf <> 'OBAT/ALKES-KPRI'" +
                                   " AND BL_TRANSAKSI.idbl_pembayaran > 0 and BL_KELTARIP.Lapjp <> '-'";
+
+            conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
 
             reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -1426,7 +1457,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemKASJKD.dblNilai = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
                     itemKASJKD.dblRingan = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
                     itemKASJKD.dblUrutan = Convert.ToDouble(modMain.pbstrgetCol(reader, 9, ref strErr, ""));
-                    itemKASJKD.dblRekapJp = Convert.ToDouble(modMain.pbstrgetCol(reader, 10, ref strErr, ""));
+                    itemKASJKD.strRekapJp = modMain.pbstrgetCol(reader, 10, ref strErr, "");
                     itemKASJKD.dblTunainya = Convert.ToDouble(modMain.pbstrgetCol(reader, 11, ref strErr, ""));
                     itemKASJKD.dblNoAmbil = Convert.ToDouble(modMain.pbstrgetCol(reader, 12, ref strErr, ""));
                     itemKASJKD.dtTglAmbil = Convert.ToDateTime(modMain.pbstrgetCol(reader, 13, ref strErr, ""));
@@ -1451,7 +1482,7 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             reader.Close();
-
+            conn.Close();
 
             if (grpLstKASJKD.Count > 0)
             {
@@ -1735,7 +1766,15 @@ namespace SIM_RS.RAWAT_INAP
             }
 
 
-            conn.Close();
+            //conn.Close();
+
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "Proses Load - SELESAI");
+            dtpFilterTgl1.SafeControlInvoke(DateTimePicker => dtpFilterTgl1.Enabled = true);
+            dtpFilterTgl2.SafeControlInvoke(DateTimePicker => dtpFilterTgl2.Enabled = true);
+            cmbJenisLaporan.SafeControlInvoke(ComboBox => cmbJenisLaporan.Enabled = true);
+            cmbUnit.SafeControlInvoke(ComboBox => cmbUnit.Enabled = true);
+            btnCari.SafeControlInvoke(Button => btnCari.Enabled = true);
+            cmbJenisLaporan.SafeControlInvoke(ComboBox => cmbJenisLaporan.Focus());
 
 
         }
@@ -1815,6 +1854,14 @@ namespace SIM_RS.RAWAT_INAP
 
                 }
 
+            }
+        }
+
+        private void dtpFilterTgl2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                this.bgWorkLoadFromDB.RunWorkerAsync();
             }
         }
     }

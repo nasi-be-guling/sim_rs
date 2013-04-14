@@ -138,4 +138,3 @@ G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapKasBKP.resources
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LaporanJasaPelayanan.resources
 G:\GIT REPO\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapPerOperator.resources
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM_RS.RAWAT_INAP.LapKasBKP.resources
-X:\REPO GIT\SIM-RS\SIM-RS\bin\Debug\EPPlus.xml

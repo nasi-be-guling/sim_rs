@@ -138,6 +138,7 @@
             this.dtpFilterTgl2.Name = "dtpFilterTgl2";
             this.dtpFilterTgl2.Size = new System.Drawing.Size(186, 27);
             this.dtpFilterTgl2.TabIndex = 98;
+            this.dtpFilterTgl2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpFilterTgl2_KeyPress);
             // 
             // btnCari
             // 
@@ -179,6 +180,7 @@
             // 
             // lblInfoPencarian
             // 
+            this.lblInfoPencarian.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblInfoPencarian.AutoSize = true;
             this.lblInfoPencarian.Location = new System.Drawing.Point(4, 536);
             this.lblInfoPencarian.Name = "lblInfoPencarian";
@@ -189,9 +191,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.lvDaftarTindakan);
             this.panel1.Controls.Add(this.lblDaftarTindakan);
@@ -202,9 +204,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
