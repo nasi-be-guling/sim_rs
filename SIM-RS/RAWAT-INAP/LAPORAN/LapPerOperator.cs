@@ -176,7 +176,7 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
             conn.Close();
 
-            modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 8);
 
             timerBlink.Enabled = false;
             timerBlink.Stop();

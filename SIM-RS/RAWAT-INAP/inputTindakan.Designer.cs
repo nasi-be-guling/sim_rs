@@ -660,9 +660,10 @@
             // lblInfoPencarian
             // 
             this.lblInfoPencarian.AutoSize = true;
-            this.lblInfoPencarian.Location = new System.Drawing.Point(596, 15);
+            this.lblInfoPencarian.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPencarian.Location = new System.Drawing.Point(581, 14);
             this.lblInfoPencarian.Name = "lblInfoPencarian";
-            this.lblInfoPencarian.Size = new System.Drawing.Size(191, 18);
+            this.lblInfoPencarian.Size = new System.Drawing.Size(203, 20);
             this.lblInfoPencarian.TabIndex = 2;
             this.lblInfoPencarian.Text = "Proses Menampilkan Data...";
             this.lblInfoPencarian.Visible = false;

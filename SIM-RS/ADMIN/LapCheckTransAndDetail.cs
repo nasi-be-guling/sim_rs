@@ -218,7 +218,7 @@ namespace SIM_RS.ADMIN
 
                 //MessageBox.Show(strIdBlKomponen);
 
-                this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL_1 WITH (ROWLOCK) " +
+                this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) " +
                                            "(idmr_mutasipasien, idbl_transaksi, " +
                                            "idbl_komponen, idmr_dokter, " +
                                            "niltarip, niltamb, " +
@@ -379,19 +379,19 @@ namespace SIM_RS.ADMIN
             dtpFilterTgl1.SafeControlInvoke(DateTimePicker => strTglFilterAkhir = dtpFilterTgl2.Value.ToString("MM/dd/yyyy 23:59:59"));
 
             strQuerySQL = "SELECT " +
-                              "BL_TRANSAKSI_1.regbilling, " +
-                              "BL_TRANSAKSI_1.idbl_tarip, " +
-                              "BL_TRANSAKSI_1.jumlah,  " +
-                              "(SELECT SUM(BL_TRANSAKSIDETAIL_1.nilai) " +
-                                "FROM BL_TRANSAKSIDETAIL_1 "+
-                                "WHERE BL_TRANSAKSI_1.idbl_transaksi = BL_TRANSAKSIDETAIL_1.idbl_transaksi) as nilaiDetail, " +
-                              "BL_TRANSAKSI_1.idbl_transaksi, BL_TRANSAKSI_1.TglTransaksi, BL_TRANSAKSI_1.idmr_Truangan " +
-                          "FROM BL_TRANSAKSI_1 " +
-                              "INNER JOIN BL_TARIP ON BL_TRANSAKSI_1.idbl_tarip = BL_TARIP.IdBl_tarip " +
-                          "WHERE (BL_TRANSAKSI_1.Tgltransaksi BETWEEN '" + strTglFilterAwal +
+                              "BL_TRANSAKSI.regbilling, " +
+                              "BL_TRANSAKSI.idbl_tarip, " +
+                              "BL_TRANSAKSI.jumlah,  " +
+                              "(SELECT SUM(BL_TRANSAKSIDETAIL.nilai) " +
+                                "FROM BL_TRANSAKSIDETAIL "+
+                                "WHERE BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi) as nilaiDetail, " +
+                              "BL_TRANSAKSI.idbl_transaksi, BL_TRANSAKSI.TglTransaksi, BL_TRANSAKSI.idmr_Truangan " +
+                          "FROM BL_TRANSAKSI " +
+                              "INNER JOIN BL_TARIP ON BL_TRANSAKSI.idbl_tarip = BL_TARIP.IdBl_tarip " +
+                          "WHERE (BL_TRANSAKSI.Tgltransaksi BETWEEN '" + strTglFilterAwal +
                                   "' AND  '" + strTglFilterAkhir + "') " +
-                          " AND BL_TRANSAKSI_1.Batal = '' " +
-                          "ORDER BY BL_TRANSAKSI_1.regbilling";
+                          " AND BL_TRANSAKSI.Batal = '' " +
+                          "ORDER BY BL_TRANSAKSI.regbilling";
 
 
             //"(SELECT SUM(nilai) FROM BL_TRANSAKSIDETAIL AS b WHERE a.idbl_transaksi = b.idbl_transaksi) IS NULL OR " +

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.btnTampilkan = new System.Windows.Forms.Button();
             this.dtpPeriodeTgl = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnKeluar = new System.Windows.Forms.Button();
-            this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.bgWork = new System.ComponentModel.BackgroundWorker();
             this.timerBlink = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
@@ -73,6 +73,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(791, 39);
             this.panel1.TabIndex = 115;
+            // 
+            // lblInfoPencarian
+            // 
+            this.lblInfoPencarian.AutoSize = true;
+            this.lblInfoPencarian.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPencarian.ForeColor = System.Drawing.Color.Black;
+            this.lblInfoPencarian.Location = new System.Drawing.Point(564, 10);
+            this.lblInfoPencarian.Name = "lblInfoPencarian";
+            this.lblInfoPencarian.Size = new System.Drawing.Size(221, 21);
+            this.lblInfoPencarian.TabIndex = 117;
+            this.lblInfoPencarian.Text = "Proses Menampilkan Data...";
+            this.lblInfoPencarian.Visible = false;
             // 
             // btnTampilkan
             // 
@@ -187,17 +199,6 @@
             this.btnKeluar.Text = "&KELUAR";
             this.btnKeluar.UseVisualStyleBackColor = false;
             this.btnKeluar.Click += new System.EventHandler(this.btnKeluarIsiTindakan_Click);
-            // 
-            // lblInfoPencarian
-            // 
-            this.lblInfoPencarian.AutoSize = true;
-            this.lblInfoPencarian.ForeColor = System.Drawing.Color.Black;
-            this.lblInfoPencarian.Location = new System.Drawing.Point(585, 10);
-            this.lblInfoPencarian.Name = "lblInfoPencarian";
-            this.lblInfoPencarian.Size = new System.Drawing.Size(200, 21);
-            this.lblInfoPencarian.TabIndex = 117;
-            this.lblInfoPencarian.Text = "Proses Menampilkan Data...";
-            this.lblInfoPencarian.Visible = false;
             // 
             // bgWork
             // 

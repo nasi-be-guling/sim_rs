@@ -318,7 +318,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(191, 241);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(76, 18);
+            this.label22.Size = new System.Drawing.Size(74, 18);
             this.label22.TabIndex = 116;
             this.label22.Text = "Deskripsi :";
             // 
