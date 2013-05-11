@@ -26,7 +26,7 @@
     <ProductName>SIM-RS</ProductName>
     <PublisherName>RSSA</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -85,6 +85,9 @@
     <Reference Include="System.Core">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
       <Private>True</Private>
@@ -116,6 +119,11 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
+    <Compile Include="DATASET\DATASET_APP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DATASET_APP.xsd</DependentUpon>
+    </Compile>
     <Compile Include="GENERAL\halamanUtama.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +135,11 @@
     </Compile>
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.cs">
       <SubType>Form</SubType>
@@ -190,6 +203,7 @@
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">
       <DependentUpon>LapKasBKP.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +217,21 @@
       <DependentUpon>pendaftaran.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DATASET\DATASET_APP.xsc">
+      <DependentUpon>DATASET_APP.xsd</DependentUpon>
+    </None>
+    <None Include="DATASET\DATASET_APP.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DATASET_APP.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DATASET\DATASET_APP.xss">
+      <DependentUpon>DATASET_APP.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

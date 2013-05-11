@@ -34,6 +34,8 @@ namespace SIM_RS.RAWAT_INAP
         string strErr = "";
 
 
+        bool boolBypassDokter = false;
+
         /*VARIABLE INSERT TO BL_TRANSAKSI*/
         string strIdMutasiPasien = "";
         string strIdMR_TempatLayanan = "";
@@ -41,6 +43,8 @@ namespace SIM_RS.RAWAT_INAP
 
         int intUrutanTrans = 0;
 
+        string strSMFTindakan = "";
+        string strSMFDokter = "";
 
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
@@ -69,7 +73,23 @@ namespace SIM_RS.RAWAT_INAP
             public int intNoUrut { get; set; }
 
         }
+
         public List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
+
+        public class lstDaftarLengkapKomponenTarif
+        {
+            public string strKodeTarif { get; set; }
+            public string strId_Komponen { get; set; }
+            public double dblByKomponen { get; set; }
+            public double dblHak1 { get; set; }
+            public double dblHak2 { get; set; }
+            public double dblHak3 { get; set; }
+            public int intPrioritasTunai { get; set; }
+            public int intNoUrut { get; set; }
+
+        }
+
+        public List<lstDaftarLengkapKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarLengkapKomponenTarif>();
 
         public class lstDaftarTindakan
         {
@@ -91,6 +111,7 @@ namespace SIM_RS.RAWAT_INAP
         {
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
+            public string strSMF { get; set; }
         }
         List<lstDaftarDokter> grpLstDaftarDokter = new List<lstDaftarDokter>();
 
@@ -209,8 +230,9 @@ namespace SIM_RS.RAWAT_INAP
 
 
             this.strQuerySQL = "SELECT " +
-                                "MR_DOKTER.idmr_dokter, " +           //0
-                                "MR_DOKTER.nama " +                   //1
+                                "MR_DOKTER.idmr_dokter, " +                 //0
+                                "MR_DOKTER.nama, " +                        //1
+                                "MR_DOKTER.idmr_tsmf " +                    //2
                                "FROM MR_DOKTER WITH (NOLOCK) " +
                                "WHERE MR_DOKTER.dipakai = 'Y'";
 
@@ -235,6 +257,7 @@ namespace SIM_RS.RAWAT_INAP
                     itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                     itemDaftarDokter.strNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
                     itemDaftarDokter.strNamaDokter = itemDaftarDokter.strNamaDokter.Trim().ToString();
+                    itemDaftarDokter.strSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
 
                     grpLstDaftarDokter.Add(itemDaftarDokter);
                 }
@@ -247,6 +270,49 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.AutoCompleteCustomSource = listDokter;
             txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+            grpLstDaftarLengkapKomponenTarif.Clear();
+
+
+            this.strQuerySQL = "SELECT " +
+                                    "idbl_tarip, " +        //0
+                                    "idbl_komponen, " +      //1
+                                    "bykomponen, " +         //2
+                                    "Hak1, " +               //3
+                                    "Hak2, " +               //4
+                                    "Hak3, " +               //5
+                                    "PrioritasTunai " +      //6
+                                "FROM BL_KOMPTARIP WITH (NOLOCK)";
+            reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    lstDaftarLengkapKomponenTarif itemKomponenTarif = new lstDaftarLengkapKomponenTarif();
+                    itemKomponenTarif.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    itemKomponenTarif.strId_Komponen = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemKomponenTarif.dblByKomponen = Convert.ToDouble(modMain.pbstrgetCol(reader, 2, ref strErr, ""));
+                    itemKomponenTarif.dblHak1 = Convert.ToDouble(modMain.pbstrgetCol(reader, 3, ref strErr, ""));
+                    itemKomponenTarif.dblHak2 = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    itemKomponenTarif.dblHak3 = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    itemKomponenTarif.intPrioritasTunai = Convert.ToInt32(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                    itemKomponenTarif.intNoUrut = intUrutanTrans;
+
+                    grpLstDaftarLengkapKomponenTarif.Add(itemKomponenTarif);
+                }
+
+            }
+            reader.Close();
 
 
 
@@ -979,6 +1045,8 @@ namespace SIM_RS.RAWAT_INAP
         {
             txtKodeTindakan.Text = "";
             txtKodeTindakan.CharacterCasing = CharacterCasing.Upper;
+            txtNamaDokter.Enabled = true;
+
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
             btnTampilDaftarTindakan.Enabled = true;
@@ -1053,6 +1121,12 @@ namespace SIM_RS.RAWAT_INAP
                     txtNamaDokter.Focus();
 
                 }
+                else
+                {
+                    
+                }
+
+
             }
         }
 
@@ -1088,9 +1162,31 @@ namespace SIM_RS.RAWAT_INAP
                 else
                 {
 
+                    //string strKodeTindakan = grpLstDaftarTarif[intResultSearch].strKodeTarif;
+
+                    var tempResult = grpLstDaftarLengkapKomponenTarif.FindAll(
+                                        m => (m.strKodeTarif == strKode && 
+                                            m.strId_Komponen == "JASA PELAYANAN"));
+
+                    if (tempResult.Count <= 0)
+                    {
+                        // jika tidak ketemu komponen jasa pelayanan maka tidak perlu isi dokter
+                        boolBypassDokter = true;
+                        txtNamaDokter.Enabled = false;
+                    }
+                    else
+                    {
+                        //jika ada komponen jasa pelayanan maka harus di isi dokter
+                        boolBypassDokter = false;
+                        txtNamaDokter.Enabled = true;
+                    }
+                    
+
                     lblBiayaTindakan.Text = grpLstDaftarTarif[intResultSearch].dblBiaya.ToString();
                     lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultSearch].strUraianTarif;
                     btnTampilDaftarTindakan.Enabled = false;
+
+                    strSMFTindakan = grpLstDaftarTarif[intResultSearch].strSMF.ToString();
 
                 }
             }
@@ -1169,7 +1265,7 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            if (txtNamaDokter.Text.Trim().ToString() == "")
+            if ((txtNamaDokter.Text.Trim().ToString() == "") && (!boolBypassDokter))
             {
                 MessageBox.Show("Untuk tindakan KELAS 1 harus disertakan nama dokter",
                                  "Informasi",
@@ -1189,7 +1285,7 @@ namespace SIM_RS.RAWAT_INAP
 
             String[] strArrPart = null;
 
-            if(strKodeNama != "")
+            if((strKodeNama != "") && (!boolBypassDokter))
             {
 
                 strArrPart = Regex.Split(strKodeNama, "--");
@@ -1204,6 +1300,21 @@ namespace SIM_RS.RAWAT_INAP
                 {
                     //strKodeDokter = grpLstDaftarDokter[intResultSearchDoctor].strKodeDokter;
                     strNamaDokter = grpLstDaftarDokter[intResultSearchDoctor].strNamaDokter;
+                    strSMFDokter = grpLstDaftarDokter[intResultSearchDoctor].strSMF;
+
+
+                    if (strSMFDokter.Trim().ToString() != strSMFTindakan.Trim().ToString())
+                    {
+                        MessageBox.Show("Pengisian Kode Dokter harus sesuai Kode Tindakan pada SMF Dokter tersebut",
+                                  "Informasi",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information);
+                        txtNamaDokter.Focus();
+
+                        MessageBox.Show(strSMFDokter.ToString() + " " + strSMFTindakan.ToString());
+
+                        return;
+                    }
                 }
                 else
                 {
@@ -1214,7 +1325,6 @@ namespace SIM_RS.RAWAT_INAP
                     txtNamaDokter.Focus();
                     return;
                 }
-
             }
 
             strArrPart = Regex.Split(txtKodeTindakan.Text, "--");
@@ -1309,19 +1419,21 @@ namespace SIM_RS.RAWAT_INAP
             reader.Close();
             conn.Close();
 
+            int intUrutan = 1;
+
             lvDaftarTindakan.Items.Clear();
             grpLstDaftarTindakan.ForEach(
                 delegate(
                     lstDaftarTindakan itemTindakanFetch) 
             {
 
-                lvDaftarTindakan.Items.Add((itemTindakanFetch.intNoUrut+1).ToString());
+                lvDaftarTindakan.Items.Add((intUrutan.ToString()).ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.intNoUrut.ToString());
-
+                intUrutan++;
             });
 
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 5);

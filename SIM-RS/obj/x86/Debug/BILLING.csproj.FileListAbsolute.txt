@@ -138,3 +138,5 @@ X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe.manifest
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.application
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.exe
 X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\SIM-RS.pdb
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\RdlCompile.cache
+X:\REPO GIT\SIM-RS\SIM-RS\obj\x86\Debug\RdlCompile.compiled

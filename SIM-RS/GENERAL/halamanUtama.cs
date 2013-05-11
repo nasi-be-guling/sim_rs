@@ -38,6 +38,7 @@ namespace SIM_RS
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
+        C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /* DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
         public static string REG_ROOT = "Software\\ITIKOM";
@@ -117,24 +118,35 @@ namespace SIM_RS
          */
         private void pvInitialApp()
         {
+            //string strPlainText = "";
             bool isAdaRegistry = modMain.checkRegistry(FULL_REG_CONN.ToString());
-
-            
-
             if (!isAdaRegistry)
             {
                 /*jika belum ada, maka ini adalah kali pertama aplikasi dijalankan di PC tersebut..
                  *  oleh karena itu harus menampilkan setting login aplikasi..
                  */
                 Registry.CurrentUser.CreateSubKey(FULL_REG_CONN.ToString());
+                string strSandi = modEncrypt.EncryptToString(strPasswordDBServer);
                 modMain.pbTulisRegistry(
-                            strUserDBServer, 
-                            strPasswordDBServer, 
-                            strIPDBServer, 
-                            strPortDBServer, 
-                            strNameDBServer, 
+                            strUserDBServer,
+                            strSandi,
+                            strIPDBServer,
+                            strPortDBServer,
+                            strNameDBServer,
                             FULL_REG_CONN.ToString());
             }
+            else
+            {
+                C4Module.MainModule.strRegKey = FULL_REG_CONN; 
+                //string strSandi = modMain.pbBacaRegistryItem("sql_akun_sandi");                
+
+                //if (strSandi.Length < 25)
+                //{
+                    string EncryptSandi = modEncrypt.EncryptToString(strPasswordDBServer);
+                    modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi);
+                //}
+            }
+
             
             isAdaRegistry = modMain.checkRegistry(FULL_REG_SETTING.ToString());
             if (!isAdaRegistry)
@@ -144,9 +156,7 @@ namespace SIM_RS
                  */
                 Registry.CurrentUser.CreateSubKey(FULL_REG_SETTING.ToString());
                 C4Module.MainModule.strRegKey = FULL_REG_SETTING;               
-                modMain.pbTulisRegistryItem("Aplikasi", "Operator");
-
-              
+                modMain.pbTulisRegistryItem("Aplikasi", "Operator");              
             }
 
             /*..READ SETTING FROM REGEDIT..*/
@@ -320,6 +330,8 @@ namespace SIM_RS
         {
             InitializeComponent();
 
+            //this.Location = Owner.Location;
+
             this.pvAsignColor();
 
             this.pvInitialApp();
@@ -356,6 +368,8 @@ namespace SIM_RS
             this.KeyPreview = true;
 
             lbDaftarMenu.Items.Clear();
+
+           
 
         }
 
@@ -415,12 +429,7 @@ namespace SIM_RS
             }
 
         }
-
-        private void halamanUtama_Leave(object sender, EventArgs e)
-        {
-
-        }      
-
+       
         private void timerWaktu_Tick(object sender, EventArgs e)
         {
             tssTglLengkap.Text = DateTime.Now.ToString("dd MMMM yyyy") + " " + DateTime.Now.ToString("HH:mm:ss");
@@ -434,19 +443,7 @@ namespace SIM_RS
 
             strNamaUser = txtPetugas.Text;
         }
-
-        private void halamanUtama_Paint(object sender, PaintEventArgs e)
-        {
-            //Bitmap bmpBlurr = Screenshot.TakeSnapshot(this);
-            //BitmapFilter.GaussianBlur(bmpBlurr, 1);
-
-
-            //pbScreenCapture.Image = bmpBlurr;
-            //pbScreenCapture.Dock = DockStyle.Fill;
-            //pbScreenCapture.BringToFront();
-            //pbScreenCapture.Visible = true;
-        }
-
+      
        
     }
 

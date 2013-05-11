@@ -96,6 +96,7 @@
             this.btnTampilkan.TabIndex = 108;
             this.btnTampilkan.Text = "&Tampilkan";
             this.btnTampilkan.UseVisualStyleBackColor = false;
+            this.btnTampilkan.Click += new System.EventHandler(this.btnTampilkan_Click);
             // 
             // btnExport
             // 
@@ -174,6 +175,7 @@
             this.cmbJenisLaporan.Name = "cmbJenisLaporan";
             this.cmbJenisLaporan.Size = new System.Drawing.Size(176, 28);
             this.cmbJenisLaporan.TabIndex = 102;
+            this.cmbJenisLaporan.SelectedValueChanged += new System.EventHandler(this.cmbJenisLaporan_SelectedValueChanged);
             this.cmbJenisLaporan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbJenisLaporan_KeyPress);
             // 
             // label4

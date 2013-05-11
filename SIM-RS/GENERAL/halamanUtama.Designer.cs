@@ -62,7 +62,6 @@
             this.lbDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbDaftarMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbDaftarMenu.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDaftarMenu.FormattingEnabled = true;
             this.lbDaftarMenu.HorizontalExtent = 40;
@@ -73,10 +72,10 @@
             "MENU 2",
             "MENU 3",
             "MENU 4"});
-            this.lbDaftarMenu.Location = new System.Drawing.Point(9, 39);
+            this.lbDaftarMenu.Location = new System.Drawing.Point(6, 38);
             this.lbDaftarMenu.Name = "lbDaftarMenu";
             this.lbDaftarMenu.ScrollAlwaysVisible = true;
-            this.lbDaftarMenu.Size = new System.Drawing.Size(524, 202);
+            this.lbDaftarMenu.Size = new System.Drawing.Size(529, 179);
             this.lbDaftarMenu.TabIndex = 0;
             this.lbDaftarMenu.DoubleClick += new System.EventHandler(this.lbDaftarMenu_DoubleClick);
             this.lbDaftarMenu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbDaftarMenu_KeyPress);
@@ -97,7 +96,7 @@
             // 
             this.btnKeluarProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnKeluarProgram.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
-            this.btnKeluarProgram.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnKeluarProgram.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnKeluarProgram.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarProgram.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -320,10 +319,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.halamanUtama_FormClosing);
             this.Load += new System.EventHandler(this.halamanUtama_Load);
             this.Shown += new System.EventHandler(this.halamanUtama_Shown);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.halamanUtama_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.halamanUtama_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.halamanUtama_KeyPress);
-            this.Leave += new System.EventHandler(this.halamanUtama_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

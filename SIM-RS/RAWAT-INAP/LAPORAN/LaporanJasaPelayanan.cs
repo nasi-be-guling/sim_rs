@@ -62,38 +62,38 @@ namespace SIM_RS.RAWAT_INAP
             public string strNamaDokter { get; set; }
         }
 
-        public class lstKASASKIN
-        {
-            public string strRegBilling { get; set; }
-            public string strNama { get; set; }
-            public string strRuangan { get; set; }
-            public double dblJumlah { get; set; }
-            public double dblSubsidi { get; set; }
-            public double dblTunai { get; set; }
-            public string strIdBl_Komponen { get; set; }
-            public double dblNilai { get; set; }
-            public double dblRingan { get; set; }
-            public double dblUrutan { get; set; }
-            public string strRekapJp { get; set; }
-            public double dblTunainya { get; set; }
-            public double dblNoAmbil { get; set; }
-            public DateTime dtTglAmbil { get; set; }
-            public string strIdBl_KelTarip { get; set; }
-            public string strLapJP { get; set; }
-            public string strIdMR_TSMF { get; set; }
-            public string strIdMR_TUPF { get; set; }
-            public string strIdBl_Tarip { get; set; }
-            public string strUraianTarip { get; set; }
-            public double dblJumlahKasusTarip { get; set; }
-            public string strIdBl_Transaksi { get; set; }
-            public string strIdBl_Pembayaran { get; set; }
-            public DateTime dtTglTransaksi { get; set; }
-            public DateTime dtTgl { get; set; }
-            public string strIdMR_JenisKelas { get; set; }
-            public string strIdMR_Ruangan { get; set; }
-            public string strIdMR_Dokter { get; set; }
-            public string strNamaDokter { get; set; }
-        }
+        //public class lstKASASKIN
+        //{
+        //    public string strRegBilling { get; set; }
+        //    public string strNama { get; set; }
+        //    public string strRuangan { get; set; }
+        //    public double dblJumlah { get; set; }
+        //    public double dblSubsidi { get; set; }
+        //    public double dblTunai { get; set; }
+        //    public string strIdBl_Komponen { get; set; }
+        //    public double dblNilai { get; set; }
+        //    public double dblRingan { get; set; }
+        //    public double dblUrutan { get; set; }
+        //    public string strRekapJp { get; set; }
+        //    public double dblTunainya { get; set; }
+        //    public double dblNoAmbil { get; set; }
+        //    public DateTime dtTglAmbil { get; set; }
+        //    public string strIdBl_KelTarip { get; set; }
+        //    public string strLapJP { get; set; }
+        //    public string strIdMR_TSMF { get; set; }
+        //    public string strIdMR_TUPF { get; set; }
+        //    public string strIdBl_Tarip { get; set; }
+        //    public string strUraianTarip { get; set; }
+        //    public double dblJumlahKasusTarip { get; set; }
+        //    public string strIdBl_Transaksi { get; set; }
+        //    public string strIdBl_Pembayaran { get; set; }
+        //    public DateTime dtTglTransaksi { get; set; }
+        //    public DateTime dtTgl { get; set; }
+        //    public string strIdMR_JenisKelas { get; set; }
+        //    public string strIdMR_Ruangan { get; set; }
+        //    public string strIdMR_Dokter { get; set; }
+        //    public string strNamaDokter { get; set; }
+        //}
 
         public class lstKASJKM
         {
@@ -163,7 +163,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
         List<lstKASUM> grpLstKASUM = new List<lstKASUM>();
-        List<lstKASASKIN> grpLstKASASKIN = new List<lstKASASKIN>();
+        //List<lstKASASKIN> grpLstKASASKIN = new List<lstKASASKIN>();
         List<lstKASJKM> grpLstKASJKM = new List<lstKASJKM>();
         List<lstKASJKD> grpLstKASJKD = new List<lstKASJKD>();
 
@@ -318,7 +318,7 @@ namespace SIM_RS.RAWAT_INAP
             /*CLEAN DATA*/
 
             grpLstKASUM.Clear();
-            grpLstKASASKIN.Clear();
+            //grpLstKASASKIN.Clear();
             grpLstKASJKM.Clear();
             grpLstKASJKD.Clear();
             grpKelTarip.Clear();
@@ -2088,6 +2088,7 @@ namespace SIM_RS.RAWAT_INAP
                             package.Save();
 
                         }
+                       
 
                     }
                     else
@@ -2226,96 +2227,95 @@ namespace SIM_RS.RAWAT_INAP
                 }
                 else if (strPilihanExport.Substring(0, 1) == "3")
                 {
-                    if (grpLstKASASKIN.Count > 0)
-                    {
-                        using (ExcelPackage package = new ExcelPackage(newFile))
-                        {
-                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(strPilihanExport);                           
+                    //if (grpLstKASASKIN.Count > 0)
+                    //{
+                    //    using (ExcelPackage package = new ExcelPackage(newFile))
+                    //    {
+                    //        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(strPilihanExport);                           
 
-                            //Add the headers
-                            worksheet.Cells[1, 1].Value = "RegBilling";
-                            worksheet.Cells[1, 2].Value = "Nama";
-                            worksheet.Cells[1, 3].Value = "Ruangan";
-                            worksheet.Cells[1, 4].Value = "Jumlah";
-                            worksheet.Cells[1, 5].Value = "Subsidi";
-                            worksheet.Cells[1, 6].Value = "Tunai";
-                            worksheet.Cells[1, 7].Value = "Komponen";
-                            worksheet.Cells[1, 8].Value = "Nilai";
-                            worksheet.Cells[1, 9].Value = "Ringan";
-                            worksheet.Cells[1, 10].Value = "Urutan";
-                            worksheet.Cells[1, 11].Value = "Rekap JP";
-                            worksheet.Cells[1, 12].Value = "Tunainya";
-                            worksheet.Cells[1, 13].Value = "No Ambil";
-                            worksheet.Cells[1, 14].Value = "Tgl Ambil";
-                            worksheet.Cells[1, 15].Value = "Kel Tarip";
-                            worksheet.Cells[1, 16].Value = "Lap JP";
-                            worksheet.Cells[1, 17].Value = "SMF";
-                            worksheet.Cells[1, 18].Value = "UPF";
-                            worksheet.Cells[1, 19].Value = "Tarip";
-                            worksheet.Cells[1, 20].Value = "Uraian Tarip";
-                            worksheet.Cells[1, 21].Value = "Jumlah Kasus Tarip";
-                            worksheet.Cells[1, 22].Value = "Id Transaksi";
-                            worksheet.Cells[1, 23].Value = "Id Pembayaran";
-                            worksheet.Cells[1, 24].Value = "Tgl Transaksi";
-                            worksheet.Cells[1, 25].Value = "Tanggal";
-                            worksheet.Cells[1, 26].Value = "Jenis Kelas";
-                            worksheet.Cells[1, 27].Value = "Ruangan";
-                            worksheet.Cells[1, 28].Value = "Id Dokter";
-                            worksheet.Cells[1, 29].Value = "Nama Dokter";
+                    //        //Add the headers
+                    //        worksheet.Cells[1, 1].Value = "RegBilling";
+                    //        worksheet.Cells[1, 2].Value = "Nama";
+                    //        worksheet.Cells[1, 3].Value = "Ruangan";
+                    //        worksheet.Cells[1, 4].Value = "Jumlah";
+                    //        worksheet.Cells[1, 5].Value = "Subsidi";
+                    //        worksheet.Cells[1, 6].Value = "Tunai";
+                    //        worksheet.Cells[1, 7].Value = "Komponen";
+                    //        worksheet.Cells[1, 8].Value = "Nilai";
+                    //        worksheet.Cells[1, 9].Value = "Ringan";
+                    //        worksheet.Cells[1, 10].Value = "Urutan";
+                    //        worksheet.Cells[1, 11].Value = "Rekap JP";
+                    //        worksheet.Cells[1, 12].Value = "Tunainya";
+                    //        worksheet.Cells[1, 13].Value = "No Ambil";
+                    //        worksheet.Cells[1, 14].Value = "Tgl Ambil";
+                    //        worksheet.Cells[1, 15].Value = "Kel Tarip";
+                    //        worksheet.Cells[1, 16].Value = "Lap JP";
+                    //        worksheet.Cells[1, 17].Value = "SMF";
+                    //        worksheet.Cells[1, 18].Value = "UPF";
+                    //        worksheet.Cells[1, 19].Value = "Tarip";
+                    //        worksheet.Cells[1, 20].Value = "Uraian Tarip";
+                    //        worksheet.Cells[1, 21].Value = "Jumlah Kasus Tarip";
+                    //        worksheet.Cells[1, 22].Value = "Id Transaksi";
+                    //        worksheet.Cells[1, 23].Value = "Id Pembayaran";
+                    //        worksheet.Cells[1, 24].Value = "Tgl Transaksi";
+                    //        worksheet.Cells[1, 25].Value = "Tanggal";
+                    //        worksheet.Cells[1, 26].Value = "Jenis Kelas";
+                    //        worksheet.Cells[1, 27].Value = "Ruangan";
+                    //        worksheet.Cells[1, 28].Value = "Id Dokter";
+                    //        worksheet.Cells[1, 29].Value = "Nama Dokter";
 
-                            int intStartRow = 2;
+                    //        int intStartRow = 2;
 
-                            foreach (var fetch in grpLstKASASKIN)
-                            {
+                    //        foreach (var fetch in grpLstKASASKIN)
+                    //        {
 
-                                lblInfoPencarian.SafeControlInvoke(
-                                    Label => lblInfoPencarian.Text = "Proses Export " +
-                                        cmbPilihanExport.Text + " " + intStartRow.ToString() + " Baris");
+                    //            lblInfoPencarian.SafeControlInvoke(
+                    //                Label => lblInfoPencarian.Text = "Proses Export " +
+                    //                    cmbPilihanExport.Text + " " + intStartRow.ToString() + " Baris");
 
-                                worksheet.Cells[intStartRow, 1].Value = fetch.strRegBilling;
-                                worksheet.Cells[intStartRow, 2].Value = fetch.strNama;
-                                worksheet.Cells[intStartRow, 3].Value = fetch.strRuangan;
-                                worksheet.Cells[intStartRow, 4].Value = fetch.dblJumlah;
-                                worksheet.Cells[intStartRow, 5].Value = fetch.dblSubsidi;
-                                worksheet.Cells[intStartRow, 6].Value = fetch.dblTunai;
-                                worksheet.Cells[intStartRow, 7].Value = fetch.strIdBl_Komponen;
-                                worksheet.Cells[intStartRow, 8].Value = fetch.dblNilai;
-                                worksheet.Cells[intStartRow, 9].Value = fetch.dblRingan;
-                                worksheet.Cells[intStartRow, 10].Value = fetch.dblUrutan;
-                                worksheet.Cells[intStartRow, 11].Value = fetch.strRekapJp;
-                                worksheet.Cells[intStartRow, 12].Value = fetch.dblTunainya;
-                                worksheet.Cells[intStartRow, 13].Value = fetch.dblNoAmbil;
-                                worksheet.Cells[intStartRow, 14].Value = fetch.dtTglAmbil.ToString("dd/MM/yyyy");
-                                worksheet.Cells[intStartRow, 15].Value = fetch.strIdBl_KelTarip;
-                                worksheet.Cells[intStartRow, 16].Value = fetch.strLapJP;
-                                worksheet.Cells[intStartRow, 17].Value = fetch.strIdMR_TSMF;
-                                worksheet.Cells[intStartRow, 18].Value = fetch.strIdMR_TUPF;
-                                worksheet.Cells[intStartRow, 19].Value = fetch.strIdBl_Tarip;
-                                worksheet.Cells[intStartRow, 20].Value = fetch.strUraianTarip;
-                                worksheet.Cells[intStartRow, 21].Value = fetch.dblJumlahKasusTarip;
-                                worksheet.Cells[intStartRow, 22].Value = fetch.strIdBl_Transaksi;
-                                worksheet.Cells[intStartRow, 23].Value = fetch.strIdBl_Pembayaran;
-                                worksheet.Cells[intStartRow, 24].Value = fetch.dtTglTransaksi.ToString("dd/MM/yyyy");
-                                worksheet.Cells[intStartRow, 25].Value = fetch.dtTgl.ToString("dd/MM/yyyy");
-                                worksheet.Cells[intStartRow, 26].Value = fetch.strIdMR_JenisKelas;
-                                worksheet.Cells[intStartRow, 27].Value = fetch.strRuangan;
-                                worksheet.Cells[intStartRow, 28].Value = fetch.strIdMR_Dokter;
-                                worksheet.Cells[intStartRow, 29].Value = fetch.strNamaDokter;
+                    //            worksheet.Cells[intStartRow, 1].Value = fetch.strRegBilling;
+                    //            worksheet.Cells[intStartRow, 2].Value = fetch.strNama;
+                    //            worksheet.Cells[intStartRow, 3].Value = fetch.strRuangan;
+                    //            worksheet.Cells[intStartRow, 4].Value = fetch.dblJumlah;
+                    //            worksheet.Cells[intStartRow, 5].Value = fetch.dblSubsidi;
+                    //            worksheet.Cells[intStartRow, 6].Value = fetch.dblTunai;
+                    //            worksheet.Cells[intStartRow, 7].Value = fetch.strIdBl_Komponen;
+                    //            worksheet.Cells[intStartRow, 8].Value = fetch.dblNilai;
+                    //            worksheet.Cells[intStartRow, 9].Value = fetch.dblRingan;
+                    //            worksheet.Cells[intStartRow, 10].Value = fetch.dblUrutan;
+                    //            worksheet.Cells[intStartRow, 11].Value = fetch.strRekapJp;
+                    //            worksheet.Cells[intStartRow, 12].Value = fetch.dblTunainya;
+                    //            worksheet.Cells[intStartRow, 13].Value = fetch.dblNoAmbil;
+                    //            worksheet.Cells[intStartRow, 14].Value = fetch.dtTglAmbil.ToString("dd/MM/yyyy");
+                    //            worksheet.Cells[intStartRow, 15].Value = fetch.strIdBl_KelTarip;
+                    //            worksheet.Cells[intStartRow, 16].Value = fetch.strLapJP;
+                    //            worksheet.Cells[intStartRow, 17].Value = fetch.strIdMR_TSMF;
+                    //            worksheet.Cells[intStartRow, 18].Value = fetch.strIdMR_TUPF;
+                    //            worksheet.Cells[intStartRow, 19].Value = fetch.strIdBl_Tarip;
+                    //            worksheet.Cells[intStartRow, 20].Value = fetch.strUraianTarip;
+                    //            worksheet.Cells[intStartRow, 21].Value = fetch.dblJumlahKasusTarip;
+                    //            worksheet.Cells[intStartRow, 22].Value = fetch.strIdBl_Transaksi;
+                    //            worksheet.Cells[intStartRow, 23].Value = fetch.strIdBl_Pembayaran;
+                    //            worksheet.Cells[intStartRow, 24].Value = fetch.dtTglTransaksi.ToString("dd/MM/yyyy");
+                    //            worksheet.Cells[intStartRow, 25].Value = fetch.dtTgl.ToString("dd/MM/yyyy");
+                    //            worksheet.Cells[intStartRow, 26].Value = fetch.strIdMR_JenisKelas;
+                    //            worksheet.Cells[intStartRow, 27].Value = fetch.strRuangan;
+                    //            worksheet.Cells[intStartRow, 28].Value = fetch.strIdMR_Dokter;
+                    //            worksheet.Cells[intStartRow, 29].Value = fetch.strNamaDokter;
 
-                                intStartRow++;
-                            }
+                    //            intStartRow++;
+                    //        }
 
-                            lblInfoPencarian.SafeControlInvoke(
-                                    Label => lblInfoPencarian.Text = "Proses Simpan Ke File " + strNamaFile);
-                            package.Save();
+                    //        lblInfoPencarian.SafeControlInvoke(
+                    //                Label => lblInfoPencarian.Text = "Proses Simpan Ke File " + strNamaFile);
+                    //        package.Save();
 
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Data tidak ada", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Data tidak ada", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //}
             
                 }  /* EOF else if (strPilihanExport.Substring(0, 1) == "3") */
                 else if (strPilihanExport.Substring(0, 1) == "4")
@@ -2572,6 +2572,31 @@ namespace SIM_RS.RAWAT_INAP
                 lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.ForeColor = Color.Red);
             else
                 lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.ForeColor = Color.Black);
+        }
+
+        private void btnTampilkan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbJenisLaporan_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbJenisLaporan.Text.Trim().ToString() == "1. REKAP")
+            {
+                var UnitGroup = (from x in grpTransaknya
+                                 select x.strUnit).Distinct().OrderBy(a => a);
+
+                cmbUnit.Items.Clear();
+                foreach (var x in UnitGroup)
+                {
+                    cmbUnit.Items.Add(x);
+                }                               
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
