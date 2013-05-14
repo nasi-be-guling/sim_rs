@@ -2141,35 +2141,69 @@ namespace SIM_RS.RAWAT_INAP
                              */
 
                             //Add the headers
-                            worksheet.Cells[1, 1].Value = "RegBilling";
-                            worksheet.Cells[1, 2].Value = "Nama";
-                            worksheet.Cells[1, 3].Value = "Ruangan";
-                            worksheet.Cells[1, 4].Value = "Jumlah";
-                            worksheet.Cells[1, 5].Value = "Subsidi";
-                            worksheet.Cells[1, 6].Value = "Tunai";
-                            worksheet.Cells[1, 7].Value = "Komponen";
-                            worksheet.Cells[1, 8].Value = "Nilai";
-                            worksheet.Cells[1, 9].Value = "Ringan";
-                            worksheet.Cells[1, 10].Value = "Urutan";
-                            worksheet.Cells[1, 11].Value = "Rekap JP";
-                            worksheet.Cells[1, 12].Value = "Tunainya";
-                            worksheet.Cells[1, 13].Value = "No Ambil";
-                            worksheet.Cells[1, 14].Value = "Tgl Ambil";
-                            worksheet.Cells[1, 15].Value = "Kel Tarip";
-                            worksheet.Cells[1, 16].Value = "Lap JP";
-                            worksheet.Cells[1, 17].Value = "SMF";
-                            worksheet.Cells[1, 18].Value = "UPF";
-                            worksheet.Cells[1, 19].Value = "Tarip";
-                            worksheet.Cells[1, 20].Value = "Uraian Tarip";
-                            worksheet.Cells[1, 21].Value = "Jumlah Kasus Tarip";
-                            worksheet.Cells[1, 22].Value = "Id Transaksi";
-                            worksheet.Cells[1, 23].Value = "Id Pembayaran";
-                            worksheet.Cells[1, 24].Value = "Tgl Transaksi";
-                            worksheet.Cells[1, 25].Value = "Tanggal";
-                            worksheet.Cells[1, 26].Value = "Jenis Kelas";
-                            worksheet.Cells[1, 27].Value = "Ruangan";
-                            worksheet.Cells[1, 28].Value = "Id Dokter";
-                            worksheet.Cells[1, 29].Value = "Nama Dokter";
+                            int intKolom = 1;
+                            worksheet.Cells[1, intKolom].Value = "Nama";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "RegBilling";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tanggal";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Ruangan";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Kel Tarip";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Uraian Tarip";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Komponen";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "SMF";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tunainya";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Jumlah";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Subsidi";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tunai";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Jenis Kelas";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "idmr_ruangan";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "idmr_dokter";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Nama Dokter";
+                            
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Nilai";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Ringan";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Urutan";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Rekap JP";
+                           
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "No Ambil";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tgl Ambil";                            
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Lap JP";
+                           
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "UPF";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tarip";                           
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Jumlah Kasus Tarip";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Id Transaksi";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Id Pembayaran";
+                            intKolom++;
+                            worksheet.Cells[1, intKolom].Value = "Tgl Transaksi";
+                           
+                           
 
                             int intStartRow = 2;
 
@@ -2179,7 +2213,7 @@ namespace SIM_RS.RAWAT_INAP
                                 lblInfoPencarian.SafeControlInvoke(
                                     Label => lblInfoPencarian.Text = "Proses Export " +
                                         cmbPilihanExport.Text + " " + intStartRow.ToString() + " Baris");
-
+                                /*
                                 worksheet.Cells[intStartRow, 1].Value = fetch.strRegBilling;
                                 worksheet.Cells[intStartRow, 2].Value = fetch.strNama;
                                 worksheet.Cells[intStartRow, 3].Value = fetch.strRuangan;
@@ -2206,9 +2240,72 @@ namespace SIM_RS.RAWAT_INAP
                                 worksheet.Cells[intStartRow, 24].Value = fetch.dtTglTransaksi.ToString("dd-MMM-yyyy HH:mm:ss");
                                 worksheet.Cells[intStartRow, 25].Value = fetch.dtTgl.ToString("dd-MMM-yyyy HH:mm:ss");
                                 worksheet.Cells[intStartRow, 26].Value = fetch.strIdMR_JenisKelas;
-                                worksheet.Cells[intStartRow, 27].Value = fetch.strRuangan;
+                                worksheet.Cells[intStartRow, 27].Value = fetch.strIdMR_Ruangan;
                                 worksheet.Cells[intStartRow, 28].Value = fetch.strIdMR_Dokter;
                                 worksheet.Cells[intStartRow, 29].Value = fetch.strNamaDokter;
+                                */
+
+                                intKolom = 1;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strNama;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strRegBilling;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dtTglTransaksi.ToString("dd-MMM-yyyy HH:mm:ss");
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strRuangan;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdBl_KelTarip;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strUraianTarip;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdMR_TSMF;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdBl_Komponen;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblTunainya;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdMR_JenisKelas;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdMR_Ruangan;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdMR_Dokter;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strNamaDokter;
+
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblJumlah;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblSubsidi;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblTunai;                               
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblNilai;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblRingan;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblUrutan;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strRekapJp;                              
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblNoAmbil;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dtTglAmbil.ToString("dd-MMM-yyyy HH:mm:ss");                               
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strLapJP;                               
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdMR_TUPF;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdBl_Tarip;                               
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dblJumlahKasusTarip;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdBl_Transaksi;
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.strIdBl_Pembayaran;                                
+                                intKolom++;
+                                worksheet.Cells[intStartRow, intKolom].Value = fetch.dtTgl.ToString("dd-MMM-yyyy HH:mm:ss");
+                                
+
 
                                 intStartRow++;
                             }
@@ -2353,8 +2450,8 @@ namespace SIM_RS.RAWAT_INAP
                             worksheet.Cells[1, 24].Value = "Tgl Transaksi";
                             worksheet.Cells[1, 25].Value = "Tanggal";
                             worksheet.Cells[1, 26].Value = "Jenis Kelas";
-                            worksheet.Cells[1, 27].Value = "Ruangan";
-                            worksheet.Cells[1, 28].Value = "Id Dokter";
+                            worksheet.Cells[1, 27].Value = "idmr_ruangan";
+                            worksheet.Cells[1, 28].Value = "idmr_dokter";
                             worksheet.Cells[1, 29].Value = "Nama Dokter";
 
                             int intStartRow = 2;
@@ -2392,7 +2489,7 @@ namespace SIM_RS.RAWAT_INAP
                                 worksheet.Cells[intStartRow, 24].Value = fetch.dtTglTransaksi.ToString("dd/MM/yyyy");
                                 worksheet.Cells[intStartRow, 25].Value = fetch.dtTgl.ToString("dd/MM/yyyy");
                                 worksheet.Cells[intStartRow, 26].Value = fetch.strIdMR_JenisKelas;
-                                worksheet.Cells[intStartRow, 27].Value = fetch.strRuangan;
+                                worksheet.Cells[intStartRow, 27].Value = fetch.strIdMR_Ruangan;
                                 worksheet.Cells[intStartRow, 28].Value = fetch.strIdMR_Dokter;
                                 worksheet.Cells[intStartRow, 29].Value = fetch.strNamaDokter;
 
@@ -2447,8 +2544,8 @@ namespace SIM_RS.RAWAT_INAP
                             worksheet.Cells[1, 24].Value = "Tgl Transaksi";
                             worksheet.Cells[1, 25].Value = "Tanggal";
                             worksheet.Cells[1, 26].Value = "Jenis Kelas";
-                            worksheet.Cells[1, 27].Value = "Ruangan";
-                            worksheet.Cells[1, 28].Value = "Id Dokter";
+                            worksheet.Cells[1, 27].Value = "idmr_ruangan";
+                            worksheet.Cells[1, 28].Value = "idmr_dokter";
                             worksheet.Cells[1, 29].Value = "Nama Dokter";
 
                             int intStartRow = 2;
@@ -2486,7 +2583,7 @@ namespace SIM_RS.RAWAT_INAP
                                 worksheet.Cells[intStartRow, 24].Value = fetch.dtTglTransaksi.ToString("dd/MM/yyyy");
                                 worksheet.Cells[intStartRow, 25].Value = fetch.dtTgl.ToString("dd/MM/yyyy");
                                 worksheet.Cells[intStartRow, 26].Value = fetch.strIdMR_JenisKelas;
-                                worksheet.Cells[intStartRow, 27].Value = fetch.strRuangan;
+                                worksheet.Cells[intStartRow, 27].Value = fetch.strIdMR_Ruangan;
                                 worksheet.Cells[intStartRow, 28].Value = fetch.strIdMR_Dokter;
                                 worksheet.Cells[intStartRow, 29].Value = fetch.strNamaDokter;
 

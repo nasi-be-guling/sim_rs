@@ -495,12 +495,12 @@
             this.cmsDaftarTindakan.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hapusToolStripMenuItem});
             this.cmsDaftarTindakan.Name = "cmsDaftarTindakan";
-            this.cmsDaftarTindakan.Size = new System.Drawing.Size(109, 26);
+            this.cmsDaftarTindakan.Size = new System.Drawing.Size(105, 26);
             // 
             // hapusToolStripMenuItem
             // 
             this.hapusToolStripMenuItem.Name = "hapusToolStripMenuItem";
-            this.hapusToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.hapusToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.hapusToolStripMenuItem.Text = "Hapus";
             this.hapusToolStripMenuItem.Click += new System.EventHandler(this.hapusToolStripMenuItem_Click);
             // 
