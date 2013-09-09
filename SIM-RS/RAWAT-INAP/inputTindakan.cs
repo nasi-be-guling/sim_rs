@@ -1164,6 +1164,7 @@ namespace SIM_RS.RAWAT_INAP
 
                     //string strKodeTindakan = grpLstDaftarTarif[intResultSearch].strKodeTarif;
 
+                    
                     var tempResult = grpLstDaftarLengkapKomponenTarif.FindAll(
                                         m => (m.strKodeTarif == strKode && 
                                             m.strId_Komponen == "JASA PELAYANAN"));
@@ -1180,13 +1181,31 @@ namespace SIM_RS.RAWAT_INAP
                         boolBypassDokter = false;
                         txtNamaDokter.Enabled = true;
                     }
-                    
+
+                    strSMFTindakan = grpLstDaftarTarif[intResultSearch].strSMF.ToString();
+
+                    //MessageBox.Show(strSMFTindakan.ToString());
+                    if (txtTempatLayanan.Text.Trim().ToString() == "OK-IRD")
+                    {
+
+                        //MessageBox.Show(strSMFTindakan.ToString());
+
+                        if (strSMFTindakan.Trim().Substring(0, 6).ToString() != "OK DAR")
+                        {
+                            MessageBox.Show("Hanya bisa digunakan untuk tindakan OK Darurat", "Informasi",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+                            txtKodeTindakan.Focus();
+                        }
+                    }
+
+
 
                     lblBiayaTindakan.Text = grpLstDaftarTarif[intResultSearch].dblBiaya.ToString();
                     lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultSearch].strUraianTarif;
                     btnTampilDaftarTindakan.Enabled = false;
 
-                    strSMFTindakan = grpLstDaftarTarif[intResultSearch].strSMF.ToString();
+                    
 
                 }
             }
@@ -1302,19 +1321,78 @@ namespace SIM_RS.RAWAT_INAP
                     strNamaDokter = grpLstDaftarDokter[intResultSearchDoctor].strNamaDokter;
                     strSMFDokter = grpLstDaftarDokter[intResultSearchDoctor].strSMF;
 
-
-                    if (strSMFDokter.Trim().ToString() != strSMFTindakan.Trim().ToString())
+                    ///* Filter jika bukan pelayanan OK-IRD harus dicek tindakan harus sesuai dengan SMF dokter*/
+                    if (txtTempatLayanan.Text.Trim().ToString() != "OK-IRD")
                     {
-                        MessageBox.Show("Pengisian Kode Dokter harus sesuai Kode Tindakan pada SMF Dokter tersebut",
-                                  "Informasi",
-                                  MessageBoxButtons.OK,
-                                  MessageBoxIcon.Information);
-                        txtNamaDokter.Focus();
+                        /*Kode tindakan harus sesuai dengan kode pada SMF dokter tersebut//*/
+                        if (strSMFDokter.Trim().ToString() != strSMFTindakan.Trim().ToString())
+                        {
+                            MessageBox.Show("Pengisian Kode Dokter harus sesuai Kode Tindakan pada SMF Dokter tersebut",
+                                      "Informasi",
+                                      MessageBoxButtons.OK,
+                                      MessageBoxIcon.Information);
+                            txtNamaDokter.Focus();
 
-                        MessageBox.Show(strSMFDokter.ToString() + " " + strSMFTindakan.ToString());
+                            //MessageBox.Show(strSMFDokter.ToString() + " " + strSMFTindakan.ToString());
 
-                        return;
+                            return;
+                        }
                     }
+                    else
+                    {
+                        /*part ONE OK DAR.*/
+                        //MessageBox.Show(strSMFTindakan.Trim().Substring(0,6).ToString());
+                        //bool isFoundDot = false;
+                        string strChar = strSMFTindakan.Trim().Substring(6, 1).ToString();
+
+                        string strNamaSMFTindakan = "";
+
+                        if (strChar == ".")
+                        {
+                            /*OK DAR*/
+                            strNamaSMFTindakan = strSMFTindakan.Trim().Substring(13,(strSMFTindakan.Length - 13));
+
+                            /*ADDED bedah for matches from master*/
+                            strNamaSMFTindakan = "BEDAH " + strNamaSMFTindakan;
+                            
+                        }
+                        else
+                        {
+                            /*OK DARURAT*/
+                            strNamaSMFTindakan = strSMFTindakan.Trim().Substring(10, (strSMFTindakan.Length - 10));
+                        }
+
+
+                        //MessageBox.Show(strNamaSMFTindakan.ToString());
+
+                        if (strNamaSMFTindakan.Trim().ToString() != strSMFDokter.Trim().ToString())
+                        {
+                            MessageBox.Show("Pengisian Kode Dokter harus sesuai Kode Tindakan pada SMF Dokter tersebut",
+                                      "Informasi",
+                                      MessageBoxButtons.OK,
+                                      MessageBoxIcon.Information);
+                            txtNamaDokter.Focus();
+
+                            //MessageBox.Show(strSMFDokter.ToString() + " " + strSMFTindakan.ToString());
+
+                            return;
+                        }
+
+
+
+                    }
+                    //else
+                    //{
+                    //    /*Khusus OK-IRD sementara dokter dari SMF mana tindakan harus sesuai dengan SMF prefix OK DAR*/
+
+                    //    //MessageBox.Show(strSMFTindakan.ToString());
+                    //    if (strSMFTindakan.Trim().Substring(0, 6).ToString() != "OK DAR")
+                    //    {
+                    //        MessageBox.Show("Hanya bisa digunakan untuk tindakan OK Darurat","Informasi",
+                    //                        MessageBoxButtons.OK,
+                    //                        MessageBoxIcon.Information);
+                    //    }
+                    //}
                 }
                 else
                 {
