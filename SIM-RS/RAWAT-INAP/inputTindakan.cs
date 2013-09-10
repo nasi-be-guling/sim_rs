@@ -234,7 +234,7 @@ namespace SIM_RS.RAWAT_INAP
                                 "MR_DOKTER.nama, " +                        //1
                                 "MR_DOKTER.idmr_tsmf " +                    //2
                                "FROM MR_DOKTER WITH (NOLOCK) " +
-                               "WHERE MR_DOKTER.dipakai = 'Y'";
+                               "WHERE MR_DOKTER.dipakai = 'Y' AND status = 'KEU'";
 
             reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
