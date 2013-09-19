@@ -16,6 +16,7 @@ namespace SIM_RS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new halamanUtama());
+			//test putu
         }
     }
 }
