@@ -8,3 +8,4 @@
 *.Cache
 *.resources
 *.cache
+SIM-RS/obj/x86/Debug/*.*
