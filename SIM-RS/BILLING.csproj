@@ -124,6 +124,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DATASET_APP.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GENERAL\daftarPengguna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GENERAL\daftarPengguna.Designer.cs">
+      <DependentUpon>daftarPengguna.cs</DependentUpon>
+    </Compile>
     <Compile Include="GENERAL\halamanUtama.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </Compile>
     <EmbeddedResource Include="ADMIN\LapCheckTransAndDetail.resx">
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GENERAL\daftarPengguna.resx">
+      <DependentUpon>daftarPengguna.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GENERAL\halamanUtama.resx">
       <DependentUpon>halamanUtama.cs</DependentUpon>

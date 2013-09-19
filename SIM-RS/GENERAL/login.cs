@@ -198,12 +198,6 @@ namespace SIM_RS
         private void login_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-
-            
-            
-
-           
-
         }
 
         private void login_KeyDown(object sender, KeyEventArgs e)
