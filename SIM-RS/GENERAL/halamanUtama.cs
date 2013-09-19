@@ -41,6 +41,8 @@ namespace SIM_RS
         C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /* DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
+
+        // test brow
         public static string REG_ROOT = "Software\\ITIKOM";
         public static string REG_NAME_APP = "\\SIM-RS";
 
