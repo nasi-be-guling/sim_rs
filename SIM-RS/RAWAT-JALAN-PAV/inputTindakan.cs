@@ -20,5 +20,15 @@ namespace SIM_RS.RAWAT_JALAN_PAV
         {
 
         }
+
+        private void inputTindakan_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

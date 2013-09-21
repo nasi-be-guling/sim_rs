@@ -304,9 +304,9 @@ namespace SIM_RS
                 fFormLoad.ShowDialog();
                      
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Form tidak dapat ditampilkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message.ToString(), "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

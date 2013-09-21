@@ -173,7 +173,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(470, 160);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 18);
+            this.label2.Size = new System.Drawing.Size(57, 18);
             this.label2.TabIndex = 120;
             this.label2.Text = "Sandi : ";
             // 
@@ -234,7 +234,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(470, 126);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 18);
+            this.label1.Size = new System.Drawing.Size(87, 18);
             this.label1.TabIndex = 114;
             this.label1.Text = "Unit Kerja : ";
             // 
