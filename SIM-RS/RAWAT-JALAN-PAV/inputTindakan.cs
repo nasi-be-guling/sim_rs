@@ -23,6 +23,17 @@ namespace SIM_RS.RAWAT_JALAN_PAV
 
         private void inputTindakan_Load(object sender, EventArgs e)
         {
+            int intDeskHeight = Screen.PrimaryScreen.Bounds.Height;
+            int intDeskWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            
+
+            if (intDeskWidth < 1024 || intDeskHeight < 768)
+            {
+                MessageBox.Show(intDeskWidth.ToString() + " x " + intDeskHeight.ToString());
+                this.Close();
+                return;
+            }
 
         }
 

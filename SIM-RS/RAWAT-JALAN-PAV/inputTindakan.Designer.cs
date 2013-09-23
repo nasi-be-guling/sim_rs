@@ -64,6 +64,8 @@
             this.btnKeluarIsiTindakan = new System.Windows.Forms.Button();
             this.btnSimpanIsiTindakan = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtKeringananTotal = new System.Windows.Forms.TextBox();
             this.lblTerbilang = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -78,8 +80,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -166,7 +169,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(20, 52);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 117;
             this.label7.Text = "Alamat : ";
             // 
@@ -188,7 +191,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(20, 81);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 18);
+            this.label4.Size = new System.Drawing.Size(45, 18);
             this.label4.TabIndex = 120;
             this.label4.Text = "Poli : ";
             // 
@@ -198,9 +201,9 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.lblDaftarTindakan);
             this.panel1.Controls.Add(this.lvDaftarTindakan);
-            this.panel1.Location = new System.Drawing.Point(12, 369);
+            this.panel1.Location = new System.Drawing.Point(12, 360);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(596, 260);
+            this.panel1.Size = new System.Drawing.Size(596, 269);
             this.panel1.TabIndex = 122;
             // 
             // lblDaftarTindakan
@@ -219,7 +222,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader1,
@@ -231,7 +236,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(5, 23);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(586, 231);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(586, 240);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -264,7 +269,7 @@
             // 
             this.txtNamaDokter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamaDokter.BackColor = System.Drawing.Color.White;
-            this.txtNamaDokter.Location = new System.Drawing.Point(130, 83);
+            this.txtNamaDokter.Location = new System.Drawing.Point(130, 84);
             this.txtNamaDokter.Name = "txtNamaDokter";
             this.txtNamaDokter.Size = new System.Drawing.Size(421, 27);
             this.txtNamaDokter.TabIndex = 135;
@@ -278,7 +283,7 @@
             this.btnTampilDaftarTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTampilDaftarTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTampilDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(557, 28);
+            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(557, 29);
             this.btnTampilDaftarTindakan.Name = "btnTampilDaftarTindakan";
             this.btnTampilDaftarTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTampilDaftarTindakan.TabIndex = 137;
@@ -311,7 +316,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(275, 62);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 133;
             this.label22.Text = "Deskripsi :";
             // 
@@ -325,7 +330,7 @@
             this.btnTambahTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTambahTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTambahTindakan.Location = new System.Drawing.Point(557, 83);
+            this.btnTambahTindakan.Location = new System.Drawing.Point(557, 84);
             this.btnTambahTindakan.Name = "btnTambahTindakan";
             this.btnTambahTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTambahTindakan.TabIndex = 132;
@@ -370,7 +375,7 @@
             // 
             this.txtKodeTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKodeTindakan.BackColor = System.Drawing.Color.White;
-            this.txtKodeTindakan.Location = new System.Drawing.Point(130, 27);
+            this.txtKodeTindakan.Location = new System.Drawing.Point(130, 28);
             this.txtKodeTindakan.Name = "txtKodeTindakan";
             this.txtKodeTindakan.Size = new System.Drawing.Size(421, 27);
             this.txtKodeTindakan.TabIndex = 128;
@@ -484,6 +489,8 @@
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel4.Controls.Add(this.label18);
+            this.panel4.Controls.Add(this.label16);
             this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.checkBox1);
             this.panel4.Controls.Add(this.txtKeringananTotal);
@@ -499,10 +506,33 @@
             this.panel4.Size = new System.Drawing.Size(396, 566);
             this.panel4.TabIndex = 141;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(176, 169);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(152, 27);
+            this.textBox1.TabIndex = 146;
+            this.textBox1.Visible = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(24, 167);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(132, 29);
+            this.checkBox1.TabIndex = 145;
+            this.checkBox1.Text = "ASURANSI : ";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            // 
             // txtKeringananTotal
             // 
             this.txtKeringananTotal.BackColor = System.Drawing.Color.White;
-            this.txtKeringananTotal.Location = new System.Drawing.Point(176, 78);
+            this.txtKeringananTotal.Location = new System.Drawing.Point(176, 127);
             this.txtKeringananTotal.Name = "txtKeringananTotal";
             this.txtKeringananTotal.Size = new System.Drawing.Size(152, 27);
             this.txtKeringananTotal.TabIndex = 144;
@@ -524,7 +554,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(14, 329);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(337, 25);
+            this.label12.Size = new System.Drawing.Size(331, 25);
             this.label12.TabIndex = 124;
             this.label12.Text = "TOTAL YANG HARUS DIBAYARKAN :";
             // 
@@ -545,7 +575,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(14, 78);
+            this.label8.Location = new System.Drawing.Point(14, 127);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(142, 25);
             this.label8.TabIndex = 121;
@@ -566,11 +596,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(171, 40);
+            this.label3.Location = new System.Drawing.Point(207, 34);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 25);
+            this.label3.Size = new System.Drawing.Size(127, 32);
             this.label3.TabIndex = 119;
             this.label3.Text = "5.000.000";
             // 
@@ -593,16 +623,16 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(9, 124);
+            this.label13.Location = new System.Drawing.Point(9, 128);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(95, 18);
+            this.label13.Size = new System.Drawing.Size(96, 18);
             this.label13.TabIndex = 142;
             this.label13.Text = "Keringanan : ";
             // 
             // txtKeringananItem
             // 
             this.txtKeringananItem.BackColor = System.Drawing.Color.White;
-            this.txtKeringananItem.Location = new System.Drawing.Point(130, 120);
+            this.txtKeringananItem.Location = new System.Drawing.Point(130, 124);
             this.txtKeringananItem.Name = "txtKeringananItem";
             this.txtKeringananItem.Size = new System.Drawing.Size(184, 27);
             this.txtKeringananItem.TabIndex = 143;
@@ -611,6 +641,7 @@
             // 
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel5.Controls.Add(this.label15);
             this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.txtKeringananItem);
             this.panel5.Controls.Add(this.label13);
@@ -626,7 +657,7 @@
             this.panel5.Controls.Add(this.lblDokter);
             this.panel5.Location = new System.Drawing.Point(12, 190);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(596, 173);
+            this.panel5.Size = new System.Drawing.Size(596, 164);
             this.panel5.TabIndex = 144;
             // 
             // label9
@@ -673,24 +704,39 @@
             this.label14.Text = "&DATA SOSIAL PASIEN";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // checkBox1
+            // label15
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(24, 118);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(132, 29);
-            this.checkBox1.TabIndex = 145;
-            this.checkBox1.Text = "ASURANSI : ";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(320, 128);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(237, 18);
+            this.label15.TabIndex = 144;
+            this.label15.Text = "Max Keringanan : Rp. 105.000.000";
             // 
-            // textBox1
+            // label16
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(176, 120);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(152, 27);
-            this.textBox1.TabIndex = 146;
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(14, 76);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(187, 25);
+            this.label16.TabIndex = 147;
+            this.label16.Text = "MAX KERINGANAN : ";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Salmon;
+            this.label18.Location = new System.Drawing.Point(207, 70);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(127, 32);
+            this.label18.TabIndex = 148;
+            this.label18.Text = "5.000.000";
             // 
             // inputTindakan
             // 
@@ -785,5 +831,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label16;
     }
 }
