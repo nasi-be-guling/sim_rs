@@ -112,6 +112,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADMIN\daftarTarif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADMIN\daftarTarif.Designer.cs">
+      <DependentUpon>daftarTarif.cs</DependentUpon>
+    </Compile>
     <Compile Include="ADMIN\LapCheckTransAndDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DATASET_APP.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ADMIN\daftarPengguna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADMIN\daftarPengguna.Designer.cs">
+      <DependentUpon>daftarPengguna.cs</DependentUpon>
     </Compile>
     <Compile Include="GENERAL\halamanUtama.cs">
       <SubType>Form</SubType>
@@ -179,8 +191,20 @@
     <Compile Include="RAWAT-INAP\pendaftaran.Designer.cs">
       <DependentUpon>pendaftaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\inputTindakan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\inputTindakan.Designer.cs">
+      <DependentUpon>inputTindakan.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ADMIN\daftarTarif.resx">
+      <DependentUpon>daftarTarif.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ADMIN\LapCheckTransAndDetail.resx">
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADMIN\daftarPengguna.resx">
+      <DependentUpon>daftarPengguna.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GENERAL\halamanUtama.resx">
       <DependentUpon>halamanUtama.cs</DependentUpon>
@@ -215,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\pendaftaran.resx">
       <DependentUpon>pendaftaran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-JALAN-PAV\inputTindakan.resx">
+      <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
@@ -259,9 +286,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RAWAT-JALAN-PAV\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
