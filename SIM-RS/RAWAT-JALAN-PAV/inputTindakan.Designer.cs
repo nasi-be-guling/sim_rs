@@ -64,6 +64,8 @@
             this.btnKeluarIsiTindakan = new System.Windows.Forms.Button();
             this.btnSimpanIsiTindakan = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtKeringananTotal = new System.Windows.Forms.TextBox();
@@ -77,12 +79,10 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtKeringananItem = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -169,7 +169,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(20, 52);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 18);
+            this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 117;
             this.label7.Text = "Alamat : ";
             // 
@@ -191,7 +191,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(20, 81);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 18);
+            this.label4.Size = new System.Drawing.Size(43, 18);
             this.label4.TabIndex = 120;
             this.label4.Text = "Poli : ";
             // 
@@ -316,7 +316,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(275, 62);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(76, 18);
+            this.label22.Size = new System.Drawing.Size(74, 18);
             this.label22.TabIndex = 133;
             this.label22.Text = "Deskripsi :";
             // 
@@ -506,6 +506,29 @@
             this.panel4.Size = new System.Drawing.Size(396, 566);
             this.panel4.TabIndex = 141;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Salmon;
+            this.label18.Location = new System.Drawing.Point(207, 70);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(145, 32);
+            this.label18.TabIndex = 148;
+            this.label18.Text = "(5.000.000)";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(14, 76);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(187, 25);
+            this.label16.TabIndex = 147;
+            this.label16.Text = "MAX KERINGANAN : ";
+            // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
@@ -554,7 +577,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(14, 329);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(331, 25);
+            this.label12.Size = new System.Drawing.Size(337, 25);
             this.label12.TabIndex = 124;
             this.label12.Text = "TOTAL YANG HARUS DIBAYARKAN :";
             // 
@@ -625,7 +648,7 @@
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(9, 128);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 18);
+            this.label13.Size = new System.Drawing.Size(95, 18);
             this.label13.TabIndex = 142;
             this.label13.Text = "Keringanan : ";
             // 
@@ -659,6 +682,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(596, 164);
             this.panel5.TabIndex = 144;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(320, 128);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(237, 18);
+            this.label15.TabIndex = 144;
+            this.label15.Text = "Max Keringanan : Rp. 105.000.000";
             // 
             // label9
             // 
@@ -703,40 +737,6 @@
             this.label14.TabIndex = 111;
             this.label14.Text = "&DATA SOSIAL PASIEN";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(320, 128);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(237, 18);
-            this.label15.TabIndex = 144;
-            this.label15.Text = "Max Keringanan : Rp. 105.000.000";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(14, 76);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(187, 25);
-            this.label16.TabIndex = 147;
-            this.label16.Text = "MAX KERINGANAN : ";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Salmon;
-            this.label18.Location = new System.Drawing.Point(207, 70);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(127, 32);
-            this.label18.TabIndex = 148;
-            this.label18.Text = "5.000.000";
             // 
             // inputTindakan
             // 
