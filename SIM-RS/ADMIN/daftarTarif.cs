@@ -16,9 +16,47 @@ namespace SIM_RS.ADMIN
             InitializeComponent();
         }
 
+
+        /*OWNED FUNCTION*/
+
+        private void pvEnableSatuanForm()
+        {
+            txtKode.Enabled = true;
+            txtKelompok.Enabled = true;
+            cmbKelas.Enabled = true;
+            txtUraian.Enabled = true;
+            txtSMF.Enabled = true;            
+            chkDipakai.Enabled = true;
+
+            txtNamaFileExcel.Enabled = false;
+            btnLoadExcel.Enabled = false;
+
+
+        }
+
+        private void pvDisableSatuanForm()
+        {
+            txtKode.Enabled = false;
+            txtKelompok.Enabled = false;
+            cmbKelas.Enabled = false;
+            txtUraian.Enabled = false;
+            txtSMF.Enabled = false;
+            chkDipakai.Enabled = false;
+
+            txtNamaFileExcel.Enabled = true;
+            btnLoadExcel.Enabled = true;
+        }
+
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+       
+
+        private void daftarTarif_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

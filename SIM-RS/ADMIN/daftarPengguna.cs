@@ -199,6 +199,9 @@ namespace SIM_RS.ADMIN
         public daftarPengguna()
         {
             InitializeComponent();
+
+            this.pvLoadData();
+
         }
 
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
@@ -206,14 +209,11 @@ namespace SIM_RS.ADMIN
             this.Close();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void daftarPengguna_Load(object sender, EventArgs e)
         {
-            this.pvLoadData();
+            
         }
 
         private void btnCariSesuaiFilter_Click(object sender, EventArgs e)
