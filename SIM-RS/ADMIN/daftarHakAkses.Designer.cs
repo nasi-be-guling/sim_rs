@@ -71,7 +71,6 @@
             // 
             // cmbStatusID
             // 
-            this.cmbStatusID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStatusID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStatusID.FormattingEnabled = true;
             this.cmbStatusID.Items.AddRange(new object[] {
