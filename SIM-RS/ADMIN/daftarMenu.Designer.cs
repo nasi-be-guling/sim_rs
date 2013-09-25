@@ -159,7 +159,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(36, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 18);
+            this.label1.Size = new System.Drawing.Size(192, 18);
             this.label1.TabIndex = 114;
             this.label1.Text = "Nama Form Aplikasi Lama : ";
             // 
@@ -171,7 +171,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(36, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(189, 18);
+            this.label3.Size = new System.Drawing.Size(186, 18);
             this.label3.TabIndex = 122;
             this.label3.Text = "Nama Form Aplikasi Baru : ";
             // 
@@ -210,7 +210,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(36, 84);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.Size = new System.Drawing.Size(86, 18);
             this.label2.TabIndex = 120;
             this.label2.Text = "Kelompok : ";
             // 
@@ -247,6 +247,7 @@
             this.btnCariMenu.TabIndex = 96;
             this.btnCariMenu.Text = "&Filter Pencarian";
             this.btnCariMenu.UseVisualStyleBackColor = false;
+            this.btnCariMenu.Click += new System.EventHandler(this.btnCariMenu_Click);
             // 
             // txtCariMenu
             // 

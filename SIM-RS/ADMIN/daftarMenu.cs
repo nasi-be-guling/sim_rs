@@ -56,7 +56,7 @@ namespace SIM_RS.ADMIN
                                 "FROM BILPROGRAM";
             else
                 strQuerySQL = "SELECT idProgram,NamaForm,Kelompok,NamaFormERD " +
-                                "FROM BILPETUGAS WHERE Petugas LIKE '%" + _strCari + "%'";
+                                "FROM BILPROGRAM WHERE (idProgram LIKE '%" + _strCari + "%') or (NamaFormERD LIKE '%" + _strCari + "%')";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -80,7 +80,7 @@ namespace SIM_RS.ADMIN
                     lvDaftarMenu.Items[lvDaftarMenu.Items.Count - 1].SubItems.Add(
                         modMain.pbstrgetCol(reader, 3, ref strErr, ""));
                 }
-                modSQL.pvAutoResizeLV(lvDaftarMenu, 3);
+                modSQL.pvAutoResizeLV(lvDaftarMenu, 4);
             }
 
             reader.Close();
@@ -181,6 +181,11 @@ namespace SIM_RS.ADMIN
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             this.pvSimpanData();
+        }
+
+        private void btnCariMenu_Click(object sender, EventArgs e)
+        {
+            this.pvLoadData(txtCariMenu.Text.Trim());
         }
     }
 }
