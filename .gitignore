@@ -8,3 +8,5 @@
 *.Cache
 *.resources
 *.cache
+*.txt
+SIM-RS/bin/Debug/*.*
