@@ -220,7 +220,8 @@ namespace SIM_RS
                             "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
                           "WHERE BILHAKAKSES.idPetugas = '" + strUserID + 
                             "' AND BILPROGRAM.NamaFormERD IS NOT NULL "+
-                            "AND BILPROGRAM.NamaFormERD <> ''";
+                            "AND BILPROGRAM.NamaFormERD <> '' "+
+                            "ORDER BY BILHAKAKSES.urut ASC";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -304,9 +305,9 @@ namespace SIM_RS
                 fFormLoad.ShowDialog();
                      
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Form tidak dapat ditampilkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message.ToString(), "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
