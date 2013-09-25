@@ -41,13 +41,18 @@ namespace SIM_RS
         C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /* DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
+
+        // test brow
         public static string REG_ROOT = "Software\\ITIKOM";
         public static string REG_NAME_APP = "\\SIM-RS";
 
         public static string REG_CONN = "\\Conn";
+        public static string REG_CONN1 = "\\Conn1";
+
         public static string REG_SETTING = "\\Setting";
 
         public static string FULL_REG_CONN = REG_ROOT + REG_NAME_APP + REG_CONN;
+        public static string FULL_REG_CONN1 = REG_ROOT + REG_NAME_APP + REG_CONN1;
         public static string FULL_REG_SETTING = REG_ROOT + REG_NAME_APP + REG_SETTING;
 
         public static DateTime dtTglServer = DateTime.Now;
@@ -62,6 +67,12 @@ namespace SIM_RS
         public static string strPasswordDBServer = "";
         public static string strPortDBServer = "1032";
         public static string strNameDBServer = "BILLING";
+
+        public static string strIPDBServer1 = "192.168.2.2";
+        public static string strUserDBServer1 = "sa";
+        public static string strPasswordDBServer1 = "";
+        public static string strPortDBServer1 = "1433";
+        public static string strNameDBServer1 = "RS";
         /* EOF DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
 
 
@@ -134,17 +145,27 @@ namespace SIM_RS
                             strPortDBServer,
                             strNameDBServer,
                             FULL_REG_CONN.ToString());
+
+                Registry.CurrentUser.CreateSubKey(FULL_REG_CONN1.ToString());
+                string strSandi1 = modEncrypt.EncryptToString(strPasswordDBServer1);
+                modMain.pbTulisRegistry(
+                            strUserDBServer1,
+                            strSandi1,
+                            strIPDBServer1,
+                            strPortDBServer1,
+                            strNameDBServer1,
+                            FULL_REG_CONN1.ToString());
             }
             else
             {
                 C4Module.MainModule.strRegKey = FULL_REG_CONN; 
-                //string strSandi = modMain.pbBacaRegistryItem("sql_akun_sandi");                
+                string EncryptSandi = modEncrypt.EncryptToString(strPasswordDBServer);
+                modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi);
 
-                //if (strSandi.Length < 25)
-                //{
-                    string EncryptSandi = modEncrypt.EncryptToString(strPasswordDBServer);
-                    modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi);
-                //}
+                C4Module.MainModule.strRegKey = FULL_REG_CONN1;
+                string EncryptSandi1 = modEncrypt.EncryptToString(strPasswordDBServer1);
+                modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi1);
+                
             }
 
             
@@ -162,6 +183,9 @@ namespace SIM_RS
             /*..READ SETTING FROM REGEDIT..*/
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
             modMain.pbBacaRegistry(ref strNameDBServer, ref strPasswordDBServer, ref strIPDBServer, ref strPortDBServer, ref strNameDBServer);
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN1;
+            modMain.pbBacaRegistry(ref strNameDBServer1, ref strPasswordDBServer1, ref strIPDBServer1, ref strPortDBServer1, ref strNameDBServer1);
 
         }
 
