@@ -203,7 +203,7 @@
             this.panel1.Controls.Add(this.lvDaftarTindakan);
             this.panel1.Location = new System.Drawing.Point(12, 360);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(596, 269);
+            this.panel1.Size = new System.Drawing.Size(598, 269);
             this.panel1.TabIndex = 122;
             // 
             // lblDaftarTindakan
@@ -236,7 +236,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(5, 23);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(586, 240);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(588, 240);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -271,7 +271,7 @@
             this.txtNamaDokter.BackColor = System.Drawing.Color.White;
             this.txtNamaDokter.Location = new System.Drawing.Point(130, 84);
             this.txtNamaDokter.Name = "txtNamaDokter";
-            this.txtNamaDokter.Size = new System.Drawing.Size(421, 27);
+            this.txtNamaDokter.Size = new System.Drawing.Size(423, 27);
             this.txtNamaDokter.TabIndex = 135;
             // 
             // btnTampilDaftarTindakan
@@ -283,7 +283,7 @@
             this.btnTampilDaftarTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTampilDaftarTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTampilDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(557, 29);
+            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(559, 29);
             this.btnTampilDaftarTindakan.Name = "btnTampilDaftarTindakan";
             this.btnTampilDaftarTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTampilDaftarTindakan.TabIndex = 137;
@@ -330,7 +330,7 @@
             this.btnTambahTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTambahTindakan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTambahTindakan.Location = new System.Drawing.Point(557, 84);
+            this.btnTambahTindakan.Location = new System.Drawing.Point(559, 84);
             this.btnTambahTindakan.Name = "btnTambahTindakan";
             this.btnTambahTindakan.Size = new System.Drawing.Size(33, 26);
             this.btnTambahTindakan.TabIndex = 132;
@@ -377,7 +377,7 @@
             this.txtKodeTindakan.BackColor = System.Drawing.Color.White;
             this.txtKodeTindakan.Location = new System.Drawing.Point(130, 28);
             this.txtKodeTindakan.Name = "txtKodeTindakan";
-            this.txtKodeTindakan.Size = new System.Drawing.Size(421, 27);
+            this.txtKodeTindakan.Size = new System.Drawing.Size(423, 27);
             this.txtKodeTindakan.TabIndex = 128;
             // 
             // lblDeskripsiTindakan
@@ -636,9 +636,9 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 20);
+            this.label2.Size = new System.Drawing.Size(131, 20);
             this.label2.TabIndex = 111;
-            this.label2.Text = "INFORMASI BIAYA : ";
+            this.label2.Text = "INFORMASI BIAYA";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label13
@@ -680,7 +680,7 @@
             this.panel5.Controls.Add(this.lblDokter);
             this.panel5.Location = new System.Drawing.Point(12, 190);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(596, 164);
+            this.panel5.Size = new System.Drawing.Size(598, 164);
             this.panel5.TabIndex = 144;
             // 
             // label15
@@ -721,7 +721,7 @@
             this.panel6.Controls.Add(this.label4);
             this.panel6.Location = new System.Drawing.Point(12, 63);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(596, 121);
+            this.panel6.Size = new System.Drawing.Size(598, 121);
             this.panel6.TabIndex = 145;
             // 
             // label14
