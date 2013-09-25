@@ -32,19 +32,24 @@
             this.btnKeluarIsiTindakan = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSimpan = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkDipakai = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtIsiFilter = new System.Windows.Forms.TextBox();
+            this.txtUraian = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.cmbStatusID = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtKelompok = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.rbtMulti = new System.Windows.Forms.RadioButton();
+            this.rbtSatuan = new System.Windows.Forms.RadioButton();
+            this.btnLoadExcel = new System.Windows.Forms.Button();
+            this.txtNamaFileExcel = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chkTampilSemua = new System.Windows.Forms.CheckBox();
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -53,13 +58,17 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtSMF = new System.Windows.Forms.TextBox();
+            this.cmbKelas = new System.Windows.Forms.ComboBox();
+            this.txtNominal = new System.Windows.Forms.TextBox();
+            this.txtKode = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.cmsDaftarTarif = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tambahTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tambahTarifEXCELToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.rubahTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hapusTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.chkTampilSemua = new System.Windows.Forms.CheckBox();
             this.panel6.SuspendLayout();
             this.cmsDaftarTarif.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +101,7 @@
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(700, 132);
+            this.button1.Location = new System.Drawing.Point(700, 189);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 30);
             this.button1.TabIndex = 124;
@@ -109,22 +118,22 @@
             this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpan.Location = new System.Drawing.Point(612, 132);
+            this.btnSimpan.Location = new System.Drawing.Point(612, 189);
             this.btnSimpan.Name = "btnSimpan";
             this.btnSimpan.Size = new System.Drawing.Size(82, 30);
             this.btnSimpan.TabIndex = 123;
             this.btnSimpan.Text = "&SIMPAN";
             this.btnSimpan.UseVisualStyleBackColor = false;
             // 
-            // checkBox1
+            // chkDipakai
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(506, 33);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(82, 24);
-            this.checkBox1.TabIndex = 122;
-            this.checkBox1.Text = "Di Pakai";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkDipakai.AutoSize = true;
+            this.chkDipakai.Location = new System.Drawing.Point(612, 98);
+            this.chkDipakai.Name = "chkDipakai";
+            this.chkDipakai.Size = new System.Drawing.Size(82, 24);
+            this.chkDipakai.TabIndex = 122;
+            this.chkDipakai.Text = "Di Pakai";
+            this.chkDipakai.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -144,7 +153,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(299, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 18);
+            this.label3.Size = new System.Drawing.Size(58, 18);
             this.label3.TabIndex = 120;
             this.label3.Text = "Kelas : ";
             // 
@@ -155,7 +164,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(19, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 18);
+            this.label2.Size = new System.Drawing.Size(76, 18);
             this.label2.TabIndex = 119;
             this.label2.Text = "Nominal : ";
             // 
@@ -166,7 +175,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(19, 69);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 18);
+            this.label1.Size = new System.Drawing.Size(100, 18);
             this.label1.TabIndex = 118;
             this.label1.Text = "Uraian Tarif : ";
             // 
@@ -181,34 +190,43 @@
             this.label5.TabIndex = 117;
             this.label5.Text = "Kode Tarif : ";
             // 
-            // txtIsiFilter
+            // txtUraian
             // 
-            this.txtIsiFilter.BackColor = System.Drawing.Color.White;
-            this.txtIsiFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtIsiFilter.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIsiFilter.Location = new System.Drawing.Point(126, 60);
-            this.txtIsiFilter.Name = "txtIsiFilter";
-            this.txtIsiFilter.Size = new System.Drawing.Size(359, 28);
-            this.txtIsiFilter.TabIndex = 125;
+            this.txtUraian.BackColor = System.Drawing.Color.White;
+            this.txtUraian.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUraian.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUraian.Location = new System.Drawing.Point(126, 60);
+            this.txtUraian.Name = "txtUraian";
+            this.txtUraian.Size = new System.Drawing.Size(270, 28);
+            this.txtUraian.TabIndex = 125;
             // 
             // panel6
             // 
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel6.Controls.Add(this.label9);
+            this.panel6.Controls.Add(this.label8);
+            this.panel6.Controls.Add(this.txtKelompok);
+            this.panel6.Controls.Add(this.label7);
+            this.panel6.Controls.Add(this.rbtMulti);
+            this.panel6.Controls.Add(this.rbtSatuan);
+            this.panel6.Controls.Add(this.btnLoadExcel);
+            this.panel6.Controls.Add(this.txtNamaFileExcel);
+            this.panel6.Controls.Add(this.label6);
             this.panel6.Controls.Add(this.chkTampilSemua);
             this.panel6.Controls.Add(this.lvDaftarTindakan);
             this.panel6.Controls.Add(this.button1);
-            this.panel6.Controls.Add(this.textBox3);
-            this.panel6.Controls.Add(this.cmbStatusID);
+            this.panel6.Controls.Add(this.txtSMF);
+            this.panel6.Controls.Add(this.cmbKelas);
             this.panel6.Controls.Add(this.btnSimpan);
-            this.panel6.Controls.Add(this.textBox2);
-            this.panel6.Controls.Add(this.textBox1);
-            this.panel6.Controls.Add(this.txtIsiFilter);
+            this.panel6.Controls.Add(this.txtNominal);
+            this.panel6.Controls.Add(this.txtKode);
+            this.panel6.Controls.Add(this.txtUraian);
             this.panel6.Controls.Add(this.label14);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.label2);
-            this.panel6.Controls.Add(this.checkBox1);
+            this.panel6.Controls.Add(this.chkDipakai);
             this.panel6.Controls.Add(this.label3);
             this.panel6.Controls.Add(this.label4);
             this.panel6.Location = new System.Drawing.Point(9, 12);
@@ -216,62 +234,120 @@
             this.panel6.Size = new System.Drawing.Size(781, 546);
             this.panel6.TabIndex = 146;
             // 
-            // label14
+            // label9
             // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(0, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(106, 20);
-            this.label14.TabIndex = 111;
-            this.label14.Text = "DAFTAR TARIF";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label9.BackColor = System.Drawing.Color.Black;
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(126, 137);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(643, 2);
+            this.label9.TabIndex = 157;
+            this.label9.Text = "File EXCEL";
             // 
-            // textBox1
+            // label8
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(126, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 28);
-            this.textBox1.TabIndex = 126;
+            this.label8.BackColor = System.Drawing.Color.Black;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(126, 184);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(642, 2);
+            this.label8.TabIndex = 156;
+            this.label8.Text = "File EXCEL";
             // 
-            // textBox2
+            // txtKelompok
             // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(126, 94);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(167, 28);
-            this.textBox2.TabIndex = 127;
+            this.txtKelompok.BackColor = System.Drawing.Color.White;
+            this.txtKelompok.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtKelompok.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKelompok.Location = new System.Drawing.Point(528, 60);
+            this.txtKelompok.Name = "txtKelompok";
+            this.txtKelompok.Size = new System.Drawing.Size(152, 28);
+            this.txtKelompok.TabIndex = 155;
             // 
-            // cmbStatusID
+            // label7
             // 
-            this.cmbStatusID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStatusID.FormattingEnabled = true;
-            this.cmbStatusID.Items.AddRange(new object[] {
-            "Dipakai",
-            "Tidak Dipakai",
-            "Pensiun"});
-            this.cmbStatusID.Location = new System.Drawing.Point(352, 26);
-            this.cmbStatusID.Name = "cmbStatusID";
-            this.cmbStatusID.Size = new System.Drawing.Size(133, 28);
-            this.cmbStatusID.TabIndex = 128;
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(402, 69);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(122, 18);
+            this.label7.TabIndex = 154;
+            this.label7.Text = "Kelompok Tarif : ";
             // 
-            // textBox3
+            // rbtMulti
             // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(352, 93);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(236, 28);
-            this.textBox3.TabIndex = 129;
+            this.rbtMulti.AutoSize = true;
+            this.rbtMulti.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtMulti.Location = new System.Drawing.Point(680, 146);
+            this.rbtMulti.Name = "rbtMulti";
+            this.rbtMulti.Size = new System.Drawing.Size(73, 24);
+            this.rbtMulti.TabIndex = 153;
+            this.rbtMulti.TabStop = true;
+            this.rbtMulti.Text = "MULTI";
+            this.rbtMulti.UseVisualStyleBackColor = true;
+            // 
+            // rbtSatuan
+            // 
+            this.rbtSatuan.AutoSize = true;
+            this.rbtSatuan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtSatuan.Location = new System.Drawing.Point(680, 27);
+            this.rbtSatuan.Name = "rbtSatuan";
+            this.rbtSatuan.Size = new System.Drawing.Size(88, 24);
+            this.rbtSatuan.TabIndex = 152;
+            this.rbtSatuan.TabStop = true;
+            this.rbtSatuan.Text = "SATUAN";
+            this.rbtSatuan.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadExcel
+            // 
+            this.btnLoadExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoadExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnLoadExcel.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnLoadExcel.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnLoadExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnLoadExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnLoadExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadExcel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadExcel.Location = new System.Drawing.Point(592, 142);
+            this.btnLoadExcel.Name = "btnLoadExcel";
+            this.btnLoadExcel.Size = new System.Drawing.Size(63, 30);
+            this.btnLoadExcel.TabIndex = 151;
+            this.btnLoadExcel.Text = "&LOAD";
+            this.btnLoadExcel.UseVisualStyleBackColor = false;
+            // 
+            // txtNamaFileExcel
+            // 
+            this.txtNamaFileExcel.BackColor = System.Drawing.Color.White;
+            this.txtNamaFileExcel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNamaFileExcel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNamaFileExcel.Location = new System.Drawing.Point(126, 143);
+            this.txtNamaFileExcel.Name = "txtNamaFileExcel";
+            this.txtNamaFileExcel.Size = new System.Drawing.Size(462, 28);
+            this.txtNamaFileExcel.TabIndex = 150;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(17, 152);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(76, 18);
+            this.label6.TabIndex = 149;
+            this.label6.Text = "File EXCEL";
+            // 
+            // chkTampilSemua
+            // 
+            this.chkTampilSemua.AutoSize = true;
+            this.chkTampilSemua.Location = new System.Drawing.Point(6, 519);
+            this.chkTampilSemua.Name = "chkTampilSemua";
+            this.chkTampilSemua.Size = new System.Drawing.Size(355, 24);
+            this.chkTampilSemua.TabIndex = 148;
+            this.chkTampilSemua.Text = "Tampilkan juga dengan status yang tidak dipakai.";
+            this.chkTampilSemua.UseVisualStyleBackColor = true;
             // 
             // lvDaftarTindakan
             // 
@@ -289,9 +365,9 @@
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(6, 168);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(6, 225);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(769, 348);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(769, 291);
             this.lvDaftarTindakan.TabIndex = 147;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -331,6 +407,63 @@
             this.columnHeader7.Text = "Dipakai";
             this.columnHeader7.Width = 88;
             // 
+            // txtSMF
+            // 
+            this.txtSMF.BackColor = System.Drawing.Color.White;
+            this.txtSMF.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSMF.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSMF.Location = new System.Drawing.Point(352, 93);
+            this.txtSMF.Name = "txtSMF";
+            this.txtSMF.Size = new System.Drawing.Size(236, 28);
+            this.txtSMF.TabIndex = 129;
+            // 
+            // cmbKelas
+            // 
+            this.cmbKelas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKelas.FormattingEnabled = true;
+            this.cmbKelas.Items.AddRange(new object[] {
+            "Dipakai",
+            "Tidak Dipakai",
+            "Pensiun"});
+            this.cmbKelas.Location = new System.Drawing.Point(352, 26);
+            this.cmbKelas.Name = "cmbKelas";
+            this.cmbKelas.Size = new System.Drawing.Size(133, 28);
+            this.cmbKelas.TabIndex = 128;
+            // 
+            // txtNominal
+            // 
+            this.txtNominal.BackColor = System.Drawing.Color.White;
+            this.txtNominal.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNominal.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNominal.Location = new System.Drawing.Point(126, 94);
+            this.txtNominal.Name = "txtNominal";
+            this.txtNominal.Size = new System.Drawing.Size(167, 28);
+            this.txtNominal.TabIndex = 127;
+            // 
+            // txtKode
+            // 
+            this.txtKode.BackColor = System.Drawing.Color.White;
+            this.txtKode.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtKode.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKode.Location = new System.Drawing.Point(126, 26);
+            this.txtKode.Name = "txtKode";
+            this.txtKode.Size = new System.Drawing.Size(167, 28);
+            this.txtKode.TabIndex = 126;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(0, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(301, 20);
+            this.label14.TabIndex = 111;
+            this.label14.Text = "DAFTAR TARIF RAWAT JALAN IRNA UTAMA";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // cmsDaftarTarif
             // 
             this.cmsDaftarTarif.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -354,6 +487,11 @@
             this.tambahTarifEXCELToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.tambahTarifEXCELToolStripMenuItem.Text = "Tambah Tarif - EXCEL";
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(186, 6);
+            // 
             // rubahTarifToolStripMenuItem
             // 
             this.rubahTarifToolStripMenuItem.Name = "rubahTarifToolStripMenuItem";
@@ -365,21 +503,6 @@
             this.hapusTarifToolStripMenuItem.Name = "hapusTarifToolStripMenuItem";
             this.hapusTarifToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.hapusTarifToolStripMenuItem.Text = "Hapus Tarif";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(186, 6);
-            // 
-            // chkTampilSemua
-            // 
-            this.chkTampilSemua.AutoSize = true;
-            this.chkTampilSemua.Location = new System.Drawing.Point(6, 519);
-            this.chkTampilSemua.Name = "chkTampilSemua";
-            this.chkTampilSemua.Size = new System.Drawing.Size(355, 24);
-            this.chkTampilSemua.TabIndex = 148;
-            this.chkTampilSemua.Text = "Tampilkan juga dengan status yang tidak dipakai.";
-            this.chkTampilSemua.UseVisualStyleBackColor = true;
             // 
             // daftarTarif
             // 
@@ -394,6 +517,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "daftarTarif";
             this.Text = "daftarTarif";
+            this.Load += new System.EventHandler(this.daftarTarif_Load);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.cmsDaftarTarif.ResumeLayout(false);
@@ -410,12 +534,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSimpan;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkDipakai;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtIsiFilter;
+        private System.Windows.Forms.TextBox txtUraian;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNominal;
+        private System.Windows.Forms.TextBox txtKode;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListView lvDaftarTindakan;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -425,8 +549,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ComboBox cmbStatusID;
+        private System.Windows.Forms.TextBox txtSMF;
+        private System.Windows.Forms.ComboBox cmbKelas;
         private System.Windows.Forms.ContextMenuStrip cmsDaftarTarif;
         private System.Windows.Forms.ToolStripMenuItem tambahTarifToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tambahTarifEXCELToolStripMenuItem;
@@ -434,5 +558,14 @@
         private System.Windows.Forms.ToolStripMenuItem rubahTarifToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hapusTarifToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkTampilSemua;
+        private System.Windows.Forms.Button btnLoadExcel;
+        private System.Windows.Forms.TextBox txtNamaFileExcel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtKelompok;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RadioButton rbtMulti;
+        private System.Windows.Forms.RadioButton rbtSatuan;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }
