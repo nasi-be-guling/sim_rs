@@ -59,9 +59,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.btnKeluar);
@@ -159,7 +159,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(36, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 18);
+            this.label1.Size = new System.Drawing.Size(192, 18);
             this.label1.TabIndex = 114;
             this.label1.Text = "Nama Form Aplikasi Lama : ";
             // 
@@ -171,7 +171,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(36, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(189, 18);
+            this.label3.Size = new System.Drawing.Size(186, 18);
             this.label3.TabIndex = 122;
             this.label3.Text = "Nama Form Aplikasi Baru : ";
             // 
@@ -210,7 +210,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(36, 84);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.Size = new System.Drawing.Size(86, 18);
             this.label2.TabIndex = 120;
             this.label2.Text = "Kelompok : ";
             // 
@@ -274,9 +274,9 @@
             // 
             // lvDaftarMenu
             // 
-            this.lvDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDaftarMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvDaftarMenu.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
