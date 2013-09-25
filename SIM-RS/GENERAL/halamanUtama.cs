@@ -220,7 +220,8 @@ namespace SIM_RS
                             "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
                           "WHERE BILHAKAKSES.idPetugas = '" + strUserID + 
                             "' AND BILPROGRAM.NamaFormERD IS NOT NULL "+
-                            "AND BILPROGRAM.NamaFormERD <> ''";
+                            "AND BILPROGRAM.NamaFormERD <> '' "+
+                            "ORDER BY BILHAKAKSES.urut ASC";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")

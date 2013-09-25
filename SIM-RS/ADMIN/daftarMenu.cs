@@ -34,9 +34,7 @@ namespace SIM_RS.ADMIN
 
 
 
-        /*PRIVATE FUNCTION*/
-
-        /**/
+       
         /* PRIVATE FUNCTION */
 
         private void pvLoadData(string _strCari = "")

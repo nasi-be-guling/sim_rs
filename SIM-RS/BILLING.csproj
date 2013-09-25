@@ -114,6 +114,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADMIN\daftarHakAkses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADMIN\daftarHakAkses.Designer.cs">
+      <DependentUpon>daftarHakAkses.cs</DependentUpon>
+    </Compile>
     <Compile Include="ADMIN\daftarMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,9 @@
     <Compile Include="RAWAT-JALAN-PAV\inputTindakan.Designer.cs">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ADMIN\daftarHakAkses.resx">
+      <DependentUpon>daftarHakAkses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ADMIN\daftarMenu.resx">
       <DependentUpon>daftarMenu.cs</DependentUpon>
     </EmbeddedResource>
