@@ -34,13 +34,7 @@ namespace SIM_RS.ADMIN
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
         {
-<<<<<<< HEAD
-            _strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
-=======
-            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
->>>>>>> 3f62180369f43e5d8dcb6fa13be1fcf2997d1bd6
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -249,11 +243,11 @@ namespace SIM_RS.ADMIN
                 //lvDaftarMenu.Sorting = System.Windows.Forms.SortOrder.Ascending;
                 //// Restrict the multiselect
                 //lvDaftarMenu.MultiSelect = false;
-                ColumnHeader headeridBayarMst = this.lvDaftarMenu.Columns.Add("ID Petugas",
+                lvDaftarMenu.Columns.Add("ID Petugas",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerTgl2 = this.lvDaftarMenu.Columns.Add("Petugas",
+                lvDaftarMenu.Columns.Add("Petugas",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerNoKwi2 = this.lvDaftarMenu.Columns.Add("Unit Kerja",
+                lvDaftarMenu.Columns.Add("Unit Kerja",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
             }
@@ -275,11 +269,11 @@ namespace SIM_RS.ADMIN
                 //// Restrict the multiselect
                 //lvDaftarMenu.MultiSelect = false;
 
-                ColumnHeader headeridBayarMst = this.lvDaftarMenu.Columns.Add("ID Program",
+                lvDaftarMenu.Columns.Add("ID Program",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerTgl2 = this.lvDaftarMenu.Columns.Add("Nama Form",
+                lvDaftarMenu.Columns.Add("Nama Form",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerNoKwi2 = this.lvDaftarMenu.Columns.Add("Kelompok",
+                lvDaftarMenu.Columns.Add("Kelompok",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
             }
