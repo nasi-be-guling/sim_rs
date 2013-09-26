@@ -169,7 +169,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(20, 52);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 18);
+            this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 117;
             this.label7.Text = "Alamat : ";
             // 
@@ -191,7 +191,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(20, 81);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 18);
+            this.label4.Size = new System.Drawing.Size(43, 18);
             this.label4.TabIndex = 120;
             this.label4.Text = "Poli : ";
             // 
@@ -316,7 +316,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(275, 62);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(76, 18);
+            this.label22.Size = new System.Drawing.Size(74, 18);
             this.label22.TabIndex = 133;
             this.label22.Text = "Deskripsi :";
             // 
@@ -577,7 +577,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(14, 329);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(331, 25);
+            this.label12.Size = new System.Drawing.Size(337, 25);
             this.label12.TabIndex = 124;
             this.label12.Text = "TOTAL YANG HARUS DIBAYARKAN :";
             // 
@@ -648,7 +648,7 @@
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(9, 128);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 18);
+            this.label13.Size = new System.Drawing.Size(95, 18);
             this.label13.TabIndex = 142;
             this.label13.Text = "Keringanan : ";
             // 
