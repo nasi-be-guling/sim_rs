@@ -109,7 +109,7 @@ namespace SIM_RS.ADMIN
             txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
             txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
+            //a
         }
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
