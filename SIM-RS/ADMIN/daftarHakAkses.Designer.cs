@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbStatusID = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -47,8 +48,11 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.batalkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -279,6 +283,8 @@
             this.lvDaftarMenu.TabIndex = 0;
             this.lvDaftarMenu.UseCompatibleStateImageBehavior = false;
             this.lvDaftarMenu.View = System.Windows.Forms.View.Details;
+            this.lvDaftarMenu.SelectedIndexChanged += new System.EventHandler(this.lvDaftarMenu_SelectedIndexChanged);
+            this.lvDaftarMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvDaftarMenu_MouseDown);
             // 
             // columnHeader1
             // 
@@ -293,6 +299,19 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "GRUP";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.batalkanToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 26);
+            // 
+            // batalkanToolStripMenuItem
+            // 
+            this.batalkanToolStripMenuItem.Name = "batalkanToolStripMenuItem";
+            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.batalkanToolStripMenuItem.Text = "Batalkan";
             // 
             // daftarHakAkses
             // 
@@ -312,6 +331,7 @@
             this.panel1.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -337,5 +357,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ComboBox cmbStatusID;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem batalkanToolStripMenuItem;
     }
 }

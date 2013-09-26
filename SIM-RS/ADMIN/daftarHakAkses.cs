@@ -22,19 +22,66 @@ namespace SIM_RS.ADMIN
         readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
         readonly C4Module.SQLModule _modSql = new C4Module.SQLModule();
         //C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
+        BackgroundWorker bw = new BackgroundWorker();
 
         readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
 
         public daftarHakAkses()
         {
             InitializeComponent();
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
+            bw.DoWork +=
+                new DoWorkEventHandler(bw_DoWork);
+            //bw.ProgressChanged +=
+            //    new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
 
         /* PRIVATE FUNCTION */
 
-        private void PvLoadData(string strCari = "", int kontrol = 0)
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            for (int i = 1; (i <= 10); i++)
+            {
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    // Perform a time consuming operation and report progress.
+                    System.Threading.Thread.Sleep(500);
+                    worker.ReportProgress((i * 10));
+                }
+            }
+        }
+
+        //private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    this.tbProgress.Text = (e.ProgressPercentage.ToString() + "%");
+        //}
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(String.Format("Error : {0}", e.Error.Message));
+            }
+            else
+            {
+                this.tbProgress.Text = "Done!";
+            }
+        }
+
+
+        private void FillAutoComplete()
+        {
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -43,20 +90,54 @@ namespace SIM_RS.ADMIN
                 return;
             }
 
+            _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_MENU";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+            }
+
+            txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
+            txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+        }
+
+        private void PvLoadData(string strCari = "", int kontrol = 0)
+        {
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            #region SQL QUERY SESUAI KONDISI
             if (kontrol == 0)
             {
-                _strQuerySql = "SELECT idpetugas, idprogram, grup, Urut " +
-                                "FROM BILHAKAKSES";
+                _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_MENU";
             }
             else if (kontrol == 2)
             {
                 if (strCari == "")
 
-                    _strQuerySql = "SELECT idpetugas, petugas, unitkerja " +
-                                   "FROM BILPETUGAS";
+                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
+                                   "FROM HIS_DAFTAR_USER";
                 else
-                    _strQuerySql = "SELECT idpetugas, petugas, unitkerja " +
-                                   "FROM BILPETUGAS WHERE idPetugas LIKE '%" + strCari + "%'";
+                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
+                                   "FROM HIS_DAFTAR_USER WHERE user_id LIKE '%" + strCari + "%'";
             }
             else if (kontrol == 3)
             {
@@ -67,7 +148,8 @@ namespace SIM_RS.ADMIN
                 else
                     _strQuerySql = "SELECT idprogram, namaform, kelompok " +
                                    "FROM BILPROGRAM WHERE idprogram LIKE '%" + strCari + "%'";
-            }
+            } 
+            #endregion
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
@@ -84,7 +166,7 @@ namespace SIM_RS.ADMIN
                 {
                     if (kontrol == 0)
                     {
-                        _listProgram.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
+                        _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
                     }
                     else if (kontrol > 0)
                     {
@@ -99,13 +181,6 @@ namespace SIM_RS.ADMIN
                     }
                 }
                 //_modSql.pvAutoResizeLV(lvDaftarMenu, 3);
-            }
-
-            if (kontrol == 0)
-            {
-                txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
-                txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
             }
 
             reader.Close();
@@ -183,7 +258,8 @@ namespace SIM_RS.ADMIN
         private void daftarHakAkses_Load(object sender, EventArgs e)
         {
             _listProgram.Clear();
-            PvLoadData();
+            if (!bw.IsBusy)
+                bw.RunWorkerAsync();
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
@@ -281,6 +357,19 @@ namespace SIM_RS.ADMIN
         }
 
         private void txtCariMenu_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvDaftarMenu_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(this.lvDaftarMenu, e.Location);
+            }
+        }
+
+        private void lvDaftarMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
