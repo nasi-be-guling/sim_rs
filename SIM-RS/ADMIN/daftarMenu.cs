@@ -27,13 +27,8 @@ namespace SIM_RS.ADMIN
         public daftarMenu()
         {
             InitializeComponent();
-
             this.pvLoadData("");
-
         }
-
-
-
        
         /* PRIVATE FUNCTION */
 
@@ -48,7 +43,6 @@ namespace SIM_RS.ADMIN
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
                 return;
             }
-
 
             if (_strCari == "")
 
