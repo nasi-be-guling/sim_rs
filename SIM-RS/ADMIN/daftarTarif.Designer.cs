@@ -69,6 +69,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.rubahTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hapusTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel6.SuspendLayout();
             this.cmsDaftarTarif.SuspendLayout();
             this.SuspendLayout();
@@ -319,6 +320,7 @@
             this.btnLoadExcel.TabIndex = 151;
             this.btnLoadExcel.Text = "&LOAD";
             this.btnLoadExcel.UseVisualStyleBackColor = false;
+            this.btnLoadExcel.Click += new System.EventHandler(this.btnLoadExcel_Click);
             // 
             // txtNamaFileExcel
             // 
@@ -462,9 +464,9 @@
             this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(0, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(301, 20);
+            this.label14.Size = new System.Drawing.Size(208, 20);
             this.label14.TabIndex = 111;
-            this.label14.Text = "DAFTAR TARIF RAWAT JALAN IRNA UTAMA";
+            this.label14.Text = "DAFTAR TARIF RAWAT JALAN";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cmsDaftarTarif
@@ -506,6 +508,10 @@
             this.hapusTarifToolStripMenuItem.Name = "hapusTarifToolStripMenuItem";
             this.hapusTarifToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.hapusTarifToolStripMenuItem.Text = "Hapus Tarif";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // daftarTarif
             // 
@@ -570,5 +576,6 @@
         private System.Windows.Forms.RadioButton rbtSatuan;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
