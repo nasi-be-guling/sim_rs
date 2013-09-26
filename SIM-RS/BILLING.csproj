@@ -162,11 +162,6 @@
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,10 +260,6 @@
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="DATASET\DATASET_APP.xsc">
       <DependentUpon>DATASET_APP.xsd</DependentUpon>
     </None>

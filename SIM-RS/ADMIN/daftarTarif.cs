@@ -31,7 +31,7 @@ namespace SIM_RS.ADMIN
             txtNamaFileExcel.Enabled = false;
             btnLoadExcel.Enabled = false;
 
-
+            txtNamaFileExcel.Text = "";
         }
 
         private void pvDisableSatuanForm()
@@ -45,6 +45,13 @@ namespace SIM_RS.ADMIN
 
             txtNamaFileExcel.Enabled = true;
             btnLoadExcel.Enabled = true;
+
+            txtKode.Text = "";
+            txtKelompok.Text = "";
+            cmbKelas.Text = "";
+            txtUraian.Text = "";
+            txtSMF.Text = "";
+            chkDipakai.Checked = false;
         }
 
         private void btnKeluarIsiTindakan_Click(object sender, EventArgs e)
@@ -57,6 +64,16 @@ namespace SIM_RS.ADMIN
         private void daftarTarif_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void rbtSatuan_Click(object sender, EventArgs e)
+        {
+            this.pvEnableSatuanForm();
+        }
+
+        private void rbtMulti_Click(object sender, EventArgs e)
+        {
+            this.pvDisableSatuanForm();
         }
     }
 }

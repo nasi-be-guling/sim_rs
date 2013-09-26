@@ -83,7 +83,7 @@
             this.btnKeluarIsiTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarIsiTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarIsiTindakan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(689, 564);
+            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(693, 565);
             this.btnKeluarIsiTindakan.Name = "btnKeluarIsiTindakan";
             this.btnKeluarIsiTindakan.Size = new System.Drawing.Size(101, 30);
             this.btnKeluarIsiTindakan.TabIndex = 115;
@@ -101,7 +101,7 @@
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(700, 189);
+            this.button1.Location = new System.Drawing.Point(707, 189);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 30);
             this.button1.TabIndex = 124;
@@ -118,7 +118,7 @@
             this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpan.Location = new System.Drawing.Point(612, 189);
+            this.btnSimpan.Location = new System.Drawing.Point(619, 189);
             this.btnSimpan.Name = "btnSimpan";
             this.btnSimpan.Size = new System.Drawing.Size(82, 30);
             this.btnSimpan.TabIndex = 123;
@@ -229,9 +229,9 @@
             this.panel6.Controls.Add(this.chkDipakai);
             this.panel6.Controls.Add(this.label3);
             this.panel6.Controls.Add(this.label4);
-            this.panel6.Location = new System.Drawing.Point(9, 12);
+            this.panel6.Location = new System.Drawing.Point(6, 6);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(781, 546);
+            this.panel6.Size = new System.Drawing.Size(788, 553);
             this.panel6.TabIndex = 146;
             // 
             // label9
@@ -288,6 +288,7 @@
             this.rbtMulti.TabStop = true;
             this.rbtMulti.Text = "MULTI";
             this.rbtMulti.UseVisualStyleBackColor = true;
+            this.rbtMulti.Click += new System.EventHandler(this.rbtMulti_Click);
             // 
             // rbtSatuan
             // 
@@ -300,6 +301,7 @@
             this.rbtSatuan.TabStop = true;
             this.rbtSatuan.Text = "SATUAN";
             this.rbtSatuan.UseVisualStyleBackColor = true;
+            this.rbtSatuan.Click += new System.EventHandler(this.rbtSatuan_Click);
             // 
             // btnLoadExcel
             // 
@@ -311,7 +313,7 @@
             this.btnLoadExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnLoadExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadExcel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadExcel.Location = new System.Drawing.Point(592, 142);
+            this.btnLoadExcel.Location = new System.Drawing.Point(599, 142);
             this.btnLoadExcel.Name = "btnLoadExcel";
             this.btnLoadExcel.Size = new System.Drawing.Size(63, 30);
             this.btnLoadExcel.TabIndex = 151;
@@ -342,7 +344,7 @@
             // chkTampilSemua
             // 
             this.chkTampilSemua.AutoSize = true;
-            this.chkTampilSemua.Location = new System.Drawing.Point(6, 519);
+            this.chkTampilSemua.Location = new System.Drawing.Point(6, 524);
             this.chkTampilSemua.Name = "chkTampilSemua";
             this.chkTampilSemua.Size = new System.Drawing.Size(355, 24);
             this.chkTampilSemua.TabIndex = 148;
@@ -367,7 +369,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(6, 225);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(769, 291);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(776, 298);
             this.lvDaftarTindakan.TabIndex = 147;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -422,9 +424,10 @@
             this.cmbKelas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKelas.FormattingEnabled = true;
             this.cmbKelas.Items.AddRange(new object[] {
-            "Dipakai",
-            "Tidak Dipakai",
-            "Pensiun"});
+            "UTAMA",
+            "SATU",
+            "DUA",
+            "TIGA"});
             this.cmbKelas.Location = new System.Drawing.Point(352, 26);
             this.cmbKelas.Name = "cmbKelas";
             this.cmbKelas.Size = new System.Drawing.Size(133, 28);

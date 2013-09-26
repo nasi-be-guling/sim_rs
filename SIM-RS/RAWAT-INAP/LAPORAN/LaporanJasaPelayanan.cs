@@ -339,7 +339,7 @@ namespace SIM_RS.RAWAT_INAP
             btnTampilkan.SafeControlInvoke(Button => btnTampilkan.Enabled = false);
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);

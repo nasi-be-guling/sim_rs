@@ -34,8 +34,13 @@ namespace SIM_RS.ADMIN
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
         {
+<<<<<<< HEAD
             _strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+=======
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+>>>>>>> 3f62180369f43e5d8dcb6fa13be1fcf2997d1bd6
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -117,7 +122,7 @@ namespace SIM_RS.ADMIN
         {
             _strErr = "";
 
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
