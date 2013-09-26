@@ -72,13 +72,13 @@ namespace SIM_RS
 
         public static string strIPDBServer1 = "192.168.3.250";
         public static string strUserDBServer1 = "sa";
-        public static string strPasswordDBServer1 = "";
+        public static string strPasswordDBServer1 = "ServerInkomFujitsu!23";
         public static string strPortDBServer1 = "1433";
-        public static string strNameDBServer1 = "BILLING";
+        public static string strNameDBServer1 = "BILLING_NEW";
 
         public static string strIPDBServer2 = "192.168.3.250";
         public static string strUserDBServer2 = "sa";
-        public static string strPasswordDBServer2 = "";
+        public static string strPasswordDBServer2 = "ServerInkomFujitsu!23";
         public static string strPortDBServer2 = "1433";
         public static string strNameDBServer2 = "ERM";
         /* EOF DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
