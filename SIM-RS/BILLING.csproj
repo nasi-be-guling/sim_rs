@@ -65,15 +65,20 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C4Module, Version=0.1.4806.18225, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\C4Module\bin\Debug\C4Module.dll</HintPath>
+    <Reference Include="C4Module">
+      <HintPath>Properties\C4Module.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
-      <HintPath>DLL\EPPlus.dll</HintPath>
+      <HintPath>Properties\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Excel">
-      <HintPath>DLL\Excel.dll</HintPath>
+      <HintPath>Properties\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Properties\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>Properties\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
