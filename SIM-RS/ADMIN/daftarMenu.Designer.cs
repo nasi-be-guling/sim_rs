@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cmbDipakai = new System.Windows.Forms.ComboBox();
             this.txtNamaAppBaru = new System.Windows.Forms.TextBox();
             this.txtNamaMenu = new System.Windows.Forms.TextBox();
             this.btnBatal = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmsDaftarMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rubahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbDipakai = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.cmsDaftarMenu.SuspendLayout();
@@ -87,6 +87,18 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(774, 186);
             this.panel6.TabIndex = 146;
+            // 
+            // cmbDipakai
+            // 
+            this.cmbDipakai.FormattingEnabled = true;
+            this.cmbDipakai.Items.AddRange(new object[] {
+            "Tidak",
+            "Ya",
+            "Bisa Jadi"});
+            this.cmbDipakai.Location = new System.Drawing.Point(198, 93);
+            this.cmbDipakai.Name = "cmbDipakai";
+            this.cmbDipakai.Size = new System.Drawing.Size(121, 28);
+            this.cmbDipakai.TabIndex = 127;
             // 
             // txtNamaAppBaru
             // 
@@ -295,18 +307,6 @@
             this.rubahToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
             this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
-            // 
-            // cmbDipakai
-            // 
-            this.cmbDipakai.FormattingEnabled = true;
-            this.cmbDipakai.Items.AddRange(new object[] {
-            "Tidak",
-            "Ya",
-            "Bisa Jadi"});
-            this.cmbDipakai.Location = new System.Drawing.Point(198, 93);
-            this.cmbDipakai.Name = "cmbDipakai";
-            this.cmbDipakai.Size = new System.Drawing.Size(121, 28);
-            this.cmbDipakai.TabIndex = 127;
             // 
             // daftarMenu
             // 
