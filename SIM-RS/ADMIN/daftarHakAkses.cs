@@ -22,20 +22,73 @@ namespace SIM_RS.ADMIN
         readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
         readonly C4Module.SQLModule _modSql = new C4Module.SQLModule();
         //C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
+        BackgroundWorker bw = new BackgroundWorker();
 
-        readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
 
         public daftarHakAkses()
         {
             InitializeComponent();
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
+            bw.DoWork +=
+                new DoWorkEventHandler(bw_DoWork);
+            //bw.ProgressChanged +=
+            //    new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
 
         /* PRIVATE FUNCTION */
 
-        private void PvLoadData(string strCari = "", int kontrol = 0)
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            this._strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            BackgroundWorker worker = sender as BackgroundWorker;
+            FillAutoComplete();
+            //for (int i = 1; (i <= 10); i++)
+            //{
+            //    if ((worker.CancellationPending == true))
+            //    {
+            //        e.Cancel = true;
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        // Perform a time consuming operation and report progress.
+            //        System.Threading.Thread.Sleep(500);
+            //        worker.ReportProgress((i * 10));
+            //    }
+            //}
+        }
+
+        //private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    this.tbProgress.Text = (e.ProgressPercentage.ToString() + "%");
+        //}
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(String.Format("Error : {0}", e.Error.Message));
+            }
+            else
+            {
+                txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
+                txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                txtNamaMenu.AutoCompleteCustomSource = _listPengguna;
+                txtNamaMenu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtNamaMenu.AutoCompleteSource = AutoCompleteSource.CustomSource;          
+            }
+        }
+
+
+        private void FillAutoComplete()
+        {
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -44,20 +97,77 @@ namespace SIM_RS.ADMIN
                 return;
             }
 
+            //=======================================  SELECT PROGRAM ===================================
+            _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_MENU";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                }
+                reader.Close();
+            }
+
+            //=======================================  SELECT PENGGUNA ===================================
+            _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_USER";
+            reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _listPengguna.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                }
+                reader.Close();
+            }
+            conn.Close();
+        }
+
+        private void PvLoadData(string strCari = "", int kontrol = 0)
+        {
+
+            this._strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            #region SQL QUERY SESUAI KONDISI
             if (kontrol == 0)
             {
-                _strQuerySql = "SELECT idpetugas, idprogram, grup, Urut " +
-                                "FROM BILHAKAKSES";
+                _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_MENU";
             }
             else if (kontrol == 2)
             {
                 if (strCari == "")
 
-                    _strQuerySql = "SELECT idpetugas, petugas, unitkerja " +
-                                   "FROM BILPETUGAS";
+                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
+                                   "FROM HIS_DAFTAR_USER";
                 else
-                    _strQuerySql = "SELECT idpetugas, petugas, unitkerja " +
-                                   "FROM BILPETUGAS WHERE idPetugas LIKE '%" + strCari + "%'";
+                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
+                                   "FROM HIS_DAFTAR_USER WHERE nama LIKE '%" + strCari + "%'";
             }
             else if (kontrol == 3)
             {
@@ -67,8 +177,9 @@ namespace SIM_RS.ADMIN
                                    "FROM BILPROGRAM";
                 else
                     _strQuerySql = "SELECT idprogram, namaform, kelompok " +
-                                   "FROM BILPROGRAM WHERE idprogram LIKE '%" + strCari + "%'";
-            }
+                                   "FROM BILPROGRAM WHERE nama LIKE '%" + strCari + "%'";
+            } 
+            #endregion
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
@@ -85,7 +196,7 @@ namespace SIM_RS.ADMIN
                 {
                     if (kontrol == 0)
                     {
-                        _listProgram.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
+                        _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
                     }
                     else if (kontrol > 0)
                     {
@@ -100,16 +211,8 @@ namespace SIM_RS.ADMIN
                     }
                 }
                 //_modSql.pvAutoResizeLV(lvDaftarMenu, 3);
+                reader.Close();
             }
-
-            if (kontrol == 0)
-            {
-                txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
-                txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            }
-
-            reader.Close();
             conn.Close();
         }
 
@@ -184,7 +287,8 @@ namespace SIM_RS.ADMIN
         private void daftarHakAkses_Load(object sender, EventArgs e)
         {
             _listProgram.Clear();
-            PvLoadData();
+            if (!bw.IsBusy)
+                bw.RunWorkerAsync();
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
@@ -244,11 +348,11 @@ namespace SIM_RS.ADMIN
                 //lvDaftarMenu.Sorting = System.Windows.Forms.SortOrder.Ascending;
                 //// Restrict the multiselect
                 //lvDaftarMenu.MultiSelect = false;
-                ColumnHeader headeridBayarMst = this.lvDaftarMenu.Columns.Add("ID Petugas",
+                lvDaftarMenu.Columns.Add("ID Petugas",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerTgl2 = this.lvDaftarMenu.Columns.Add("Petugas",
+                lvDaftarMenu.Columns.Add("Petugas",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerNoKwi2 = this.lvDaftarMenu.Columns.Add("Unit Kerja",
+                lvDaftarMenu.Columns.Add("Unit Kerja",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
             }
@@ -270,11 +374,11 @@ namespace SIM_RS.ADMIN
                 //// Restrict the multiselect
                 //lvDaftarMenu.MultiSelect = false;
 
-                ColumnHeader headeridBayarMst = this.lvDaftarMenu.Columns.Add("ID Program",
+                lvDaftarMenu.Columns.Add("ID Program",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerTgl2 = this.lvDaftarMenu.Columns.Add("Nama Form",
+                lvDaftarMenu.Columns.Add("Nama Form",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                ColumnHeader headerNoKwi2 = this.lvDaftarMenu.Columns.Add("Kelompok",
+                lvDaftarMenu.Columns.Add("Kelompok",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
             }
@@ -282,6 +386,19 @@ namespace SIM_RS.ADMIN
         }
 
         private void txtCariMenu_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvDaftarMenu_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(this.lvDaftarMenu, e.Location);
+            }
+        }
+
+        private void lvDaftarMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

@@ -30,9 +30,9 @@
         {
             this.label16 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtIdPetugas = new System.Windows.Forms.TextBox();
+            this.txtsandiUser = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtuserId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnKeluarProgram = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -61,17 +61,16 @@
             this.label1.Text = "SANDI :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtIdPetugas
+            // txtsandiUser
             // 
-            this.txtIdPetugas.BackColor = System.Drawing.Color.White;
-            this.txtIdPetugas.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdPetugas.Location = new System.Drawing.Point(158, 97);
-            this.txtIdPetugas.Name = "txtIdPetugas";
-            this.txtIdPetugas.PasswordChar = '*';
-            this.txtIdPetugas.Size = new System.Drawing.Size(176, 30);
-            this.txtIdPetugas.TabIndex = 66;
-            this.txtIdPetugas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdPetugas_KeyPress);
-            this.txtIdPetugas.Leave += new System.EventHandler(this.txtIdPetugas_Leave);
+            this.txtsandiUser.BackColor = System.Drawing.Color.White;
+            this.txtsandiUser.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtsandiUser.Location = new System.Drawing.Point(158, 97);
+            this.txtsandiUser.Name = "txtsandiUser";
+            this.txtsandiUser.PasswordChar = '*';
+            this.txtsandiUser.Size = new System.Drawing.Size(176, 30);
+            this.txtsandiUser.TabIndex = 66;
+            this.txtsandiUser.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsandiUser_KeyUp);
             // 
             // label5
             // 
@@ -88,15 +87,16 @@
             this.label5.Text = "Tekan ESC untuk membatalkan login / Keluar dari Program";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox1
+            // txtuserId
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(158, 61);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(176, 30);
-            this.textBox1.TabIndex = 75;
+            this.txtuserId.BackColor = System.Drawing.Color.White;
+            this.txtuserId.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtuserId.Location = new System.Drawing.Point(158, 61);
+            this.txtuserId.Name = "txtuserId";
+            this.txtuserId.PasswordChar = '*';
+            this.txtuserId.Size = new System.Drawing.Size(176, 30);
+            this.txtuserId.TabIndex = 0;
+            this.txtuserId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtuserId_KeyUp);
             // 
             // label2
             // 
@@ -133,10 +133,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(355, 218);
             this.Controls.Add(this.btnKeluarProgram);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtuserId);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtIdPetugas);
+            this.Controls.Add(this.txtsandiUser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label16);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -146,7 +146,6 @@
             this.Name = "login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Aplikasi Billing RSSA";
-            this.Activated += new System.EventHandler(this.login_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.login_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.login_FormClosed);
             this.Load += new System.EventHandler(this.login_Load);
@@ -155,16 +154,15 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.login_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtIdPetugas;
+        private System.Windows.Forms.TextBox txtsandiUser;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtuserId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnKeluarProgram;
     }

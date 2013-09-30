@@ -35,7 +35,7 @@ namespace SIM_RS.ADMIN
         private void pvLoadData(string _strCari = "")
         {
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -46,11 +46,11 @@ namespace SIM_RS.ADMIN
 
             if (_strCari == "")
 
-                strQuerySQL = "SELECT id, nama" +
-                                "FROM BILPROGRAM";
+                strQuerySQL = "SELECT id, nama, dipakai, form " +
+                                "FROM HIS_DAFTAR_MENU";
             else
-                strQuerySQL = "SELECT idProgram,NamaForm,Kelompok,NamaFormERD " +
-                                "FROM BILPROGRAM WHERE (idProgram LIKE '%" + _strCari + "%') or (NamaFormERD LIKE '%" + _strCari + "%')";
+                strQuerySQL = "SELECT id, nama, dipakai, form " +
+                                "FROM HIS_DAFTAR_MENU WHERE (nama LIKE '%" + _strCari + "%') or (form LIKE '%" + _strCari + "%')";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -85,7 +85,7 @@ namespace SIM_RS.ADMIN
         {
             this.strErr = "";
 
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -96,22 +96,22 @@ namespace SIM_RS.ADMIN
             }           
 
             if (!isUpdate)                
-                this.strQuerySQL = "INSERT INTO BILPROGRAM (idProgram,Kelompok,NamaFormERD) " +
-                                    "VALUES ('" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
-                                    "','" + modMain.pbstrBersihkanInput(txtKelompok.Text.Trim().ToString()) +
+                this.strQuerySQL = "INSERT INTO HIS_DAFTAR_MENU (id, nama, dipakai, form) " +
+                                    "VALUES ('ident_current('id'), " + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
+                                    "','" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
                                     "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
                                     "')";
-            else
-                /* JIKA BUKAN MENU DARI APLIKASI LAMA MAKA BISA MENGUPDATE JUGA NAMA MENU DAN NAMA FORM */
-                if(txtNamaAppLama.Text.Trim().ToString() == "")
-                    this.strQuerySQL = "UPDATE BILPROGRAM " +
-                                        "SET idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + 
-                                        "', NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-                                        "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
-                else
-                    this.strQuerySQL = "UPDATE BILPROGRAM " +
-                                        "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-                                        "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
+            //else
+            //    /* JIKA BUKAN MENU DARI APLIKASI LAMA MAKA BISA MENGUPDATE JUGA NAMA MENU DAN NAMA FORM */
+            //    if(txtNamaAppLama.Text.Trim().ToString() == "")
+            //        this.strQuerySQL = "UPDATE BILPROGRAM " +
+            //                            "SET idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + 
+            //                            "', NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
+            //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
+            //    else
+            //        this.strQuerySQL = "UPDATE BILPROGRAM " +
+            //                            "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
+            //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
 
 
             modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
@@ -130,9 +130,7 @@ namespace SIM_RS.ADMIN
         private void pvBersihkanForm()
         {
             txtNamaMenu.Text = "";
-            txtNamaAppLama.Text = "";
             txtNamaAppBaru.Text = "";
-            txtKelompok.Text = "";
             txtNamaMenu.Enabled = true;
             isUpdate = false;
         }
@@ -167,8 +165,7 @@ namespace SIM_RS.ADMIN
         {
             isUpdate = true;
             txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].Text.Trim().ToString();
-            txtNamaAppLama.Text = lvDaftarMenu.SelectedItems[0].SubItems[1].Text.Trim().ToString();
-            txtKelompok.Text = lvDaftarMenu.SelectedItems[0].SubItems[2].Text.Trim().ToString();
+            //txtKelompok.Text = lvDaftarMenu.SelectedItems[0].SubItems[2].Text.Trim().ToString();
             txtNamaAppBaru.Text = lvDaftarMenu.SelectedItems[0].SubItems[3].Text.Trim().ToString();
         }
 
@@ -180,6 +177,27 @@ namespace SIM_RS.ADMIN
         private void btnCariMenu_Click(object sender, EventArgs e)
         {
             this.pvLoadData(txtCariMenu.Text.Trim());
+        }
+
+        private void txtNamaMenu_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) && (txtNamaMenu.Text.Trim().ToString() != ""))
+            {
+                txtNamaAppBaru.Focus();
+            }
+        }
+
+        private void txtNamaAppBaru_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) && (txtNamaMenu.Text.Trim().ToString() != ""))
+            {
+                txtNamaAppBaru.Focus();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

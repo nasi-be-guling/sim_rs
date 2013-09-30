@@ -78,7 +78,7 @@ namespace SIM_RS
 
         public static string strIPDBServer2 = "192.168.3.250";
         public static string strUserDBServer2 = "sa";
-        public static string strPasswordDBServer2 = "";
+        public static string strPasswordDBServer2 = "ServerInkomFujitsu!23";
         public static string strPortDBServer2 = "1433";
         public static string strNameDBServer2 = "ERM";
         /* EOF DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
@@ -251,23 +251,11 @@ namespace SIM_RS
                 return;
             }
 
-
-
             string strUserID = _strUserID;
-
-            //strQuerySQL = "SELECT BILHAKAKSES.idPetugas, BILHAKAKSES.idProgram, BILHAKAKSES.Grup, BILHAKAKSES.Urut " +
-            //              "FROM BILHAKAKSES " +
-            //                "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
-            //              "WHERE BILHAKAKSES.idPetugas = '" + strUserID +
-            //                "' AND BILPROGRAM.NamaFormERD IS NOT NULL " +
-            //                "AND BILPROGRAM.NamaFormERD <> '' " +
-            //                "ORDER BY BILHAKAKSES.urut ASC";
-
-            string strusrid = "1";
 
             strQuerySQL = "SELECT HIS_DAFTAR_MENU.nama, HIS_DAFTAR_HAKAKSES.id_user, HIS_DAFTAR_HAKAKSES.no_urut " +
                            "FROM HIS_DAFTAR_HAKAKSES "+
-                           "INNER JOIN HIS_DAFTAR_MENU ON HIS_DAFTAR_MENU.id = HIS_DAFTAR_HAKAKSES.id_menu and HIS_DAFTAR_HAKAKSES.id_user = '"+ strusrid +"' " +
+                           "INNER JOIN HIS_DAFTAR_MENU ON HIS_DAFTAR_MENU.id = HIS_DAFTAR_HAKAKSES.id_menu and HIS_DAFTAR_HAKAKSES.id_user = '" + strUserID + "' " +
                            "ORDER BY HIS_DAFTAR_HAKAKSES.no_urut ASC";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
@@ -282,7 +270,7 @@ namespace SIM_RS
             {
                 while (reader.Read())
                 {
-                    lbDaftarMenu.Items.Add(modMain.pbstrgetCol(reader,1,ref strErr,""));
+                    lbDaftarMenu.Items.Add(modMain.pbstrgetCol(reader, 0, ref strErr,""));
                 }          
             }
 
@@ -298,13 +286,13 @@ namespace SIM_RS
        *  CREATED     : Eka Rudito (eka@rudito.web.id)
        *  DATE        : 15-02-2013
        */
-        private void pvLoadForm(string _strIDMenu)
+        private void pvLoadForm(string _strnamaMenu)
         {
 
             string strNamaMenu = "";
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -313,10 +301,9 @@ namespace SIM_RS
                 return;
             }
 
-
-            strQuerySQL = "SELECT NamaFormERD " +
-                          "FROM BILPROGRAM " +
-                          "WHERE idProgram = '" + _strIDMenu + "'";
+            strQuerySQL = "SELECT form " +
+                          "FROM HIS_DAFTAR_MENU " +
+                          "WHERE nama = '" + _strnamaMenu + "'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -357,8 +344,6 @@ namespace SIM_RS
                 MessageBox.Show(e.Message.ToString(), "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-
         }
 
         private void pvLoadInitialData()
