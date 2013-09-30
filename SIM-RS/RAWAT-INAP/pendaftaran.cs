@@ -47,7 +47,7 @@ namespace SIM_RS.RAWAT_INAP
             string strNoMR = "";
             int intNoMR = 0;
 
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -268,7 +268,7 @@ namespace SIM_RS.RAWAT_INAP
         {
 
             /* if user fill patient RM */
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
             {
@@ -381,7 +381,7 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 /* if user fill patient RM */
-                C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+                C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
                 SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
                 if (strErr != "")
                 {

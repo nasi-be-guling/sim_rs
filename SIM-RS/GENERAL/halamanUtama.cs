@@ -41,18 +41,20 @@ namespace SIM_RS
         C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /* DEFAULT PUBLIC READ ONLY REGISTER - REGEDIT*/
-
-        // test brow
+        
         public static string REG_ROOT = "Software\\ITIKOM";
         public static string REG_NAME_APP = "\\SIM-RS";
 
-        public static string REG_CONN = "\\Conn";
-        public static string REG_CONN1 = "\\Conn1";
+        public static string REG_BILLING_LAMA = "\\REG_BILLING_LAMA";
+        public static string REG_BILLING_ERM = "\\REG_BILLING_ERM";
+        public static string REG_ERM = "\\REG_ERM";
+
 
         public static string REG_SETTING = "\\Setting";
 
-        public static string FULL_REG_CONN = REG_ROOT + REG_NAME_APP + REG_CONN;
-        public static string FULL_REG_CONN1 = REG_ROOT + REG_NAME_APP + REG_CONN1;
+        public static string FULL_REG_BILLING_LAMA = REG_ROOT + REG_NAME_APP + REG_BILLING_LAMA;
+        public static string FULL_REG_BILLING_ERM = REG_ROOT + REG_NAME_APP + REG_BILLING_ERM;
+        public static string FULL_REG_ERM = REG_ROOT + REG_NAME_APP + REG_ERM;
         public static string FULL_REG_SETTING = REG_ROOT + REG_NAME_APP + REG_SETTING;
 
         public static DateTime dtTglServer = DateTime.Now;
@@ -68,11 +70,17 @@ namespace SIM_RS
         public static string strPortDBServer = "1032";
         public static string strNameDBServer = "BILLING";
 
-        public static string strIPDBServer1 = "192.168.2.2";
+        public static string strIPDBServer1 = "192.168.3.250";
         public static string strUserDBServer1 = "sa";
         public static string strPasswordDBServer1 = "";
         public static string strPortDBServer1 = "1433";
-        public static string strNameDBServer1 = "RS";
+        public static string strNameDBServer1 = "BILLING_NEW";
+
+        public static string strIPDBServer2 = "192.168.3.250";
+        public static string strUserDBServer2 = "sa";
+        public static string strPasswordDBServer2 = "";
+        public static string strPortDBServer2 = "1433";
+        public static string strNameDBServer2 = "ERM";
         /* EOF DEFAULT PUBLIC READONLY VARIABLE CONNECTION SERVER */
 
 
@@ -130,13 +138,13 @@ namespace SIM_RS
         private void pvInitialApp()
         {
             //string strPlainText = "";
-            bool isAdaRegistry = modMain.checkRegistry(FULL_REG_CONN.ToString());
+            bool isAdaRegistry = modMain.checkRegistry(FULL_REG_BILLING_LAMA.ToString());
             if (!isAdaRegistry)
             {
                 /*jika belum ada, maka ini adalah kali pertama aplikasi dijalankan di PC tersebut..
                  *  oleh karena itu harus menampilkan setting login aplikasi..
                  */
-                Registry.CurrentUser.CreateSubKey(FULL_REG_CONN.ToString());
+                Registry.CurrentUser.CreateSubKey(FULL_REG_BILLING_LAMA.ToString());
                 string strSandi = modEncrypt.EncryptToString(strPasswordDBServer);
                 modMain.pbTulisRegistry(
                             strUserDBServer,
@@ -144,9 +152,9 @@ namespace SIM_RS
                             strIPDBServer,
                             strPortDBServer,
                             strNameDBServer,
-                            FULL_REG_CONN.ToString());
+                            FULL_REG_BILLING_LAMA.ToString());
 
-                Registry.CurrentUser.CreateSubKey(FULL_REG_CONN1.ToString());
+                Registry.CurrentUser.CreateSubKey(FULL_REG_BILLING_ERM.ToString());
                 string strSandi1 = modEncrypt.EncryptToString(strPasswordDBServer1);
                 modMain.pbTulisRegistry(
                             strUserDBServer1,
@@ -154,17 +162,31 @@ namespace SIM_RS
                             strIPDBServer1,
                             strPortDBServer1,
                             strNameDBServer1,
-                            FULL_REG_CONN1.ToString());
+                            FULL_REG_BILLING_ERM.ToString());
+
+                Registry.CurrentUser.CreateSubKey(FULL_REG_ERM.ToString());
+                string strSandi2 = modEncrypt.EncryptToString(strPasswordDBServer2);
+                modMain.pbTulisRegistry(
+                            strUserDBServer2,
+                            strSandi2,
+                            strIPDBServer2,
+                            strPortDBServer2,
+                            strNameDBServer2,
+                            FULL_REG_ERM.ToString());
             }
             else
             {
-                C4Module.MainModule.strRegKey = FULL_REG_CONN; 
+                C4Module.MainModule.strRegKey = FULL_REG_BILLING_LAMA; 
                 string EncryptSandi = modEncrypt.EncryptToString(strPasswordDBServer);
                 modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi);
 
-                C4Module.MainModule.strRegKey = FULL_REG_CONN1;
+                C4Module.MainModule.strRegKey = FULL_REG_BILLING_ERM;
                 string EncryptSandi1 = modEncrypt.EncryptToString(strPasswordDBServer1);
                 modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi1);
+
+                C4Module.MainModule.strRegKey = FULL_REG_ERM;
+                string EncryptSandi2 = modEncrypt.EncryptToString(strPasswordDBServer2);
+                modMain.pbTulisRegistryItem("sql_akun_sandi", EncryptSandi2);
                 
             }
 
@@ -181,11 +203,29 @@ namespace SIM_RS
             }
 
             /*..READ SETTING FROM REGEDIT..*/
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
-            modMain.pbBacaRegistry(ref strNameDBServer, ref strPasswordDBServer, ref strIPDBServer, ref strPortDBServer, ref strNameDBServer);
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            modMain.pbBacaRegistry(
+                                ref strNameDBServer, 
+                                ref strPasswordDBServer, 
+                                ref strIPDBServer, 
+                                ref strPortDBServer, 
+                                ref strNameDBServer);
 
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN1;
-            modMain.pbBacaRegistry(ref strNameDBServer1, ref strPasswordDBServer1, ref strIPDBServer1, ref strPortDBServer1, ref strNameDBServer1);
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+            modMain.pbBacaRegistry(
+                                ref strNameDBServer1, 
+                                ref strPasswordDBServer1, 
+                                ref strIPDBServer1, 
+                                ref strPortDBServer1, 
+                                ref strNameDBServer1);
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_ERM;
+            modMain.pbBacaRegistry(
+                                ref strNameDBServer2, 
+                                ref strPasswordDBServer2, 
+                                ref strIPDBServer2, 
+                                ref strPortDBServer2, 
+                                ref strNameDBServer2);
 
         }
 
@@ -202,7 +242,7 @@ namespace SIM_RS
             lbDaftarMenu.Items.Clear();
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -215,13 +255,20 @@ namespace SIM_RS
 
             string strUserID = _strUserID;
 
-            strQuerySQL = "SELECT BILHAKAKSES.idPetugas, BILHAKAKSES.idProgram, BILHAKAKSES.Grup, BILHAKAKSES.Urut " +
-                          "FROM BILHAKAKSES "+
-                            "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
-                          "WHERE BILHAKAKSES.idPetugas = '" + strUserID + 
-                            "' AND BILPROGRAM.NamaFormERD IS NOT NULL "+
-                            "AND BILPROGRAM.NamaFormERD <> '' "+
-                            "ORDER BY BILHAKAKSES.urut ASC";
+            //strQuerySQL = "SELECT BILHAKAKSES.idPetugas, BILHAKAKSES.idProgram, BILHAKAKSES.Grup, BILHAKAKSES.Urut " +
+            //              "FROM BILHAKAKSES " +
+            //                "LEFT JOIN BILPROGRAM ON BILPROGRAM.idProgram = BILHAKAKSES.idProgram " +
+            //              "WHERE BILHAKAKSES.idPetugas = '" + strUserID +
+            //                "' AND BILPROGRAM.NamaFormERD IS NOT NULL " +
+            //                "AND BILPROGRAM.NamaFormERD <> '' " +
+            //                "ORDER BY BILHAKAKSES.urut ASC";
+
+            string strusrid = "1";
+
+            strQuerySQL = "SELECT HIS_DAFTAR_MENU.nama, HIS_DAFTAR_HAKAKSES.id_user, HIS_DAFTAR_HAKAKSES.no_urut " +
+                           "FROM HIS_DAFTAR_HAKAKSES "+
+                           "INNER JOIN HIS_DAFTAR_MENU ON HIS_DAFTAR_MENU.id = HIS_DAFTAR_HAKAKSES.id_menu and HIS_DAFTAR_HAKAKSES.id_user = '"+ strusrid +"' " +
+                           "ORDER BY HIS_DAFTAR_HAKAKSES.no_urut ASC";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -257,7 +304,7 @@ namespace SIM_RS
             string strNamaMenu = "";
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -318,7 +365,7 @@ namespace SIM_RS
         {
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
