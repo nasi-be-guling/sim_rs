@@ -120,6 +120,7 @@
             this.txtNamaMenu.Size = new System.Drawing.Size(376, 27);
             this.txtNamaMenu.TabIndex = 113;
             this.txtNamaMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNamaMenu_KeyDown);
+            this.txtNamaMenu.Validated += new System.EventHandler(this.txtNamaMenu_Validated);
             // 
             // btnBatal
             // 

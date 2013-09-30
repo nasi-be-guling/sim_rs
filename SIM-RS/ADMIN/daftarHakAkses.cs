@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using SIM_RS.Annotations;
 using SIM_RS.Properties;
 
 namespace SIM_RS.ADMIN
@@ -22,21 +23,24 @@ namespace SIM_RS.ADMIN
         readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
         readonly C4Module.SQLModule _modSql = new C4Module.SQLModule();
         //C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
-        BackgroundWorker bw = new BackgroundWorker();
+        readonly BackgroundWorker _bw = new BackgroundWorker();
 
-        AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
-        AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
+        readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
+        readonly AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
+
+        List<Pengguna> listPengguna = new List<Pengguna>();
+        List<Pengguna> listProgram = new List<Pengguna>();
 
         public daftarHakAkses()
         {
             InitializeComponent();
-            bw.WorkerSupportsCancellation = true;
-            bw.WorkerReportsProgress = true;
-            bw.DoWork +=
+            _bw.WorkerSupportsCancellation = true;
+            _bw.WorkerReportsProgress = true;
+            _bw.DoWork +=
                 new DoWorkEventHandler(bw_DoWork);
             //bw.ProgressChanged +=
             //    new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted +=
+            _bw.RunWorkerCompleted +=
                 new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
 
@@ -67,6 +71,31 @@ namespace SIM_RS.ADMIN
         //    this.tbProgress.Text = (e.ProgressPercentage.ToString() + "%");
         //}
 
+        private class Pengguna
+        {
+            //http://stackoverflow.com/questions/7905651/how-to-databind-a-textbox-to-a-particular-index-in-a-list
+            private int _id;
+            private string _nama;
+
+            public Pengguna(int id, string nama)
+            {
+                this._id = id;
+                this._nama = nama;
+            }
+
+            public string Nama
+            {
+                get { return _nama; }
+                set { _nama = value; }
+            }
+
+            public int Id
+            {
+                get { return _id; }
+                set { _id = value; }
+            }
+        }
+
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -81,13 +110,14 @@ namespace SIM_RS.ADMIN
 
                 txtNamaMenu.AutoCompleteCustomSource = _listPengguna;
                 txtNamaMenu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                txtNamaMenu.AutoCompleteSource = AutoCompleteSource.CustomSource;          
+                txtNamaMenu.AutoCompleteSource = AutoCompleteSource.CustomSource;
             }
         }
 
 
         private void FillAutoComplete()
         {
+            _strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
@@ -98,7 +128,7 @@ namespace SIM_RS.ADMIN
             }
 
             //=======================================  SELECT PROGRAM ===================================
-            _strQuerySql = "SELECT nama " +
+            _strQuerySql = "SELECT id, nama " +
                                 "FROM HIS_DAFTAR_MENU";
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
@@ -108,18 +138,19 @@ namespace SIM_RS.ADMIN
                 conn.Close();
                 return;
             }
-
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                    listProgram.Add(new Pengguna(Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, "")), 
+                        _modMain.pbstrgetCol(reader, 1, ref _strErr, "")));
+                    _listProgram.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
                 }
                 reader.Close();
             }
 
             //=======================================  SELECT PENGGUNA ===================================
-            _strQuerySql = "SELECT nama " +
+            _strQuerySql = "SELECT id, nama " +
                                 "FROM HIS_DAFTAR_USER";
             reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
@@ -132,7 +163,9 @@ namespace SIM_RS.ADMIN
             {
                 while (reader.Read())
                 {
-                    _listPengguna.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                    listPengguna.Add(new Pengguna(Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, "")), 
+                        _modMain.pbstrgetCol(reader, 1, ref _strErr, "")));
+                    _listPengguna.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
                 }
                 reader.Close();
             }
@@ -141,6 +174,8 @@ namespace SIM_RS.ADMIN
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
         {
+            _strErr = "";
+
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
@@ -160,21 +195,23 @@ namespace SIM_RS.ADMIN
             {
                 if (strCari == "")
 
-                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
-                                   "FROM HIS_DAFTAR_USER";
+                    _strQuerySql = "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
+                                   "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja";
                 else
-                    _strQuerySql = "SELECT user_id, nama, nip_nbi " +
-                                   "FROM HIS_DAFTAR_USER WHERE nama LIKE '%" + strCari + "%'";
+                    _strQuerySql = "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
+                                   "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja " +
+                                   "WHERE A.user_id LIKE '%" + strCari +
+                                   "%' OR A.nama LIKE '%" + strCari + "%'";
             }
             else if (kontrol == 3)
             {
                 if (strCari == "")
 
-                    _strQuerySql = "SELECT idprogram, namaform, kelompok " +
-                                   "FROM BILPROGRAM";
+                    _strQuerySql = "SELECT idprogram, nama " +
+                                   "FROM HIS_DAFTAR_MENU";
                 else
-                    _strQuerySql = "SELECT idprogram, namaform, kelompok " +
-                                   "FROM BILPROGRAM WHERE nama LIKE '%" + strCari + "%'";
+                    _strQuerySql = "SELECT id, nama " +
+                                   "FROM HIS_DAFTAR_MENU WHERE nama LIKE '%" + strCari + "%'";
             } 
             #endregion
 
@@ -279,13 +316,14 @@ namespace SIM_RS.ADMIN
         {
             //if (e.KeyData == Keys.Enter)
             //    PvLoadData(txtNamaMenu.Text, 1);
+            //MessageBox.Show("Test");
         }
 
         private void daftarHakAkses_Load(object sender, EventArgs e)
         {
             _listProgram.Clear();
-            if (!bw.IsBusy)
-                bw.RunWorkerAsync();
+            if (!_bw.IsBusy)
+                _bw.RunWorkerAsync();
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
@@ -349,9 +387,12 @@ namespace SIM_RS.ADMIN
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Columns.Add("Petugas",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                lvDaftarMenu.Columns.Add("Unit Kerja",
+                lvDaftarMenu.Columns.Add("NBI/NIP",
                     10*Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Columns.Add("Unit Kerja",
+                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
+                _modSql.pvAutoResizeLV(lvDaftarMenu, 3);
             }
             else
             {
@@ -375,11 +416,9 @@ namespace SIM_RS.ADMIN
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Columns.Add("Nama Form",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
-                lvDaftarMenu.Columns.Add("Kelompok",
-                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
+                _modSql.pvAutoResizeLV(lvDaftarMenu, 2);
             }
-            _modSql.pvAutoResizeLV(lvDaftarMenu, 3);
         }
 
         private void txtCariMenu_TextChanged(object sender, EventArgs e)
@@ -398,6 +437,11 @@ namespace SIM_RS.ADMIN
         private void lvDaftarMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtNamaMenu_Validated(object sender, EventArgs e)
+        {
+            var bla = (from s in listPengguna )
         }
 
         /* EOF PRIVATE FUNCTION */

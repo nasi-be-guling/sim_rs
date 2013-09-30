@@ -165,6 +165,7 @@
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RAWAT-INAP\daftarTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
