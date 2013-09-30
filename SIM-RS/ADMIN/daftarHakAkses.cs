@@ -24,7 +24,8 @@ namespace SIM_RS.ADMIN
         //C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
         BackgroundWorker bw = new BackgroundWorker();
 
-        readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
 
         public daftarHakAkses()
         {
@@ -44,21 +45,21 @@ namespace SIM_RS.ADMIN
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
-            for (int i = 1; (i <= 10); i++)
-            {
-                if ((worker.CancellationPending == true))
-                {
-                    e.Cancel = true;
-                    break;
-                }
-                else
-                {
-                    // Perform a time consuming operation and report progress.
-                    System.Threading.Thread.Sleep(500);
-                    worker.ReportProgress((i * 10));
-                }
-            }
+            FillAutoComplete();
+            //for (int i = 1; (i <= 10); i++)
+            //{
+            //    if ((worker.CancellationPending == true))
+            //    {
+            //        e.Cancel = true;
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        // Perform a time consuming operation and report progress.
+            //        System.Threading.Thread.Sleep(500);
+            //        worker.ReportProgress((i * 10));
+            //    }
+            //}
         }
 
         //private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -74,7 +75,13 @@ namespace SIM_RS.ADMIN
             }
             else
             {
-                this.tbProgress.Text = "Done!";
+                txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
+                txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                txtNamaMenu.AutoCompleteCustomSource = _listPengguna;
+                txtNamaMenu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtNamaMenu.AutoCompleteSource = AutoCompleteSource.CustomSource;          
             }
         }
 
@@ -89,7 +96,7 @@ namespace SIM_RS.ADMIN
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
-
+            //=======================================  SELECT PROGRAM ===================================
             _strQuerySql = "SELECT nama " +
                                 "FROM HIS_DAFTAR_MENU";
 
@@ -103,13 +110,31 @@ namespace SIM_RS.ADMIN
 
             if (reader.HasRows)
             {
-                _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                while (reader.Read())
+                {
+                    _listProgram.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                }
+                reader.Close();
             }
-
-            txtNamaAppLama.AutoCompleteCustomSource = _listProgram;
-            txtNamaAppLama.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txtNamaAppLama.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
+            //=======================================  SELECT PENGGUNA ===================================
+            _strQuerySql = "SELECT nama " +
+                                "FROM HIS_DAFTAR_USER";
+            reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _listPengguna.Add(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                }
+                reader.Close();
+            }
+            conn.Close();
         }
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
@@ -137,7 +162,7 @@ namespace SIM_RS.ADMIN
                                    "FROM HIS_DAFTAR_USER";
                 else
                     _strQuerySql = "SELECT user_id, nama, nip_nbi " +
-                                   "FROM HIS_DAFTAR_USER WHERE user_id LIKE '%" + strCari + "%'";
+                                   "FROM HIS_DAFTAR_USER WHERE nama LIKE '%" + strCari + "%'";
             }
             else if (kontrol == 3)
             {
@@ -147,7 +172,7 @@ namespace SIM_RS.ADMIN
                                    "FROM BILPROGRAM";
                 else
                     _strQuerySql = "SELECT idprogram, namaform, kelompok " +
-                                   "FROM BILPROGRAM WHERE idprogram LIKE '%" + strCari + "%'";
+                                   "FROM BILPROGRAM WHERE nama LIKE '%" + strCari + "%'";
             } 
             #endregion
 
@@ -181,9 +206,8 @@ namespace SIM_RS.ADMIN
                     }
                 }
                 //_modSql.pvAutoResizeLV(lvDaftarMenu, 3);
+                reader.Close();
             }
-
-            reader.Close();
             conn.Close();
         }
 
