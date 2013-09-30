@@ -65,9 +65,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C4Module, Version=0.1.5003.26125, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\C4Module.dll</HintPath>
+    <Reference Include="C4Module">
+      <HintPath>DLL\C4Module.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>DLL\EPPlus.dll</HintPath>

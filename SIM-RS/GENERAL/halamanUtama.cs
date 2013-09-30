@@ -72,7 +72,7 @@ namespace SIM_RS
 
         public static string strIPDBServer1 = "192.168.3.250";
         public static string strUserDBServer1 = "sa";
-        public static string strPasswordDBServer1 = "";
+        public static string strPasswordDBServer1 = "ServerInkomFujitsu!23";
         public static string strPortDBServer1 = "1433";
         public static string strNameDBServer1 = "BILLING_NEW";
 

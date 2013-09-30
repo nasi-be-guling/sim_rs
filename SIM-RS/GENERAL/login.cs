@@ -46,83 +46,7 @@ namespace SIM_RS
             if (e.KeyChar != 13)
                 return;
 
-            bool boolPetugasAda = false;
-
-            this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
-
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
-            }
-
-            string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
-
-            strSqlQuery = "SELECT "+
-                                "Petugas "+
-                          "FROM BILPETUGAS "+
-                          "WHERE idPetugas = '" + strPetugas + "'";
-
-            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
-
-            if (reader.HasRows)
-            {
-
-                reader.Read();
-                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                boolPetugasAda = true;
-            }
-
-
-
-            reader.Close();
-
-            cmbUnitKerja.Items.Clear();
-
-            if (boolPetugasAda)
-            {
-
-                strSqlQuery = "SELECT Grup FROM BILHAKAKSES WHERE idPetugas = '" + strPetugas + "' GROUP BY Grup";
-
-                reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
-                if (strErr != "")
-                {
-                    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                    //isLoginSuccess = false;
-                    conn.Close();
-                    return;
-                }
-
-                if (reader.HasRows)
-                {
-                    
-                    while (reader.Read())
-                    {
-                        cmbUnitKerja.Items.Add(modMain.pbstrgetCol(reader,0,ref strErr,cmbUnitKerja.Name.ToString()));
-                    }
-
-                }
-
-                cmbUnitKerja.Text = cmbUnitKerja.Items[0].ToString();
-                cmbUnitKerja.Focus();
-                txtIdPetugas.Enabled = false;
-
-            }
-            else
-            {
-                MessageBox.Show("ID Petugas yang anda masukkan tidak ditemukan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtIdPetugas.Focus();
-            }
-
-            conn.Close();
+            txtIdPetugas.Focus();
         }
 
         private void login_FormClosing(object sender, FormClosingEventArgs e)
@@ -343,6 +267,47 @@ namespace SIM_RS
             //fTCN.pbScreenCapture.Dock = DockStyle.Fill;
             //fTCN.pbScreenCapture.BringToFront();
             //fTCN.pbScreenCapture.Visible = true;
+        }
+
+        private void btnKeluarProgram_Click(object sender, EventArgs e)
+        {
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
+
+            strSqlQuery = "SELECT " +
+                                "nama " +
+                          "FROM HIS_DAFTAR_USER " +
+                          "WHERE user_id = '" + strPetugas + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+
+                reader.Read();
+                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+            }
+
+            reader.Close();
+            cmbUnitKerja.Focus();
+            txtIdPetugas.Enabled = false;
+
+            conn.Close();
         }
 
        
