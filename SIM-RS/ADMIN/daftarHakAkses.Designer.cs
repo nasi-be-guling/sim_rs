@@ -1,6 +1,8 @@
-﻿namespace SIM_RS.ADMIN
+﻿using System.Collections.Generic;
+
+namespace SIM_RS.ADMIN
 {
-    partial class daftarHakAkses
+    partial class DaftarHakAkses
     {
         /// <summary>
         /// Required designer variable.
@@ -84,7 +86,6 @@
             this.cmbStatusID.Name = "cmbStatusID";
             this.cmbStatusID.Size = new System.Drawing.Size(175, 28);
             this.cmbStatusID.TabIndex = 147;
-            this.cmbStatusID.SelectedIndexChanged += new System.EventHandler(this.cmbStatusID_SelectedIndexChanged);
             // 
             // panel6
             // 
@@ -110,6 +111,7 @@
             this.txtNamaAppLama.Name = "txtNamaAppLama";
             this.txtNamaAppLama.Size = new System.Drawing.Size(242, 27);
             this.txtNamaAppLama.TabIndex = 125;
+            this.txtNamaAppLama.Leave += new System.EventHandler(this.txtNamaAppLama_Leave);
             // 
             // txtNamaMenu
             // 
@@ -120,7 +122,7 @@
             this.txtNamaMenu.Size = new System.Drawing.Size(376, 27);
             this.txtNamaMenu.TabIndex = 113;
             this.txtNamaMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNamaMenu_KeyDown);
-            this.txtNamaMenu.Validated += new System.EventHandler(this.txtNamaMenu_Validated);
+            this.txtNamaMenu.Leave += new System.EventHandler(this.txtNamaMenu_Leave);
             // 
             // btnBatal
             // 
@@ -173,6 +175,7 @@
             this.txtKelompok.Name = "txtKelompok";
             this.txtKelompok.Size = new System.Drawing.Size(116, 27);
             this.txtKelompok.TabIndex = 121;
+            this.txtKelompok.Text = "  ---------------";
             // 
             // btnSimpan
             // 
@@ -248,7 +251,6 @@
             this.txtCariMenu.Name = "txtCariMenu";
             this.txtCariMenu.Size = new System.Drawing.Size(359, 28);
             this.txtCariMenu.TabIndex = 3;
-            this.txtCariMenu.TextChanged += new System.EventHandler(this.txtCariMenu_TextChanged);
             this.txtCariMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCariMenu_KeyDown);
             // 
             // lblInfoDaftarPengguna
@@ -284,7 +286,6 @@
             this.lvDaftarMenu.TabIndex = 0;
             this.lvDaftarMenu.UseCompatibleStateImageBehavior = false;
             this.lvDaftarMenu.View = System.Windows.Forms.View.Details;
-            this.lvDaftarMenu.SelectedIndexChanged += new System.EventHandler(this.lvDaftarMenu_SelectedIndexChanged);
             this.lvDaftarMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvDaftarMenu_MouseDown);
             // 
             // columnHeader1
@@ -324,7 +325,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "daftarHakAkses";
+            this.Name = "DaftarHakAkses";
             this.Text = "daftarHakAkses";
             this.Load += new System.EventHandler(this.daftarHakAkses_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.daftarHakAkses_KeyDown);
@@ -360,5 +361,7 @@
         private System.Windows.Forms.ComboBox cmbStatusID;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem batalkanToolStripMenuItem;
+        private readonly List<Pengguna> listProgram = new List<Pengguna>();
+        private readonly List<Pengguna> listPengguna = new List<Pengguna>();
     }
 }

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using SIM_RS.Annotations;
 using SIM_RS.Properties;
 
 namespace SIM_RS.ADMIN
 {
-    public partial class daftarHakAkses : Form
+    public partial class DaftarHakAkses : Form
     {
 
         string _strErr = "";
@@ -27,28 +24,39 @@ namespace SIM_RS.ADMIN
 
         readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
         readonly AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
+        private int _idpetugas;
+        private int _idprogram;
 
-        List<Pengguna> listPengguna = new List<Pengguna>();
-        List<Pengguna> listProgram = new List<Pengguna>();
-
-        public daftarHakAkses()
+        public DaftarHakAkses()
         {
             InitializeComponent();
             _bw.WorkerSupportsCancellation = true;
             _bw.WorkerReportsProgress = true;
             _bw.DoWork +=
-                new DoWorkEventHandler(bw_DoWork);
+                bw_DoWork;
             //bw.ProgressChanged +=
             //    new ProgressChangedEventHandler(bw_ProgressChanged);
             _bw.RunWorkerCompleted +=
-                new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                bw_RunWorkerCompleted;
+        }
+
+        private int Idpetugas
+        {
+            get { return _idpetugas; }
+            set { _idpetugas = value; }
+        }
+
+        private int Idprogram
+        {
+            get { return _idprogram; }
+            set { _idprogram = value; }
         }
 
         /* PRIVATE FUNCTION */
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
+            //BackgroundWorker worker = sender as BackgroundWorker;
             FillAutoComplete();
             //for (int i = 1; (i <= 10); i++)
             //{
@@ -74,26 +82,16 @@ namespace SIM_RS.ADMIN
         private class Pengguna
         {
             //http://stackoverflow.com/questions/7905651/how-to-databind-a-textbox-to-a-particular-index-in-a-list
-            private int _id;
-            private string _nama;
 
             public Pengguna(int id, string nama)
             {
-                this._id = id;
-                this._nama = nama;
+                Id = id;
+                Nama = nama;
             }
 
-            public string Nama
-            {
-                get { return _nama; }
-                set { _nama = value; }
-            }
+            public string Nama { get; private set; }
 
-            public int Id
-            {
-                get { return _id; }
-                set { _id = value; }
-            }
+            public int Id { get; private set; }
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -111,9 +109,11 @@ namespace SIM_RS.ADMIN
                 txtNamaMenu.AutoCompleteCustomSource = _listPengguna;
                 txtNamaMenu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 txtNamaMenu.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                txtNamaMenu.Enabled = true;
+                txtNamaAppLama.Enabled = true;
             }
         }
-
 
         private void FillAutoComplete()
         {
@@ -186,33 +186,40 @@ namespace SIM_RS.ADMIN
             }
 
             #region SQL QUERY SESUAI KONDISI
-            if (kontrol == 0)
+            switch (kontrol)
             {
-                _strQuerySql = "SELECT nama " +
-                                "FROM HIS_DAFTAR_MENU";
-            }
-            else if (kontrol == 2)
-            {
-                if (strCari == "")
-
-                    _strQuerySql = "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
-                                   "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja";
-                else
-                    _strQuerySql = "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
-                                   "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja " +
-                                   "WHERE A.user_id LIKE '%" + strCari +
-                                   "%' OR A.nama LIKE '%" + strCari + "%'";
-            }
-            else if (kontrol == 3)
-            {
-                if (strCari == "")
-
-                    _strQuerySql = "SELECT idprogram, nama " +
+                case 0:
+                    _strQuerySql = "SELECT nama " +
                                    "FROM HIS_DAFTAR_MENU";
-                else
-                    _strQuerySql = "SELECT id, nama " +
-                                   "FROM HIS_DAFTAR_MENU WHERE nama LIKE '%" + strCari + "%'";
+                    break;
+                case 2:
+                    _strQuerySql = strCari == ""
+                        ? "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
+                          "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja"
+                        : "SELECT A.user_id, A.nama, A.nip_nbi, B.nama " +
+                          "FROM HIS_DAFTAR_USER A inner join HIS_DAFTAR_UNITKERJA B ON B.id = A.id_unitkerja " +
+                          "WHERE A.user_id LIKE '%" + strCari +
+                          "%' OR A.nama LIKE '%" + strCari + "%'";
+                    break;
+                case 3:
+                    _strQuerySql = strCari == ""
+                        ? "SELECT idprogram, nama " +
+                          "FROM HIS_DAFTAR_MENU"
+                        : "SELECT id, nama " +
+                          "FROM HIS_DAFTAR_MENU WHERE nama LIKE '%" + strCari + "%'";
+                    break;
+                case 4:
+                    _strQuerySql = strCari == ""
+                        ? "SELECT idprogram, nama " +
+                          "FROM HIS_DAFTAR_MENU"
+                        : "SELECT A.no_urut,C.nama,C.nip_nbi,B.nama " +
+                            "FROM " +
+                            "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
+                            "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
+                            "WHERE C.id = "+ Idpetugas +"";
+                    break;
             } 
+            
             #endregion
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
@@ -250,11 +257,50 @@ namespace SIM_RS.ADMIN
             conn.Close();
         }
 
+        private int GetMaxNoUrut(int idPetugas)
+        {
+            _strErr = "";
+            int maxNoUrut = 0;
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+
+                return 0;
+            }
+            SqlTransaction trans = conn.BeginTransaction();
+            /*FIRST get last nomor urut*/
+            _strQuerySql = "SELECT Max(A.no_urut) FROM dbo.HIS_DAFTAR_HAKAKSES AS A " +
+                "INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
+                "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
+                "WHERE C.id = " + idPetugas + "";
+            SqlDataReader reader = _modDb.pbreaderSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return 0;
+            }
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+
+            }
+
+            reader.Close();
+            return maxNoUrut;
+        }
+
         private bool PvSimpanData()
         {
             _strErr = "";
 
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -263,7 +309,8 @@ namespace SIM_RS.ADMIN
 
                 return false;
             }
-
+            SqlTransaction trans = conn.BeginTransaction();
+            
             //if (!isUpdate)
             //    this.strQuerySQL = "INSERT INTO BILHAKAKSES (idpetugas,idprogram,grup,urut) " +
             //                        "VALUES ('" + modMain.pbstrBersihkanInput(.Text.Trim().ToString()) +
@@ -281,16 +328,20 @@ namespace SIM_RS.ADMIN
             //        this.strQuerySQL = "UPDATE BILPROGRAM " +
             //                            "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
             //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
+            _strQuerySql = "";
 
-
-            _modDb.pbWriteSQL(conn, _strQuerySql, ref _strErr);
+            _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
             if (_strErr != "")
             {
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                trans.Rollback();
                 conn.Close();
                 return false;
             }
 
+
+
+            trans.Commit();
             conn.Close();
             return true;
 
@@ -323,7 +374,11 @@ namespace SIM_RS.ADMIN
         {
             _listProgram.Clear();
             if (!_bw.IsBusy)
+            {
+                txtNamaMenu.Enabled = false;
+                txtNamaAppLama.Enabled = false;
                 _bw.RunWorkerAsync();
+            }
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
@@ -356,11 +411,6 @@ namespace SIM_RS.ADMIN
                     MessageBox.Show(Resources.daftarHakAkses_Pencarian_Pilih_Kriteria);
                     break;
             }
-        }
-
-        private void cmbStatusID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void InisiasiListView(int statustampil)
@@ -397,21 +447,6 @@ namespace SIM_RS.ADMIN
             else
             {
                 // ============================= Select Program ===========================================
-                //// Set the view to show details
-                //lvDaftarMenu.View = View.Details;
-                //// Disallow the user from edit the item
-                ////lvTampil.LabelEdit = false;
-                //// Allow the user to rearrange columns
-                //lvDaftarMenu.AllowColumnReorder = true;
-                //// Select the item and subitems when selection is made
-                //lvDaftarMenu.FullRowSelect = true;
-                //// Display the gridline
-                //lvDaftarMenu.GridLines = true;
-                //// Sort the items in the list in accending order
-                //lvDaftarMenu.Sorting = System.Windows.Forms.SortOrder.Ascending;
-                //// Restrict the multiselect
-                //lvDaftarMenu.MultiSelect = false;
-
                 lvDaftarMenu.Columns.Add("ID Program",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Columns.Add("Nama Form",
@@ -420,28 +455,70 @@ namespace SIM_RS.ADMIN
                 _modSql.pvAutoResizeLV(lvDaftarMenu, 2);
             }
         }
-
-        private void txtCariMenu_TextChanged(object sender, EventArgs e)
+        #region MENCARI ID
+        /*
+        *  NAME        : Getidpengguna, Getidprogram
+        *  FUNCTION    : Get table id from currently selected string
+        *  RESULT      : int
+        *  CREATED     : Putu (nasi.be.guling@gmail.com)
+        *  DATE        : 09-30-2013
+        */
+        private int Getidpengguna(string strcari)
         {
+            int id = 0;
+            IEnumerable<Pengguna> bla = (from s in listPengguna where s.Nama.ToUpper() == strcari.ToUpper() select s);
 
+            foreach (var pengguna in bla)
+            {
+                id = pengguna.Id;
+            }
+            return id;
         }
 
+        private int Getidprogram(string strcari)
+        {
+            int id = 0;
+            IEnumerable<Pengguna> bla = (from s in listProgram where s.Nama.ToUpper() == strcari.ToUpper() select s);
+
+            foreach (var pengguna in bla)
+            {
+                id = pengguna.Id;
+            }
+            return id;
+        }
+        #endregion
         private void lvDaftarMenu_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                contextMenuStrip1.Show(this.lvDaftarMenu, e.Location);
+                contextMenuStrip1.Show(lvDaftarMenu, e.Location);
             }
         }
 
-        private void lvDaftarMenu_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtNamaMenu_Leave(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(txtNamaMenu.Text))
+            {
+                int id = Getidpengguna(txtNamaMenu.Text);
+                if (id == 0)
+                    MessageBox.Show(Resources.daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN, 
+                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+                else
+                    Idpetugas = id;
+            }
         }
 
-        private void txtNamaMenu_Validated(object sender, EventArgs e)
+        private void txtNamaAppLama_Leave(object sender, EventArgs e)
         {
-            var bla = (from s in listPengguna )
+            if (!string.IsNullOrEmpty(txtNamaAppLama.Text))
+            {
+                int id = Getidprogram(txtNamaAppLama.Text);
+                if (id == 0)
+                    MessageBox.Show(Resources.daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN, 
+                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+                else
+                    Idprogram = id;
+            }
         }
 
         /* EOF PRIVATE FUNCTION */

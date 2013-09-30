@@ -16,12 +16,7 @@ namespace SIM_RS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new daftarHakAkses());
-
-            //ppppp
-
-			//test putu
-
+            Application.Run(new DaftarHakAkses());
         }
     }
 }

@@ -68,5 +68,32 @@ namespace SIM_RS.Properties {
                 return ResourceManager.GetString("daftarHakAkses_Pencarian_Pilih_Kriteria", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROGRAM TIDAK DITEMUKAN.
+        /// </summary>
+        internal static string daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN {
+            get {
+                return ResourceManager.GetString("daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PERHATIAN.
+        /// </summary>
+        internal static string daftarHakAkses_txtNamaMenu_Leave_PERHATIAN {
+            get {
+                return ResourceManager.GetString("daftarHakAkses_txtNamaMenu_Leave_PERHATIAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PETUGAS TIDAK DITEMUKAN.
+        /// </summary>
+        internal static string daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN {
+            get {
+                return ResourceManager.GetString("daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN", resourceCulture);
+            }
+        }
     }
 }
