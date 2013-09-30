@@ -96,6 +96,7 @@ namespace SIM_RS.ADMIN
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
+
             //=======================================  SELECT PROGRAM ===================================
             _strQuerySql = "SELECT nama " +
                                 "FROM HIS_DAFTAR_MENU";
@@ -116,6 +117,7 @@ namespace SIM_RS.ADMIN
                 }
                 reader.Close();
             }
+
             //=======================================  SELECT PENGGUNA ===================================
             _strQuerySql = "SELECT nama " +
                                 "FROM HIS_DAFTAR_USER";
