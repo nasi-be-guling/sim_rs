@@ -95,7 +95,7 @@ namespace SIM_RS.ADMIN
             string strIdBlTransaksi = lvDaftarTindakan.SelectedItems[0].SubItems[5].Text;
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -188,7 +188,7 @@ namespace SIM_RS.ADMIN
         {
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -341,7 +341,7 @@ namespace SIM_RS.ADMIN
             btnCari.SafeControlInvoke(Button => btnCari.Enabled = false);
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
