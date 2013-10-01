@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbStatusID = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtNamaAppLama = new System.Windows.Forms.TextBox();
             this.txtNamaMenu = new System.Windows.Forms.TextBox();
@@ -46,8 +48,11 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.batalkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -56,6 +61,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel1.Controls.Add(this.cmbStatusID);
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.btnKeluar);
             this.panel1.Controls.Add(this.btnCariMenu);
@@ -66,6 +72,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(786, 586);
             this.panel1.TabIndex = 119;
+            // 
+            // cmbStatusID
+            // 
+            this.cmbStatusID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatusID.FormattingEnabled = true;
+            this.cmbStatusID.Items.AddRange(new object[] {
+            "PENGGUNA",
+            "PROGRAM"});
+            this.cmbStatusID.Location = new System.Drawing.Point(6, 190);
+            this.cmbStatusID.Name = "cmbStatusID";
+            this.cmbStatusID.Size = new System.Drawing.Size(175, 28);
+            this.cmbStatusID.TabIndex = 147;
+            this.cmbStatusID.SelectedIndexChanged += new System.EventHandler(this.cmbStatusID_SelectedIndexChanged);
             // 
             // panel6
             // 
@@ -87,7 +106,6 @@
             // 
             this.txtNamaAppLama.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamaAppLama.BackColor = System.Drawing.Color.White;
-            this.txtNamaAppLama.Enabled = false;
             this.txtNamaAppLama.Location = new System.Drawing.Point(237, 46);
             this.txtNamaAppLama.Name = "txtNamaAppLama";
             this.txtNamaAppLama.Size = new System.Drawing.Size(242, 27);
@@ -101,6 +119,7 @@
             this.txtNamaMenu.Name = "txtNamaMenu";
             this.txtNamaMenu.Size = new System.Drawing.Size(376, 27);
             this.txtNamaMenu.TabIndex = 113;
+            this.txtNamaMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNamaMenu_KeyDown);
             // 
             // btnBatal
             // 
@@ -140,7 +159,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(36, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 18);
+            this.label1.Size = new System.Drawing.Size(153, 18);
             this.label1.TabIndex = 114;
             this.label1.Text = "Nama Menu Aplikasi : ";
             // 
@@ -148,6 +167,7 @@
             // 
             this.txtKelompok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKelompok.BackColor = System.Drawing.Color.White;
+            this.txtKelompok.Enabled = false;
             this.txtKelompok.Location = new System.Drawing.Point(237, 80);
             this.txtKelompok.Name = "txtKelompok";
             this.txtKelompok.Size = new System.Drawing.Size(116, 27);
@@ -169,6 +189,7 @@
             this.btnSimpan.TabIndex = 118;
             this.btnSimpan.Text = "&Simpan";
             this.btnSimpan.UseVisualStyleBackColor = false;
+            this.btnSimpan.Click += new System.EventHandler(this.btnSimpan_Click);
             // 
             // label2
             // 
@@ -198,6 +219,7 @@
             this.btnKeluar.TabIndex = 119;
             this.btnKeluar.Text = "&KELUAR";
             this.btnKeluar.UseVisualStyleBackColor = false;
+            this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
             // 
             // btnCariMenu
             // 
@@ -208,22 +230,25 @@
             this.btnCariMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnCariMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCariMenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCariMenu.Location = new System.Drawing.Point(371, 190);
+            this.btnCariMenu.Location = new System.Drawing.Point(552, 190);
             this.btnCariMenu.Name = "btnCariMenu";
             this.btnCariMenu.Size = new System.Drawing.Size(130, 28);
             this.btnCariMenu.TabIndex = 96;
             this.btnCariMenu.Text = "&Filter Pencarian";
             this.btnCariMenu.UseVisualStyleBackColor = false;
+            this.btnCariMenu.Click += new System.EventHandler(this.btnCariMenu_Click);
             // 
             // txtCariMenu
             // 
             this.txtCariMenu.BackColor = System.Drawing.Color.White;
             this.txtCariMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCariMenu.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCariMenu.Location = new System.Drawing.Point(6, 190);
+            this.txtCariMenu.Location = new System.Drawing.Point(187, 190);
             this.txtCariMenu.Name = "txtCariMenu";
             this.txtCariMenu.Size = new System.Drawing.Size(359, 28);
             this.txtCariMenu.TabIndex = 3;
+            this.txtCariMenu.TextChanged += new System.EventHandler(this.txtCariMenu_TextChanged);
+            this.txtCariMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCariMenu_KeyDown);
             // 
             // lblInfoDaftarPengguna
             // 
@@ -258,6 +283,8 @@
             this.lvDaftarMenu.TabIndex = 0;
             this.lvDaftarMenu.UseCompatibleStateImageBehavior = false;
             this.lvDaftarMenu.View = System.Windows.Forms.View.Details;
+            this.lvDaftarMenu.SelectedIndexChanged += new System.EventHandler(this.lvDaftarMenu_SelectedIndexChanged);
+            this.lvDaftarMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvDaftarMenu_MouseDown);
             // 
             // columnHeader1
             // 
@@ -273,6 +300,19 @@
             // 
             this.columnHeader3.Text = "GRUP";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.batalkanToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 26);
+            // 
+            // batalkanToolStripMenuItem
+            // 
+            this.batalkanToolStripMenuItem.Name = "batalkanToolStripMenuItem";
+            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.batalkanToolStripMenuItem.Text = "Batalkan";
+            // 
             // daftarHakAkses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -281,13 +321,17 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "daftarHakAkses";
             this.Text = "daftarHakAkses";
+            this.Load += new System.EventHandler(this.daftarHakAkses_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.daftarHakAkses_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -312,5 +356,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ComboBox cmbStatusID;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem batalkanToolStripMenuItem;
     }
 }

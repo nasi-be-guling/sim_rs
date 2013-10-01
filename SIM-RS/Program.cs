@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using SIM_RS.ADMIN;
 
 namespace SIM_RS
 {
@@ -15,7 +16,8 @@ namespace SIM_RS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ADMIN.daftarPengguna());
+
+            Application.Run(new halamanUtama());             
         }
     }
 }

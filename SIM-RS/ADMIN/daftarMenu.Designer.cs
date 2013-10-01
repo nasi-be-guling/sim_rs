@@ -31,14 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cmbDipakai = new System.Windows.Forms.ComboBox();
             this.txtNamaAppBaru = new System.Windows.Forms.TextBox();
-            this.txtNamaAppLama = new System.Windows.Forms.TextBox();
             this.txtNamaMenu = new System.Windows.Forms.TextBox();
             this.btnBatal = new System.Windows.Forms.Button();
             this.lblTempatLayanan = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtKelompok = new System.Windows.Forms.TextBox();
             this.btnSimpan = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnKeluar = new System.Windows.Forms.Button();
@@ -77,14 +75,12 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel6.Controls.Add(this.cmbDipakai);
             this.panel6.Controls.Add(this.txtNamaAppBaru);
-            this.panel6.Controls.Add(this.txtNamaAppLama);
             this.panel6.Controls.Add(this.txtNamaMenu);
             this.panel6.Controls.Add(this.btnBatal);
             this.panel6.Controls.Add(this.lblTempatLayanan);
-            this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.label3);
-            this.panel6.Controls.Add(this.txtKelompok);
             this.panel6.Controls.Add(this.btnSimpan);
             this.panel6.Controls.Add(this.label2);
             this.panel6.Location = new System.Drawing.Point(6, 28);
@@ -92,33 +88,37 @@
             this.panel6.Size = new System.Drawing.Size(774, 186);
             this.panel6.TabIndex = 146;
             // 
+            // cmbDipakai
+            // 
+            this.cmbDipakai.FormattingEnabled = true;
+            this.cmbDipakai.Items.AddRange(new object[] {
+            "Tidak",
+            "Ya",
+            "Bisa Jadi"});
+            this.cmbDipakai.Location = new System.Drawing.Point(198, 93);
+            this.cmbDipakai.Name = "cmbDipakai";
+            this.cmbDipakai.Size = new System.Drawing.Size(121, 28);
+            this.cmbDipakai.TabIndex = 127;
+            // 
             // txtNamaAppBaru
             // 
             this.txtNamaAppBaru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamaAppBaru.BackColor = System.Drawing.Color.White;
-            this.txtNamaAppBaru.Location = new System.Drawing.Point(237, 113);
+            this.txtNamaAppBaru.Location = new System.Drawing.Point(198, 51);
             this.txtNamaAppBaru.Name = "txtNamaAppBaru";
             this.txtNamaAppBaru.Size = new System.Drawing.Size(242, 27);
             this.txtNamaAppBaru.TabIndex = 126;
-            // 
-            // txtNamaAppLama
-            // 
-            this.txtNamaAppLama.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNamaAppLama.BackColor = System.Drawing.Color.White;
-            this.txtNamaAppLama.Enabled = false;
-            this.txtNamaAppLama.Location = new System.Drawing.Point(237, 46);
-            this.txtNamaAppLama.Name = "txtNamaAppLama";
-            this.txtNamaAppLama.Size = new System.Drawing.Size(242, 27);
-            this.txtNamaAppLama.TabIndex = 125;
+            this.txtNamaAppBaru.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNamaAppBaru_KeyUp);
             // 
             // txtNamaMenu
             // 
             this.txtNamaMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamaMenu.BackColor = System.Drawing.Color.White;
-            this.txtNamaMenu.Location = new System.Drawing.Point(237, 13);
+            this.txtNamaMenu.Location = new System.Drawing.Point(198, 13);
             this.txtNamaMenu.Name = "txtNamaMenu";
             this.txtNamaMenu.Size = new System.Drawing.Size(376, 27);
             this.txtNamaMenu.TabIndex = 113;
+            this.txtNamaMenu.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNamaMenu_KeyUp);
             // 
             // btnBatal
             // 
@@ -151,38 +151,17 @@
             this.lblTempatLayanan.Text = "Nama Menu : ";
             this.lblTempatLayanan.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(36, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 18);
-            this.label1.TabIndex = 114;
-            this.label1.Text = "Nama Form Aplikasi Lama : ";
-            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(36, 117);
+            this.label3.Location = new System.Drawing.Point(36, 55);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(189, 18);
+            this.label3.Size = new System.Drawing.Size(156, 18);
             this.label3.TabIndex = 122;
-            this.label3.Text = "Nama Form Aplikasi Baru : ";
-            // 
-            // txtKelompok
-            // 
-            this.txtKelompok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKelompok.BackColor = System.Drawing.Color.White;
-            this.txtKelompok.Location = new System.Drawing.Point(237, 80);
-            this.txtKelompok.Name = "txtKelompok";
-            this.txtKelompok.Size = new System.Drawing.Size(116, 27);
-            this.txtKelompok.TabIndex = 121;
+            this.label3.Text = "Nama Form Aplikasi  : ";
             // 
             // btnSimpan
             // 
@@ -208,11 +187,11 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(36, 84);
+            this.label2.Location = new System.Drawing.Point(36, 97);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 120;
-            this.label2.Text = "Kelompok : ";
+            this.label2.Text = "Dipakai : ";
             // 
             // btnKeluar
             // 
@@ -247,6 +226,7 @@
             this.btnCariMenu.TabIndex = 96;
             this.btnCariMenu.Text = "&Filter Pencarian";
             this.btnCariMenu.UseVisualStyleBackColor = false;
+            this.btnCariMenu.Click += new System.EventHandler(this.btnCariMenu_Click);
             // 
             // txtCariMenu
             // 
@@ -296,22 +276,22 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Nama Menu";
+            this.columnHeader1.Text = "Id";
             this.columnHeader1.Width = 99;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Nama Form Aplikasi Lama";
+            this.columnHeader2.Text = "Nama Menu";
             this.columnHeader2.Width = 189;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Kelompok";
+            this.columnHeader3.Text = "Dipakai";
             this.columnHeader3.Width = 84;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Nama Form Aplikasi Baru";
+            this.columnHeader4.Text = "Nama Form Aplikasi";
             this.columnHeader4.Width = 186;
             // 
             // cmsDaftarMenu
@@ -319,12 +299,12 @@
             this.cmsDaftarMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rubahToolStripMenuItem});
             this.cmsDaftarMenu.Name = "cmsDaftarTindakan";
-            this.cmsDaftarMenu.Size = new System.Drawing.Size(109, 26);
+            this.cmsDaftarMenu.Size = new System.Drawing.Size(117, 26);
             // 
             // rubahToolStripMenuItem
             // 
             this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";
-            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
             this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
             // 
@@ -354,25 +334,23 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnBatal;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtKelompok;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnKeluar;
         private System.Windows.Forms.Button btnCariMenu;
         private System.Windows.Forms.Button btnSimpan;
         private System.Windows.Forms.TextBox txtCariMenu;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNamaMenu;
         private System.Windows.Forms.Label lblTempatLayanan;
         private System.Windows.Forms.Label lblInfoDaftarPengguna;
         private System.Windows.Forms.ListView lvDaftarMenu;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox txtNamaAppBaru;
-        private System.Windows.Forms.TextBox txtNamaAppLama;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ContextMenuStrip cmsDaftarMenu;
         private System.Windows.Forms.ToolStripMenuItem rubahToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cmbDipakai;
     }
 }

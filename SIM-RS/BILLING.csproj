@@ -66,7 +66,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="C4Module">
+<<<<<<< HEAD
       <HintPath>Properties\C4Module.dll</HintPath>
+=======
+      <HintPath>DLL\C4Module.dll</HintPath>
+>>>>>>> 24b75e4a1080680f711db0e4d63d4f84ce236bbb
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>Properties\EPPlus.dll</HintPath>
@@ -240,6 +244,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RAWAT-INAP\daftarTindakan.resx">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
