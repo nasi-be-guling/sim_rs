@@ -91,12 +91,7 @@ namespace SIM_RS.ADMIN
 
         private bool pvSimpanData()
         {
-            string strNoMR = "";
-            int intNoMR = 0;
             this.strErr = "";
-            string strNoMRInc = "";
-
-            if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != "")) isUpdate = true; 
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
@@ -108,52 +103,24 @@ namespace SIM_RS.ADMIN
                 return false;
             }
 
-            SqlTransaction trans = conn.BeginTransaction();
+            if (!isUpdate)
+            {
+                /* INSERTING MENU DATA TO DATABASE */
+                this.strQuerySQL = "INSERT INTO HIS_DAFTAR_MENU (nama, dipakai, form) " +
+                                    "VALUES ('" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
+                                    "','" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
+                                    "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
+                                    "')";
+            }
 
-            /* CREATE AUTONUMBERING ID MENU AND TRANSACTION */
-
-            /*FIRST get last id*/
-            this.strQuerySQL = "SELECT MAX(id) FROM HIS_DAFTAR_MENU ";
-            SqlDataReader reader = modDb.pbreaderSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+            modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                trans.Rollback();
                 conn.Close();
                 return false;
             }
 
-            if (reader.HasRows)
-            {
-                reader.Read();
-                strNoMR = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                intNoMR = Convert.ToInt32(strNoMR);
-                intNoMR = intNoMR + 1;
-                strNoMRInc = intNoMR.ToString();
-            }
-
-            reader.Close();
-
-            //if (!isUpdate)
-            //{
-            //    /* INSERTING MENU DATA TO DATABASE */
-            //    this.strQuerySQL = "INSERT INTO HIS_DAFTAR_MENU (id, nama, dipakai, form) " +
-            //                        "VALUES ('" + strNoMRInc + "','" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
-            //                        "','" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
-            //                        "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-            //                        "')";
-            //}
-
-            //modDb.pbWriteSQLTrans(conn, strQuerySQL, ref strErr, trans);
-            //if (strErr != "")
-            //{
-            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-            //    trans.Rollback();
-            //    conn.Close();
-            //    return false;
-            //}
-
-            trans.Commit();
             conn.Close();
 
             return true;
@@ -205,8 +172,9 @@ namespace SIM_RS.ADMIN
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
-        {            
-            this.pvSimpanData();
+        {
+            if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != "")) this.pvSimpanData();
+                else MessageBox.Show("cek inputan");
         }
 
         private void btnCariMenu_Click(object sender, EventArgs e)
