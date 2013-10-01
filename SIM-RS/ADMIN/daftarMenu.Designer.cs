@@ -90,6 +90,7 @@
             // 
             // cmbDipakai
             // 
+            this.cmbDipakai.DisplayMember = "0";
             this.cmbDipakai.FormattingEnabled = true;
             this.cmbDipakai.Items.AddRange(new object[] {
             "Tidak",
@@ -99,6 +100,7 @@
             this.cmbDipakai.Name = "cmbDipakai";
             this.cmbDipakai.Size = new System.Drawing.Size(121, 28);
             this.cmbDipakai.TabIndex = 127;
+            this.cmbDipakai.ValueMember = "0";
             // 
             // txtNamaAppBaru
             // 
@@ -316,10 +318,12 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "daftarMenu";
             this.Text = "daftarMenu";
             this.Load += new System.EventHandler(this.daftarMenu_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.daftarMenu_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel6.ResumeLayout(false);
