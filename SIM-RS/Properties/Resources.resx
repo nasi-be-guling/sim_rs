@@ -129,6 +129,13 @@
   </data>
   <data name="DaftarHakAkses_PvSimpanData_" xml:space="preserve">
     <value>USER SUDAH PUNYA MENU TERSEBUT
-SILAHKAN PILIH MENU YG LAIN</value>
+ATAU MENU TIDAK DITEMUKAN</value>
+  </data>
+  <data name="DaftarHakAkses_btnSimpan_Click_SILAHKAN_LENGKAPI_DATA" xml:space="preserve">
+    <value>SILAHKAN LENGKAPI DATA</value>
+  </data>
+  <data name="DaftarHakAkses_btnSimpan_Click_" xml:space="preserve">
+    <value>OPERASI GAGAL
+SILAHKAN CEK KEMBALI</value>
   </data>
 </root>

@@ -61,6 +61,25 @@ namespace SIM_RS.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPERASI GAGAL
+        ///SILAHKAN CEK KEMBALI.
+        /// </summary>
+        internal static string DaftarHakAkses_btnSimpan_Click_ {
+            get {
+                return ResourceManager.GetString("DaftarHakAkses_btnSimpan_Click_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SILAHKAN LENGKAPI DATA.
+        /// </summary>
+        internal static string DaftarHakAkses_btnSimpan_Click_SILAHKAN_LENGKAPI_DATA {
+            get {
+                return ResourceManager.GetString("DaftarHakAkses_btnSimpan_Click_SILAHKAN_LENGKAPI_DATA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pilih Kriteria.
         /// </summary>
         internal static string daftarHakAkses_Pencarian_Pilih_Kriteria {
@@ -71,7 +90,7 @@ namespace SIM_RS.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to USER SUDAH PUNYA MENU TERSEBUT
-        ///SILAHKAN PILIH MENU YG LAIN.
+        ///ATAU MENU TIDAK DITEMUKAN.
         /// </summary>
         internal static string DaftarHakAkses_PvSimpanData_ {
             get {

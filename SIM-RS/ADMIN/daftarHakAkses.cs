@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
@@ -36,6 +37,20 @@ namespace SIM_RS.ADMIN
             //    new ProgressChangedEventHandler(bw_ProgressChanged);
             _bw.RunWorkerCompleted +=
                 bw_RunWorkerCompleted;
+
+            // ============================ URUTKAN INDEKS DARI BOS MASTER EKA NDUT =================================
+            int intNoIdx = 0;
+            _modMain.pvUrutkanTab(lblTempatLayanan, ref intNoIdx);
+            _modMain.pvUrutkanTab(txtNamaMenu, ref intNoIdx);
+            _modMain.pvUrutkanTab(label1, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(txtNamaAppLama, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(label2, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(txtKelompok, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(cmbStatusID, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(txtCariMenu, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(btnCariMenu, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(btnSimpan, ref intNoIdx, true);
+            _modMain.pvUrutkanTab(btnBatal, ref intNoIdx, true);
         }
 
         private int Idpetugas { get; set; }
@@ -199,13 +214,15 @@ namespace SIM_RS.ADMIN
                     break;
                 case 4:
                     _strQuerySql = strCari == ""
-                        ? "SELECT idprogram, nama " +
-                          "FROM HIS_DAFTAR_MENU"
+                        ? "SELECT A.no_urut,C.nama,B.nama " +
+                            "FROM " +
+                            "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
+                            "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user"
                         : "SELECT A.no_urut,C.nama,B.nama " +
                             "FROM " +
                             "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
                             "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
-                            "WHERE C.id = "+ Idpetugas +"";
+                            "WHERE C.id = " + strCari + "";
                     break;
             } 
             
@@ -383,13 +400,6 @@ namespace SIM_RS.ADMIN
             Pencarian();
         }
 
-        private void txtNamaMenu_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (e.KeyData == Keys.Enter)
-            //    PvLoadData(txtNamaMenu.Text, 1);
-            //MessageBox.Show("Test");
-        }
-
         private void daftarHakAkses_Load(object sender, EventArgs e)
         {
             _listProgram.Clear();
@@ -403,8 +413,23 @@ namespace SIM_RS.ADMIN
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtNamaMenu.Text) | !string.IsNullOrEmpty(txtNamaAppLama.Text) && PvSimpanData())
-                MessageBox.Show(@"SUKSES");
+            if (string.IsNullOrEmpty(txtNamaMenu.Text.Trim()) | string.IsNullOrEmpty(txtNamaAppLama.Text.Trim()) 
+                | Idpetugas == 0 | Idprogram == 0)
+            {
+                MessageBox.Show(Resources.DaftarHakAkses_btnSimpan_Click_SILAHKAN_LENGKAPI_DATA, 
+                    Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+            }
+            else
+            {
+                if (!PvSimpanData())
+                    MessageBox.Show(Resources.DaftarHakAkses_btnSimpan_Click_,
+                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+                else
+                {
+                    PvLoadData(Idpetugas.ToString(CultureInfo.InvariantCulture), 4);
+                    InisiasiListView(2);
+                }
+            }
         }
 
         private void txtCariMenu_KeyDown(object sender, KeyEventArgs e)
@@ -465,7 +490,7 @@ namespace SIM_RS.ADMIN
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
                 _modSql.pvAutoResizeLV(lvDaftarMenu, 3);
             }
-            else
+            else if (statustampil == 1)
             {
                 // ============================= Select Program ===========================================
                 lvDaftarMenu.Columns.Add("ID Program",
@@ -474,6 +499,18 @@ namespace SIM_RS.ADMIN
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
                 _modSql.pvAutoResizeLV(lvDaftarMenu, 2);
+            }
+            else if (statustampil == 2)
+            {
+                // ============================= Select Hak Akses ===========================================
+                lvDaftarMenu.Columns.Add("No.",
+                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Columns.Add("Nama Petugas",
+                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Columns.Add("Nama Form",
+                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
+                _modSql.pvAutoResizeLV(lvDaftarMenu, 3);
             }
         }
         #region MENCARI ID
@@ -522,10 +559,14 @@ namespace SIM_RS.ADMIN
             {
                 int id = Getidpengguna(txtNamaMenu.Text);
                 if (id == 0)
-                    MessageBox.Show(Resources.daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN, 
+                    MessageBox.Show(Resources.daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN,
                         Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
                 else
+                {
                     Idpetugas = id;
+                    PvLoadData(Idpetugas.ToString(CultureInfo.InvariantCulture), 4);
+                    InisiasiListView(2);
+                }
             }
         }
 
@@ -539,6 +580,18 @@ namespace SIM_RS.ADMIN
                         Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
                 else
                     Idprogram = id;
+            }
+        }
+
+        private void txtNamaMenu_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (Idpetugas > 0)
+                {
+                    PvLoadData(Idpetugas.ToString(CultureInfo.InvariantCulture), 4);
+                    InisiasiListView(2);
+                }
             }
         }
 
