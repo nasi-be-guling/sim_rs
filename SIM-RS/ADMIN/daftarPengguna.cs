@@ -33,7 +33,10 @@ namespace SIM_RS.ADMIN
             public string strSandi { get; set; }
         }
 
+    
         List<lstSemuaAnggota> grpSemuaAnggota = new List<lstSemuaAnggota>();
+
+        AutoCompleteStringCollection listUnitKerja = new AutoCompleteStringCollection();
         bool isUpdate = false;
 
         /**/
@@ -86,7 +89,7 @@ namespace SIM_RS.ADMIN
                     itemAnggota.strIdUnitKerja = modMain.pbstrgetCol(reader, 3, ref strErr, "");
                     itemAnggota.strUnitKerja = modMain.pbstrgetCol(reader, 4, ref strErr, "");
                     string strKodeStatusPakai = modMain.pbstrgetCol(reader, 5, ref strErr, "");
-
+                    listUnitKerja.Add(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
                     if (Convert.ToInt32(strKodeStatusPakai) == 1)
                         strStatusPakai = "DIPAKAI";
                     else
@@ -97,6 +100,9 @@ namespace SIM_RS.ADMIN
                 }
             }
 
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteCustomSource = listUnitKerja);
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteSource = AutoCompleteSource.CustomSource);
             reader.Close();
             conn.Close();
 
@@ -273,7 +279,7 @@ namespace SIM_RS.ADMIN
 
                 this.strQuerySQL = "INSERT INTO HIS_DAFTAR_USER (nama,nip_nbi,sandi,dipakai,id_unitKerja) " +
                                     "VALUES ('" + modMain.pbstrBersihkanInput(txtPetugas.Text.Trim().ToString()) +
-                                    "','" + modMain.pbstrBersihkanInput(txtNIPNBI.Text.Trim().ToString()) +
+                                    "','" + modMain.pbstrBersihkanInput(txtNIPNBI.Text.Trim().ToUpper().ToString()) +
                                     "','" + modEncrypt.EncryptToString(modMain.pbstrBersihkanInput(txtSandiPetugas.Text.Trim().ToString())) +
                                     "','" + strKodeStatusPakai +
                                     "','" + modMain.pbstrBersihkanInput(lblUnitKerja.Text.Trim().ToString()) +
@@ -382,6 +388,7 @@ namespace SIM_RS.ADMIN
             this.pvHapusIsian();
             this.pvLoadAllAnggota();
             this.pvFilterSearchUser("");
+            txtNIPNBI.Focus();
 
         }
 
@@ -427,6 +434,116 @@ namespace SIM_RS.ADMIN
         {
             this.pvLoadAllAnggota();
             this.pvFilterSearchUser("");
+        }
+
+        private void pvCariUnitKerja(String _UnitKerja)
+        {
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            strQuerySQL = "SELECT id "+                       
+                          "FROM HIS_DAFTAR_UNITKERJA a " +
+                          "WHERE dipakai = 1 AND nama = '" + _UnitKerja.ToUpper() + "' " ;
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                  
+                    lblUnitKerja.Text = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("Pilih Unit Kerja yang Lain");    
+            }
+
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteCustomSource = listUnitKerja);
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
+            txtUnitKerja.SafeControlInvoke(TextBox => txtUnitKerja.AutoCompleteSource = AutoCompleteSource.CustomSource);
+            reader.Close();
+            conn.Close();
+
+        }
+
+        private void txtUnitKerja_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.pvCariUnitKerja(txtUnitKerja.Text);
+                btnCariSesuaiFilter.Focus();
+                txtSandiPetugas.Focus();
+            }
+                       
+        }
+
+        private void txtNIPNBI_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPetugas.Focus();
+            }
+        }
+
+        private void txtPetugas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtUnitKerja.Focus();
+            }
+        }
+
+        private void txtSandiPetugas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                cmbStatusID.Focus();
+            }
+        }
+
+
+        private bool Nomor(System.Windows.Forms.KeyPressEventArgs e)
+        {
+            string strValid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            if (strValid.IndexOf(e.KeyChar) < 0 && !(e.KeyChar == Convert.ToChar(Keys.Back)))
+            {
+                return true; // not valid
+            }
+            else
+            {
+                return false; // valid
+            }
+
+        }
+
+        private void txtNIPNBI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Nomor(e);
+        }
+
+        private void cmbStatusID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSimpan.Focus();
+            }
         }
     }
 }

@@ -32,6 +32,12 @@
             this.btnCariSesuaiFilter = new System.Windows.Forms.Button();
             this.txtIsiFilter = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblIdPetugas = new System.Windows.Forms.Label();
+            this.txtNIPNBI = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblUnitKerja = new System.Windows.Forms.Label();
+            this.txtUnitKerja = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.cbPilihan = new System.Windows.Forms.ComboBox();
             this.btnBatal = new System.Windows.Forms.Button();
             this.cmbStatusID = new System.Windows.Forms.ComboBox();
@@ -46,18 +52,12 @@
             this.lblInfoDaftarPengguna = new System.Windows.Forms.Label();
             this.lvDaftarPengguna = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cmsDaftarPengguna = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rubahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtUnitKerja = new System.Windows.Forms.TextBox();
-            this.lblUnitKerja = new System.Windows.Forms.Label();
-            this.txtNIPNBI = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblIdPetugas = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsDaftarPengguna.SuspendLayout();
@@ -124,6 +124,76 @@
             this.panel1.Size = new System.Drawing.Size(769, 439);
             this.panel1.TabIndex = 117;
             // 
+            // lblIdPetugas
+            // 
+            this.lblIdPetugas.AutoSize = true;
+            this.lblIdPetugas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblIdPetugas.Location = new System.Drawing.Point(735, 131);
+            this.lblIdPetugas.Name = "lblIdPetugas";
+            this.lblIdPetugas.Size = new System.Drawing.Size(18, 20);
+            this.lblIdPetugas.TabIndex = 131;
+            this.lblIdPetugas.Text = "...";
+            // 
+            // txtNIPNBI
+            // 
+            this.txtNIPNBI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNIPNBI.BackColor = System.Drawing.Color.White;
+            this.txtNIPNBI.Location = new System.Drawing.Point(554, 94);
+            this.txtNIPNBI.Name = "txtNIPNBI";
+            this.txtNIPNBI.Size = new System.Drawing.Size(175, 27);
+            this.txtNIPNBI.TabIndex = 130;
+            this.txtNIPNBI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNIPNBI_KeyDown);
+            this.txtNIPNBI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNIPNBI_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(457, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 18);
+            this.label4.TabIndex = 129;
+            this.label4.Text = "NIP / NBI : ";
+            // 
+            // lblUnitKerja
+            // 
+            this.lblUnitKerja.AutoSize = true;
+            this.lblUnitKerja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblUnitKerja.Location = new System.Drawing.Point(735, 162);
+            this.lblUnitKerja.Name = "lblUnitKerja";
+            this.lblUnitKerja.Size = new System.Drawing.Size(18, 20);
+            this.lblUnitKerja.TabIndex = 128;
+            this.lblUnitKerja.Text = "...";
+            // 
+            // txtUnitKerja
+            // 
+            this.txtUnitKerja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUnitKerja.BackColor = System.Drawing.Color.White;
+            this.txtUnitKerja.Location = new System.Drawing.Point(554, 160);
+            this.txtUnitKerja.Name = "txtUnitKerja";
+            this.txtUnitKerja.Size = new System.Drawing.Size(175, 27);
+            this.txtUnitKerja.TabIndex = 127;
+            this.txtUnitKerja.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUnitKerja_KeyDown);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnRefresh.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.Location = new System.Drawing.Point(554, 404);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(104, 30);
+            this.btnRefresh.TabIndex = 126;
+            this.btnRefresh.Text = "&Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // cbPilihan
             // 
             this.cbPilihan.FormattingEnabled = true;
@@ -167,6 +237,7 @@
             this.cmbStatusID.Name = "cmbStatusID";
             this.cmbStatusID.Size = new System.Drawing.Size(175, 28);
             this.cmbStatusID.TabIndex = 123;
+            this.cmbStatusID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbStatusID_KeyDown);
             // 
             // label3
             // 
@@ -189,6 +260,7 @@
             this.txtSandiPetugas.PasswordChar = '*';
             this.txtSandiPetugas.Size = new System.Drawing.Size(175, 27);
             this.txtSandiPetugas.TabIndex = 121;
+            this.txtSandiPetugas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSandiPetugas_KeyDown);
             // 
             // label2
             // 
@@ -258,6 +330,7 @@
             this.txtPetugas.Name = "txtPetugas";
             this.txtPetugas.Size = new System.Drawing.Size(175, 27);
             this.txtPetugas.TabIndex = 113;
+            this.txtPetugas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPetugas_KeyDown);
             // 
             // lblPetugas
             // 
@@ -313,6 +386,10 @@
             this.columnHeader1.Text = "Petugas";
             this.columnHeader1.Width = 120;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "NIP/NBI";
+            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Unit Kerja";
@@ -346,77 +423,6 @@
             this.rubahToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
             this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "NIP/NBI";
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
-            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.btnRefresh.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.btnRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(554, 404);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(104, 30);
-            this.btnRefresh.TabIndex = 126;
-            this.btnRefresh.Text = "&Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // txtUnitKerja
-            // 
-            this.txtUnitKerja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUnitKerja.BackColor = System.Drawing.Color.White;
-            this.txtUnitKerja.Location = new System.Drawing.Point(554, 160);
-            this.txtUnitKerja.Name = "txtUnitKerja";
-            this.txtUnitKerja.Size = new System.Drawing.Size(175, 27);
-            this.txtUnitKerja.TabIndex = 127;
-            // 
-            // lblUnitKerja
-            // 
-            this.lblUnitKerja.AutoSize = true;
-            this.lblUnitKerja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblUnitKerja.Location = new System.Drawing.Point(735, 162);
-            this.lblUnitKerja.Name = "lblUnitKerja";
-            this.lblUnitKerja.Size = new System.Drawing.Size(18, 20);
-            this.lblUnitKerja.TabIndex = 128;
-            this.lblUnitKerja.Text = "...";
-            // 
-            // txtNIPNBI
-            // 
-            this.txtNIPNBI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNIPNBI.BackColor = System.Drawing.Color.White;
-            this.txtNIPNBI.Location = new System.Drawing.Point(554, 94);
-            this.txtNIPNBI.Name = "txtNIPNBI";
-            this.txtNIPNBI.Size = new System.Drawing.Size(175, 27);
-            this.txtNIPNBI.TabIndex = 130;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(457, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 18);
-            this.label4.TabIndex = 129;
-            this.label4.Text = "NIP / NBI : ";
-            // 
-            // lblIdPetugas
-            // 
-            this.lblIdPetugas.AutoSize = true;
-            this.lblIdPetugas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblIdPetugas.Location = new System.Drawing.Point(735, 131);
-            this.lblIdPetugas.Name = "lblIdPetugas";
-            this.lblIdPetugas.Size = new System.Drawing.Size(18, 20);
-            this.lblIdPetugas.TabIndex = 131;
-            this.lblIdPetugas.Text = "...";
             // 
             // daftarPengguna
             // 
