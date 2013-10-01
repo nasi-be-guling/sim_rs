@@ -106,7 +106,7 @@
             this.txtNamaAppBaru.BackColor = System.Drawing.Color.White;
             this.txtNamaAppBaru.Location = new System.Drawing.Point(198, 44);
             this.txtNamaAppBaru.Name = "txtNamaAppBaru";
-            this.txtNamaAppBaru.Size = new System.Drawing.Size(242, 27);
+            this.txtNamaAppBaru.Size = new System.Drawing.Size(376, 27);
             this.txtNamaAppBaru.TabIndex = 126;
             this.txtNamaAppBaru.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNamaAppBaru_KeyUp);
             // 

@@ -93,7 +93,6 @@
             this.txtuserId.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtuserId.Location = new System.Drawing.Point(158, 61);
             this.txtuserId.Name = "txtuserId";
-            this.txtuserId.PasswordChar = '*';
             this.txtuserId.Size = new System.Drawing.Size(176, 30);
             this.txtuserId.TabIndex = 0;
             this.txtuserId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtuserId_KeyUp);
@@ -154,6 +153,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.login_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

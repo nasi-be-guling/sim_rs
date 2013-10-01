@@ -122,7 +122,7 @@ namespace SIM_RS.ADMIN
 
             modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
             conn.Close();
-
+            this.pvLoadData();
             return true;
         }
 

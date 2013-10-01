@@ -126,6 +126,7 @@
             // 
             // lblIdPetugas
             // 
+            this.lblIdPetugas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblIdPetugas.AutoSize = true;
             this.lblIdPetugas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblIdPetugas.Location = new System.Drawing.Point(735, 131);
@@ -159,6 +160,7 @@
             // 
             // lblUnitKerja
             // 
+            this.lblUnitKerja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUnitKerja.AutoSize = true;
             this.lblUnitKerja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblUnitKerja.Location = new System.Drawing.Point(735, 162);
@@ -179,6 +181,7 @@
             // 
             // btnRefresh
             // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnRefresh.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
