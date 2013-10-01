@@ -37,6 +37,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label10 = new System.Windows.Forms.Label();
             this.dtpTglTindakan = new System.Windows.Forms.DateTimePicker();
             this.lblTempatLayanan = new System.Windows.Forms.Label();
@@ -68,7 +69,6 @@
             this.bgWork = new System.ComponentModel.BackgroundWorker();
             this.timerBlink = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.lblStatusPasien = new System.Windows.Forms.Label();
             this.lblKelas = new System.Windows.Forms.Label();
             this.lblRuangan = new System.Windows.Forms.Label();
@@ -81,12 +81,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnBatalTindakan = new System.Windows.Forms.Button();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.cmsDaftarTindakan.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -170,6 +170,11 @@
             // 
             this.columnHeader4.Text = "Biaya";
             this.columnHeader4.Width = 69;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Dokter";
+            this.columnHeader6.Width = 74;
             // 
             // label10
             // 
@@ -550,20 +555,6 @@
             this.panel4.Size = new System.Drawing.Size(1007, 123);
             this.panel4.TabIndex = 116;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 20);
-            this.label3.TabIndex = 111;
-            this.label3.Text = "DATA SOSIAL";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // lblStatusPasien
             // 
             this.lblStatusPasien.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -714,6 +705,20 @@
             this.label2.TabIndex = 112;
             this.label2.Text = "No. KUIP : ";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 20);
+            this.label3.TabIndex = 111;
+            this.label3.Text = "DATA SOSIAL";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // panel5
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -743,39 +748,6 @@
             this.panel5.Size = new System.Drawing.Size(1007, 225);
             this.panel5.TabIndex = 117;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(0, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 20);
-            this.label9.TabIndex = 111;
-            this.label9.Text = "I&NPUT TINDAKAN ";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(27, 149);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(78, 18);
-            this.label11.TabIndex = 112;
-            this.label11.Text = "&Komponen";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(148, 146);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(285, 26);
-            this.comboBox1.TabIndex = 113;
-            // 
             // btnBatalTindakan
             // 
             this.btnBatalTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
@@ -792,10 +764,38 @@
             this.btnBatalTindakan.Text = "&BATAL";
             this.btnBatalTindakan.UseVisualStyleBackColor = false;
             // 
-            // columnHeader6
+            // comboBox1
             // 
-            this.columnHeader6.Text = "Dokter";
-            this.columnHeader6.Width = 74;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(148, 146);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(285, 26);
+            this.comboBox1.TabIndex = 113;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(27, 149);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(78, 18);
+            this.label11.TabIndex = 112;
+            this.label11.Text = "&Komponen";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(132, 20);
+            this.label9.TabIndex = 111;
+            this.label9.Text = "I&NPUT TINDAKAN ";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // inputTindakan
             // 
