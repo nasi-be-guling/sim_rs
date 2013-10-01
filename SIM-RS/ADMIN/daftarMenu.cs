@@ -112,15 +112,7 @@ namespace SIM_RS.ADMIN
                                     "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
                                     "')";
             }
-
             modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                conn.Close();
-                return false;
-            }
-
             conn.Close();
 
             return true;
@@ -185,7 +177,7 @@ namespace SIM_RS.ADMIN
                 MessageBox.Show("Data sudah tersimpan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.pvBersihkanForm();            
             }
-            else MessageBox.Show("cek inputan");
+            else MessageBox.Show("inputan kurang lengkap bro");
         }
 
         private void btnCariMenu_Click(object sender, EventArgs e)
