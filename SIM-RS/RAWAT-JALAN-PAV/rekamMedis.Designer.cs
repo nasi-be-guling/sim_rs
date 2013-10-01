@@ -35,8 +35,18 @@
             this.lblTempatLayanan = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtKeluhanUtama = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPoli = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblJenisKelamin = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.lblAlamat = new System.Windows.Forms.Label();
             this.lblUsiaHari = new System.Windows.Forms.Label();
             this.lblUsiaBulan = new System.Windows.Forms.Label();
@@ -48,42 +58,32 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblPoli = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblJenisKelamin = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtKeluhanUtama = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblInfoRekamMedis
@@ -173,17 +173,86 @@
             this.tabPage1.Text = "Data Sosial";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // groupBox2
             // 
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(917, 537);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Penunjang";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupBox2.Controls.Add(this.groupBox4);
+            this.groupBox2.Controls.Add(this.groupBox5);
+            this.groupBox2.Controls.Add(this.groupBox3);
+            this.groupBox2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(8, 129);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.groupBox2.Size = new System.Drawing.Size(903, 397);
+            this.groupBox2.TabIndex = 172;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "WAJIB DIISI DOKTER";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(12, 190);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.groupBox4.Size = new System.Drawing.Size(410, 152);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Hasil Pemeriksaan Fisik";
+            // 
+            // textBox1
+            // 
+            this.textBox1.AcceptsReturn = true;
+            this.textBox1.Location = new System.Drawing.Point(6, 22);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(398, 121);
+            this.textBox1.TabIndex = 176;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.textBox2);
+            this.groupBox5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(451, 22);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.groupBox5.Size = new System.Drawing.Size(410, 152);
+            this.groupBox5.TabIndex = 2;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Anamnesa";
+            // 
+            // textBox2
+            // 
+            this.textBox2.AcceptsReturn = true;
+            this.textBox2.Location = new System.Drawing.Point(6, 22);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(398, 121);
+            this.textBox2.TabIndex = 176;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtKeluhanUtama);
+            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(12, 22);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.groupBox3.Size = new System.Drawing.Size(410, 152);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Keluhan Utama";
+            // 
+            // txtKeluhanUtama
+            // 
+            this.txtKeluhanUtama.AcceptsReturn = true;
+            this.txtKeluhanUtama.Location = new System.Drawing.Point(6, 22);
+            this.txtKeluhanUtama.Multiline = true;
+            this.txtKeluhanUtama.Name = "txtKeluhanUtama";
+            this.txtKeluhanUtama.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtKeluhanUtama.Size = new System.Drawing.Size(398, 121);
+            this.txtKeluhanUtama.TabIndex = 176;
             // 
             // groupBox1
             // 
@@ -207,6 +276,46 @@
             this.groupBox1.Size = new System.Drawing.Size(903, 117);
             this.groupBox1.TabIndex = 167;
             this.groupBox1.TabStop = false;
+            // 
+            // lblPoli
+            // 
+            this.lblPoli.AutoSize = true;
+            this.lblPoli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPoli.Location = new System.Drawing.Point(626, 48);
+            this.lblPoli.Name = "lblPoli";
+            this.lblPoli.Size = new System.Drawing.Size(24, 19);
+            this.lblPoli.TabIndex = 187;
+            this.lblPoli.Text = "...";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(510, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 19);
+            this.label2.TabIndex = 186;
+            this.label2.Text = "Poli / Ruang : ";
+            // 
+            // lblJenisKelamin
+            // 
+            this.lblJenisKelamin.AutoSize = true;
+            this.lblJenisKelamin.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJenisKelamin.Location = new System.Drawing.Point(626, 20);
+            this.lblJenisKelamin.Name = "lblJenisKelamin";
+            this.lblJenisKelamin.Size = new System.Drawing.Size(24, 19);
+            this.lblJenisKelamin.TabIndex = 185;
+            this.lblJenisKelamin.Text = "...";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(510, 19);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(121, 19);
+            this.label26.TabIndex = 184;
+            this.label26.Text = "Jenis Kelamin : ";
             // 
             // lblAlamat
             // 
@@ -324,104 +433,63 @@
             this.label4.TabIndex = 167;
             this.label4.Text = "Nama : ";
             // 
-            // groupBox2
+            // tabPage2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.groupBox2.Controls.Add(this.groupBox4);
-            this.groupBox2.Controls.Add(this.groupBox5);
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(8, 129);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox2.Size = new System.Drawing.Size(903, 397);
-            this.groupBox2.TabIndex = 172;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "WAJIB DIISI DOKTER";
+            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Controls.Add(this.groupBox6);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(917, 537);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Penunjang";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lblPoli
+            // panel1
             // 
-            this.lblPoli.AutoSize = true;
-            this.lblPoli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPoli.Location = new System.Drawing.Point(626, 48);
-            this.lblPoli.Name = "lblPoli";
-            this.lblPoli.Size = new System.Drawing.Size(24, 19);
-            this.lblPoli.TabIndex = 187;
-            this.lblPoli.Text = "...";
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.groupBox8);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Location = new System.Drawing.Point(6, 175);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(903, 351);
+            this.panel1.TabIndex = 174;
             // 
-            // label2
+            // label1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(510, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 19);
-            this.label2.TabIndex = 186;
-            this.label2.Text = "Poli / Ruang : ";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(9, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 18);
+            this.label1.TabIndex = 71;
+            this.label1.Text = "Halaman";
             // 
-            // lblJenisKelamin
+            // groupBox8
             // 
-            this.lblJenisKelamin.AutoSize = true;
-            this.lblJenisKelamin.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJenisKelamin.Location = new System.Drawing.Point(626, 20);
-            this.lblJenisKelamin.Name = "lblJenisKelamin";
-            this.lblJenisKelamin.Size = new System.Drawing.Size(24, 19);
-            this.lblJenisKelamin.TabIndex = 185;
-            this.lblJenisKelamin.Text = "...";
+            this.groupBox8.Controls.Add(this.listView1);
+            this.groupBox8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox8.Location = new System.Drawing.Point(763, 2);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(131, 346);
+            this.groupBox8.TabIndex = 70;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Tanggal";
             // 
-            // label26
+            // listView1
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(510, 19);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(121, 19);
-            this.label26.TabIndex = 184;
-            this.label26.Text = "Jenis Kelamin : ";
+            this.listView1.Location = new System.Drawing.Point(6, 22);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(119, 318);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
-            // groupBox3
+            // panel2
             // 
-            this.groupBox3.Controls.Add(this.txtKeluhanUtama);
-            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(12, 22);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox3.Size = new System.Drawing.Size(410, 152);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Keluhan Utama";
-            // 
-            // txtKeluhanUtama
-            // 
-            this.txtKeluhanUtama.AcceptsReturn = true;
-            this.txtKeluhanUtama.Location = new System.Drawing.Point(6, 22);
-            this.txtKeluhanUtama.Multiline = true;
-            this.txtKeluhanUtama.Name = "txtKeluhanUtama";
-            this.txtKeluhanUtama.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtKeluhanUtama.Size = new System.Drawing.Size(398, 121);
-            this.txtKeluhanUtama.TabIndex = 176;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.textBox2);
-            this.groupBox5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(451, 22);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox5.Size = new System.Drawing.Size(410, 152);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Anamnesa";
-            // 
-            // textBox2
-            // 
-            this.textBox2.AcceptsReturn = true;
-            this.textBox2.Location = new System.Drawing.Point(6, 22);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(398, 121);
-            this.textBox2.TabIndex = 176;
+            this.panel2.Location = new System.Drawing.Point(9, 32);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(747, 310);
+            this.panel2.TabIndex = 69;
             // 
             // groupBox6
             // 
@@ -483,74 +551,6 @@
             this.textBox5.Size = new System.Drawing.Size(428, 97);
             this.textBox5.TabIndex = 176;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(12, 190);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox4.Size = new System.Drawing.Size(410, 152);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Hasil Pemeriksaan Fisik";
-            // 
-            // textBox1
-            // 
-            this.textBox1.AcceptsReturn = true;
-            this.textBox1.Location = new System.Drawing.Point(6, 22);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(398, 121);
-            this.textBox1.TabIndex = 176;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.groupBox8);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Location = new System.Drawing.Point(6, 175);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(903, 351);
-            this.panel1.TabIndex = 174;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(6, 22);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(119, 318);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 18);
-            this.label1.TabIndex = 71;
-            this.label1.Text = "Halaman";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.listView1);
-            this.groupBox8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox8.Location = new System.Drawing.Point(763, 2);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(131, 346);
-            this.groupBox8.TabIndex = 70;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Tanggal";
-            // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(9, 32);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(747, 310);
-            this.panel2.TabIndex = 69;
-            // 
             // tabPage3
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
@@ -576,24 +576,24 @@
             this.panel6.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

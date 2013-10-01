@@ -17,6 +17,7 @@ namespace SIM_RS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new RAWAT_JALAN_PAV.rekamMedis());             
+
         }
     }
 }

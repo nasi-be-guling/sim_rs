@@ -182,7 +182,6 @@ namespace SIM_RS.ADMIN
 
             _strErr = "";
 
-
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
