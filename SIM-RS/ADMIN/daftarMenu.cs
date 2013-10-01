@@ -209,9 +209,5 @@ namespace SIM_RS.ADMIN
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

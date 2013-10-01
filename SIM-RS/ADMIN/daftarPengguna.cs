@@ -42,6 +42,8 @@ namespace SIM_RS.ADMIN
         /**/
         /* PRIVATE FUNCTION */
 
+
+        /*Load Semua Data Pengguna*/
         private void pvLoadAllAnggota()
         {
 
@@ -108,6 +110,7 @@ namespace SIM_RS.ADMIN
 
         }
 
+        /* Filter Pencarian User*/
         private void pvFilterSearchUser(string _strFilter)
         {
             var items = new List<ListViewItem>();
@@ -206,6 +209,7 @@ namespace SIM_RS.ADMIN
 
         }
 
+        /*Mengecek apakah NIP sudah pernah dipakai atau tidak*/
         private bool pvCheckNIP(string _strNIP)
         {
             this.strErr = "";
@@ -246,6 +250,7 @@ namespace SIM_RS.ADMIN
                 return false;
         }
 
+        /*Menyimpan Data*/
         private bool pvSimpanData()
         {
             this.strErr = "";
@@ -313,6 +318,7 @@ namespace SIM_RS.ADMIN
 
         }
 
+        /*Mengosongkan Item*/
         private void pvHapusIsian()
         {
             txtPetugas.Text = "";
@@ -517,6 +523,7 @@ namespace SIM_RS.ADMIN
             }
         }
 
+        /* Fungsi Checking Input NIP / NBI tanpa titik dan spasi*/
 
         private bool Nomor(System.Windows.Forms.KeyPressEventArgs e)
         {

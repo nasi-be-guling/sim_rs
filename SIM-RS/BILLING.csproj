@@ -66,9 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="C4Module">
-
       <HintPath>DLL\C4Module.dll</HintPath>
-
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>Properties\EPPlus.dll</HintPath>
@@ -213,6 +211,12 @@
     <Compile Include="RAWAT-JALAN-PAV\inputTindakan.Designer.cs">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\rekamMedis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\rekamMedis.Designer.cs">
+      <DependentUpon>rekamMedis.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ADMIN\daftarHakAkses.resx">
       <DependentUpon>daftarHakAkses.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-JALAN-PAV\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-JALAN-PAV\rekamMedis.resx">
+      <DependentUpon>rekamMedis.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
     <None Include="DATASET\DATASET_APP.xsc">
