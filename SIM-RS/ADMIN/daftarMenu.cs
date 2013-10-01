@@ -15,6 +15,7 @@ namespace SIM_RS.ADMIN
 
         string strErr = "";
         string strQuerySQL = "";
+        string stridMenu = "";
 
         C4Module.MainModule modMain = new C4Module.MainModule();
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
@@ -112,6 +113,13 @@ namespace SIM_RS.ADMIN
                                     "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
                                     "')";
             }
+            else
+                this.strQuerySQL = "UPDATE HIS_DAFTAR_MENU " +
+                                    "SET nama = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
+                                    "',dipakai = '" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
+                                    "', form = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
+                                    "' WHERE id = '" + modMain.pbstrBersihkanInput(stridMenu) + "'";
+
             modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
             conn.Close();
 
@@ -155,7 +163,7 @@ namespace SIM_RS.ADMIN
         private void rubahToolStripMenuItem_Click(object sender, EventArgs e)
         {
             isUpdate = true;
-            //txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].Text.Trim().ToString();
+            stridMenu = lvDaftarMenu.SelectedItems[0].Text.Trim().ToString();
             txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].SubItems[1].Text.Trim().ToString();
             txtNamaAppBaru.Text = lvDaftarMenu.SelectedItems[0].SubItems[3].Text.Trim().ToString();
             cmbDipakai.SelectedIndex = Convert.ToInt16(lvDaftarMenu.SelectedItems[0].SubItems[2].Text.Trim().ToString());
