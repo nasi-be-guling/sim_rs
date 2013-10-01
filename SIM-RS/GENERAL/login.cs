@@ -197,8 +197,12 @@ namespace SIM_RS
 
         private void pvBersihkanForm()
         {
-            txtuserId.Text = "";
-            txtsandiUser.Text = "";
+            //foreach (TextBox kontrol in this.Controls.OfType<TextBox>())
+            foreach (TextBox kontrol in Controls.OfType<TextBox>())
+            {
+                if (!kontrol.Text.Trim().Equals(""))
+                    kontrol.Text = "";
+            }
             txtuserId.Focus();
         }
 
