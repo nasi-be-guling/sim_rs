@@ -8,6 +8,8 @@
 *.Cache
 *.resources
 *.cache
+*.txt
+SIM-RS/bin/Debug/*.*
 SIM-RS/obj/x86/Debug/*.*
 *.user
 SIM-RS/obj/x86/Debug/edmxResourcesToEmbed/*.*
@@ -15,5 +17,9 @@ _ReSharper.SIM-RS/*.*
 _ReSharper.SIM-RS/*
 SIM-RS/bin/Debug/*.*
 SIM-RS/DLL
+<<<<<<< HEAD
+ 
+=======
 packages/*.*
 SIM-RS/packages.config
+>>>>>>> 85a0c446511cfe1ea0ebd75e816d0af10880c09f

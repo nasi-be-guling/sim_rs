@@ -16,7 +16,7 @@ namespace SIM_RS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DaftarHakAkses());
+            Application.Run(new halamanUtama());             
         }
     }
 }

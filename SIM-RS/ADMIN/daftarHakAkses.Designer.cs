@@ -51,8 +51,8 @@ namespace SIM_RS.ADMIN
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.batalkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aktifkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batalkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -312,19 +312,19 @@ namespace SIM_RS.ADMIN
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
-            // batalkanToolStripMenuItem
-            // 
-            this.batalkanToolStripMenuItem.Name = "batalkanToolStripMenuItem";
-            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.batalkanToolStripMenuItem.Text = "Batalkan";
-            this.batalkanToolStripMenuItem.Click += new System.EventHandler(this.batalkanToolStripMenuItem_Click);
-            // 
             // aktifkanToolStripMenuItem
             // 
             this.aktifkanToolStripMenuItem.Name = "aktifkanToolStripMenuItem";
             this.aktifkanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aktifkanToolStripMenuItem.Text = "Aktifkan";
             this.aktifkanToolStripMenuItem.Click += new System.EventHandler(this.aktifkanToolStripMenuItem_Click);
+            // 
+            // batalkanToolStripMenuItem
+            // 
+            this.batalkanToolStripMenuItem.Name = "batalkanToolStripMenuItem";
+            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.batalkanToolStripMenuItem.Text = "Batalkan";
+            this.batalkanToolStripMenuItem.Click += new System.EventHandler(this.batalkanToolStripMenuItem_Click);
             // 
             // DaftarHakAkses
             // 
