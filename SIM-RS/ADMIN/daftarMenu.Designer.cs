@@ -69,7 +69,7 @@
             this.panel1.Controls.Add(this.lvDaftarMenu);
             this.panel1.Location = new System.Drawing.Point(7, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 586);
+            this.panel1.Size = new System.Drawing.Size(786, 557);
             this.panel1.TabIndex = 118;
             // 
             // panel6
@@ -85,7 +85,7 @@
             this.panel6.Controls.Add(this.label2);
             this.panel6.Location = new System.Drawing.Point(6, 28);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(774, 186);
+            this.panel6.Size = new System.Drawing.Size(774, 161);
             this.panel6.TabIndex = 146;
             // 
             // cmbDipakai
@@ -95,7 +95,7 @@
             "Tidak",
             "Ya",
             "Bisa Jadi"});
-            this.cmbDipakai.Location = new System.Drawing.Point(198, 93);
+            this.cmbDipakai.Location = new System.Drawing.Point(198, 76);
             this.cmbDipakai.Name = "cmbDipakai";
             this.cmbDipakai.Size = new System.Drawing.Size(121, 28);
             this.cmbDipakai.TabIndex = 127;
@@ -104,7 +104,7 @@
             // 
             this.txtNamaAppBaru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamaAppBaru.BackColor = System.Drawing.Color.White;
-            this.txtNamaAppBaru.Location = new System.Drawing.Point(198, 51);
+            this.txtNamaAppBaru.Location = new System.Drawing.Point(198, 44);
             this.txtNamaAppBaru.Name = "txtNamaAppBaru";
             this.txtNamaAppBaru.Size = new System.Drawing.Size(242, 27);
             this.txtNamaAppBaru.TabIndex = 126;
@@ -130,7 +130,7 @@
             this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatal.Location = new System.Drawing.Point(688, 142);
+            this.btnBatal.Location = new System.Drawing.Point(688, 116);
             this.btnBatal.Name = "btnBatal";
             this.btnBatal.Size = new System.Drawing.Size(77, 32);
             this.btnBatal.TabIndex = 124;
@@ -157,7 +157,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(36, 55);
+            this.label3.Location = new System.Drawing.Point(36, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(156, 18);
             this.label3.TabIndex = 122;
@@ -173,7 +173,7 @@
             this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpan.Location = new System.Drawing.Point(605, 142);
+            this.btnSimpan.Location = new System.Drawing.Point(605, 116);
             this.btnSimpan.Name = "btnSimpan";
             this.btnSimpan.Size = new System.Drawing.Size(77, 32);
             this.btnSimpan.TabIndex = 118;
@@ -187,7 +187,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(36, 97);
+            this.label2.Location = new System.Drawing.Point(36, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 120;
@@ -203,7 +203,7 @@
             this.btnKeluar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluar.Location = new System.Drawing.Point(681, 551);
+            this.btnKeluar.Location = new System.Drawing.Point(677, 515);
             this.btnKeluar.Name = "btnKeluar";
             this.btnKeluar.Size = new System.Drawing.Size(101, 30);
             this.btnKeluar.TabIndex = 119;
@@ -220,7 +220,7 @@
             this.btnCariMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnCariMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCariMenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCariMenu.Location = new System.Drawing.Point(371, 220);
+            this.btnCariMenu.Location = new System.Drawing.Point(372, 198);
             this.btnCariMenu.Name = "btnCariMenu";
             this.btnCariMenu.Size = new System.Drawing.Size(130, 28);
             this.btnCariMenu.TabIndex = 96;
@@ -233,7 +233,7 @@
             this.txtCariMenu.BackColor = System.Drawing.Color.White;
             this.txtCariMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCariMenu.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCariMenu.Location = new System.Drawing.Point(6, 220);
+            this.txtCariMenu.Location = new System.Drawing.Point(7, 198);
             this.txtCariMenu.Name = "txtCariMenu";
             this.txtCariMenu.Size = new System.Drawing.Size(359, 28);
             this.txtCariMenu.TabIndex = 3;
@@ -266,9 +266,9 @@
             this.lvDaftarMenu.FullRowSelect = true;
             this.lvDaftarMenu.GridLines = true;
             this.lvDaftarMenu.HideSelection = false;
-            this.lvDaftarMenu.Location = new System.Drawing.Point(6, 254);
+            this.lvDaftarMenu.Location = new System.Drawing.Point(5, 239);
             this.lvDaftarMenu.Name = "lvDaftarMenu";
-            this.lvDaftarMenu.Size = new System.Drawing.Size(773, 290);
+            this.lvDaftarMenu.Size = new System.Drawing.Size(773, 269);
             this.lvDaftarMenu.TabIndex = 0;
             this.lvDaftarMenu.UseCompatibleStateImageBehavior = false;
             this.lvDaftarMenu.View = System.Windows.Forms.View.Details;

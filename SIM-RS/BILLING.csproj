@@ -66,11 +66,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="C4Module">
-<<<<<<< HEAD
-      <HintPath>Properties\C4Module.dll</HintPath>
-=======
+
       <HintPath>DLL\C4Module.dll</HintPath>
->>>>>>> 24b75e4a1080680f711db0e4d63d4f84ce236bbb
+
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>Properties\EPPlus.dll</HintPath>
