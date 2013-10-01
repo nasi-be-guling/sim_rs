@@ -276,22 +276,22 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Nama Menu";
+            this.columnHeader1.Text = "Id";
             this.columnHeader1.Width = 99;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Nama Form Aplikasi Lama";
+            this.columnHeader2.Text = "Nama Menu";
             this.columnHeader2.Width = 189;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Kelompok";
+            this.columnHeader3.Text = "Dipakai";
             this.columnHeader3.Width = 84;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Nama Form Aplikasi Baru";
+            this.columnHeader4.Text = "Nama Form Aplikasi";
             this.columnHeader4.Width = 186;
             // 
             // cmsDaftarMenu

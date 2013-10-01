@@ -81,50 +81,82 @@ namespace SIM_RS.ADMIN
             conn.Close();
         }
 
+        /*
+     *  NAME        : simpan menu
+     *  FUNCTION    : proses simpan menu, yaitu mengambil id terakhir kemudian simpan semua data menu
+     *  RESULT      : -
+     *  CREATED     : Eka Rudito (eka@rudito.web.id)
+     *  DATE        : 16-02-2013
+     */
+
         private bool pvSimpanData()
         {
+            string strNoMR = "";
+            int intNoMR = 0;
             this.strErr = "";
+            string strNoMRInc = "";
+
+            if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != "")) isUpdate = true; 
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-
                 return false;
-            }           
+            }
 
-            if (!isUpdate)                
-                this.strQuerySQL = "INSERT INTO HIS_DAFTAR_MENU (id, nama, dipakai, form) " +
-                                    "VALUES ('ident_current('id'), " + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
-                                    "','" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
-                                    "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-                                    "')";
-            //else
-            //    /* JIKA BUKAN MENU DARI APLIKASI LAMA MAKA BISA MENGUPDATE JUGA NAMA MENU DAN NAMA FORM */
-            //    if(txtNamaAppLama.Text.Trim().ToString() == "")
-            //        this.strQuerySQL = "UPDATE BILPROGRAM " +
-            //                            "SET idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + 
-            //                            "', NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-            //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
-            //    else
-            //        this.strQuerySQL = "UPDATE BILPROGRAM " +
-            //                            "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
-            //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
+            SqlTransaction trans = conn.BeginTransaction();
 
+            /* CREATE AUTONUMBERING ID MENU AND TRANSACTION */
 
-            modDb.pbWriteSQL(conn, this.strQuerySQL, ref strErr);
+            /*FIRST get last id*/
+            this.strQuerySQL = "SELECT MAX(id) FROM HIS_DAFTAR_MENU ";
+            SqlDataReader reader = modDb.pbreaderSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
             if (strErr != "")
             {
                 modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                trans.Rollback();
                 conn.Close();
                 return false;
             }
 
-            conn.Close();
-            return true;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                strNoMR = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                intNoMR = Convert.ToInt32(strNoMR);
+                intNoMR = intNoMR + 1;
+                strNoMRInc = intNoMR.ToString();
+            }
 
+            reader.Close();
+
+            //if (!isUpdate)
+            //{
+            //    /* INSERTING MENU DATA TO DATABASE */
+            //    this.strQuerySQL = "INSERT INTO HIS_DAFTAR_MENU (id, nama, dipakai, form) " +
+            //                        "VALUES ('" + strNoMRInc + "','" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) +
+            //                        "','" + modMain.pbstrBersihkanInput(cmbDipakai.SelectedIndex.ToString()) +
+            //                        "','" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
+            //                        "')";
+            //}
+
+            //modDb.pbWriteSQLTrans(conn, strQuerySQL, ref strErr, trans);
+            //if (strErr != "")
+            //{
+            //    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+            //    trans.Rollback();
+            //    conn.Close();
+            //    return false;
+            //}
+
+            trans.Commit();
+            conn.Close();
+
+            return true;
         }
 
         private void pvBersihkanForm()
@@ -164,13 +196,16 @@ namespace SIM_RS.ADMIN
         private void rubahToolStripMenuItem_Click(object sender, EventArgs e)
         {
             isUpdate = true;
-            txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].Text.Trim().ToString();
-            //txtKelompok.Text = lvDaftarMenu.SelectedItems[0].SubItems[2].Text.Trim().ToString();
+            //txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].Text.Trim().ToString();
+            txtNamaMenu.Text = lvDaftarMenu.SelectedItems[0].SubItems[1].Text.Trim().ToString();
             txtNamaAppBaru.Text = lvDaftarMenu.SelectedItems[0].SubItems[3].Text.Trim().ToString();
+            cmbDipakai.SelectedIndex = Convert.ToInt16(lvDaftarMenu.SelectedItems[0].SubItems[2].Text.Trim().ToString());
+            txtNamaMenu.Focus();
+            txtNamaMenu.SelectAll();
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
-        {
+        {            
             this.pvSimpanData();
         }
 

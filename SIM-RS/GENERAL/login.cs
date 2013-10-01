@@ -93,11 +93,11 @@ namespace SIM_RS
 
         private void login_KeyDown(object sender, KeyEventArgs e)
         {
-            //if(e.KeyCode == Keys.Escape)
-            //{
-            //    isLoginSuccess = false;
-            //    this.Close();
-            //}
+            if (e.KeyCode == Keys.Escape)
+            {
+                isLoginSuccess = false;
+                this.Close();
+            }
         }
 
         private void login_Shown(object sender, EventArgs e)
@@ -121,7 +121,15 @@ namespace SIM_RS
             //fTCN.pbScreenCapture.Visible = true;
         }
 
-        private void btnKeluarProgram_Click(object sender, EventArgs e)
+        /*
+     *  NAME        : metode login
+     *  FUNCTION    : proses login ke halaman utama
+     *  RESULT      : -
+     *  CREATED     : Eka Rudito (eka@rudito.web.id)
+     *  DATE        : 16-02-2013
+     */
+
+        private void pvLoginForm() 
         {
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
@@ -133,11 +141,10 @@ namespace SIM_RS
                 return;
             }
 
-            strSqlQuery = "SELECT " +
-                                "id, nama " +
+            strSqlQuery = "SELECT id, nama " +
                           "FROM HIS_DAFTAR_USER " +
-                          "WHERE nip_nbi = '" + modMain.pbstrBersihkanInput(txtuserId.Text) + 
-                          "' and sandi = '" + modEncrypt.EncryptToString(txtsandiUser.Text.Trim()) +"'";
+                          "WHERE nip_nbi = '" + modMain.pbstrBersihkanInput(txtuserId.Text) +
+                          "' and sandi = '" + modEncrypt.EncryptToString(txtsandiUser.Text.Trim()) + "'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
             if (strErr != "")
@@ -157,14 +164,18 @@ namespace SIM_RS
             reader.Close();
             conn.Close();
 
-            if (stridUser.Equals("")) {
-                MessageBox.Show("Username ato password salah");
-                txtuserId.Text = "";
-                txtsandiUser.Text = "";
-                txtuserId.Focus();
+            if (stridUser.Equals(""))
+            {
+                MessageBox.Show("Username ato password salah, silahkan diulang  ('-')('-')");
+                this.pvBersihkanForm();
             }
-            else 
-                this.Close();
+            else
+                this.Close();        
+        }
+
+        private void btnKeluarProgram_Click(object sender, EventArgs e)
+        {
+            this.pvLoginForm();
         }
 
         private void txtuserId_KeyUp(object sender, KeyEventArgs e)
@@ -181,7 +192,14 @@ namespace SIM_RS
             {
                 btnKeluarProgram.Focus();
             }
-        }       
+        }
+
+        private void pvBersihkanForm()
+        {
+            txtuserId.Text = "";
+            txtsandiUser.Text = "";
+            txtuserId.Focus();
+        }
 
     }
        
