@@ -70,6 +70,16 @@ namespace SIM_RS.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USER SUDAH PUNYA MENU TERSEBUT
+        ///SILAHKAN PILIH MENU YG LAIN.
+        /// </summary>
+        internal static string DaftarHakAkses_PvSimpanData_ {
+            get {
+                return ResourceManager.GetString("DaftarHakAkses_PvSimpanData_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PROGRAM TIDAK DITEMUKAN.
         /// </summary>
         internal static string daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN {

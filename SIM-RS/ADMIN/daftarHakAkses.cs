@@ -24,8 +24,6 @@ namespace SIM_RS.ADMIN
 
         readonly AutoCompleteStringCollection _listProgram = new AutoCompleteStringCollection();
         readonly AutoCompleteStringCollection _listPengguna = new AutoCompleteStringCollection();
-        private int _idpetugas;
-        private int _idprogram;
 
         public DaftarHakAkses()
         {
@@ -40,17 +38,9 @@ namespace SIM_RS.ADMIN
                 bw_RunWorkerCompleted;
         }
 
-        private int Idpetugas
-        {
-            get { return _idpetugas; }
-            set { _idpetugas = value; }
-        }
+        private int Idpetugas { get; set; }
 
-        private int Idprogram
-        {
-            get { return _idprogram; }
-            set { _idprogram = value; }
-        }
+        private int Idprogram { get; set; }
 
         /* PRIVATE FUNCTION */
 
@@ -83,7 +73,7 @@ namespace SIM_RS.ADMIN
         {
             //http://stackoverflow.com/questions/7905651/how-to-databind-a-textbox-to-a-particular-index-in-a-list
 
-            public Pengguna(int id, string nama)
+            public Pengguna(string id, string nama)
             {
                 Id = id;
                 Nama = nama;
@@ -91,7 +81,7 @@ namespace SIM_RS.ADMIN
 
             public string Nama { get; private set; }
 
-            public int Id { get; private set; }
+            public string Id { get; private set; }
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -142,7 +132,7 @@ namespace SIM_RS.ADMIN
             {
                 while (reader.Read())
                 {
-                    listProgram.Add(new Pengguna(Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, "")), 
+                    listProgram.Add(new Pengguna(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""), 
                         _modMain.pbstrgetCol(reader, 1, ref _strErr, "")));
                     _listProgram.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
                 }
@@ -163,7 +153,7 @@ namespace SIM_RS.ADMIN
             {
                 while (reader.Read())
                 {
-                    listPengguna.Add(new Pengguna(Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, "")), 
+                    listPengguna.Add(new Pengguna(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""), 
                         _modMain.pbstrgetCol(reader, 1, ref _strErr, "")));
                     _listPengguna.Add(_modMain.pbstrgetCol(reader, 1, ref _strErr, ""));
                 }
@@ -184,7 +174,6 @@ namespace SIM_RS.ADMIN
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
-
             #region SQL QUERY SESUAI KONDISI
             switch (kontrol)
             {
@@ -212,7 +201,7 @@ namespace SIM_RS.ADMIN
                     _strQuerySql = strCari == ""
                         ? "SELECT idprogram, nama " +
                           "FROM HIS_DAFTAR_MENU"
-                        : "SELECT A.no_urut,C.nama,C.nip_nbi,B.nama " +
+                        : "SELECT A.no_urut,C.nama,B.nama " +
                             "FROM " +
                             "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
                             "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
@@ -221,7 +210,6 @@ namespace SIM_RS.ADMIN
             } 
             
             #endregion
-
             SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
             {
@@ -271,17 +259,15 @@ namespace SIM_RS.ADMIN
 
                 return 0;
             }
-            SqlTransaction trans = conn.BeginTransaction();
             /*FIRST get last nomor urut*/
             _strQuerySql = "SELECT Max(A.no_urut) FROM dbo.HIS_DAFTAR_HAKAKSES AS A " +
                 "INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
                 "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
                 "WHERE C.id = " + idPetugas + "";
-            SqlDataReader reader = _modDb.pbreaderSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
             {
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
-                trans.Rollback();
                 conn.Close();
                 return 0;
             }
@@ -289,11 +275,40 @@ namespace SIM_RS.ADMIN
             if (reader.HasRows)
             {
                 reader.Read();
-
+                maxNoUrut = Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, "")) + 1;
             }
-
             reader.Close();
+            conn.Close();
             return maxNoUrut;
+        }
+
+        private bool Cekifalreadyhasornot(SqlConnection conn, int idPetugas, int idProgram, SqlTransaction trans)
+        /*
+        *  NAME        : cekifalreadyhasornot
+        *  FUNCTION    : Checking if user already had the menu or not
+        *  RESULT      : bool
+        *  CREATED     : Putu (nasi.be.guling@gmail.com)
+        *  DATE        : 10-01-2013
+        */
+        {
+            _strErr = "";
+            _strQuerySql = "SELECT A.id " +
+                           "FROM BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES A " +
+                           "WHERE A.id_user = " + idPetugas + " AND A.id_menu = " + idProgram + "";
+            SqlDataReader reader = _modDb.pbreaderSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            if (_strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return true;
+            }
+            if (reader.HasRows)
+            {      
+                return true;
+            }
+            reader.Close();
+            return false;
         }
 
         private bool PvSimpanData()
@@ -309,8 +324,7 @@ namespace SIM_RS.ADMIN
 
                 return false;
             }
-            SqlTransaction trans = conn.BeginTransaction();
-            
+            SqlTransaction trans = conn.BeginTransaction();           
             //if (!isUpdate)
             //    this.strQuerySQL = "INSERT INTO BILHAKAKSES (idpetugas,idprogram,grup,urut) " +
             //                        "VALUES ('" + modMain.pbstrBersihkanInput(.Text.Trim().ToString()) +
@@ -328,7 +342,16 @@ namespace SIM_RS.ADMIN
             //        this.strQuerySQL = "UPDATE BILPROGRAM " +
             //                            "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
             //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
-            _strQuerySql = "";
+
+            if (Cekifalreadyhasornot(conn, Idpetugas, Idprogram, trans))
+            {
+                MessageBox.Show(Resources.DaftarHakAkses_PvSimpanData_, 
+                    Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+                return false;
+            }
+
+            _strQuerySql = "INSERT INTO BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES VALUES (" +
+                Idpetugas + ", " + Idprogram + ", " + GetMaxNoUrut(Idpetugas) + ", 1)";
 
             _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
             if (_strErr != "")
@@ -338,13 +361,10 @@ namespace SIM_RS.ADMIN
                 conn.Close();
                 return false;
             }
-
-
-
             trans.Commit();
             conn.Close();
-            return true;
 
+            return true;
         }
 
         private void btnKeluar_Click(object sender, EventArgs e)
@@ -383,7 +403,8 @@ namespace SIM_RS.ADMIN
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(txtNamaMenu.Text) | !string.IsNullOrEmpty(txtNamaAppLama.Text) && PvSimpanData())
+                MessageBox.Show(@"SUKSES");
         }
 
         private void txtCariMenu_KeyDown(object sender, KeyEventArgs e)
@@ -470,7 +491,7 @@ namespace SIM_RS.ADMIN
 
             foreach (var pengguna in bla)
             {
-                id = pengguna.Id;
+                id = Convert.ToInt16(pengguna.Id);
             }
             return id;
         }
@@ -482,7 +503,7 @@ namespace SIM_RS.ADMIN
 
             foreach (var pengguna in bla)
             {
-                id = pengguna.Id;
+                id = Convert.ToInt16(pengguna.Id);
             }
             return id;
         }

@@ -127,4 +127,8 @@
   <data name="daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN" xml:space="preserve">
     <value>PROGRAM TIDAK DITEMUKAN</value>
   </data>
+  <data name="DaftarHakAkses_PvSimpanData_" xml:space="preserve">
+    <value>USER SUDAH PUNYA MENU TERSEBUT
+SILAHKAN PILIH MENU YG LAIN</value>
+  </data>
 </root>
