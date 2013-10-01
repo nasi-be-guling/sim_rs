@@ -26,6 +26,7 @@ namespace SIM_RS
         string strErr = "";
         string stridUser = "";
         string strnamaUser = "";
+        string strunitKerja = "";
         bool isLoginSuccess = false;
 
         /*EOF Private Variable*/
@@ -77,6 +78,7 @@ namespace SIM_RS
                 halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
 
                 fTCN.txtPetugas.Text = strnamaUser;
+                fTCN.txtUnitKerja.Text = strunitKerja;
                 //fTCN.txtUnitKerja.Text = cmbUnitKerja.Text.Trim().ToString();
                 //fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
 
@@ -131,7 +133,6 @@ namespace SIM_RS
 
         private void pvLoginForm() 
         {
-            this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
@@ -141,10 +142,10 @@ namespace SIM_RS
                 return;
             }
 
-            strSqlQuery = "SELECT id, nama " +
-                          "FROM HIS_DAFTAR_USER " +
-                          "WHERE nip_nbi = '" + modMain.pbstrBersihkanInput(txtuserId.Text) +
-                          "' and sandi = '" + modEncrypt.EncryptToString(txtsandiUser.Text.Trim()) + "'";
+            strSqlQuery = "SELECT a.id, a.nama, b.nama FROM HIS_DAFTAR_USER a, HIS_DAFTAR_UNITKERJA b " +
+                          "WHERE b.dipakai = '1' and a.id_unitKerja = b.id and " +
+                          "a.nip_nbi = '" + modMain.pbstrBersihkanInput(txtuserId.Text) +
+                          "' and a.sandi = '" + modEncrypt.EncryptToString(txtsandiUser.Text.Trim()) + "'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
             if (strErr != "")
@@ -159,7 +160,7 @@ namespace SIM_RS
                 reader.Read();
                 stridUser = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                 strnamaUser = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-
+                strunitKerja = modMain.pbstrgetCol(reader, 2, ref strErr, "");
             }
             reader.Close();
             conn.Close();

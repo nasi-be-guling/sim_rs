@@ -35,6 +35,7 @@ namespace SIM_RS.ADMIN
 
         private void pvLoadData(string _strCari = "")
         {
+            this.pvBersihkanForm();
             this.strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
 
@@ -128,9 +129,14 @@ namespace SIM_RS.ADMIN
 
         private void pvBersihkanForm()
         {
-            txtNamaMenu.Text = "";
-            txtNamaAppBaru.Text = "";
+            foreach (TextBox kontrol in panel6.Controls.OfType<TextBox>())
+            {
+                if (!kontrol.Text.Trim().Equals(""))
+                    kontrol.Text = "";
+            }
+
             txtNamaMenu.Enabled = true;
+            cmbDipakai.SelectedIndex = 0;
             isUpdate = false;
         }
 
@@ -171,6 +177,22 @@ namespace SIM_RS.ADMIN
             txtNamaMenu.SelectAll();
         }
 
+        /*
+     *  NAME        : focus input
+     *  FUNCTION    : proses ngeset focus inputan yang mana inputan nilainya null
+     *  RESULT      : -
+     *  CREATED     : Eka Rudito (eka@rudito.web.id)
+     *  DATE        : 16-02-2013
+     */
+        private void focusInput()
+        { 
+            foreach (TextBox kontrol in panel6.Controls.OfType<TextBox>())
+            {
+                if (string.IsNullOrEmpty(kontrol.Text.Trim()))
+                    kontrol.Focus();
+            }
+        }
+
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != ""))
@@ -183,9 +205,13 @@ namespace SIM_RS.ADMIN
                 }
 
                 MessageBox.Show("Data sudah tersimpan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.pvBersihkanForm();            
+                this.pvBersihkanForm();
             }
-            else MessageBox.Show("inputan kurang lengkap bro");
+            else
+            {
+                MessageBox.Show("inputan kurang lengkap bro");
+                focusInput();
+            }
         }
 
         private void btnCariMenu_Click(object sender, EventArgs e)
@@ -212,6 +238,12 @@ namespace SIM_RS.ADMIN
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void daftarMenu_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+                Close();
         }
     }
 }
