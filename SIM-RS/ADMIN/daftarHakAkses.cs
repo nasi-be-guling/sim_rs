@@ -216,11 +216,11 @@ namespace SIM_RS.ADMIN
                     break;
                 case 4:
                     _strQuerySql = strCari == ""
-                        ? "SELECT A.no_urut,C.nama,B.nama " +
+                        ? "SELECT A.no_urut,B.nama,C.nama,A.dipakai,A.id " +
                             "FROM " +
                             "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
                             "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user"
-                        : "SELECT A.no_urut,C.nama,B.nama " +
+                        : "SELECT A.no_urut,B.nama,C.nama,A.dipakai,A.id " +
                             "FROM " +
                             "dbo.HIS_DAFTAR_HAKAKSES AS A INNER JOIN dbo.HIS_DAFTAR_MENU AS B ON B.id = A.id_menu " +
                             "INNER JOIN dbo.HIS_DAFTAR_USER AS C ON C.id = A.id_user " +
@@ -256,10 +256,18 @@ namespace SIM_RS.ADMIN
                             _modMain.pbstrgetCol(reader, 2, ref _strErr, ""));
                         lvDaftarMenu.Items[lvDaftarMenu.Items.Count - 1].SubItems.Add(
                             _modMain.pbstrgetCol(reader, 3, ref _strErr, ""));
+                        lvDaftarMenu.Items[lvDaftarMenu.Items.Count - 1].SubItems.Add(
+                            _modMain.pbstrgetCol(reader, 4, ref _strErr, ""));
+                        lvDaftarMenu.Items[lvDaftarMenu.Items.Count - 1].SubItems.Add(
+                            _modMain.pbstrgetCol(reader, 5, ref _strErr, ""));
                     }
                 }
                 //_modSql.pvAutoResizeLV(lvDaftarMenu, 3);
                 reader.Close();
+            }
+            else
+            {
+                lvDaftarMenu.Items.Clear();
             }
             conn.Close();
         }
@@ -330,7 +338,7 @@ namespace SIM_RS.ADMIN
             return false;
         }
 
-        private bool PvSimpanData()
+        private bool PvSimpanData(bool isUpdate, bool batalkan = true)
         {
             _strErr = "";
 
@@ -362,16 +370,28 @@ namespace SIM_RS.ADMIN
             //                            "SET NamaFormERD = '" + modMain.pbstrBersihkanInput(txtNamaAppBaru.Text.Trim().ToString()) +
             //                            "' WHERE idProgram = '" + modMain.pbstrBersihkanInput(txtNamaMenu.Text.Trim().ToString()) + "'";
 
-            if (Cekifalreadyhasornot(conn, Idpetugas, Idprogram, trans))
+
+
+            if (!isUpdate)
             {
-                MessageBox.Show(Resources.DaftarHakAkses_PvSimpanData_, 
-                    Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
-                return false;
+                if (Cekifalreadyhasornot(conn, Idpetugas, Idprogram, trans))
+                {
+                    MessageBox.Show(Resources.DaftarHakAkses_PvSimpanData_,
+                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
+                    return false;
+                }
+                _strQuerySql = "INSERT INTO BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES VALUES (" +
+                               Idpetugas + ", " + Idprogram + ", " + GetMaxNoUrut(Idpetugas) + ", 1)";
             }
-
-            _strQuerySql = "INSERT INTO BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES VALUES (" +
-                Idpetugas + ", " + Idprogram + ", " + GetMaxNoUrut(Idpetugas) + ", 1)";
-
+            else
+            {
+                if (!batalkan)
+                    _strQuerySql = "UPDATE BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES SET dipakai = 1 " +
+                                   "WHERE id = " + lvDaftarMenu.SelectedItems[0].SubItems[4].Text + "";
+                else
+                    _strQuerySql = "UPDATE BILLING_NEW.dbo.HIS_DAFTAR_HAKAKSES SET dipakai = 0 " +
+                                    "WHERE id = " + lvDaftarMenu.SelectedItems[0].SubItems[4].Text + "";
+            }
             _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
             if (_strErr != "")
             {
@@ -423,7 +443,7 @@ namespace SIM_RS.ADMIN
             }
             else
             {
-                if (!PvSimpanData())
+                if (!PvSimpanData(false))
                     MessageBox.Show(Resources.DaftarHakAkses_btnSimpan_Click_,
                         Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
                 else
@@ -511,8 +531,12 @@ namespace SIM_RS.ADMIN
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Columns.Add("Nama Form",
                     10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Columns.Add("STATUSISASI DIPAKAI",
+                    10 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
+                lvDaftarMenu.Columns.Add("ID",
+                    0 * Convert.ToInt16(lvDaftarMenu.Font.SizeInPoints), HorizontalAlignment.Center);
                 lvDaftarMenu.Font = new Font("Segoe UI", 11, FontStyle.Regular | FontStyle.Regular);
-                _modSql.pvAutoResizeLV(lvDaftarMenu, 3);
+                _modSql.pvAutoResizeLV(lvDaftarMenu, 4);
             }
         }
         #region MENCARI ID
@@ -559,16 +583,7 @@ namespace SIM_RS.ADMIN
         {
             if (!string.IsNullOrEmpty(txtNamaMenu.Text))
             {
-                int id = Getidpengguna(txtNamaMenu.Text);
-                if (id == 0)
-                    MessageBox.Show(Resources.daftarHakAkses_txtNamaMenu_Leave_PETUGAS_TIDAK_DITEMUKAN,
-                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
-                else
-                {
-                    Idpetugas = id;
-                    PvLoadData(Idpetugas.ToString(CultureInfo.InvariantCulture), 4);
-                    InisiasiListView(2);
-                }
+                Idpetugas = Getidpengguna(txtNamaMenu.Text);
             }
         }
 
@@ -576,25 +591,42 @@ namespace SIM_RS.ADMIN
         {
             if (!string.IsNullOrEmpty(txtNamaAppLama.Text))
             {
-                int id = Getidprogram(txtNamaAppLama.Text);
-                if (id == 0)
-                    MessageBox.Show(Resources.daftarHakAkses_txtNamaAppLama_Leave_PROGRAM_TIDAK_DITEMUKAN, 
-                        Resources.daftarHakAkses_txtNamaMenu_Leave_PERHATIAN);
-                else
-                    Idprogram = id;
+                Idprogram = Getidprogram(txtNamaAppLama.Text);
             }
         }
 
         private void txtNamaMenu_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
+            if (e.KeyData != Keys.Enter) return;
+            PvLoadData(Getidpengguna(txtNamaMenu.Text).ToString(CultureInfo.InvariantCulture), 4);
+            InisiasiListView(2);
+        }
+
+        private void Bersih2()
+        {
+            foreach (TextBox kontrol in panel6.Controls.OfType<TextBox>())
             {
-                if (Idpetugas > 0)
-                {
-                    PvLoadData(Idpetugas.ToString(CultureInfo.InvariantCulture), 4);
-                    InisiasiListView(2);
-                }
+                if (kontrol.Name != "txtKelompok")
+                    kontrol.Text = "";
             }
+            txtCariMenu.Text = "";
+            cmbStatusID.Text = "";
+            lvDaftarMenu.Items.Clear();
+        }
+
+        private void btnBatal_Click(object sender, EventArgs e)
+        {
+            Bersih2();
+        }
+
+        private void batalkanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PvSimpanData(true);
+        }
+
+        private void aktifkanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PvSimpanData(true, false);
         }
 
         /* EOF PRIVATE FUNCTION */

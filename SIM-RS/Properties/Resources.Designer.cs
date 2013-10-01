@@ -71,7 +71,7 @@ namespace SIM_RS.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SILAHKAN LENGKAPI DATA.
+        ///   Looks up a localized string similar to PENGGUNA ATAU PROGRAM TIDAK DITEMUKAN.
         /// </summary>
         internal static string DaftarHakAkses_btnSimpan_Click_SILAHKAN_LENGKAPI_DATA {
             get {
@@ -89,8 +89,7 @@ namespace SIM_RS.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USER SUDAH PUNYA MENU TERSEBUT
-        ///ATAU MENU TIDAK DITEMUKAN.
+        ///   Looks up a localized string similar to USER SUDAH PUNYA MENU TERSEBUT.
         /// </summary>
         internal static string DaftarHakAkses_PvSimpanData_ {
             get {
