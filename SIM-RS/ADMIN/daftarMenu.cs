@@ -173,8 +173,19 @@ namespace SIM_RS.ADMIN
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != "")) this.pvSimpanData();
-                else MessageBox.Show("cek inputan");
+            if ((txtNamaMenu.Text.Trim().ToString() != "") && (txtNamaAppBaru.Text.Trim().ToString() != ""))
+            {
+                if (!this.pvSimpanData())
+                {
+                    MessageBox.Show("Data tidak bisa tersimpan, Mohon periksa kembali isian anda",
+                                    "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                MessageBox.Show("Data sudah tersimpan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.pvBersihkanForm();            
+            }
+            else MessageBox.Show("cek inputan");
         }
 
         private void btnCariMenu_Click(object sender, EventArgs e)
