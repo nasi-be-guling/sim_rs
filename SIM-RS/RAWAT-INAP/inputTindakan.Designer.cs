@@ -80,8 +80,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnKomponenTarif = new System.Windows.Forms.Button();
             this.btnBatalTindakan = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbKomponenTarif = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -200,7 +201,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(27, 67);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -249,7 +250,6 @@
             this.txtKodeTindakan.TabIndex = 84;
             this.txtKodeTindakan.Enter += new System.EventHandler(this.txtKodeTindakan_Enter);
             this.txtKodeTindakan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtKodeTindakan_KeyDown);
-            this.txtKodeTindakan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKodeTindakan_KeyPress);
             this.txtKodeTindakan.Leave += new System.EventHandler(this.txtKodeTindakan_Leave);
             // 
             // lblDeskripsiTindakan
@@ -311,7 +311,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(296, 125);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi :";
             // 
@@ -637,7 +637,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(27, 89);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -649,7 +649,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(584, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -707,8 +707,9 @@
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel5.Controls.Add(this.btnKomponenTarif);
             this.panel5.Controls.Add(this.btnBatalTindakan);
-            this.panel5.Controls.Add(this.comboBox1);
+            this.panel5.Controls.Add(this.cmbKomponenTarif);
             this.panel5.Controls.Add(this.label11);
             this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.dtpTglTindakan);
@@ -732,6 +733,22 @@
             this.panel5.Size = new System.Drawing.Size(1007, 225);
             this.panel5.TabIndex = 117;
             // 
+            // btnKomponenTarif
+            // 
+            this.btnKomponenTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnKomponenTarif.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnKomponenTarif.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnKomponenTarif.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnKomponenTarif.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnKomponenTarif.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKomponenTarif.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKomponenTarif.Location = new System.Drawing.Point(439, 146);
+            this.btnKomponenTarif.Name = "btnKomponenTarif";
+            this.btnKomponenTarif.Size = new System.Drawing.Size(59, 26);
+            this.btnKomponenTarif.TabIndex = 115;
+            this.btnKomponenTarif.Text = "&DETAIL";
+            this.btnKomponenTarif.UseVisualStyleBackColor = false;
+            // 
             // btnBatalTindakan
             // 
             this.btnBatalTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
@@ -748,13 +765,13 @@
             this.btnBatalTindakan.Text = "&BATAL";
             this.btnBatalTindakan.UseVisualStyleBackColor = false;
             // 
-            // comboBox1
+            // cmbKomponenTarif
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(148, 146);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(285, 26);
-            this.comboBox1.TabIndex = 113;
+            this.cmbKomponenTarif.FormattingEnabled = true;
+            this.cmbKomponenTarif.Location = new System.Drawing.Point(148, 146);
+            this.cmbKomponenTarif.Name = "cmbKomponenTarif";
+            this.cmbKomponenTarif.Size = new System.Drawing.Size(285, 26);
+            this.cmbKomponenTarif.TabIndex = 113;
             // 
             // label11
             // 
@@ -877,9 +894,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnBatalTindakan;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbKomponenTarif;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnKomponenTarif;
     }
 }
 
