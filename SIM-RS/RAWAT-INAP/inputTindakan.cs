@@ -71,7 +71,8 @@ namespace SIM_RS.RAWAT_INAP
             public double dblHak3 { get; set; }
             public int intPrioritasTunai {get; set;}
             public int intNoUrut { get; set; }
-
+            public string strKodeDokter { get; set; }
+            public string strNamaDokter { get; set; }
         }
 
         public List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
@@ -86,7 +87,6 @@ namespace SIM_RS.RAWAT_INAP
             public double dblHak3 { get; set; }
             public int intPrioritasTunai { get; set; }
             public int intNoUrut { get; set; }
-
         }
 
         public List<lstDaftarLengkapKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarLengkapKomponenTarif>();
@@ -97,8 +97,6 @@ namespace SIM_RS.RAWAT_INAP
             public string strKodeTarif { get; set; }
             public string strUraianTarif { get; set; }
             public double dblBiaya { get; set; }
-            public string strKodeDokter { get; set; }
-            public string strNamaDokter { get; set; }
             public string strTSMFTindakan { get; set; }
             public string strTempatLayanan { get; set; }
             public int intIdTempatLayanan { get; set; }
@@ -121,7 +119,7 @@ namespace SIM_RS.RAWAT_INAP
             public string strNamaRuang { get; set; }
         }
         List<lstTempatLayanan> grpLstTempatLayanan = new List<lstTempatLayanan>();
-
+        
 
         /*  FUNCTION  */
 
@@ -1140,10 +1138,10 @@ namespace SIM_RS.RAWAT_INAP
             {
                 /*Cek kode tindakan di database*/
 
-                String[] strArrPart = Regex.Split(txtKodeTindakan.Text.Trim().ToString(), "--");
+                String[] strKodePart = Regex.Split(txtKodeTindakan.Text.Trim().ToString(), "--");
 
-                string strKode = strArrPart[0].Trim().ToString();
-                string strUraian = strArrPart[1].Trim().ToString();
+                string strKode = strKodePart[0].Trim().ToString();
+                string strUraian = strKodePart[1].Trim().ToString();
 
                 int intResultSearch = grpLstDaftarTarif.FindIndex(
                                         m => m.strKodeTarif == strKode);
@@ -1415,11 +1413,11 @@ namespace SIM_RS.RAWAT_INAP
             lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
             itemTindakan.strKodeTarif = strKodeTindakan;
             itemTindakan.intNoUrut = intUrutanTrans;
-            itemTindakan.strKodeDokter = strKodeDokter;
+            //itemTindakan.strKodeDokter = strKodeDokter;
             itemTindakan.strUraianTarif = strUraianTindakan;
             itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
             //itemTindakan.intNoUrut = grpLstDaftarTindakan.Count + 1;
-            itemTindakan.strNamaDokter = strNamaDokter;
+            //itemTindakan.strNamaDokter = strNamaDokter;
             
             itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
 
