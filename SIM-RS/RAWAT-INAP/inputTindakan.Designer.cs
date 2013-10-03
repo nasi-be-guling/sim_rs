@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNoBilling = new System.Windows.Forms.TextBox();
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
@@ -86,6 +87,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.bgWorkLoadDataInit = new System.ComponentModel.BackgroundWorker();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnTambahKompDokter = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -111,7 +115,7 @@
             this.txtNoBilling.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNoBilling.BackColor = System.Drawing.Color.White;
             this.txtNoBilling.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoBilling.Location = new System.Drawing.Point(193, 8);
+            this.txtNoBilling.Location = new System.Drawing.Point(190, 8);
             this.txtNoBilling.Name = "txtNoBilling";
             this.txtNoBilling.Size = new System.Drawing.Size(188, 30);
             this.txtNoBilling.TabIndex = 1;
@@ -133,9 +137,9 @@
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(10, 28);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(16, 30);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(987, 246);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(976, 210);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -202,7 +206,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(27, 67);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -236,7 +240,7 @@
             this.lblKodeTindakan.AutoSize = true;
             this.lblKodeTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblKodeTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKodeTindakan.Location = new System.Drawing.Point(27, 99);
+            this.lblKodeTindakan.Location = new System.Drawing.Point(27, 110);
             this.lblKodeTindakan.Name = "lblKodeTindakan";
             this.lblKodeTindakan.Size = new System.Drawing.Size(91, 18);
             this.lblKodeTindakan.TabIndex = 83;
@@ -245,7 +249,7 @@
             // txtKodeTindakan
             // 
             this.txtKodeTindakan.BackColor = System.Drawing.Color.White;
-            this.txtKodeTindakan.Location = new System.Drawing.Point(148, 96);
+            this.txtKodeTindakan.Location = new System.Drawing.Point(148, 107);
             this.txtKodeTindakan.Name = "txtKodeTindakan";
             this.txtKodeTindakan.Size = new System.Drawing.Size(612, 26);
             this.txtKodeTindakan.TabIndex = 84;
@@ -259,7 +263,7 @@
             this.lblDeskripsiTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblDeskripsiTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDeskripsiTindakan.ForeColor = System.Drawing.Color.Black;
-            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(373, 125);
+            this.lblDeskripsiTindakan.Location = new System.Drawing.Point(373, 136);
             this.lblDeskripsiTindakan.Name = "lblDeskripsiTindakan";
             this.lblDeskripsiTindakan.Size = new System.Drawing.Size(23, 18);
             this.lblDeskripsiTindakan.TabIndex = 85;
@@ -270,7 +274,7 @@
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label17.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(145, 125);
+            this.label17.Location = new System.Drawing.Point(145, 136);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(58, 18);
             this.label17.TabIndex = 86;
@@ -282,7 +286,7 @@
             this.lblBiayaTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblBiayaTindakan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBiayaTindakan.ForeColor = System.Drawing.Color.Black;
-            this.lblBiayaTindakan.Location = new System.Drawing.Point(198, 125);
+            this.lblBiayaTindakan.Location = new System.Drawing.Point(198, 136);
             this.lblBiayaTindakan.Name = "lblBiayaTindakan";
             this.lblBiayaTindakan.Size = new System.Drawing.Size(23, 18);
             this.lblBiayaTindakan.TabIndex = 87;
@@ -290,18 +294,18 @@
             // 
             // btnTambahTindakan
             // 
-            this.btnTambahTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnTambahTindakan.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnTambahTindakan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnTambahTindakan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
             this.btnTambahTindakan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTambahTindakan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTambahTindakan.Location = new System.Drawing.Point(766, 178);
+            this.btnTambahTindakan.Location = new System.Drawing.Point(789, 222);
             this.btnTambahTindakan.Name = "btnTambahTindakan";
-            this.btnTambahTindakan.Size = new System.Drawing.Size(33, 26);
+            this.btnTambahTindakan.Size = new System.Drawing.Size(138, 26);
             this.btnTambahTindakan.TabIndex = 91;
-            this.btnTambahTindakan.Text = "&+";
+            this.btnTambahTindakan.Text = "&TAMBAH TINDAKAN";
             this.btnTambahTindakan.UseVisualStyleBackColor = false;
             this.btnTambahTindakan.Click += new System.EventHandler(this.btnTambahTindakan_Click);
             // 
@@ -310,9 +314,9 @@
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(296, 125);
+            this.label22.Location = new System.Drawing.Point(296, 136);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi :";
             // 
@@ -389,7 +393,7 @@
             this.lblDokter.AutoSize = true;
             this.lblDokter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblDokter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDokter.Location = new System.Drawing.Point(27, 181);
+            this.lblDokter.Location = new System.Drawing.Point(27, 192);
             this.lblDokter.Name = "lblDokter";
             this.lblDokter.Size = new System.Drawing.Size(66, 18);
             this.lblDokter.TabIndex = 99;
@@ -398,7 +402,7 @@
             // txtNamaDokter
             // 
             this.txtNamaDokter.BackColor = System.Drawing.Color.White;
-            this.txtNamaDokter.Location = new System.Drawing.Point(148, 178);
+            this.txtNamaDokter.Location = new System.Drawing.Point(148, 189);
             this.txtNamaDokter.Name = "txtNamaDokter";
             this.txtNamaDokter.Size = new System.Drawing.Size(612, 26);
             this.txtNamaDokter.TabIndex = 100;
@@ -421,17 +425,17 @@
             // 
             // btnTampilDaftarTindakan
             // 
-            this.btnTampilDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnTampilDaftarTindakan.BackColor = System.Drawing.Color.Gold;
             this.btnTampilDaftarTindakan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnTampilDaftarTindakan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTampilDaftarTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTampilDaftarTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTampilDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(766, 96);
+            this.btnTampilDaftarTindakan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTampilDaftarTindakan.Location = new System.Drawing.Point(766, 107);
             this.btnTampilDaftarTindakan.Name = "btnTampilDaftarTindakan";
-            this.btnTampilDaftarTindakan.Size = new System.Drawing.Size(33, 26);
+            this.btnTampilDaftarTindakan.Size = new System.Drawing.Size(109, 26);
             this.btnTampilDaftarTindakan.TabIndex = 105;
-            this.btnTampilDaftarTindakan.Text = "&#";
+            this.btnTampilDaftarTindakan.Text = "&DAFTAR TARIF";
             this.btnTampilDaftarTindakan.UseVisualStyleBackColor = false;
             this.btnTampilDaftarTindakan.Click += new System.EventHandler(this.btnTampilDaftarTindakan_Click);
             this.btnTampilDaftarTindakan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnTampilDaftarTindakan_KeyPress);
@@ -456,9 +460,9 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.lblDaftarTindakan);
             this.panel1.Controls.Add(this.lvDaftarTindakan);
-            this.panel1.Location = new System.Drawing.Point(8, 419);
+            this.panel1.Location = new System.Drawing.Point(8, 456);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 284);
+            this.panel1.Size = new System.Drawing.Size(1007, 251);
             this.panel1.TabIndex = 112;
             // 
             // panel2
@@ -470,7 +474,7 @@
             this.panel2.Controls.Add(this.txtNoBilling);
             this.panel2.Location = new System.Drawing.Point(8, 8);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(794, 45);
+            this.panel2.Size = new System.Drawing.Size(900, 45);
             this.panel2.TabIndex = 113;
             // 
             // lblInfoPencarian
@@ -498,14 +502,14 @@
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.BackColor = System.Drawing.Color.Gold;
+            this.button1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.button1.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(867, 15);
+            this.button1.Location = new System.Drawing.Point(917, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 27);
             this.button1.TabIndex = 115;
@@ -638,7 +642,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(27, 89);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -650,7 +654,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(584, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -708,6 +712,8 @@
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel5.Controls.Add(this.label14);
+            this.panel5.Controls.Add(this.btnTambahKompDokter);
             this.panel5.Controls.Add(this.btnKomponenTarif);
             this.panel5.Controls.Add(this.btnBatalTindakan);
             this.panel5.Controls.Add(this.cmbKomponenTarif);
@@ -731,45 +737,48 @@
             this.panel5.Controls.Add(this.label13);
             this.panel5.Location = new System.Drawing.Point(8, 188);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1007, 225);
+            this.panel5.Size = new System.Drawing.Size(1007, 262);
             this.panel5.TabIndex = 117;
             // 
             // btnKomponenTarif
             // 
-            this.btnKomponenTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnKomponenTarif.BackColor = System.Drawing.Color.Gold;
+            this.btnKomponenTarif.Enabled = false;
             this.btnKomponenTarif.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnKomponenTarif.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
             this.btnKomponenTarif.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKomponenTarif.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKomponenTarif.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKomponenTarif.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKomponenTarif.Location = new System.Drawing.Point(439, 146);
+            this.btnKomponenTarif.Location = new System.Drawing.Point(439, 157);
             this.btnKomponenTarif.Name = "btnKomponenTarif";
-            this.btnKomponenTarif.Size = new System.Drawing.Size(59, 26);
+            this.btnKomponenTarif.Size = new System.Drawing.Size(112, 26);
             this.btnKomponenTarif.TabIndex = 115;
-            this.btnKomponenTarif.Text = "&DETAIL";
+            this.btnKomponenTarif.Text = "DAFTAR D&ETAIL";
             this.btnKomponenTarif.UseVisualStyleBackColor = false;
             // 
             // btnBatalTindakan
             // 
-            this.btnBatalTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
+            this.btnBatalTindakan.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnBatalTindakan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnBatalTindakan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
             this.btnBatalTindakan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatalTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatalTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBatalTindakan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatalTindakan.Location = new System.Drawing.Point(805, 96);
+            this.btnBatalTindakan.Location = new System.Drawing.Point(933, 222);
             this.btnBatalTindakan.Name = "btnBatalTindakan";
             this.btnBatalTindakan.Size = new System.Drawing.Size(59, 26);
             this.btnBatalTindakan.TabIndex = 114;
             this.btnBatalTindakan.Text = "&BATAL";
             this.btnBatalTindakan.UseVisualStyleBackColor = false;
+            this.btnBatalTindakan.Click += new System.EventHandler(this.btnBatalTindakan_Click);
             // 
             // cmbKomponenTarif
             // 
+            this.cmbKomponenTarif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKomponenTarif.FormattingEnabled = true;
-            this.cmbKomponenTarif.Location = new System.Drawing.Point(148, 146);
+            this.cmbKomponenTarif.Location = new System.Drawing.Point(148, 157);
             this.cmbKomponenTarif.Name = "cmbKomponenTarif";
             this.cmbKomponenTarif.Size = new System.Drawing.Size(285, 26);
             this.cmbKomponenTarif.TabIndex = 113;
@@ -779,7 +788,7 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(27, 149);
+            this.label11.Location = new System.Drawing.Point(27, 160);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(78, 18);
             this.label11.TabIndex = 112;
@@ -802,6 +811,34 @@
             // bgWorkLoadDataInit
             // 
             this.bgWorkLoadDataInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkLoadDataInit_DoWork);
+            // 
+            // btnTambahKompDokter
+            // 
+            this.btnTambahKompDokter.BackColor = System.Drawing.Color.Gold;
+            this.btnTambahKompDokter.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnTambahKompDokter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTambahKompDokter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTambahKompDokter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTambahKompDokter.Location = new System.Drawing.Point(766, 189);
+            this.btnTambahKompDokter.Name = "btnTambahKompDokter";
+            this.btnTambahKompDokter.Size = new System.Drawing.Size(33, 26);
+            this.btnTambahKompDokter.TabIndex = 116;
+            this.btnTambahKompDokter.Text = "&+";
+            this.btnTambahKompDokter.UseVisualStyleBackColor = false;
+            this.btnTambahKompDokter.Click += new System.EventHandler(this.btnTambahKompDokter_Click);
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(23, 97);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(962, 3);
+            this.label14.TabIndex = 117;
+            this.label14.Text = "No Transaksi : ";
+            this.label14.Visible = false;
             // 
             // inputTindakan
             // 
@@ -904,6 +941,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnKomponenTarif;
         private System.ComponentModel.BackgroundWorker bgWorkLoadDataInit;
+        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Button btnTambahKompDokter;
+        private System.Windows.Forms.Label label14;
     }
 }
 
