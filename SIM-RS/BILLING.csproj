@@ -165,6 +165,12 @@
     <Compile Include="RAWAT-INAP\daftarTindakan.Designer.cs">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.Designer.cs">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\inputTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </Compile>
     <EmbeddedResource Include="RAWAT-INAP\daftarTindakan.resx">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\inputKeringanan.resx">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>

@@ -122,26 +122,26 @@ namespace SIM_RS.RAWAT_INAP
         *  DATE        : 19-02-2013    
         */
 
-        private void pvLoadDataInisialasi()
-        {
-            this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+        //private void pvLoadDataInisialasi()
+        //{
+        //    this.strErr = "";
+        //    C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
-            }
+        //    SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+        //    if (strErr != "")
+        //    {
+        //        modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+        //        return;
+        //    }
 
           
 
 
            
-            conn.Close();
-            lblPetugas.Text = halamanUtama.strNamaUser;
+        //    conn.Close();
+        //    lblPetugas.Text = halamanUtama.strNamaUser;
 
-        }
+        //}
 
 
       //  /*
@@ -221,9 +221,13 @@ namespace SIM_RS.RAWAT_INAP
             modMain.pvUrutkanTab(txtKodeTindakan, ref intNoUrutObject);
             
             modMain.pvUrutkanTab(btnTampilDaftarTindakan, ref intNoUrutObject);
-            
+
+            modMain.pvUrutkanTab(lblKomponen, ref intNoUrutObject);
+            modMain.pvUrutkanTab(cmbKomponenTarif, ref intNoUrutObject);
+
             modMain.pvUrutkanTab(lblDokter, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtNamaDokter, ref intNoUrutObject);
+            modMain.pvUrutkanTab(btnTambahKompDokter, ref intNoUrutObject);
             
             modMain.pvUrutkanTab(btnTambahTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnSimpanIsiTindakan, ref intNoUrutObject);
@@ -710,7 +714,7 @@ namespace SIM_RS.RAWAT_INAP
 
             this.pvCleanInput();
             this.pvIniSialisasiObject();
-            this.pvLoadDataInisialasi();            
+            //this.pvLoadDataInisialasi();            
             this.pvDisableInput();
 
             
@@ -935,6 +939,7 @@ namespace SIM_RS.RAWAT_INAP
                 }
                 else
                 {
+                    btnTambahKompDokter.Focus();
                     
                 }
 
@@ -981,6 +986,7 @@ namespace SIM_RS.RAWAT_INAP
                     if (DetailKomponen.Count() > 0)
                     {
                         cmbKomponenTarif.Items.Clear();
+                        cmbKomponenTarif.Enabled = true;
                         grpLstTempTindakanDetail.Clear();
                         foreach (lstDaftarKomponenTarif itemKomponen in DetailKomponen)
                         {
@@ -1010,6 +1016,10 @@ namespace SIM_RS.RAWAT_INAP
                     lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultSearch].strUraianTarif;
                     btnTampilDaftarTindakan.Enabled = false;
                     txtKodeTindakan.Enabled = false;
+                    if (cmbKomponenTarif.Enabled)
+                    {
+                        cmbKomponenTarif.Focus();
+                    }
                 }
             }
         }
@@ -1170,9 +1180,9 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.Text = "";
             //dtpTglTindakan.Focus();
             lvDaftarTindakan.HideSelection = false;
-            lvDaftarTindakan.Focus();
             grpLstTempTindakanDetail.Clear();
 
+            txtKodeTindakan.Focus();
 
            
 
@@ -1661,6 +1671,8 @@ namespace SIM_RS.RAWAT_INAP
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
             cmbKomponenTarif.Enabled = true;
+
+            txtKodeTindakan.Focus();
         }
 
         private void btnTambahKompDokter_Click(object sender, EventArgs e)
@@ -1755,9 +1767,11 @@ namespace SIM_RS.RAWAT_INAP
 
                 } /* EOF  if ((strKodeNama != "") && (!boolBypassDokter)) */
 
+                bool isSelainJS = false; //digunakan untuk mengecek ada tindakan selain Jasa Sarana
                 int intUrut = 0;
                 string strKomponenTarif = cmbKomponenTarif.Text.Trim().ToString();
                 cmbKomponenTarif.Items.Clear();
+
                 foreach (lstDaftarKomponenTarif x in grpLstTempTindakanDetail)
                 {
                     if (x.strId_Komponen.Trim().ToString() == strKomponenTarif)
@@ -1768,11 +1782,20 @@ namespace SIM_RS.RAWAT_INAP
                     else
                     {
                         cmbKomponenTarif.Items.Add(x.strId_Komponen);
+                        if (x.strId_Komponen.Trim().ToString() != "JASA SARANA")
+                            isSelainJS = true;
                     }
+
                     intUrut++;;
                 }
 
                 txtNamaDokter.Text = "";
+
+                if (isSelainJS) //jika masih ada komponen selain jasa sarana, harusnya diperlukan entry dokter lagi..               
+                {
+                    cmbKomponenTarif.Focus();
+                }
+
                 //txtKodeTindakan.Focus();
 
             } /* EOF if (txtKodeTindakan.Text.Trim().ToString() != "")*/
