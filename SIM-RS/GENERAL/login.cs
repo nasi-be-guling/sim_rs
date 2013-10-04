@@ -49,7 +49,7 @@ namespace SIM_RS
             bool boolPetugasAda = false;
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
@@ -198,12 +198,6 @@ namespace SIM_RS
         private void login_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-
-            
-            
-
-           
-
         }
 
         private void login_KeyDown(object sender, KeyEventArgs e)
@@ -258,7 +252,7 @@ namespace SIM_RS
             bool boolPetugasAda = false;
 
             this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_CONN;
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
             SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")

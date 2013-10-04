@@ -16,3 +16,6 @@ SIM-RS/obj/x86/Debug/edmxResourcesToEmbed/*.*
 _ReSharper.SIM-RS/*.*
 _ReSharper.SIM-RS/*
 SIM-RS/bin/Debug/*.*
+SIM-RS/DLL
+packages/*.*
+SIM-RS/packages.config
