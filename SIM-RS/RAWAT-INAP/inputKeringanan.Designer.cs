@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNoBilling = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlDaftarTindakan = new System.Windows.Forms.Panel();
             this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,8 +42,8 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnKeluarIsiTindakan = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblStatusPasien = new System.Windows.Forms.Label();
@@ -59,9 +60,31 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.bgWork = new System.ComponentModel.BackgroundWorker();
+            this.pnlInputKeringanan = new System.Windows.Forms.Panel();
+            this.btnBatal = new System.Windows.Forms.Button();
+            this.btnSimpan = new System.Windows.Forms.Button();
+            this.chkRubahDokter = new System.Windows.Forms.CheckBox();
+            this.txtNamaDokter = new System.Windows.Forms.TextBox();
+            this.lblDokter = new System.Windows.Forms.Label();
+            this.lblNilaiTarif = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtNominalKeringanan = new System.Windows.Forms.TextBox();
+            this.lblKomponenTarif = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblUraianTarif = new System.Windows.Forms.Label();
+            this.lblKodeTarif = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rubahDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgWorkLoadDataInit = new System.ComponentModel.BackgroundWorker();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnlDaftarTindakan.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.pnlInputKeringanan.SuspendLayout();
+            this.cmsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -111,16 +134,16 @@
             this.txtNoBilling.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtNoBilling.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoBilling_KeyPress);
             // 
-            // panel1
+            // pnlDaftarTindakan
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel1.Controls.Add(this.lblDaftarTindakan);
-            this.panel1.Controls.Add(this.lvDaftarTindakan);
-            this.panel1.Location = new System.Drawing.Point(12, 188);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 361);
-            this.panel1.TabIndex = 115;
+            this.pnlDaftarTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pnlDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.pnlDaftarTindakan.Controls.Add(this.lblDaftarTindakan);
+            this.pnlDaftarTindakan.Controls.Add(this.lvDaftarTindakan);
+            this.pnlDaftarTindakan.Location = new System.Drawing.Point(12, 172);
+            this.pnlDaftarTindakan.Name = "pnlDaftarTindakan";
+            this.pnlDaftarTindakan.Size = new System.Drawing.Size(776, 377);
+            this.pnlDaftarTindakan.TabIndex = 115;
             // 
             // lblDaftarTindakan
             // 
@@ -138,7 +161,9 @@
             // 
             // lvDaftarTindakan
             // 
-            this.lvDaftarTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lvDaftarTindakan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDaftarTindakan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader1,
@@ -146,17 +171,18 @@
             this.columnHeader7,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader6,
-            this.columnHeader8});
+            this.columnHeader8,
+            this.columnHeader6});
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(4, 24);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(4, 25);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(766, 332);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(766, 347);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
+            this.lvDaftarTindakan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvDaftarTindakan_MouseClick);
             // 
             // columnHeader5
             // 
@@ -165,12 +191,12 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Kode Tindakan";
+            this.columnHeader1.Text = "Kode Tarif";
             this.columnHeader1.Width = 129;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Uraian Tindakan";
+            this.columnHeader2.Text = "Uraian Tarif";
             this.columnHeader2.Width = 143;
             // 
             // columnHeader7
@@ -189,15 +215,16 @@
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader4.Width = 69;
             // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Keringanan";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader8.Width = 100;
+            // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Dokter";
             this.columnHeader6.Width = 74;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Keringanan";
-            this.columnHeader8.Width = 100;
             // 
             // btnKeluarIsiTindakan
             // 
@@ -236,7 +263,7 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Location = new System.Drawing.Point(12, 68);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(776, 114);
+            this.panel4.Size = new System.Drawing.Size(776, 98);
             this.panel4.TabIndex = 117;
             // 
             // lblStatusPasien
@@ -293,7 +320,7 @@
             this.lblAlamatPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblAlamatPasien.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlamatPasien.ForeColor = System.Drawing.Color.Black;
-            this.lblAlamatPasien.Location = new System.Drawing.Point(207, 74);
+            this.lblAlamatPasien.Location = new System.Drawing.Point(207, 63);
             this.lblAlamatPasien.Name = "lblAlamatPasien";
             this.lblAlamatPasien.Size = new System.Drawing.Size(28, 23);
             this.lblAlamatPasien.TabIndex = 120;
@@ -327,7 +354,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(116, 79);
+            this.label7.Location = new System.Drawing.Point(116, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 116;
@@ -395,6 +422,234 @@
             // 
             this.bgWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_DoWork);
             // 
+            // pnlInputKeringanan
+            // 
+            this.pnlInputKeringanan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pnlInputKeringanan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.pnlInputKeringanan.Controls.Add(this.btnBatal);
+            this.pnlInputKeringanan.Controls.Add(this.btnSimpan);
+            this.pnlInputKeringanan.Controls.Add(this.chkRubahDokter);
+            this.pnlInputKeringanan.Controls.Add(this.txtNamaDokter);
+            this.pnlInputKeringanan.Controls.Add(this.lblDokter);
+            this.pnlInputKeringanan.Controls.Add(this.lblNilaiTarif);
+            this.pnlInputKeringanan.Controls.Add(this.label13);
+            this.pnlInputKeringanan.Controls.Add(this.txtNominalKeringanan);
+            this.pnlInputKeringanan.Controls.Add(this.lblKomponenTarif);
+            this.pnlInputKeringanan.Controls.Add(this.label14);
+            this.pnlInputKeringanan.Controls.Add(this.label12);
+            this.pnlInputKeringanan.Controls.Add(this.lblUraianTarif);
+            this.pnlInputKeringanan.Controls.Add(this.lblKodeTarif);
+            this.pnlInputKeringanan.Controls.Add(this.label11);
+            this.pnlInputKeringanan.Controls.Add(this.label10);
+            this.pnlInputKeringanan.Controls.Add(this.label9);
+            this.pnlInputKeringanan.Location = new System.Drawing.Point(12, 172);
+            this.pnlInputKeringanan.Name = "pnlInputKeringanan";
+            this.pnlInputKeringanan.Size = new System.Drawing.Size(776, 198);
+            this.pnlInputKeringanan.TabIndex = 118;
+            // 
+            // btnBatal
+            // 
+            this.btnBatal.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnBatal.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnBatal.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnBatal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatal.Location = new System.Drawing.Point(686, 154);
+            this.btnBatal.Name = "btnBatal";
+            this.btnBatal.Size = new System.Drawing.Size(68, 33);
+            this.btnBatal.TabIndex = 128;
+            this.btnBatal.Text = "&BATAL";
+            this.btnBatal.UseVisualStyleBackColor = false;
+            this.btnBatal.Click += new System.EventHandler(this.btnBatalTindakan_Click);
+            // 
+            // btnSimpan
+            // 
+            this.btnSimpan.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnSimpan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnSimpan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnSimpan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpan.Location = new System.Drawing.Point(607, 154);
+            this.btnSimpan.Name = "btnSimpan";
+            this.btnSimpan.Size = new System.Drawing.Size(68, 33);
+            this.btnSimpan.TabIndex = 127;
+            this.btnSimpan.Text = "&SIMPAN";
+            this.btnSimpan.UseVisualStyleBackColor = false;
+            this.btnSimpan.Click += new System.EventHandler(this.btnSimpan_Click);
+            // 
+            // chkRubahDokter
+            // 
+            this.chkRubahDokter.AutoSize = true;
+            this.chkRubahDokter.Location = new System.Drawing.Point(118, 128);
+            this.chkRubahDokter.Name = "chkRubahDokter";
+            this.chkRubahDokter.Size = new System.Drawing.Size(15, 14);
+            this.chkRubahDokter.TabIndex = 126;
+            this.chkRubahDokter.UseVisualStyleBackColor = true;
+            this.chkRubahDokter.CheckedChanged += new System.EventHandler(this.chkRubahDokter_CheckedChanged);
+            // 
+            // txtNamaDokter
+            // 
+            this.txtNamaDokter.BackColor = System.Drawing.Color.White;
+            this.txtNamaDokter.Location = new System.Drawing.Point(142, 121);
+            this.txtNamaDokter.Name = "txtNamaDokter";
+            this.txtNamaDokter.Size = new System.Drawing.Size(612, 27);
+            this.txtNamaDokter.TabIndex = 125;
+            // 
+            // lblDokter
+            // 
+            this.lblDokter.AutoSize = true;
+            this.lblDokter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblDokter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDokter.Location = new System.Drawing.Point(41, 125);
+            this.lblDokter.Name = "lblDokter";
+            this.lblDokter.Size = new System.Drawing.Size(66, 18);
+            this.lblDokter.TabIndex = 124;
+            this.lblDokter.Text = "&Dokter : ";
+            // 
+            // lblNilaiTarif
+            // 
+            this.lblNilaiTarif.AutoSize = true;
+            this.lblNilaiTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblNilaiTarif.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNilaiTarif.Location = new System.Drawing.Point(139, 92);
+            this.lblNilaiTarif.Name = "lblNilaiTarif";
+            this.lblNilaiTarif.Size = new System.Drawing.Size(23, 18);
+            this.lblNilaiTarif.TabIndex = 123;
+            this.lblNilaiTarif.Text = "...";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(385, 92);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(90, 18);
+            this.label13.TabIndex = 122;
+            this.label13.Text = "Keringanan :";
+            // 
+            // txtNominalKeringanan
+            // 
+            this.txtNominalKeringanan.BackColor = System.Drawing.Color.White;
+            this.txtNominalKeringanan.Location = new System.Drawing.Point(485, 88);
+            this.txtNominalKeringanan.Name = "txtNominalKeringanan";
+            this.txtNominalKeringanan.Size = new System.Drawing.Size(172, 27);
+            this.txtNominalKeringanan.TabIndex = 121;
+            // 
+            // lblKomponenTarif
+            // 
+            this.lblKomponenTarif.AutoSize = true;
+            this.lblKomponenTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblKomponenTarif.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKomponenTarif.Location = new System.Drawing.Point(482, 32);
+            this.lblKomponenTarif.Name = "lblKomponenTarif";
+            this.lblKomponenTarif.Size = new System.Drawing.Size(23, 18);
+            this.lblKomponenTarif.TabIndex = 120;
+            this.lblKomponenTarif.Text = "...";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label14.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(385, 32);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(93, 18);
+            this.label14.TabIndex = 119;
+            this.label14.Text = "Komponen : ";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(42, 92);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 18);
+            this.label12.TabIndex = 118;
+            this.label12.Text = "Nominal : ";
+            // 
+            // lblUraianTarif
+            // 
+            this.lblUraianTarif.AutoSize = true;
+            this.lblUraianTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblUraianTarif.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUraianTarif.Location = new System.Drawing.Point(140, 62);
+            this.lblUraianTarif.Name = "lblUraianTarif";
+            this.lblUraianTarif.Size = new System.Drawing.Size(23, 18);
+            this.lblUraianTarif.TabIndex = 116;
+            this.lblUraianTarif.Text = "...";
+            // 
+            // lblKodeTarif
+            // 
+            this.lblKodeTarif.AutoSize = true;
+            this.lblKodeTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblKodeTarif.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKodeTarif.Location = new System.Drawing.Point(139, 32);
+            this.lblKodeTarif.Name = "lblKodeTarif";
+            this.lblKodeTarif.Size = new System.Drawing.Size(23, 18);
+            this.lblKodeTarif.TabIndex = 115;
+            this.lblKodeTarif.Text = "...";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(42, 62);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(99, 18);
+            this.label11.TabIndex = 114;
+            this.label11.Text = "Uraian Tarif : ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(42, 32);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 18);
+            this.label10.TabIndex = 113;
+            this.label10.Text = "Kode Tarif : ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(147, 20);
+            this.label9.TabIndex = 111;
+            this.label9.Text = "INPUT KERINGANAN";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // cmsMenu
+            // 
+            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rubahDataToolStripMenuItem});
+            this.cmsMenu.Name = "cmsMenu";
+            this.cmsMenu.Size = new System.Drawing.Size(136, 26);
+            this.cmsMenu.Opening += new System.ComponentModel.CancelEventHandler(this.cmsMenu_Opening);
+            // 
+            // rubahDataToolStripMenuItem
+            // 
+            this.rubahDataToolStripMenuItem.Name = "rubahDataToolStripMenuItem";
+            this.rubahDataToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.rubahDataToolStripMenuItem.Text = "Rubah Data";
+            this.rubahDataToolStripMenuItem.Click += new System.EventHandler(this.rubahDataToolStripMenuItem_Click);
+            // 
+            // bgWorkLoadDataInit
+            // 
+            this.bgWorkLoadDataInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkLoadDataInit_DoWork);
+            // 
             // inputKeringanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -403,19 +658,24 @@
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.btnKeluarIsiTindakan);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlDaftarTindakan);
+            this.Controls.Add(this.pnlInputKeringanan);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "inputKeringanan";
-            this.Text = "inputKeringanan";
+            this.Text = " ";
+            this.Load += new System.EventHandler(this.inputKeringanan_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlDaftarTindakan.ResumeLayout(false);
+            this.pnlDaftarTindakan.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.pnlInputKeringanan.ResumeLayout(false);
+            this.pnlInputKeringanan.PerformLayout();
+            this.cmsMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -426,7 +686,7 @@
         private System.Windows.Forms.Label lblInfoPencarian;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNoBilling;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlDaftarTindakan;
         private System.Windows.Forms.Label lblDaftarTindakan;
         private System.Windows.Forms.ListView lvDaftarTindakan;
         private System.Windows.Forms.ColumnHeader columnHeader5;
@@ -453,5 +713,25 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.ComponentModel.BackgroundWorker bgWork;
         private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.Panel pnlInputKeringanan;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblUraianTarif;
+        private System.Windows.Forms.Label lblKodeTarif;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblNilaiTarif;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtNominalKeringanan;
+        private System.Windows.Forms.Label lblKomponenTarif;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox chkRubahDokter;
+        public System.Windows.Forms.TextBox txtNamaDokter;
+        private System.Windows.Forms.Label lblDokter;
+        private System.Windows.Forms.Button btnBatal;
+        private System.Windows.Forms.Button btnSimpan;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem rubahDataToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker bgWorkLoadDataInit;
     }
 }
