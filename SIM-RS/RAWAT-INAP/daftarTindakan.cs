@@ -168,7 +168,7 @@ namespace SIM_RS.RAWAT_INAP
             if (isUserSelected)
             {
                 inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-                fInputTindakan.btnTampilDaftarTindakan.Enabled = false;
+                fInputTindakan.btnTampilDaftarTarif.Enabled = false;
                 fInputTindakan.txtNamaDokter.Select();
 
 

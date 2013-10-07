@@ -15,7 +15,7 @@ namespace SIM_RS
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new RAWAT_INAP.inputKeringanan());
+			Application.Run(new halamanUtama());
 		}
 	}
 }

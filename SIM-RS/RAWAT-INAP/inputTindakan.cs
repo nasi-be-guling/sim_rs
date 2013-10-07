@@ -91,8 +91,8 @@ namespace SIM_RS.RAWAT_INAP
             public string strIdMRRuangan { get; set; }
             public DateTime dtTgl { get; set; }            
         }
-        List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
-        List<lstDaftarKomponenTarif> grpLstDaftarTindakanDetail = new List<lstDaftarKomponenTarif>();
+        public List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
+        public List<lstDaftarKomponenTarif> grpLstDaftarTindakanDetail = new List<lstDaftarKomponenTarif>();
         List<lstDaftarKomponenTarif> grpLstTempTindakanDetail = new List<lstDaftarKomponenTarif>();
 
 
@@ -110,54 +110,6 @@ namespace SIM_RS.RAWAT_INAP
             public string strNamaRuang { get; set; }
         }
         List<lstTempatLayanan> grpLstTempatLayanan = new List<lstTempatLayanan>();
-        
-
-        /*  FUNCTION  */
-
-        /*
-        *  NAME        : pvLoadDataInisialasi
-        *  FUNCTION    : Load data that need for this form on first time.
-        *  RESULT      : -
-        *  CREATED     : Eka Rudito (eka@rudito.web.id)
-        *  DATE        : 19-02-2013    
-        */
-
-        //private void pvLoadDataInisialasi()
-        //{
-        //    this.strErr = "";
-        //    C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
-
-        //    SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-        //    if (strErr != "")
-        //    {
-        //        modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-        //        return;
-        //    }
-
-          
-
-
-           
-        //    conn.Close();
-        //    lblPetugas.Text = halamanUtama.strNamaUser;
-
-        //}
-
-
-      //  /*
-      //*  NAME        : pvLoadDataPasien
-      //*  FUNCTION    : Load patient data from billing register
-      //*  RESULT      : -
-      //*  CREATED     : Eka Rudito (eka@rudito.web.id)
-      //*  DATE        : 19-02-2013    
-      //*/
-
-      //  private void pvLoadDataPasien(string _strNoTransBilling)
-      //  {
-
-          
-
-      //  }
 
         /*
      *  NAME        : pvDisableInput
@@ -175,9 +127,11 @@ namespace SIM_RS.RAWAT_INAP
             txtKodeTindakan.Enabled = false;
             txtNamaDokter.Enabled = false;
             dtpTglTindakan.Enabled = false;
-            btnTampilDaftarTindakan.Enabled = false;
+            btnTampilDaftarTarif.Enabled = false;
             btnTambahTindakan.Enabled = false;
             cmbKomponenTarif.Enabled = false;
+            btnTambahKompDokter.Enabled = false;
+            btnBatalTindakan.Enabled = false;
         }
 
         /*
@@ -193,10 +147,9 @@ namespace SIM_RS.RAWAT_INAP
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Enabled = true);
             txtTempatLayanan.SafeControlInvoke(TextBox => txtTempatLayanan.Enabled = true);
             txtKodeTindakan.SafeControlInvoke(TextBox => txtKodeTindakan.Enabled = true);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = true);
             dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Enabled = true);
-            btnTampilDaftarTindakan.SafeControlInvoke(Button => btnTampilDaftarTindakan.Enabled = true);
-            btnTambahTindakan.SafeControlInvoke(Button => btnTambahTindakan.Enabled = true);
+            btnTampilDaftarTarif.SafeControlInvoke(Button => btnTambahTindakan.Enabled = true);
+
         }
 
         /*
@@ -220,16 +173,19 @@ namespace SIM_RS.RAWAT_INAP
             modMain.pvUrutkanTab(lblKodeTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtKodeTindakan, ref intNoUrutObject);
             
-            modMain.pvUrutkanTab(btnTampilDaftarTindakan, ref intNoUrutObject);
+            modMain.pvUrutkanTab(btnTampilDaftarTarif, ref intNoUrutObject);
 
             modMain.pvUrutkanTab(lblKomponen, ref intNoUrutObject);
             modMain.pvUrutkanTab(cmbKomponenTarif, ref intNoUrutObject);
+            modMain.pvUrutkanTab(btnDaftarKompTarif, ref intNoUrutObject);
 
             modMain.pvUrutkanTab(lblDokter, ref intNoUrutObject);
             modMain.pvUrutkanTab(txtNamaDokter, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnTambahKompDokter, ref intNoUrutObject);
             
             modMain.pvUrutkanTab(btnTambahTindakan, ref intNoUrutObject);
+            modMain.pvUrutkanTab(btnBatalTindakan, ref intNoUrutObject);
+
             modMain.pvUrutkanTab(btnSimpanIsiTindakan, ref intNoUrutObject);
             modMain.pvUrutkanTab(btnKeluarIsiTindakan, ref intNoUrutObject);
 
@@ -860,7 +816,7 @@ namespace SIM_RS.RAWAT_INAP
 
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
-            btnTampilDaftarTindakan.Enabled = true;
+            btnTampilDaftarTarif.Enabled = true;
         }
 
         private void txtNamaDokter_Enter(object sender, EventArgs e)
@@ -876,7 +832,7 @@ namespace SIM_RS.RAWAT_INAP
                 if (txtKodeTindakan.Text.Trim().ToString() != "")
                     txtNamaDokter.Focus();
                 else
-                    btnTampilDaftarTindakan.Focus();
+                    btnTampilDaftarTarif.Focus();
 
             }
             else if (e.KeyCode == Keys.Escape)
@@ -946,7 +902,7 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (txtKodeTindakan.Text.Trim().ToString() == "") //cek apakah kode tindakan harus ada isinya..
             {
-                btnTampilDaftarTindakan.Enabled = true;
+                btnTampilDaftarTarif.Enabled = true;
             }
             else //jika sudah terisi
             {
@@ -967,7 +923,7 @@ namespace SIM_RS.RAWAT_INAP
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
 
-                    btnTampilDaftarTindakan.Enabled = true;
+                    btnTampilDaftarTarif.Enabled = true;
                     txtKodeTindakan.Focus();
                 }
                 else //jika tindakan tersebut ada maka proses selanjutnya.
@@ -1009,12 +965,18 @@ namespace SIM_RS.RAWAT_INAP
 
                     lblBiayaTindakan.Text = grpLstDaftarTarif[intResultSearch].dblBiaya.ToString();
                     lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultSearch].strUraianTarif;
-                    btnTampilDaftarTindakan.Enabled = false;
+                    btnTampilDaftarTarif.Enabled = false;
                     txtKodeTindakan.Enabled = false;
                     if (cmbKomponenTarif.Enabled)
                     {
                         cmbKomponenTarif.Focus();
                     }
+                    btnDaftarKompTarif.Enabled = true;
+                    txtNamaDokter.Enabled = true;
+                    btnTambahKompDokter.Enabled = true;
+                    btnTambahTindakan.Enabled = true;
+                    btnBatalTindakan.Enabled = true;
+
                 }
             }
         }
@@ -1064,19 +1026,11 @@ namespace SIM_RS.RAWAT_INAP
             }            
         }
 
-        private void btnTampilDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                daftarTindakan fDaftarTindakan = new daftarTindakan();
-                fDaftarTindakan.ShowDialog();
-            }
-        }
+       
 
         private void btnTampilDaftarTindakan_Click(object sender, EventArgs e)
         {
-            daftarTindakan fDaftarTindakan = new daftarTindakan();
-            fDaftarTindakan.ShowDialog();
+           
         }
 
         private void btnTambahTindakan_Click(object sender, EventArgs e)
@@ -1794,6 +1748,27 @@ namespace SIM_RS.RAWAT_INAP
                 //txtKodeTindakan.Focus();
 
             } /* EOF if (txtKodeTindakan.Text.Trim().ToString() != "")*/
+        }
+
+        private void btnKomponenTarif_Click(object sender, EventArgs e)
+        {
+            daftarKomponenPerTarif newForm = new daftarKomponenPerTarif();
+            newForm.ShowDialog();
+        }
+
+        private void btnTampilDaftarTarif_Click(object sender, EventArgs e)
+        {
+            daftarTindakan fDaftarTindakan = new daftarTindakan();
+            fDaftarTindakan.ShowDialog();
+        }
+
+        private void btnTampilDaftarTarif_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                daftarTindakan fDaftarTindakan = new daftarTindakan();
+                fDaftarTindakan.ShowDialog();
+            }
         } 
 
       
