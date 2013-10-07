@@ -213,7 +213,7 @@ namespace SIM_RS.RAWAT_INAP
                     lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
                     txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
 
-                    MessageBox.Show("Pengentrian Tindakan ini hanya untuk Pasien Instalasi Pelayanan Utama (IPU)",
+                    MessageBox.Show("Pengentrian Tindakan ini hanya untuk Pasien pada Instalasi Pelayanan Utama (IPU)",
                                     "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     reader.Close();
                     conn.Close();
@@ -287,8 +287,11 @@ namespace SIM_RS.RAWAT_INAP
 
             grpDetailTindakan.Clear();
 
-            string strKodeTarip = "";
-            string strTEmp = "";
+            string strTgl = "";
+            string strTglTemp = "";
+            //string strKodeTarip = "";
+            //string strTEmp = "";
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -306,9 +309,9 @@ namespace SIM_RS.RAWAT_INAP
                     grpDetailTindakan.Add(item);
 
 
-                    strKodeTarip = item.strKodeTarif;
+                    strTgl = item.dtTglInput.ToString();
 
-                    if (strTEmp != strKodeTarip)
+                    if (strTglTemp != strTgl)
                     {
 
                         lvDaftarTindakan.SafeControlInvoke(
@@ -360,7 +363,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
 
-                    strTEmp = strKodeTarip;
+                    strTglTemp = strTgl;
                     
                 }
             }
@@ -422,7 +425,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void inputKeringanan_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void cmsMenu_Opening(object sender, CancelEventArgs e)

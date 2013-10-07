@@ -94,9 +94,9 @@
             this.panel2.Controls.Add(this.lblInfoPencarian);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txtNoBilling);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
+            this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(776, 50);
+            this.panel2.Size = new System.Drawing.Size(789, 50);
             this.panel2.TabIndex = 114;
             // 
             // lblInfoPencarian
@@ -127,7 +127,7 @@
             this.txtNoBilling.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNoBilling.BackColor = System.Drawing.Color.White;
             this.txtNoBilling.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoBilling.Location = new System.Drawing.Point(190, 11);
+            this.txtNoBilling.Location = new System.Drawing.Point(196, 11);
             this.txtNoBilling.Name = "txtNoBilling";
             this.txtNoBilling.Size = new System.Drawing.Size(215, 30);
             this.txtNoBilling.TabIndex = 1;
@@ -140,9 +140,9 @@
             this.pnlDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.pnlDaftarTindakan.Controls.Add(this.lblDaftarTindakan);
             this.pnlDaftarTindakan.Controls.Add(this.lvDaftarTindakan);
-            this.pnlDaftarTindakan.Location = new System.Drawing.Point(12, 172);
+            this.pnlDaftarTindakan.Location = new System.Drawing.Point(6, 165);
             this.pnlDaftarTindakan.Name = "pnlDaftarTindakan";
-            this.pnlDaftarTindakan.Size = new System.Drawing.Size(776, 377);
+            this.pnlDaftarTindakan.Size = new System.Drawing.Size(789, 388);
             this.pnlDaftarTindakan.TabIndex = 115;
             // 
             // lblDaftarTindakan
@@ -178,7 +178,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(4, 25);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(766, 347);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(779, 358);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -236,7 +236,7 @@
             this.btnKeluarIsiTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarIsiTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarIsiTindakan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(687, 555);
+            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(694, 555);
             this.btnKeluarIsiTindakan.Name = "btnKeluarIsiTindakan";
             this.btnKeluarIsiTindakan.Size = new System.Drawing.Size(101, 33);
             this.btnKeluarIsiTindakan.TabIndex = 116;
@@ -261,9 +261,9 @@
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label3);
-            this.panel4.Location = new System.Drawing.Point(12, 68);
+            this.panel4.Location = new System.Drawing.Point(6, 61);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(776, 98);
+            this.panel4.Size = new System.Drawing.Size(789, 98);
             this.panel4.TabIndex = 117;
             // 
             // lblStatusPasien
@@ -356,7 +356,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(116, 68);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -367,7 +367,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(551, 14);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -528,7 +528,7 @@
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(385, 92);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(90, 18);
+            this.label13.Size = new System.Drawing.Size(91, 18);
             this.label13.TabIndex = 122;
             this.label13.Text = "Keringanan :";
             // 
@@ -569,7 +569,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(42, 92);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 18);
+            this.label12.Size = new System.Drawing.Size(76, 18);
             this.label12.TabIndex = 118;
             this.label12.Text = "Nominal : ";
             // 
@@ -602,7 +602,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(42, 62);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(99, 18);
+            this.label11.Size = new System.Drawing.Size(100, 18);
             this.label11.TabIndex = 114;
             this.label11.Text = "Uraian Tarif : ";
             // 

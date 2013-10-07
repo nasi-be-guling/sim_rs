@@ -135,9 +135,9 @@
             this.lvDaftarTindakan.FullRowSelect = true;
             this.lvDaftarTindakan.GridLines = true;
             this.lvDaftarTindakan.HideSelection = false;
-            this.lvDaftarTindakan.Location = new System.Drawing.Point(16, 28);
+            this.lvDaftarTindakan.Location = new System.Drawing.Point(6, 25);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(976, 160);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(994, 179);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -204,7 +204,7 @@
             this.lblTempatLayanan.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTempatLayanan.Location = new System.Drawing.Point(27, 74);
             this.lblTempatLayanan.Name = "lblTempatLayanan";
-            this.lblTempatLayanan.Size = new System.Drawing.Size(114, 18);
+            this.lblTempatLayanan.Size = new System.Drawing.Size(112, 18);
             this.lblTempatLayanan.TabIndex = 78;
             this.lblTempatLayanan.Text = "&Tmpt Layanan :";
             // 
@@ -314,7 +314,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(296, 151);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 18);
+            this.label22.Size = new System.Drawing.Size(76, 18);
             this.label22.TabIndex = 92;
             this.label22.Text = "Deskripsi :";
             // 
@@ -353,7 +353,7 @@
             this.btnSimpanIsiTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpanIsiTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpanIsiTindakan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpanIsiTindakan.Location = new System.Drawing.Point(807, 723);
+            this.btnSimpanIsiTindakan.Location = new System.Drawing.Point(807, 731);
             this.btnSimpanIsiTindakan.Name = "btnSimpanIsiTindakan";
             this.btnSimpanIsiTindakan.Size = new System.Drawing.Size(101, 33);
             this.btnSimpanIsiTindakan.TabIndex = 95;
@@ -371,7 +371,7 @@
             this.btnKeluarIsiTindakan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarIsiTindakan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarIsiTindakan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(914, 723);
+            this.btnKeluarIsiTindakan.Location = new System.Drawing.Point(914, 731);
             this.btnKeluarIsiTindakan.Name = "btnKeluarIsiTindakan";
             this.btnKeluarIsiTindakan.Size = new System.Drawing.Size(101, 33);
             this.btnKeluarIsiTindakan.TabIndex = 96;
@@ -458,9 +458,9 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.lblDaftarTindakan);
             this.panel1.Controls.Add(this.lvDaftarTindakan);
-            this.panel1.Location = new System.Drawing.Point(8, 506);
+            this.panel1.Location = new System.Drawing.Point(8, 503);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 196);
+            this.panel1.Size = new System.Drawing.Size(1007, 210);
             this.panel1.TabIndex = 112;
             // 
             // panel2
@@ -470,7 +470,7 @@
             this.panel2.Controls.Add(this.lblInfoPencarian);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txtNoBilling);
-            this.panel2.Location = new System.Drawing.Point(8, 10);
+            this.panel2.Location = new System.Drawing.Point(8, 7);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(900, 50);
             this.panel2.TabIndex = 113;
@@ -492,7 +492,7 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel3.Controls.Add(this.label23);
             this.panel3.Controls.Add(this.lblPetugas);
-            this.panel3.Location = new System.Drawing.Point(8, 708);
+            this.panel3.Location = new System.Drawing.Point(8, 716);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(418, 48);
             this.panel3.TabIndex = 114;
@@ -507,7 +507,7 @@
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(922, 30);
+            this.button1.Location = new System.Drawing.Point(922, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 30);
             this.button1.TabIndex = 115;
@@ -537,7 +537,7 @@
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label3);
-            this.panel4.Location = new System.Drawing.Point(8, 66);
+            this.panel4.Location = new System.Drawing.Point(8, 63);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1007, 137);
             this.panel4.TabIndex = 116;
@@ -640,7 +640,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(27, 99);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -652,7 +652,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(584, 34);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -733,7 +733,7 @@
             this.panel5.Controls.Add(this.btnTambahTindakan);
             this.panel5.Controls.Add(this.label22);
             this.panel5.Controls.Add(this.label13);
-            this.panel5.Location = new System.Drawing.Point(8, 209);
+            this.panel5.Location = new System.Drawing.Point(8, 206);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1007, 291);
             this.panel5.TabIndex = 117;
@@ -843,7 +843,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(1024, 753);
+            this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);

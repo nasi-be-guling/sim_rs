@@ -266,18 +266,13 @@ namespace SIM_RS.RAWAT_INAP
             string strKodeTindakan = strArrPart[0].Trim().ToString();
             string strUraianTindakan = strArrPart[1].Trim().ToString();
 
-
-            
-
             int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
 
             if (intResultTarif != -1)
             {
                 lblBiayaTindakan.Text = grpLstDaftarTarif[intResultTarif].dblBiaya.ToString();
-                lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultTarif].strUraianTarif;
-                                
+                lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultTarif].strUraianTarif;                                
             }
-
         }
 
         private bool pvSimpanData(ref string _strNoBukti)
