@@ -71,15 +71,6 @@
     <Reference Include="EPPlus">
       <HintPath>Properties\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="Excel">
-      <HintPath>Properties\Excel.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>Properties\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>Properties\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
@@ -167,11 +158,23 @@
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\daftarKomponenPerTarif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\daftarKomponenPerTarif.Designer.cs">
+      <DependentUpon>daftarKomponenPerTarif.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.Designer.cs">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.Designer.cs">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
     </Compile>
     <Compile Include="RAWAT-INAP\inputTindakan.cs">
       <SubType>Form</SubType>
@@ -181,6 +184,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.Designer.cs">
+      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-INAP\JasaPelayanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\JasaPelayanan.designer.cs">
+      <DependentUpon>JasaPelayanan.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\LAPORAN\LapKasBKP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,11 +256,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RAWAT-INAP\daftarKomponenPerTarif.resx">
+      <DependentUpon>daftarKomponenPerTarif.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\daftarTindakan.resx">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\inputKeringanan.resx">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\inputTindakanPerubahanBiaya.resx">
+      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\JasaPelayanan.resx">
+      <DependentUpon>JasaPelayanan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">

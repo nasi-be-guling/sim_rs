@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace SIM_RS
 {
+
     static class Program
     {
         /// <summary>
@@ -15,7 +16,8 @@ namespace SIM_RS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ADMIN.daftarPengguna());
+            Application.Run(new RAWAT_INAP.JasaPelayanan());
         }
     }
+
 }
