@@ -30,7 +30,7 @@
         {
             this.pnlDaftarTindakan = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblNamaPasien = new System.Windows.Forms.Label();
+            this.lblKodeNamaTarif = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.lvDaftarTindakan = new System.Windows.Forms.ListView();
@@ -47,13 +47,13 @@
             this.pnlDaftarTindakan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.pnlDaftarTindakan.Controls.Add(this.label1);
-            this.pnlDaftarTindakan.Controls.Add(this.lblNamaPasien);
+            this.pnlDaftarTindakan.Controls.Add(this.lblKodeNamaTarif);
             this.pnlDaftarTindakan.Controls.Add(this.label5);
             this.pnlDaftarTindakan.Controls.Add(this.lblDaftarTindakan);
             this.pnlDaftarTindakan.Controls.Add(this.lvDaftarTindakan);
-            this.pnlDaftarTindakan.Location = new System.Drawing.Point(4, 5);
+            this.pnlDaftarTindakan.Location = new System.Drawing.Point(5, 5);
             this.pnlDaftarTindakan.Name = "pnlDaftarTindakan";
-            this.pnlDaftarTindakan.Size = new System.Drawing.Size(621, 360);
+            this.pnlDaftarTindakan.Size = new System.Drawing.Size(874, 361);
             this.pnlDaftarTindakan.TabIndex = 119;
             // 
             // label1
@@ -61,22 +61,22 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(454, 339);
+            this.label1.Location = new System.Drawing.Point(702, 337);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(164, 13);
             this.label1.TabIndex = 122;
             this.label1.Text = "TEKAN ESC UNTUK MENUTUP";
             // 
-            // lblNamaPasien
+            // lblKodeNamaTarif
             // 
-            this.lblNamaPasien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.lblNamaPasien.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNamaPasien.ForeColor = System.Drawing.Color.Black;
-            this.lblNamaPasien.Location = new System.Drawing.Point(111, 26);
-            this.lblNamaPasien.Name = "lblNamaPasien";
-            this.lblNamaPasien.Size = new System.Drawing.Size(503, 51);
-            this.lblNamaPasien.TabIndex = 121;
-            this.lblNamaPasien.Text = "...";
+            this.lblKodeNamaTarif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.lblKodeNamaTarif.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKodeNamaTarif.ForeColor = System.Drawing.Color.Black;
+            this.lblKodeNamaTarif.Location = new System.Drawing.Point(111, 26);
+            this.lblKodeNamaTarif.Name = "lblKodeNamaTarif";
+            this.lblKodeNamaTarif.Size = new System.Drawing.Size(503, 51);
+            this.lblKodeNamaTarif.TabIndex = 121;
+            this.lblKodeNamaTarif.Text = "...";
             // 
             // label5
             // 
@@ -119,7 +119,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(8, 80);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(605, 253);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(858, 254);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -154,14 +154,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(630, 371);
+            this.ClientSize = new System.Drawing.Size(884, 371);
             this.Controls.Add(this.pnlDaftarTindakan);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "daftarKomponenPerTarif";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "daftarKomponenPerTarif";
             this.Load += new System.EventHandler(this.daftarKomponenPerTarif_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.daftarKomponenPerTarif_KeyPress);
             this.pnlDaftarTindakan.ResumeLayout(false);
             this.pnlDaftarTindakan.PerformLayout();
             this.ResumeLayout(false);
@@ -173,7 +176,7 @@
         private System.Windows.Forms.Panel pnlDaftarTindakan;
         private System.Windows.Forms.Label lblDaftarTindakan;
         private System.Windows.Forms.ListView lvDaftarTindakan;
-        private System.Windows.Forms.Label lblNamaPasien;
+        private System.Windows.Forms.Label lblKodeNamaTarif;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader columnHeader1;

@@ -185,12 +185,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.Designer.cs">
-      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
-    </Compile>
     <Compile Include="RAWAT-INAP\LAPORAN\LapKasBKP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,9 +256,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RAWAT-INAP\inputTindakanPerubahanBiaya.resx">
-      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">

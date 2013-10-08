@@ -22,18 +22,24 @@ namespace SIM_RS.RAWAT_INAP
         {
             InitializeComponent();
 
-            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
             
 
+        }       
+
+        private void daftarKomponenPerTarif_Load(object sender, EventArgs e)
+        {
+            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+
+
             lvDaftarTindakan.Items.Clear();
-            foreach (inputTindakan.lstDaftarKomponenTarif itemx in fInputTindakan.grpLstDaftarTindakanDetail)
+            foreach (inputTindakan.lstDaftarKomponenTarif itemx in fInputTindakan.grpLstTempTindakanDetail)
             {
                 lvDaftarTindakan.Items.Add(itemx.strKodeTarif);
 
-                int intResult = fInputTindakan.grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
+                int intResult = fInputTindakan.grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
 
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                    fInputTindakan.grpLstDaftarTindakan[intResult].strUraianTarif);
+                    fInputTindakan.grpLstDaftarTarif[intResult].strUraianTarif);
 
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strId_Komponen);
 
@@ -43,13 +49,15 @@ namespace SIM_RS.RAWAT_INAP
 
             }
 
-            modSQL.pvAutoResizeLV(lvDaftarTindakan,5);
+            lblKodeNamaTarif.Text = fInputTindakan.txtKodeTindakan.Text;
 
-        }       
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 5);
+        }
 
-        private void daftarKomponenPerTarif_Load(object sender, EventArgs e)
+        private void daftarKomponenPerTarif_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == (char)Keys.Escape)
+                this.Close();
         }
     }
 }

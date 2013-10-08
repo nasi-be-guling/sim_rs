@@ -314,13 +314,6 @@
             this.columnHeader4.Text = "Nama Form Aplikasi Baru";
             this.columnHeader4.Width = 186;
             // 
-            // cmsDaftarMenu
-            // 
-            this.cmsDaftarMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rubahToolStripMenuItem});
-            this.cmsDaftarMenu.Name = "cmsDaftarTindakan";
-            this.cmsDaftarMenu.Size = new System.Drawing.Size(109, 26);
-            // 
             // rubahToolStripMenuItem
             // 
             this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";

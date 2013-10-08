@@ -46,6 +46,8 @@ namespace SIM_RS.RAWAT_INAP
         string strSMFTindakan = "";
         string strSMFDokter = "";
 
+        bool isProsesUpdate = false;
+
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listTempatLayanan = new AutoCompleteStringCollection();
@@ -74,8 +76,8 @@ namespace SIM_RS.RAWAT_INAP
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
         }
-        public List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
-        public List<lstDaftarKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarKomponenTarif>();
+        //List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
+        List<lstDaftarKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarKomponenTarif>();
 
       
 
@@ -92,8 +94,8 @@ namespace SIM_RS.RAWAT_INAP
             public DateTime dtTgl { get; set; }            
         }
         public List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
-        public List<lstDaftarKomponenTarif> grpLstDaftarTindakanDetail = new List<lstDaftarKomponenTarif>();
-        List<lstDaftarKomponenTarif> grpLstTempTindakanDetail = new List<lstDaftarKomponenTarif>();
+        List<lstDaftarKomponenTarif> grpLstDaftarTindakanDetail = new List<lstDaftarKomponenTarif>();
+        public List<lstDaftarKomponenTarif> grpLstTempTindakanDetail = new List<lstDaftarKomponenTarif>();
 
 
         public class lstDaftarDokter
@@ -132,6 +134,7 @@ namespace SIM_RS.RAWAT_INAP
             cmbKomponenTarif.Enabled = false;
             btnTambahKompDokter.Enabled = false;
             btnBatalTindakan.Enabled = false;
+            btnDaftarKompTarif.Enabled = false;
         }
 
         /*
@@ -148,7 +151,7 @@ namespace SIM_RS.RAWAT_INAP
             txtTempatLayanan.SafeControlInvoke(TextBox => txtTempatLayanan.Enabled = true);
             txtKodeTindakan.SafeControlInvoke(TextBox => txtKodeTindakan.Enabled = true);
             dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Enabled = true);
-            btnTampilDaftarTarif.SafeControlInvoke(Button => btnTambahTindakan.Enabled = true);
+            btnTampilDaftarTarif.SafeControlInvoke(Button => btnTampilDaftarTarif.Enabled = true);
 
         }
 
@@ -203,9 +206,11 @@ namespace SIM_RS.RAWAT_INAP
             lvDaftarTindakan.Items.Clear();
             dtpTglTindakan.Value = halamanUtama.dtTglServer;
             txtTempatLayanan.Text = "";
+            
 
             grpLstDaftarTindakan.Clear();
-            grpLstDaftarKomponenTarif.Clear();
+            //grpLstDaftarKomponenTarif.Clear();
+            grpLstDaftarTindakanDetail.Clear();
 
             intUrutanTrans = 0;           
 
@@ -383,7 +388,7 @@ namespace SIM_RS.RAWAT_INAP
 
                 //}              
 
-                var query = from i in grpLstDaftarKomponenTarif
+                var query = from i in grpLstDaftarLengkapKomponenTarif
                             where i.strKodeTarif.Trim().ToString() == itemTindakan.strKodeTarif.Trim().ToString() 
                                 && i.intNoUrut == itemTindakan.intNoUrut                             
                             select i;
@@ -745,6 +750,7 @@ namespace SIM_RS.RAWAT_INAP
                     btnKeluarIsiTindakan.Text = "&KELUAR";
                     txtNoBilling.Select();
                     e.Cancel = true;
+                    isProsesUpdate = false;
                 }
                 else
                 {
@@ -941,7 +947,9 @@ namespace SIM_RS.RAWAT_INAP
                         grpLstTempTindakanDetail.Clear();
                         foreach (lstDaftarKomponenTarif itemKomponen in DetailKomponen)
                         {
-                            cmbKomponenTarif.Items.Add(itemKomponen.strId_Komponen);
+
+                            if(itemKomponen.strId_Komponen != "JASA SARANA") //komponen jasa sarana tidak perlu  ditammpilkan untuk dokter
+                                cmbKomponenTarif.Items.Add(itemKomponen.strId_Komponen);
 
                             lstDaftarKomponenTarif itemKomponenX = new lstDaftarKomponenTarif();
                             itemKomponenX.strKodeTarif = itemKomponen.strKodeTarif;
@@ -1078,8 +1086,8 @@ namespace SIM_RS.RAWAT_INAP
                 itemKomponenTarif.dblHak3 = x.dblHak3;
                 itemKomponenTarif.intPrioritasTunai = x.intPrioritasTunai;
                 itemKomponenTarif.intNoUrut = x.intNoUrut;
-                itemKomponenTarif.strKodeDokter = "";
-                itemKomponenTarif.strNamaDokter = "";
+                itemKomponenTarif.strKodeDokter = x.strKodeDokter;
+                itemKomponenTarif.strNamaDokter = x.strNamaDokter;
                 grpLstDaftarTindakanDetail.Add(itemKomponenTarif);                
             }
 
@@ -1103,7 +1111,7 @@ namespace SIM_RS.RAWAT_INAP
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             x.dblByKomponen.ToString());
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.strNamaDokter);
+                            x.strKodeDokter + " -- " + x.strNamaDokter);
                     intUrutan++;
                 });
 
@@ -1133,7 +1141,7 @@ namespace SIM_RS.RAWAT_INAP
 
             txtKodeTindakan.Focus();
 
-           
+            isProsesUpdate = false;
 
 
         }
@@ -1198,20 +1206,11 @@ namespace SIM_RS.RAWAT_INAP
                 this.pvCetakTindakan(strNoBukti);
 
                 /*AFTER SUCCESS INSERT THEN CLEAR THIS..*/
-                grpLstDaftarKomponenTarif.Clear();
+                //grpLstDaftarKomponenTarif.Clear();
                 this.pvCleanInput();
                 this.pvDisableInput();
                 MessageBox.Show("Data sudah berhasil dimasukkan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            
-
-            
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void lvDaftarTindakan_MouseClick(object sender, MouseEventArgs e)
@@ -1219,6 +1218,18 @@ namespace SIM_RS.RAWAT_INAP
             if ((e.Button == System.Windows.Forms.MouseButtons.Right) && (lvDaftarTindakan.Items.Count > 0))
             {
                 cmsDaftarTindakan.Show(this.lvDaftarTindakan, e.Location);
+
+                if (isProsesUpdate)
+                {
+                    rubahToolStripMenuItem.Enabled = false;
+                    hapusToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    rubahToolStripMenuItem.Enabled = true;
+                    hapusToolStripMenuItem.Enabled = true;
+                }
+
             }
         }
 
@@ -1382,7 +1393,7 @@ namespace SIM_RS.RAWAT_INAP
 
                 this.pvEnableInput();
                 dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Focus());
-                btnKeluarIsiTindakan.SafeControlInvoke(Button => btnKeluarIsiTindakan.Text = "&BATAL");
+                //btnKeluarIsiTindakan.SafeControlInvoke(Button => btnKeluarIsiTindakan.Text = "&BATAL");
             }
             else
             {
@@ -1614,14 +1625,25 @@ namespace SIM_RS.RAWAT_INAP
         {
             txtKodeTindakan.Text = "";
             txtKodeTindakan.Enabled = true;
+            cmbKomponenTarif.SelectedIndex = -1;
             cmbKomponenTarif.Items.Clear();
+            cmbKomponenTarif.Enabled = false;
+            btnDaftarKompTarif.Enabled = false;
             txtNamaDokter.Text = "";
-            grpLstTempTindakanDetail.Clear();
+            txtNamaDokter.Enabled = false;
+            btnTambahKompDokter.Enabled = false;
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
             cmbKomponenTarif.Enabled = true;
 
+            btnTambahTindakan.Enabled = false;
+            btnBatalTindakan.Enabled = false;
+
+            grpLstTempTindakanDetail.Clear();
             txtKodeTindakan.Focus();
+
+            isProsesUpdate = false;
+
         }
 
         private void btnTambahKompDokter_Click(object sender, EventArgs e)
@@ -1768,6 +1790,24 @@ namespace SIM_RS.RAWAT_INAP
             {
                 daftarTindakan fDaftarTindakan = new daftarTindakan();
                 fDaftarTindakan.ShowDialog();
+            }
+        }
+
+        private void cmbKomponenTarif_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void cmbKomponenTarif_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtNamaDokter.Focus();
+
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         } 
 
