@@ -76,7 +76,7 @@ namespace SIM_RS.RAWAT_INAP
                                  "MR_DOKTER.nama, " +                        //1
                                  "MR_DOKTER.idmr_tsmf " +                    //2
                                  "FROM MR_DOKTER WITH (NOLOCK) " +
-                                 "WHERE MR_DOKTER.dipakai = 'Y' AND status = 'KEU'";
+                                 "WHERE MR_DOKTER.dipakai = 'Y'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
             if (strErr != "")
@@ -109,24 +109,23 @@ namespace SIM_RS.RAWAT_INAP
 
             reader.Close();
 
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteCustomSource = listDokter);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource);
+            txtNamaDokter.AutoCompleteCustomSource = listDokter;
+            txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private void txtNamaDokter_Enter(object sender, EventArgs e)
         {
             txtNamaDokter.Text = "";
-            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;
-            this.bgCariDataJaspel.RunWorkerAsync();
-            this.pvTampilList();
+            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;         
+            
         }
 
         private void txtNamaDokter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-               // btnTambahTindakan.Focus();
+                this.bgCariDataJaspel.RunWorkerAsync();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -191,7 +190,7 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PENCARIAN DATA JASA PELAYANAN");
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "MENCARI JASA PELAYANAN");
             String strQuerySQL =
                     "SELECT BL_KASPAV.Regbilling, " +                                   //0
                     "MR_PASIEN.Nama, " +                                                //1
@@ -248,7 +247,7 @@ namespace SIM_RS.RAWAT_INAP
 
 
             reader.Close();
-            
+            pvTampilList();
         }
 
         private void pvTampilList()
@@ -271,6 +270,11 @@ namespace SIM_RS.RAWAT_INAP
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.dblHslBersih.ToString()));
                 noUrut++;
             }
+        }
+
+        private void JasaPelayanan_Load(object sender, EventArgs e)
+        {
+
         }
 
 

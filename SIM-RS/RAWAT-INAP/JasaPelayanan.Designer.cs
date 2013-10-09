@@ -33,6 +33,8 @@
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.lblJumlahJasPel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblDaftarTindakan = new System.Windows.Forms.Label();
@@ -44,6 +46,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblTotalJasaPelayanan = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -56,10 +60,6 @@
             this.btnSimpanJasPel = new System.Windows.Forms.Button();
             this.bgCariDataJaspel = new System.ComponentModel.BackgroundWorker();
             this.lblKodeDokter = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -69,10 +69,10 @@
             // lblInfoPencarian
             // 
             this.lblInfoPencarian.AutoSize = true;
-            this.lblInfoPencarian.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPencarian.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfoPencarian.Location = new System.Drawing.Point(638, 12);
             this.lblInfoPencarian.Name = "lblInfoPencarian";
-            this.lblInfoPencarian.Size = new System.Drawing.Size(203, 20);
+            this.lblInfoPencarian.Size = new System.Drawing.Size(181, 17);
             this.lblInfoPencarian.TabIndex = 2;
             this.lblInfoPencarian.Text = "Proses Menampilkan Data...";
             this.lblInfoPencarian.Visible = false;
@@ -131,6 +131,26 @@
             this.panel1.Size = new System.Drawing.Size(852, 500);
             this.panel1.TabIndex = 115;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(643, 465);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 25);
+            this.label3.TabIndex = 122;
+            this.label3.Text = "....";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(462, 465);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(171, 25);
+            this.label4.TabIndex = 121;
+            this.label4.Text = "PAJAK (15%) : Rp.";
+            // 
             // lblJumlahJasPel
             // 
             this.lblJumlahJasPel.AutoSize = true;
@@ -178,6 +198,7 @@
             this.columnHeader6,
             this.columnHeader8,
             this.columnHeader9});
+            this.lvJasaPelayanan.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvJasaPelayanan.FullRowSelect = true;
             this.lvJasaPelayanan.GridLines = true;
             this.lvJasaPelayanan.HideSelection = false;
@@ -196,7 +217,7 @@
             // columnHeader7
             // 
             this.columnHeader7.Text = "No RM";
-            this.columnHeader7.Width = 100;
+            this.columnHeader7.Width = 80;
             // 
             // columnHeader1
             // 
@@ -221,7 +242,17 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "Jasa Medis";
-            this.columnHeader6.Width = 130;
+            this.columnHeader6.Width = 100;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Keringanan";
+            this.columnHeader8.Width = 100;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Jumlah";
+            this.columnHeader9.Width = 100;
             // 
             // panel4
             // 
@@ -361,34 +392,6 @@
             this.lblKodeDokter.TabIndex = 121;
             this.lblKodeDokter.Text = "...";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(643, 465);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 25);
-            this.label3.TabIndex = 122;
-            this.label3.Text = "....";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(462, 465);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(171, 25);
-            this.label4.TabIndex = 121;
-            this.label4.Text = "PAJAK (15%) : Rp.";
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Keringanan";
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Jumlah";
-            // 
             // JasaPelayanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -410,6 +413,7 @@
             this.Name = "JasaPelayanan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pengambilan Jasa Pelayanan";
+            this.Load += new System.EventHandler(this.JasaPelayanan_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
