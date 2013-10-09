@@ -270,11 +270,16 @@ namespace SIM_RS.RAWAT_INAP
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.dblHslBersih.ToString()));
                 noUrut++;
             }
+
+            var suma = (from s in grpJasaPelayanan select s.dblHslBersih).Sum();
+            lblTotalJasaPelayanan.SafeControlInvoke(Label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            
         }
+
 
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
-
+            
         }
 
 

@@ -33,10 +33,6 @@
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblJumlahJasPel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.lblDaftarTindakan = new System.Windows.Forms.Label();
             this.lvJasaPelayanan = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -120,56 +116,12 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.lblJumlahJasPel);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.lblDaftarTindakan);
             this.panel1.Controls.Add(this.lvJasaPelayanan);
-            this.panel1.Location = new System.Drawing.Point(13, 68);
+            this.panel1.Location = new System.Drawing.Point(13, 66);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(852, 500);
             this.panel1.TabIndex = 115;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(643, 465);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 25);
-            this.label3.TabIndex = 122;
-            this.label3.Text = "....";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(462, 465);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(171, 25);
-            this.label4.TabIndex = 121;
-            this.label4.Text = "PAJAK (15%) : Rp.";
-            // 
-            // lblJumlahJasPel
-            // 
-            this.lblJumlahJasPel.AutoSize = true;
-            this.lblJumlahJasPel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJumlahJasPel.Location = new System.Drawing.Point(643, 430);
-            this.lblJumlahJasPel.Name = "lblJumlahJasPel";
-            this.lblJumlahJasPel.Size = new System.Drawing.Size(32, 25);
-            this.lblJumlahJasPel.TabIndex = 120;
-            this.lblJumlahJasPel.Text = "....";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(462, 430);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 25);
-            this.label2.TabIndex = 119;
-            this.label2.Text = "JUMLAH : Rp.";
             // 
             // lblDaftarTindakan
             // 
@@ -204,7 +156,7 @@
             this.lvJasaPelayanan.HideSelection = false;
             this.lvJasaPelayanan.Location = new System.Drawing.Point(0, 20);
             this.lvJasaPelayanan.Name = "lvJasaPelayanan";
-            this.lvJasaPelayanan.Size = new System.Drawing.Size(852, 404);
+            this.lvJasaPelayanan.Size = new System.Drawing.Size(852, 477);
             this.lvJasaPelayanan.TabIndex = 75;
             this.lvJasaPelayanan.UseCompatibleStateImageBehavior = false;
             this.lvJasaPelayanan.View = System.Windows.Forms.View.Details;
@@ -262,7 +214,7 @@
             this.panel4.Controls.Add(this.label9);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label8);
-            this.panel4.Location = new System.Drawing.Point(13, 575);
+            this.panel4.Location = new System.Drawing.Point(13, 572);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(852, 44);
             this.panel4.TabIndex = 117;
@@ -271,7 +223,7 @@
             // 
             this.lblTotalJasaPelayanan.AutoSize = true;
             this.lblTotalJasaPelayanan.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(313, 7);
+            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(133, 7);
             this.lblTotalJasaPelayanan.Name = "lblTotalJasaPelayanan";
             this.lblTotalJasaPelayanan.Size = new System.Drawing.Size(37, 30);
             this.lblTotalJasaPelayanan.TabIndex = 118;
@@ -283,9 +235,9 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(9, 7);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(303, 30);
+            this.label9.Size = new System.Drawing.Size(91, 30);
             this.label9.TabIndex = 117;
-            this.label9.Text = "TOTAL YANG DITERIMA : Rp.";
+            this.label9.Text = "TOTAL :";
             // 
             // label7
             // 
@@ -315,7 +267,7 @@
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel5.Controls.Add(this.label23);
             this.panel5.Controls.Add(this.lblPetugas);
-            this.panel5.Location = new System.Drawing.Point(13, 696);
+            this.panel5.Location = new System.Drawing.Point(13, 625);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(418, 43);
             this.panel5.TabIndex = 118;
@@ -355,7 +307,7 @@
             this.btnKeluarJasPel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarJasPel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarJasPel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarJasPel.Location = new System.Drawing.Point(764, 625);
+            this.btnKeluarJasPel.Location = new System.Drawing.Point(764, 624);
             this.btnKeluarJasPel.Name = "btnKeluarJasPel";
             this.btnKeluarJasPel.Size = new System.Drawing.Size(101, 30);
             this.btnKeluarJasPel.TabIndex = 120;
@@ -372,7 +324,7 @@
             this.btnSimpanJasPel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpanJasPel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpanJasPel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpanJasPel.Location = new System.Drawing.Point(657, 625);
+            this.btnSimpanJasPel.Location = new System.Drawing.Point(657, 624);
             this.btnSimpanJasPel.Name = "btnSimpanJasPel";
             this.btnSimpanJasPel.Size = new System.Drawing.Size(101, 30);
             this.btnSimpanJasPel.TabIndex = 119;
@@ -386,18 +338,19 @@
             // lblKodeDokter
             // 
             this.lblKodeDokter.AutoSize = true;
-            this.lblKodeDokter.Location = new System.Drawing.Point(6, 668);
+            this.lblKodeDokter.Location = new System.Drawing.Point(437, 686);
             this.lblKodeDokter.Name = "lblKodeDokter";
             this.lblKodeDokter.Size = new System.Drawing.Size(23, 18);
             this.lblKodeDokter.TabIndex = 121;
             this.lblKodeDokter.Text = "...";
+            this.lblKodeDokter.Visible = false;
             // 
             // JasaPelayanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(883, 747);
+            this.ClientSize = new System.Drawing.Size(883, 677);
             this.Controls.Add(this.lblKodeDokter);
             this.Controls.Add(this.btnKeluarJasPel);
             this.Controls.Add(this.btnSimpanJasPel);
@@ -453,12 +406,8 @@
         private System.Windows.Forms.Label lblPetugas;
         private System.Windows.Forms.Button btnKeluarJasPel;
         private System.Windows.Forms.Button btnSimpanJasPel;
-        private System.Windows.Forms.Label lblJumlahJasPel;
-        private System.Windows.Forms.Label label2;
         private System.ComponentModel.BackgroundWorker bgCariDataJaspel;
         private System.Windows.Forms.Label lblKodeDokter;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
     }
