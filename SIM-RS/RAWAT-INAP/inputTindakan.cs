@@ -1104,6 +1104,23 @@ namespace SIM_RS.RAWAT_INAP
                 //jika yang dilakukan adalah proses update...
                 int intResultDetail = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDisplay == intUrutanUpdate);
 
+                string strKodeNamaDokter = txtNamaDokter.Text.Trim().ToString();
+                string strKodeDokter = "";
+                string strNamaDokter = "";
+
+                if (strKodeNamaDokter.Trim().ToString() != "")
+                {
+                    strSplitKode = Regex.Split(txtKodeTindakan.Text, "--");
+                    strKodeDokter = strSplitKode[0].Trim().ToString();
+                    strNamaDokter = strSplitKode[1].Trim().ToString();
+                }
+                
+
+                grpLstDaftarTindakanDetail[intUrutanUpdate].strKodeDokter = strKodeDokter;
+                grpLstDaftarTindakanDetail[intUrutanUpdate].strNamaDokter = strNamaDokter;
+
+                btnTambahTindakan.Text = "&TAMBAH TINDAKAN";
+
             }
             grpLstTempTindakanDetail.Clear();
 
@@ -1646,6 +1663,7 @@ namespace SIM_RS.RAWAT_INAP
 
             isProsesUpdate = false;
             intUrutanTrans = 0;
+            btnTambahTindakan.Text = "&TAMBAH TINDAKAN";
 
         }
 
@@ -1746,6 +1764,8 @@ namespace SIM_RS.RAWAT_INAP
                 string strKomponenTarif = cmbKomponenTarif.Text.Trim().ToString();
                 cmbKomponenTarif.Items.Clear();
 
+                int intResult
+
                 foreach (lstDaftarKomponenTarif x in grpLstTempTindakanDetail)
                 {
                     if (x.strId_Komponen.Trim().ToString() == strKomponenTarif)
@@ -1832,9 +1852,12 @@ namespace SIM_RS.RAWAT_INAP
             cmbKomponenTarif.SelectedIndex = 0;
             cmbKomponenTarif.Enabled = false;
             btnDaftarKompTarif.Enabled = false;
+            btnTambahKompDokter.Enabled = false;
 
             txtNamaDokter.Text = grpLstDaftarTindakanDetail[intResultDetail].strKodeDokter + " -- " +
                                     grpLstDaftarTindakanDetail[intResultDetail].strNamaDokter;
+
+            btnTambahTindakan.Text = "&UPDATE TINDAKAN";
 
         }
 
