@@ -42,6 +42,9 @@ namespace SIM_RS.RAWAT_INAP
         string strIdMR_TRuangan = "";
 
         int intUrutanTrans = 0;
+        int intUrutanTindakanDetail = 1;
+        int intUrutanUpdate = 0;
+
 
         string strSMFTindakan = "";
         string strSMFDokter = "";
@@ -75,6 +78,7 @@ namespace SIM_RS.RAWAT_INAP
             public int intNoUrut { get; set; }
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
+            public int intUrutanDisplay { get; set; }
         }
         //List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
         List<lstDaftarKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarKomponenTarif>();
@@ -1060,47 +1064,57 @@ namespace SIM_RS.RAWAT_INAP
             string strKodeTindakan = strSplitKode[0].Trim().ToString();
             string strUraianTindakan = strSplitKode[1].Trim().ToString();
 
-            /* MASUKKAN PER TINDAKAN */
-            lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
-            itemTindakan.strKodeTarif = strKodeTindakan;
-            itemTindakan.intNoUrut = intUrutanTrans;
-            itemTindakan.strUraianTarif = strUraianTindakan;
-            itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
-            itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
-            itemTindakan.intIdTempatLayanan = Convert.ToInt32(strIdMR_TempatLayanan);
-            itemTindakan.dtTgl = dtpTglTindakan.Value;
-            int intResult = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
-            itemTindakan.strTSMFTindakan = grpLstDaftarTarif[intResult].strSMF;            
-            /*increment for identified every input kode for twice..*/
-            grpLstDaftarTindakan.Add(itemTindakan);
-            /* EOF MASUKKAN PER TINDAKAN */
-
-            foreach (lstDaftarKomponenTarif x in grpLstTempTindakanDetail)
+            if (!isProsesUpdate)
             {
-                lstDaftarKomponenTarif itemKomponenTarif = new lstDaftarKomponenTarif();
-                itemKomponenTarif.strKodeTarif = x.strKodeTarif;
-                itemKomponenTarif.strId_Komponen = x.strId_Komponen;
-                itemKomponenTarif.dblByKomponen = x.dblByKomponen;
-                itemKomponenTarif.dblHak1 = x.dblHak1;
-                itemKomponenTarif.dblHak2 = x.dblHak2;
-                itemKomponenTarif.dblHak3 = x.dblHak3;
-                itemKomponenTarif.intPrioritasTunai = x.intPrioritasTunai;
-                itemKomponenTarif.intNoUrut = x.intNoUrut;
-                itemKomponenTarif.strKodeDokter = x.strKodeDokter;
-                itemKomponenTarif.strNamaDokter = x.strNamaDokter;
-                grpLstDaftarTindakanDetail.Add(itemKomponenTarif);                
-            }
+                /* MASUKKAN PER TINDAKAN */
+                lstDaftarTindakan itemTindakan = new lstDaftarTindakan();
+                itemTindakan.strKodeTarif = strKodeTindakan;
+                itemTindakan.intNoUrut = intUrutanTrans;
+                itemTindakan.strUraianTarif = strUraianTindakan;
+                itemTindakan.dblBiaya = Convert.ToDouble(lblBiayaTindakan.Text);
+                itemTindakan.strTempatLayanan = txtTempatLayanan.Text;
+                itemTindakan.intIdTempatLayanan = Convert.ToInt32(strIdMR_TempatLayanan);
+                itemTindakan.dtTgl = dtpTglTindakan.Value;
+                int intResult = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
+                itemTindakan.strTSMFTindakan = grpLstDaftarTarif[intResult].strSMF;
+                /*increment for identified every input kode for twice..*/
+                grpLstDaftarTindakan.Add(itemTindakan);
+                /* EOF MASUKKAN PER TINDAKAN */
 
+                foreach (lstDaftarKomponenTarif x in grpLstTempTindakanDetail)
+                {
+                    lstDaftarKomponenTarif itemKomponenTarif = new lstDaftarKomponenTarif();
+                    itemKomponenTarif.strKodeTarif = x.strKodeTarif;
+                    itemKomponenTarif.strId_Komponen = x.strId_Komponen;
+                    itemKomponenTarif.dblByKomponen = x.dblByKomponen;
+                    itemKomponenTarif.dblHak1 = x.dblHak1;
+                    itemKomponenTarif.dblHak2 = x.dblHak2;
+                    itemKomponenTarif.dblHak3 = x.dblHak3;
+                    itemKomponenTarif.intPrioritasTunai = x.intPrioritasTunai;
+                    itemKomponenTarif.intNoUrut = x.intNoUrut;
+                    itemKomponenTarif.strKodeDokter = x.strKodeDokter;
+                    itemKomponenTarif.strNamaDokter = x.strNamaDokter;
+                    itemKomponenTarif.intUrutanDisplay = intUrutanTindakanDetail;
+                    grpLstDaftarTindakanDetail.Add(itemKomponenTarif);
+                    intUrutanTindakanDetail++;
+                }
+            }
+            else
+            {
+                //jika yang dilakukan adalah proses update...
+                int intResultDetail = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDisplay == intUrutanUpdate);
+
+            }
             grpLstTempTindakanDetail.Clear();
 
-            int intUrutan = 1;
+            int intUrutanLV = 1;
 
             lvDaftarTindakan.Items.Clear();
 
             grpLstDaftarTindakanDetail.ForEach(
                 delegate(lstDaftarKomponenTarif x)
                 {
-                    lvDaftarTindakan.Items.Add((intUrutan.ToString()).ToString());
+                    lvDaftarTindakan.Items.Add((intUrutanLV.ToString()).ToString());
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             x.strKodeTarif.ToString());
                     int intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
@@ -1112,21 +1126,10 @@ namespace SIM_RS.RAWAT_INAP
                             x.dblByKomponen.ToString());
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             x.strKodeDokter + " -- " + x.strNamaDokter);
-                    intUrutan++;
-                });
-
-            //grpLstDaftarTindakan.ForEach(
-            //    delegate(
-            //        lstDaftarTindakan itemTindakanFetch) 
-            //{
-            //    lvDaftarTindakan.Items.Add((intUrutan.ToString()).ToString());
-            //    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strKodeTarif.ToString());
-            //    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strUraianTarif.ToString());
-            //    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.dblBiaya.ToString());
-            //    //lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.strNamaDokter);
-            //    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemTindakanFetch.intNoUrut.ToString());
-            //    intUrutan++;
-            //});
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.intUrutanDisplay.ToString());
+                    intUrutanLV++;
+                });           
 
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
 
@@ -1135,7 +1138,6 @@ namespace SIM_RS.RAWAT_INAP
             lblDeskripsiTindakan.Text = "...";
             txtKodeTindakan.Text = "";
             txtNamaDokter.Text = "";
-            //dtpTglTindakan.Focus();
             lvDaftarTindakan.HideSelection = false;
             grpLstTempTindakanDetail.Clear();
 
@@ -1643,6 +1645,7 @@ namespace SIM_RS.RAWAT_INAP
             txtKodeTindakan.Focus();
 
             isProsesUpdate = false;
+            intUrutanTrans = 0;
 
         }
 
@@ -1809,6 +1812,35 @@ namespace SIM_RS.RAWAT_INAP
             {
                 this.Close();
             }
+        }
+
+        private void rubahToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            isProsesUpdate = true;
+
+            int intUrutan = Convert.ToInt32(lvDaftarTindakan.SelectedItems[0].SubItems[6].Text);
+            int intResultDetail = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDisplay == intUrutan);
+            txtKodeTindakan.Text = grpLstDaftarTindakanDetail[intResultDetail].strKodeTarif;
+            txtKodeTindakan.Enabled = false;
+
+            int intResultHasil = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == txtKodeTindakan.Text);
+            lblDeskripsiTindakan.Text = grpLstDaftarTindakan[intResultHasil].strUraianTarif;
+            lblBiayaTindakan.Text = grpLstDaftarTindakan[intResultHasil].dblBiaya.ToString();
+
+            cmbKomponenTarif.Items.Clear();
+            cmbKomponenTarif.Items.Add(grpLstDaftarTindakanDetail[intResultDetail].strId_Komponen);
+            cmbKomponenTarif.SelectedIndex = 0;
+            cmbKomponenTarif.Enabled = false;
+            btnDaftarKompTarif.Enabled = false;
+
+            txtNamaDokter.Text = grpLstDaftarTindakanDetail[intResultDetail].strKodeDokter + " -- " +
+                                    grpLstDaftarTindakanDetail[intResultDetail].strNamaDokter;
+
+        }
+
+        private void cmsDaftarTindakan_Opening(object sender, CancelEventArgs e)
+        {
+
         } 
 
       
