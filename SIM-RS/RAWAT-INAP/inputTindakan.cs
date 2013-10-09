@@ -16,6 +16,8 @@ namespace SIM_RS.RAWAT_INAP
     public partial class inputTindakan : Form
     {
 
+        /* TEST NO REGISTER BILLING : 1329274 */
+
         [DllImport("winspool.Drv",
                   EntryPoint = "GetDefaultPrinter")]
         public static extern bool GetDefaultPrinter(
@@ -41,9 +43,11 @@ namespace SIM_RS.RAWAT_INAP
         string strIdMR_TempatLayanan = "";
         string strIdMR_TRuangan = "";
 
-        int intUrutanTrans = 0;
+        int intUrutanTrans = 0;        
+        int intUrutanTindakan = 1;
         int intUrutanTindakanDetail = 1;
-        int intUrutanUpdate = 0;
+
+        int intIDDetailTindakanUpdate = 0;
 
 
         string strSMFTindakan = "";
@@ -78,7 +82,8 @@ namespace SIM_RS.RAWAT_INAP
             public int intNoUrut { get; set; }
             public string strKodeDokter { get; set; }
             public string strNamaDokter { get; set; }
-            public int intUrutanDisplay { get; set; }
+            public int intUrutanDetailTindakan { get; set; }
+            public int intUrutanTindakan { get; set; }
         }
         //List<lstDaftarKomponenTarif> grpLstDaftarKomponenTarif = new List<lstDaftarKomponenTarif>();
         List<lstDaftarKomponenTarif> grpLstDaftarLengkapKomponenTarif = new List<lstDaftarKomponenTarif>();
@@ -210,13 +215,15 @@ namespace SIM_RS.RAWAT_INAP
             lvDaftarTindakan.Items.Clear();
             dtpTglTindakan.Value = halamanUtama.dtTglServer;
             txtTempatLayanan.Text = "";
-            
 
+            txtKodeTindakan.Text = "";
+            txtNamaDokter.Text = "";
             grpLstDaftarTindakan.Clear();
             //grpLstDaftarKomponenTarif.Clear();
             grpLstDaftarTindakanDetail.Clear();
 
-            intUrutanTrans = 0;           
+            intUrutanTrans = 0;
+            
 
         }
 
@@ -226,17 +233,91 @@ namespace SIM_RS.RAWAT_INAP
 
             txtKodeTindakan.Text = _strKodeTarif;
 
-            string[] strArrPart = Regex.Split(txtKodeTindakan.Text, "--");
+            //string[] strArrPart = Regex.Split(txtKodeTindakan.Text, "--");
 
-            string strKodeTindakan = strArrPart[0].Trim().ToString();
-            string strUraianTindakan = strArrPart[1].Trim().ToString();
+            //string strKodeTindakan = strArrPart[0].Trim().ToString();
+            //string strUraianTindakan = strArrPart[1].Trim().ToString();
 
-            int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
+            //int intResultTarif = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
 
-            if (intResultTarif != -1)
+            //if (intResultTarif != -1)
+            //{
+            //    lblBiayaTindakan.Text = grpLstDaftarTarif[intResultTarif].dblBiaya.ToString();
+            //    lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultTarif].strUraianTarif;                                
+            //}
+
+            /*Cek kode tindakan di database*/
+
+            String[] strKodePart = Regex.Split(txtKodeTindakan.Text.Trim().ToString(), "--");
+
+            string strKode = strKodePart[0].Trim().ToString();
+            string strUraian = strKodePart[1].Trim().ToString();
+
+            int intResultSearch = grpLstDaftarTarif.FindIndex( m => m.strKodeTarif == strKode);
+
+            if (intResultSearch == -1) //dicek apakah tindakan tersebut ada di dalam database.
             {
-                lblBiayaTindakan.Text = grpLstDaftarTarif[intResultTarif].dblBiaya.ToString();
-                lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultTarif].strUraianTarif;                                
+                MessageBox.Show("Kode tindakan yang anda masukkan tidak terdaftar",
+                                "Informasi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                btnTampilDaftarTarif.Enabled = true;
+                txtKodeTindakan.Focus();
+            }
+            else //jika tindakan tersebut ada maka proses selanjutnya.
+            {
+
+                //Tampilkan detail komponen apa saja
+                var DetailKomponen = from x in grpLstDaftarLengkapKomponenTarif
+                                     where x.strKodeTarif == strKode
+                                     select x;
+
+                if (DetailKomponen.Count() > 0)
+                {
+                    cmbKomponenTarif.Items.Clear();
+                    cmbKomponenTarif.Enabled = true;
+                    grpLstTempTindakanDetail.Clear();
+                    foreach (lstDaftarKomponenTarif itemKomponen in DetailKomponen)
+                    {
+
+                        if (itemKomponen.strId_Komponen != "JASA SARANA") //komponen jasa sarana tidak perlu  ditammpilkan untuk dokter
+                            cmbKomponenTarif.Items.Add(itemKomponen.strId_Komponen);
+
+                        lstDaftarKomponenTarif itemKomponenX = new lstDaftarKomponenTarif();
+                        itemKomponenX.strKodeTarif = itemKomponen.strKodeTarif;
+                        itemKomponenX.strId_Komponen = itemKomponen.strId_Komponen;
+                        itemKomponenX.dblByKomponen = itemKomponen.dblByKomponen;
+                        itemKomponenX.dblHak1 = itemKomponen.dblHak1;
+                        itemKomponenX.dblHak2 = itemKomponen.dblHak2;
+                        itemKomponenX.dblHak3 = itemKomponen.dblHak3;
+                        itemKomponenX.intNoUrut = itemKomponen.intNoUrut;
+                        itemKomponenX.intPrioritasTunai = itemKomponen.intPrioritasTunai;
+                        itemKomponenX.strKodeDokter = "";
+                        itemKomponenX.strNamaDokter = "";
+                        grpLstTempTindakanDetail.Add(itemKomponenX);
+                    }
+                }
+                else
+                {
+                    //if result == 0 or less
+                    cmbKomponenTarif.Enabled = false;
+                }
+
+                lblBiayaTindakan.Text = grpLstDaftarTarif[intResultSearch].dblBiaya.ToString();
+                lblDeskripsiTindakan.Text = grpLstDaftarTarif[intResultSearch].strUraianTarif;
+                btnTampilDaftarTarif.Enabled = false;
+                txtKodeTindakan.Enabled = false;
+                if (cmbKomponenTarif.Enabled)
+                {
+                    cmbKomponenTarif.Focus();
+                }
+                btnDaftarKompTarif.Enabled = true;
+                txtNamaDokter.Enabled = true;
+                btnTambahKompDokter.Enabled = true;
+                btnTambahTindakan.Enabled = true;
+                btnBatalTindakan.Enabled = true;
+
             }
         }
 
@@ -1094,15 +1175,17 @@ namespace SIM_RS.RAWAT_INAP
                     itemKomponenTarif.intNoUrut = x.intNoUrut;
                     itemKomponenTarif.strKodeDokter = x.strKodeDokter;
                     itemKomponenTarif.strNamaDokter = x.strNamaDokter;
-                    itemKomponenTarif.intUrutanDisplay = intUrutanTindakanDetail;
+                    itemKomponenTarif.intUrutanDetailTindakan = intUrutanTindakanDetail;
+                    itemKomponenTarif.intUrutanTindakan = intUrutanTindakan;
                     grpLstDaftarTindakanDetail.Add(itemKomponenTarif);
                     intUrutanTindakanDetail++;
                 }
+                intUrutanTindakan++;
             }
             else
             {
                 //jika yang dilakukan adalah proses update...
-                int intResultDetail = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDisplay == intUrutanUpdate);
+                int intResult = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDetailTindakan == intIDDetailTindakanUpdate);
 
                 string strKodeNamaDokter = txtNamaDokter.Text.Trim().ToString();
                 string strKodeDokter = "";
@@ -1110,28 +1193,31 @@ namespace SIM_RS.RAWAT_INAP
 
                 if (strKodeNamaDokter.Trim().ToString() != "")
                 {
-                    strSplitKode = Regex.Split(txtKodeTindakan.Text, "--");
+                    strSplitKode = Regex.Split(txtNamaDokter.Text, "--");
                     strKodeDokter = strSplitKode[0].Trim().ToString();
                     strNamaDokter = strSplitKode[1].Trim().ToString();
                 }
-                
 
-                grpLstDaftarTindakanDetail[intUrutanUpdate].strKodeDokter = strKodeDokter;
-                grpLstDaftarTindakanDetail[intUrutanUpdate].strNamaDokter = strNamaDokter;
+
+                grpLstDaftarTindakanDetail[intResult].strKodeDokter = strKodeDokter;
+                grpLstDaftarTindakanDetail[intResult].strNamaDokter = strNamaDokter;
 
                 btnTambahTindakan.Text = "&TAMBAH TINDAKAN";
 
             }
-            grpLstTempTindakanDetail.Clear();
+            //grpLstTempTindakanDetail.Clear();
 
-            int intUrutanLV = 1;
+            int intUrutanLV = 0;
 
             lvDaftarTindakan.Items.Clear();
 
             grpLstDaftarTindakanDetail.ForEach(
                 delegate(lstDaftarKomponenTarif x)
                 {
-                    lvDaftarTindakan.Items.Add((intUrutanLV.ToString()).ToString());
+                    if(intUrutanLV != x.intUrutanTindakan)
+                        lvDaftarTindakan.Items.Add((x.intUrutanTindakan.ToString()).ToString());
+                    else
+                        lvDaftarTindakan.Items.Add("");
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             x.strKodeTarif.ToString());
                     int intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
@@ -1144,8 +1230,8 @@ namespace SIM_RS.RAWAT_INAP
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
                             x.strKodeDokter + " -- " + x.strNamaDokter);
                     lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.intUrutanDisplay.ToString());
-                    intUrutanLV++;
+                            x.intUrutanDetailTindakan.ToString());
+                    intUrutanLV = x.intUrutanTindakan;
                 });           
 
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
@@ -1153,16 +1239,25 @@ namespace SIM_RS.RAWAT_INAP
             intUrutanTrans++;
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
-            txtKodeTindakan.Text = "";
-            txtNamaDokter.Text = "";
+            
             lvDaftarTindakan.HideSelection = false;
             grpLstTempTindakanDetail.Clear();
-
-            txtKodeTindakan.Focus();
-
             isProsesUpdate = false;
 
+            txtKodeTindakan.Text = "";
+            txtKodeTindakan.Enabled = true;
+            txtKodeTindakan.Focus();
+            btnTampilDaftarTarif.Enabled = true;
 
+            cmbKomponenTarif.SelectedIndex = -1;
+            cmbKomponenTarif.Enabled = false;
+            cmbKomponenTarif.Items.Clear();
+            btnDaftarKompTarif.Enabled = false;
+            txtNamaDokter.Text = "";
+            txtNamaDokter.Enabled = false;
+            btnTambahKompDokter.Enabled = false;
+            
+            
         }
 
         private void txtTempatLayanan_Leave(object sender, EventArgs e)
@@ -1759,12 +1854,12 @@ namespace SIM_RS.RAWAT_INAP
 
                 } /* EOF  if ((strKodeNama != "") && (!boolBypassDokter)) */
 
-                bool isSelainJS = false; //digunakan untuk mengecek ada tindakan selain Jasa Sarana
+                //bool isSelainJS = false; //digunakan untuk mengecek ada tindakan selain Jasa Sarana
                 int intUrut = 0;
                 string strKomponenTarif = cmbKomponenTarif.Text.Trim().ToString();
                 cmbKomponenTarif.Items.Clear();
 
-                int intResult
+                //int intresult;
 
                 foreach (lstDaftarKomponenTarif x in grpLstTempTindakanDetail)
                 {
@@ -1775,9 +1870,12 @@ namespace SIM_RS.RAWAT_INAP
                     }
                     else
                     {
-                        cmbKomponenTarif.Items.Add(x.strId_Komponen);
-                        if (x.strId_Komponen.Trim().ToString() != "JASA SARANA")
-                            isSelainJS = true;
+
+                        if((x.strKodeDokter.Trim().ToString() == "") && (x.strId_Komponen.Trim().ToString() != "JASA SARANA"))
+                            cmbKomponenTarif.Items.Add(x.strId_Komponen);
+
+                        //if (x.strId_Komponen.Trim().ToString() != "JASA SARANA")
+                        //    isSelainJS = true;
                     }
 
                     intUrut++;;
@@ -1785,10 +1883,10 @@ namespace SIM_RS.RAWAT_INAP
 
                 txtNamaDokter.Text = "";
 
-                if (isSelainJS) //jika masih ada komponen selain jasa sarana, harusnya diperlukan entry dokter lagi..               
-                {
-                    cmbKomponenTarif.Focus();
-                }
+                //if (isSelainJS) //jika masih ada komponen selain jasa sarana, harusnya diperlukan entry dokter lagi..               
+                //{
+                //    cmbKomponenTarif.Focus();
+                //}
 
                 //txtKodeTindakan.Focus();
 
@@ -1838,24 +1936,33 @@ namespace SIM_RS.RAWAT_INAP
         {
             isProsesUpdate = true;
 
-            int intUrutan = Convert.ToInt32(lvDaftarTindakan.SelectedItems[0].SubItems[6].Text);
-            int intResultDetail = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDisplay == intUrutan);
-            txtKodeTindakan.Text = grpLstDaftarTindakanDetail[intResultDetail].strKodeTarif;
+            intIDDetailTindakanUpdate = Convert.ToInt32(lvDaftarTindakan.SelectedItems[0].SubItems[6].Text);
+
+            int intResult = grpLstDaftarTindakanDetail.FindIndex(m => m.intUrutanDetailTindakan == intIDDetailTindakanUpdate);
+            
             txtKodeTindakan.Enabled = false;
 
-            int intResultHasil = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == txtKodeTindakan.Text);
-            lblDeskripsiTindakan.Text = grpLstDaftarTindakan[intResultHasil].strUraianTarif;
-            lblBiayaTindakan.Text = grpLstDaftarTindakan[intResultHasil].dblBiaya.ToString();
+            string strKodeTarif = grpLstDaftarTindakanDetail[intResult].strKodeTarif;
+
+            int intResult2 = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == strKodeTarif);
+
+            txtKodeTindakan.Text = grpLstDaftarTindakanDetail[intResult].strKodeTarif + " -- " +
+                                    grpLstDaftarTindakan[intResult2].strUraianTarif;
+            
+            lblDeskripsiTindakan.Text = grpLstDaftarTindakan[intResult2].strUraianTarif;
+            lblBiayaTindakan.Text = grpLstDaftarTindakan[intResult2].dblBiaya.ToString();
 
             cmbKomponenTarif.Items.Clear();
-            cmbKomponenTarif.Items.Add(grpLstDaftarTindakanDetail[intResultDetail].strId_Komponen);
+            cmbKomponenTarif.Items.Add(grpLstDaftarTindakanDetail[intResult].strId_Komponen);
             cmbKomponenTarif.SelectedIndex = 0;
             cmbKomponenTarif.Enabled = false;
+            btnTampilDaftarTarif.Enabled = false;
             btnDaftarKompTarif.Enabled = false;
             btnTambahKompDokter.Enabled = false;
 
-            txtNamaDokter.Text = grpLstDaftarTindakanDetail[intResultDetail].strKodeDokter + " -- " +
-                                    grpLstDaftarTindakanDetail[intResultDetail].strNamaDokter;
+            txtNamaDokter.Text = grpLstDaftarTindakanDetail[intResult].strKodeDokter + " -- " +
+                                    grpLstDaftarTindakanDetail[intResult].strNamaDokter;
+            txtNamaDokter.Enabled = true;
 
             btnTambahTindakan.Text = "&UPDATE TINDAKAN";
 
