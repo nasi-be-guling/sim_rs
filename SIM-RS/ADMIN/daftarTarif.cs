@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using Excel;
+//using Excel;
 
 namespace SIM_RS.ADMIN
 {
@@ -58,38 +58,38 @@ namespace SIM_RS.ADMIN
 
         
 
-        private bool pvReadFileEXCEL(string _strFilePath)
-        {
+        //private bool pvReadFileEXCEL(string _strFilePath)
+        //{
 
-            FileStream stream = File.Open(_strFilePath, FileMode.Open, FileAccess.Read);
-            //1. Reading from a binary Excel file ('97-2003 format; *.xls)
-            IExcelDataReader excelReader = null;
-            excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+        //    FileStream stream = File.Open(_strFilePath, FileMode.Open, FileAccess.Read);
+        //    //1. Reading from a binary Excel file ('97-2003 format; *.xls)
+        //    IExcelDataReader excelReader = null;
+        //    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
 
-            if (!excelReader.IsValid)
-            {
-                //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
-                excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                MessageBox.Show("EXCEL 2007 Format");                
-            }
+        //    if (!excelReader.IsValid)
+        //    {
+        //        //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
+        //        excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+        //        MessageBox.Show("EXCEL 2007 Format");                
+        //    }
 
-            //3. DataSet - The result of each spreadsheet will be created in the result.Tables
-            DataSet result = excelReader.AsDataSet();
-            //4. DataSet - Create column names from first row
+        //    //3. DataSet - The result of each spreadsheet will be created in the result.Tables
+        //    DataSet result = excelReader.AsDataSet();
+        //    //4. DataSet - Create column names from first row
 
-            //excelReader.IsFirstRowAsColumnNames = true;
-            //DataSet result = excelReader.AsDataSet();
+        //    //excelReader.IsFirstRowAsColumnNames = true;
+        //    //DataSet result = excelReader.AsDataSet();
 
-            //5. Data Reader methods
-            while (excelReader.Read())
-            {
-                //excelReader.GetInt32(0);
-            }
+        //    //5. Data Reader methods
+        //    while (excelReader.Read())
+        //    {
+        //        //excelReader.GetInt32(0);
+        //    }
 
-            //6. Free resources (IExcelDataReader is IDisposable)
-            excelReader.Close();
-            return true;
-        }
+        //    //6. Free resources (IExcelDataReader is IDisposable)
+        //    excelReader.Close();
+        //    return true;
+        //}
 
         /*EOF PRIVATE FUNCTION*/
 
@@ -125,7 +125,7 @@ namespace SIM_RS.ADMIN
                 //System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
                 //MessageBox.Show(sr.ReadToEnd());
 
-                this.pvReadFileEXCEL(openFileDialog1.FileName);
+                //this.pvReadFileEXCEL(openFileDialog1.FileName);
 
                 //sr.Close();
             }
