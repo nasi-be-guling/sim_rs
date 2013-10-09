@@ -149,7 +149,7 @@ namespace SIM_RS.RAWAT_INAP
             String[] strArrPart = Regex.Split(strKodeNama, "--");
 
             string strKode = strArrPart[0].Trim().ToString();
-            string strNama = strArrPart[1].Trim().ToString();
+
             lblKodeDokter.Text = strArrPart[0].Trim().ToString();
 
             int intResultSearch = grpSemuaDokter.FindIndex(
@@ -177,6 +177,7 @@ namespace SIM_RS.RAWAT_INAP
 
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
             txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = false);
+            btnBatalJasPel.SafeControlInvoke(Button => btnBatalJasPel.Enabled = false);
             String strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
@@ -212,7 +213,7 @@ namespace SIM_RS.RAWAT_INAP
                     "AND (BL_TRANSAKSIDETAIL.idbl_komponen = 'JASA PELAYANAN') " +
                     "AND (BL_TRANSAKSIDETAIL.noambil = 0) " +
                     "AND (BL_TRANSAKSIDETAIL.idbl_pembayaran > 0) " +
-                    "AND BL_TRANSAKSIDETAIL.idmr_dokter = 'SP.BU.001' " +
+                    "AND BL_TRANSAKSIDETAIL.idmr_dokter = '"+lblKodeDokter.Text+"' " +
                     "ORDER BY BL_KASPAV.Regbilling,BL_KASPAV.Tanggal,BL_TRANSAKSI.idbl_transaksi";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
@@ -244,10 +245,18 @@ namespace SIM_RS.RAWAT_INAP
                 }
 
             }
+            else
+            {
+                
+                txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = true);
+                txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Text = "");
+                MessageBox.Show("No Register Billing tidak ditemukan ", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
-
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
             reader.Close();
             pvTampilList();
+            btnBatalJasPel.SafeControlInvoke(Button => btnBatalJasPel.Enabled = true);
         }
 
         private void pvTampilList()
@@ -256,7 +265,7 @@ namespace SIM_RS.RAWAT_INAP
             var query = (from i in grpJasaPelayanan
                          select i);
 
-            lvJasaPelayanan.Items.Clear();
+            lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Clear());
             foreach (var jaspel in query)
             {
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Add(noUrut.ToString()));
@@ -273,13 +282,18 @@ namespace SIM_RS.RAWAT_INAP
 
             var suma = (from s in grpJasaPelayanan select s.dblHslBersih).Sum();
             lblTotalJasaPelayanan.SafeControlInvoke(Label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
-            
+            lblJmlJaspel.SafeControlInvoke(Label => lblJmlJaspel.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
         }
 
 
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void btnBatalJasPel_Click(object sender, EventArgs e)
+        {
+
         }
 
 
