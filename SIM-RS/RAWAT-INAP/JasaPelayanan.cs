@@ -23,43 +23,133 @@ namespace SIM_RS.RAWAT_INAP
         C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /*List - List yang dipakai*/
-        public class lstDaftarDokter
+        #region tak ubah sesuai ketentuan berlaku
+        public class LstDaftarDokter // tak ubah sesuai ketentuan berlaku
         {
-            public string strKodeDokter { get; set; }
-            public string strNamaDokter { get; set; }
-            public string strSMF { get; set; }
+            private readonly string _strKodeDokter;
+            private readonly string _strNamaDokter;
+            private readonly string _strSmf;
+
+            public LstDaftarDokter(string strKodeDokter, string strNamaDokter, string strSmf)
+            {
+                _strKodeDokter = strKodeDokter;
+                _strNamaDokter = strNamaDokter;
+                _strSmf = strSmf;
+            }
+
+            public string StrSmf
+            {
+                get { return _strSmf; }
+            }
+
+            public string StrNamaDokter
+            {
+                get { return _strNamaDokter; }
+            }
+
+            public string StrKodeDokter
+            {
+                get { return _strKodeDokter; }
+
+
+            }
+            
         }
 
-        public class lstDaftarJasaPelayanan
+        public class LstDaftarJasaPelayanan // tak ubah sesuai ketentuan berlaku
         {
-            public string strNoBilling { get; set; }
-            public string strNamaPasien { get; set; }
-            public string strStatusPasien { get; set; }
-            public string strTglPulang { get; set; }
-            public string strNamaTarif { get; set; }
-            public double dblJasaMedis { get; set; }
-            public double dblKeringanan { get; set; }
-            public double dblHslBersih { get; set; }         
-            public string strKodeDokter { get; set; }
-            public string strKodeTransaksi{ get; set; }
+            readonly string _strNoBilling;
+            readonly string _strNamaPasien;
+            readonly string _strStatusPasien;
+            readonly string _strTglPulang;
+            readonly string _strNamaTarif;
+            readonly double _dblJasaMedis;
+            readonly double _dblKeringanan;
+            readonly double _dblHslBersih;
+            readonly string _strKodeDokter;
+            readonly string _strKodeTransaksi;
+
+             public LstDaftarJasaPelayanan(string strNoBilling, string strNamaPasien, string strStatusPasien, 
+                string strTglPulang, string strNamaTarif, double dblJasaMedis, double dblKeringanan, double dblHslBersih,                
+                string strKodeDokter, string strKodeTransaksi)
+            {
+                _dblHslBersih = dblHslBersih;
+                _dblJasaMedis = dblJasaMedis;
+                _dblKeringanan = dblKeringanan;
+                _strKodeDokter = strKodeDokter;
+                _strKodeTransaksi = strKodeTransaksi;
+                _strNamaPasien = strNamaPasien;
+                _strNamaTarif = strNamaTarif;
+                _strNoBilling = strNoBilling;
+                _strStatusPasien = strStatusPasien;
+                _strTglPulang = strTglPulang;
+            }
+
+            public string StrKodeTransaksi
+            {
+                get { return _strKodeTransaksi; }
+            }
+
+            public string StrKodeDokter
+            {
+                get { return _strKodeDokter; }
+            }
+
+            public double DblHslBersih
+            {
+                get { return _dblHslBersih; }
+            }
+
+            public double DblKeringanan
+            {
+                get { return _dblKeringanan; }
+            }
+
+            public double DblJasaMedis
+            {
+                get { return _dblJasaMedis; }
+            }
+
+            public string StrNamaTarif
+            {
+                get { return _strNamaTarif; }
+            }
+
+            public string StrTglPulang
+            {
+                get { return _strTglPulang; }
+            }
+
+            public string StrStatusPasien
+            {
+                get { return _strStatusPasien; }
+            }
+
+            public string StrNamaPasien
+            {
+                get { return _strNamaPasien; }
+            }
+
+            public string StrNoBilling
+            {
+                get { return _strNoBilling; }
+            }
         }
-        
-        List<lstDaftarJasaPelayanan> grpJasaPelayanan = new List<lstDaftarJasaPelayanan>();
-        List<lstDaftarDokter> grpSemuaDokter = new List<lstDaftarDokter>();
+        #endregion
+        readonly List<LstDaftarJasaPelayanan> _grpJasaPelayanan = new List<LstDaftarJasaPelayanan>();
+        readonly List<LstDaftarDokter> _grpSemuaDokter = new List<LstDaftarDokter>();
 
         /*Daftar Autocomplete*/
-        AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
-
-
+        readonly AutoCompleteStringCollection _listDokter = new AutoCompleteStringCollection();
 
 
         public JasaPelayanan()
         {
             InitializeComponent();
-            this.loadDataDokter();
+            LoadDataDokter();
         }
 
-        public void loadDataDokter() {
+        public void LoadDataDokter() {
             String strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
@@ -86,30 +176,27 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            listDokter.Clear();
-            grpSemuaDokter.Clear();
+            _listDokter.Clear();
+            _grpSemuaDokter.Clear();
 
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
-
-                    lstDaftarDokter itemDaftarDokter = new lstDaftarDokter();
-                    itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemDaftarDokter.strNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    itemDaftarDokter.strNamaDokter = itemDaftarDokter.strNamaDokter.Trim().ToString();
-                    itemDaftarDokter.strSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-
-                    grpSemuaDokter.Add(itemDaftarDokter);
+                    _listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    //LstDaftarDokter itemDaftarDokter = new LstDaftarDokter();
+                    //itemDaftarDokter.StrKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    //itemDaftarDokter.StrNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    //itemDaftarDokter.StrSmf = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    //_grpSemuaDokter.Add(itemDaftarDokter);
+                    _grpSemuaDokter.Add(new LstDaftarDokter(modMain.pbstrgetCol(reader, 0, ref strErr, ""), 
+                        modMain.pbstrgetCol(reader, 1, ref strErr, ""), modMain.pbstrgetCol(reader, 2, ref strErr, "")));
                 }
             }
 
-
-
             reader.Close();
 
-            txtNamaDokter.AutoCompleteCustomSource = listDokter;
+            txtNamaDokter.AutoCompleteCustomSource = _listDokter;
             txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
@@ -152,8 +239,8 @@ namespace SIM_RS.RAWAT_INAP
 
             lblKodeDokter.Text = strArrPart[0].Trim().ToString();
 
-            int intResultSearch = grpSemuaDokter.FindIndex(
-                                    m => m.strKodeDokter == strKode);
+            int intResultSearch = _grpSemuaDokter.FindIndex(
+                                    m => m.StrKodeDokter == strKode);
 
             if (intResultSearch == -1)
             {
@@ -224,24 +311,31 @@ namespace SIM_RS.RAWAT_INAP
                 return;
             }
 
-            grpJasaPelayanan.Clear();
+            _grpJasaPelayanan.Clear();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
 
-                    lstDaftarJasaPelayanan itemJasaLayanan = new lstDaftarJasaPelayanan();
-                    itemJasaLayanan.strNoBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    itemJasaLayanan.strNamaPasien = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    itemJasaLayanan.strStatusPasien = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    itemJasaLayanan.strTglPulang = modMain.pbstrgetCol(reader, 3, ref strErr, "");
-                    itemJasaLayanan.strNamaTarif = modMain.pbstrgetCol(reader, 4, ref strErr, "");
-                    itemJasaLayanan.dblJasaMedis = Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
-                    itemJasaLayanan.dblKeringanan = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-                    itemJasaLayanan.dblHslBersih = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-                    itemJasaLayanan.strKodeDokter = modMain.pbstrgetCol(reader, 9, ref strErr, "");
-                    itemJasaLayanan.strKodeTransaksi = modMain.pbstrgetCol(reader, 10, ref strErr, "");
-                    grpJasaPelayanan.Add(itemJasaLayanan);
+                    //LstDaftarJasaPelayanan itemJasaLayanan = new LstDaftarJasaPelayanan();
+                    //itemJasaLayanan.StrNoBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    //itemJasaLayanan.StrNamaPasien = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    //itemJasaLayanan.StrStatusPasien = modMain.pbstrgetCol(reader, 2, ref strErr, "");
+                    //itemJasaLayanan.StrTglPulang = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                    //itemJasaLayanan.StrNamaTarif = modMain.pbstrgetCol(reader, 4, ref strErr, "");
+                    //itemJasaLayanan.DblJasaMedis = Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
+                    //itemJasaLayanan.DblKeringanan = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
+                    //itemJasaLayanan.DblHslBersih = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
+                    //itemJasaLayanan.StrKodeDokter = modMain.pbstrgetCol(reader, 9, ref strErr, "");
+                    //itemJasaLayanan.StrKodeTransaksi = modMain.pbstrgetCol(reader, 10, ref strErr, "");
+                    //grpJasaPelayanan.Add(itemJasaLayanan);
+                    _grpJasaPelayanan.Add(new LstDaftarJasaPelayanan(modMain.pbstrgetCol(reader, 0, ref strErr, ""),
+                        modMain.pbstrgetCol(reader, 1, ref strErr, ""), modMain.pbstrgetCol(reader, 2, ref strErr, ""),
+                        modMain.pbstrgetCol(reader, 3, ref strErr, ""), modMain.pbstrgetCol(reader, 4, ref strErr, ""),
+                        Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, "")),
+                        Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, "")), modMain.pbstrgetCol(reader, 9, ref strErr, ""),
+                        modMain.pbstrgetCol(reader, 10, ref strErr, "")
+                        ));
                 }
 
             }
@@ -262,27 +356,27 @@ namespace SIM_RS.RAWAT_INAP
         private void pvTampilList()
         {
             int noUrut = 1;
-            var query = (from i in grpJasaPelayanan
+            var query = (from i in _grpJasaPelayanan
                          select i);
 
             lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Clear());
             foreach (var jaspel in query)
             {
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Add(noUrut.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.strNoBilling));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.strNamaPasien));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.strStatusPasien));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.strTglPulang));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.strNamaTarif));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.dblJasaMedis.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.dblKeringanan.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.dblHslBersih.ToString()));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNoBilling));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaPasien));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrStatusPasien));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrTglPulang));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaTarif));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblJasaMedis.ToString()));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblKeringanan.ToString()));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblHslBersih.ToString()));
                 noUrut++;
             }
 
-            var suma = (from s in grpJasaPelayanan select s.dblHslBersih).Sum();
-            lblTotalJasaPelayanan.SafeControlInvoke(Label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
-            lblJmlJaspel.SafeControlInvoke(Label => lblJmlJaspel.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            var suma = (from s in _grpJasaPelayanan select s.DblHslBersih).Sum();
+            lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
         }
 
 
