@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -21,6 +22,10 @@ namespace SIM_RS.RAWAT_INAP
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
         C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
+        readonly BackgroundWorker _bw = new BackgroundWorker();
+
+        string _strErr = "";
+        string _strQuerySql = "";
 
         /*List - List yang dipakai*/
         #region tak ubah sesuai ketentuan berlaku
@@ -50,8 +55,6 @@ namespace SIM_RS.RAWAT_INAP
             public string StrKodeDokter
             {
                 get { return _strKodeDokter; }
-
-
             }
             
         }
@@ -147,6 +150,13 @@ namespace SIM_RS.RAWAT_INAP
         {
             InitializeComponent();
             LoadDataDokter();
+
+            _bw.WorkerSupportsCancellation = true;
+            _bw.WorkerReportsProgress = true;
+            _bw.DoWork +=
+                bw_DoWork;
+            _bw.RunWorkerCompleted +=
+                bw_RunWorkerCompleted;
         }
 
         public void LoadDataDokter() {
@@ -204,8 +214,7 @@ namespace SIM_RS.RAWAT_INAP
         private void txtNamaDokter_Enter(object sender, EventArgs e)
         {
             txtNamaDokter.Text = "";
-            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;         
-            
+            txtNamaDokter.CharacterCasing = CharacterCasing.Upper;             
         }
 
         private void txtNamaDokter_KeyDown(object sender, KeyEventArgs e)
@@ -382,7 +391,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
-            
+            _servertime = GetServerTime();
         }
 
         private void btnBatalJasPel_Click(object sender, EventArgs e)
@@ -390,8 +399,126 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
+        private string _servertime;
 
+        private int GetMaxNoAmbil()
+        {
+            _strErr = "";
 
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+
+                return 0;
+            }
+            _strQuerySql = "select MAX(noambil) from BILLING..BL_TRANSAKSIDETAIL where tglambil " +
+                "between CONVERT(datetime, '" + _servertime + " 00:00:00', 121) and CONVERT(datetime, '" + _servertime + 
+                " 23:59:59', 121)";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return 0;
+            }
+            if (reader.HasRows)
+            {
+                reader.Read();
+                int noambil = Convert.ToInt16(modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                reader.Close();
+                return noambil;
+            } 
+            conn.Close();
+            return 1;
+        }
+
+        private string GetServerTime()
+        {
+            _strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+
+                return null;
+            }
+            _strQuerySql = "select convert(VARCHAR(10), GETDATE(), 120)";
+            
+            SqlDataReader reader = modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return null;
+            }
+            if (reader.HasRows)
+            {
+                reader.Read();
+                string servertime = modMain.pbstrgetCol(reader, 0, ref _strErr, "");
+                reader.Close();
+                return servertime;
+            }            
+            conn.Close();
+            return null;
+        }
+
+        private void btnSimpanJasPel_Click(object sender, EventArgs e)
+        {
+            _bw.RunWorkerAsync();
+        }
+
+        private bool SaveJazzPelll()
+        {
+            _strErr = "";
+            int noAmbil = GetMaxNoAmbil() + 1;
+            _strQuerySql = "UPDATE BILLING..BL_TRANSAKSIDETAIL set noambil  = " + noAmbil + ", " +
+                           "tglambil = getdate() where batal = '' " +
+                           "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return false;
+            }
+            SqlTransaction trans = conn.BeginTransaction();
+            modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            if (_strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                trans.Rollback();
+                conn.Close();
+                return false;
+            }
+            trans.Commit();
+            conn.Close();
+
+            return true;
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!SaveJazzPelll())
+                MessageBox.Show("TRANSAKSI GAGAL");
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(String.Format("Error : {0}", e.Error.Message));
+            }
+            else
+            {
+                MessageBox.Show("TRANSAKSI SUKSES");
+            }
+        }
 
     }
 }

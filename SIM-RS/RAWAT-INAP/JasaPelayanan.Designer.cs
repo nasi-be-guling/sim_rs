@@ -253,6 +253,7 @@
             this.btnSimpanJasPel.TabIndex = 119;
             this.btnSimpanJasPel.Text = "&AMBIL";
             this.btnSimpanJasPel.UseVisualStyleBackColor = false;
+            this.btnSimpanJasPel.Click += new System.EventHandler(this.btnSimpanJasPel_Click);
             // 
             // bgCariDataJaspel
             // 
