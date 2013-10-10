@@ -252,11 +252,7 @@ namespace SIM_RS.RAWAT_INAP
                 txtNamaDokter.Focus();
 
             }
-            else
-            {
-                //btnTambahKompDokter.Focus();
-
-            }
+            
         }
 
         private void bgCariDataJaspel_DoWork(object sender, DoWorkEventArgs e)
@@ -368,15 +364,21 @@ namespace SIM_RS.RAWAT_INAP
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrStatusPasien));
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrTglPulang));
                 lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaTarif));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblJasaMedis.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblKeringanan.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblHslBersih.ToString()));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblJasaMedis)));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblKeringanan)));
+                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblHslBersih)));
                 noUrut++;
             }
 
             var suma = (from s in _grpJasaPelayanan select s.DblHslBersih).Sum();
             lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
             lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            Double biayaAdm = 0.1 * Convert.ToDouble(suma);
+            lblJmlJaspelAsli.Text = "" + Convert.ToDouble(suma);
+            lblJasaAdministrasi.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", biayaAdm);
+            lblJasaAdministrasiAsli.Text = "" + biayaAdm;
+            cbKetenagaan.Text = "Tenaga Ahli";
+            cbKetenagaan.Focus();
         }
 
 
@@ -389,6 +391,72 @@ namespace SIM_RS.RAWAT_INAP
         {
 
         }
+
+        private void txtNilaiProsentase_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Double pajakAhli = (Convert.ToDouble(txtNilaiProsentase.Text) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
+                lblPPhAhli.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", pajakAhli);
+                lblPPhAhliAsli.Text = "" + pajakAhli;
+                Double TotalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                                            - pajakAhli;
+                lblTotalPenerimaan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", TotalPenerimaan);
+
+            }
+
+        }
+
+        private void cbKetenagaan_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cbKetenagaan.Text == "Tenaga Ahli")
+            {
+                txtNilaiProsentase.Enabled = true;
+                txtNilaiProsentase.Focus();
+                lblPPhNonAhli.Text = "";
+                lblPPhNonAhliAsli.Text = "";
+            }
+            else
+            {
+                txtNilaiProsentase.Text = "";
+                txtNilaiProsentase.Enabled = false;
+                lblPPhAhli.Text = "";
+                lblPPhAhliAsli.Text = "";
+
+                Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                lblPPhNonAhli.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
+                lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                Double TotalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                            - pajakNonAhli;
+                lblTotalPenerimaan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", TotalPenerimaan);
+            }
+        }
+
+        private void cbKetenagaan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (cbKetenagaan.Text == "Tenaga Ahli")
+                {
+                    txtNilaiProsentase.Enabled = true;
+                    txtNilaiProsentase.Focus();
+                }
+                else
+                {
+                    txtNilaiProsentase.Text = "";
+                    txtNilaiProsentase.Enabled = false;
+                    lblPPhAhli.Text = "";
+                    lblPPhAhliAsli.Text = "";
+                    Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                    lblPPhNonAhli.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
+                    lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                    Double TotalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                           - pajakNonAhli;
+                    lblTotalPenerimaan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", TotalPenerimaan);
+                }
+            }
+        }
+
 
 
 
