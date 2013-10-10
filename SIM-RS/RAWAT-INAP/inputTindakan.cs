@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Data.SQLite;
+using System.IO;
 
 namespace SIM_RS.RAWAT_INAP
 {
@@ -17,7 +19,6 @@ namespace SIM_RS.RAWAT_INAP
     {
 
         /* TEST NO REGISTER BILLING : 1329274 */
-
         [DllImport("winspool.Drv",
                   EntryPoint = "GetDefaultPrinter")]
         public static extern bool GetDefaultPrinter(
@@ -29,12 +30,10 @@ namespace SIM_RS.RAWAT_INAP
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
-        C4Module.PrintModule modPrint = new C4Module.PrintModule();
-
+        C4Module.PrintModule modPrint = new C4Module.PrintModule();        
 
         string strQuerySQL = "";
         string strErr = "";
-
 
         bool boolBypassDokter = false;
 
@@ -42,18 +41,23 @@ namespace SIM_RS.RAWAT_INAP
         string strIdMutasiPasien = "";
         string strIdMR_TempatLayanan = "";
         string strIdMR_TRuangan = "";
-
         int intUrutanTrans = 0;        
         int intUrutanTindakan = 1;
         int intUrutanTindakanDetail = 1;
-
         int intIDDetailTindakanUpdate = 0;
 
-
-        string strSMFTindakan = "";
+        //string strSMFTindakan = "";
         string strSMFDokter = "";
 
         bool isProsesUpdate = false;
+
+        //public static Screen PrimaryScreen { get; }
+
+        private int intDefaultHeightScreen = 0; 
+        private int intDefaultWidthScreen = 0; 
+
+        //private int intMinimalHeightScreen = 1024;
+        //private int intMinimalWidthScreen = 768;
 
         AutoCompleteStringCollection listTarif = new AutoCompleteStringCollection();
         AutoCompleteStringCollection listDokter = new AutoCompleteStringCollection();
@@ -100,10 +104,13 @@ namespace SIM_RS.RAWAT_INAP
             public string strTempatLayanan { get; set; }
             public int intIdTempatLayanan { get; set; }
             public string strIdMRRuangan { get; set; }
-            public DateTime dtTgl { get; set; }            
+            public DateTime dtTgl { get; set; }
+            public int intUrutanTindakan { get; set; }
         }
         public List<lstDaftarTindakan> grpLstDaftarTindakan = new List<lstDaftarTindakan>();
         List<lstDaftarKomponenTarif> grpLstDaftarTindakanDetail = new List<lstDaftarKomponenTarif>();
+
+        //data sementara untuk menghandle data yang akan di masukkan ke list.
         public List<lstDaftarKomponenTarif> grpLstTempTindakanDetail = new List<lstDaftarKomponenTarif>();
 
 
@@ -473,9 +480,8 @@ namespace SIM_RS.RAWAT_INAP
 
                 //}              
 
-                var query = from i in grpLstDaftarLengkapKomponenTarif
-                            where i.strKodeTarif.Trim().ToString() == itemTindakan.strKodeTarif.Trim().ToString() 
-                                && i.intNoUrut == itemTindakan.intNoUrut                             
+                var query = from i in grpLstDaftarTindakanDetail
+                            where i.intUrutanTindakan == itemTindakan.intUrutanTindakan                                                             
                             select i;
 
                 if (query.Count() == 0)
@@ -490,42 +496,42 @@ namespace SIM_RS.RAWAT_INAP
                     return false;
                 }
 
-            //    foreach (lstDaftarKomponenTarif itemKomponen in query)
-            //    {
+                foreach (lstDaftarKomponenTarif itemKomponen in query)
+                {
 
-            //        //string strKodeDokter = itemTindakan.strKodeDokter;
+                    //string strKodeDokter = itemTindakan.strKodeDokter;
 
-            //        if (itemKomponen.strId_Komponen.Trim().ToString() != "JASA PELAYANAN")
-            //        {
-            //            strKodeDokter = "";
-            //        }
+                    //if (itemKomponen.strId_Komponen.Trim().ToString() != "JASA PELAYANAN")
+                    //{
+                    //    strKodeDokter = "";
+                    //}
 
-            //        this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) " +
-            //                               "(idmr_mutasipasien, idbl_transaksi, " +
-            //                               "idbl_komponen, idmr_dokter, " +
-            //                               "niltarip, niltamb, " +
-            //                               "nilai, nilaskes, " +
-            //                               "hak1, hak2, " +
-            //                               "hak3 ) VALUES " +
-            //                               "(" + strIdMutasiPasien + "," + dblIDTransaksi.ToString() + ",'" +
-            //                                       itemKomponen.strId_Komponen + "','" + strKodeDokter +
-            //                                       "', " + itemKomponen.dblByKomponen.ToString() + ", 0 " +
-            //                                       "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," +
-            //                                       itemKomponen.dblHak1.ToString() +
-            //                                       "," + itemKomponen.dblHak2.ToString() +
-            //                                       "," + itemKomponen.dblHak3.ToString() + ")";
-            //        modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
-            //        if (strErr != "")
-            //        {
-            //            modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-            //            trans.Rollback();
-            //            conn.Close();
-            //            return false;
-            //        }
+                    this.strQuerySQL = "INSERT INTO BL_TRANSAKSIDETAIL WITH (ROWLOCK) " +
+                                           "(idmr_mutasipasien, idbl_transaksi, " +
+                                           "idbl_komponen, idmr_dokter, " +
+                                           "niltarip, niltamb, " +
+                                           "nilai, nilaskes, " +
+                                           "hak1, hak2, " +
+                                           "hak3 ) VALUES " +
+                                           "(" + strIdMutasiPasien + "," + dblIDTransaksi.ToString() + ",'" +
+                                                   itemKomponen.strId_Komponen + "','" + itemKomponen.strKodeDokter +
+                                                   "', " + itemKomponen.dblByKomponen.ToString() + ", 0 " +
+                                                   "," + itemKomponen.dblByKomponen.ToString() + ", 0 ," +
+                                                   itemKomponen.dblHak1.ToString() +
+                                                   "," + itemKomponen.dblHak2.ToString() +
+                                                   "," + itemKomponen.dblHak3.ToString() + ")";
+                    modDb.pbWriteSQLTrans(conn, this.strQuerySQL, ref strErr, trans);
+                    if (strErr != "")
+                    {
+                        modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                        trans.Rollback();
+                        conn.Close();
+                        return false;
+                    }
 
-            //    }
+                }
 
-            //    dblIDTransaksi = dblIDTransaksi + 1;
+                dblIDTransaksi = dblIDTransaksi + 1;
 
             }
 
@@ -747,6 +753,52 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
+        private void pvLoadLV()
+        {
+            int intUrutanLV = 1;
+            int intUrutanTemp = 0;
+
+            lvDaftarTindakan.Items.Clear();
+            int intx = 0;
+            grpLstDaftarTindakanDetail.ForEach(
+                delegate(lstDaftarKomponenTarif x)
+                {
+                    if (intUrutanTemp != x.intUrutanTindakan)
+                    {
+                        lvDaftarTindakan.Items.Add((intUrutanLV.ToString()).ToString());
+                        intUrutanLV++;
+                        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.strKodeTarif.ToString());
+                        intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
+                        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                grpLstDaftarTindakan[intx].strUraianTarif);
+                    }
+                    else
+                    {
+                        lvDaftarTindakan.Items.Add("");
+                        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
+                        intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
+                        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
+                    }
+
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.strId_Komponen.ToString());
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.dblByKomponen.ToString());
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.strKodeDokter + " -- " + x.strNamaDokter);
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.intUrutanDetailTindakan.ToString());
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                            x.intUrutanTindakan.ToString());
+                    intUrutanTemp = x.intUrutanTindakan;
+
+
+                });
+
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
+        }
+
         /* EOF FUNCTION*/
         
         public inputTindakan()
@@ -761,11 +813,27 @@ namespace SIM_RS.RAWAT_INAP
             
             this.bgWorkLoadDataInit.RunWorkerAsync();
 
+            if (Debugger.IsAttached)
+                txtNoBilling.Text = "1329274";
+            else
+                txtNoBilling.Text = "";
+
         }
 
         private void inputTindakan_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
+            halamanUtama fHalamanUtama = (halamanUtama)Application.OpenForms["halamanUtama"];
+            lblPetugas.Text = fHalamanUtama.txtPetugas.Text;
+
+            Screen screen = Screen.PrimaryScreen;
+            intDefaultWidthScreen = screen.Bounds.Width;
+            intDefaultHeightScreen = screen.Bounds.Height;
+
+            if ((intDefaultWidthScreen < 1024) && (intDefaultHeightScreen < 768))
+            {
+                C4Module.Resolution modResolution = new C4Module.Resolution(1024, 768);
+            }
         }
 
         private void txtNoBilling_KeyPress(object sender, KeyPressEventArgs e)
@@ -835,7 +903,7 @@ namespace SIM_RS.RAWAT_INAP
                     btnKeluarIsiTindakan.Text = "&KELUAR";
                     txtNoBilling.Select();
                     e.Cancel = true;
-                    isProsesUpdate = false;
+                    isProsesUpdate = false;                    
                 }
                 else
                 {
@@ -844,6 +912,7 @@ namespace SIM_RS.RAWAT_INAP
             }
             else
             {
+                C4Module.Resolution modResolution = new C4Module.Resolution(intDefaultWidthScreen, intDefaultHeightScreen);
                 e.Cancel = false;
             }
             
@@ -1158,6 +1227,7 @@ namespace SIM_RS.RAWAT_INAP
                 itemTindakan.dtTgl = dtpTglTindakan.Value;
                 int intResult = grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == strKodeTindakan);
                 itemTindakan.strTSMFTindakan = grpLstDaftarTarif[intResult].strSMF;
+                itemTindakan.intUrutanTindakan = intUrutanTindakan;
                 /*increment for identified every input kode for twice..*/
                 grpLstDaftarTindakan.Add(itemTindakan);
                 /* EOF MASUKKAN PER TINDAKAN */
@@ -1207,34 +1277,44 @@ namespace SIM_RS.RAWAT_INAP
             }
             //grpLstTempTindakanDetail.Clear();
 
-            int intUrutanLV = 0;
+            //int intUrutanLV = 1;
+            //int intUrutanTemp = 0;
 
-            lvDaftarTindakan.Items.Clear();
+            //lvDaftarTindakan.Items.Clear();
 
-            grpLstDaftarTindakanDetail.ForEach(
-                delegate(lstDaftarKomponenTarif x)
-                {
-                    if(intUrutanLV != x.intUrutanTindakan)
-                        lvDaftarTindakan.Items.Add((x.intUrutanTindakan.ToString()).ToString());
-                    else
-                        lvDaftarTindakan.Items.Add("");
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.strKodeTarif.ToString());
-                    int intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            grpLstDaftarTindakan[intx].strUraianTarif);
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.strId_Komponen.ToString());
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.dblByKomponen.ToString());
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.strKodeDokter + " -- " + x.strNamaDokter);
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                            x.intUrutanDetailTindakan.ToString());
-                    intUrutanLV = x.intUrutanTindakan;
-                });           
+            //grpLstDaftarTindakanDetail.ForEach(
+            //    delegate(lstDaftarKomponenTarif x)
+            //    {
+            //        if (intUrutanTemp != x.intUrutanTindakan)
+            //        {
+            //            lvDaftarTindakan.Items.Add((intUrutanLV.ToString()).ToString());
+            //            intUrutanLV++;
+            //        }
+            //        else
+            //            lvDaftarTindakan.Items.Add("");
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.strKodeTarif.ToString());
+            //        int intx = grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == x.strKodeTarif);
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                grpLstDaftarTindakan[intx].strUraianTarif);
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.strId_Komponen.ToString());
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.dblByKomponen.ToString());
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.strKodeDokter + " -- " + x.strNamaDokter);
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.intUrutanDetailTindakan.ToString());
+            //        lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+            //                x.intUrutanTindakan.ToString());
+            //        intUrutanTemp = x.intUrutanTindakan;
 
-            modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
+                    
+            //    });           
+
+            //modSQL.pvAutoResizeLV(lvDaftarTindakan, 6);
+
+            this.pvLoadLV();
 
             intUrutanTrans++;
             lblBiayaTindakan.Text = "...";
@@ -1965,6 +2045,27 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.Enabled = true;
 
             btnTambahTindakan.Text = "&UPDATE TINDAKAN";
+
+        }     
+
+        private void hapusToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            DialogResult msgbox = MessageBox.Show("Apakah anda akan menghapus daftar ?", "Informasi", 
+                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (msgbox == DialogResult.No)
+                return;
+
+            int intIDDetailTindakanHapus = Convert.ToInt32(lvDaftarTindakan.SelectedItems[0].SubItems[7].Text);
+
+            int intResult = grpLstDaftarTindakan.RemoveAll(m => m.intUrutanTindakan == intIDDetailTindakanHapus);
+            intResult = grpLstDaftarTindakanDetail.RemoveAll(m => m.intUrutanTindakan == intIDDetailTindakanHapus);
+
+            this.pvLoadLV();
+          
+
+
 
         }
 
