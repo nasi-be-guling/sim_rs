@@ -69,7 +69,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -402,7 +402,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.lblJmlJaspel);
             this.tabPage2.Controls.Add(this.label6);
@@ -421,11 +420,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 182);
+            this.label11.Location = new System.Drawing.Point(16, 28);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 18);
+            this.label11.Size = new System.Drawing.Size(91, 18);
             this.label11.TabIndex = 5;
-            this.label11.Text = "Pajak  :";
+            this.label11.Text = "PPh Pasal 21";
             // 
             // label10
             // 
@@ -488,30 +487,29 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Location = new System.Drawing.Point(201, 135);
+            this.panel1.Location = new System.Drawing.Point(13, 125);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(451, 109);
+            this.panel1.Size = new System.Drawing.Size(545, 87);
             this.panel1.TabIndex = 0;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(58, 11);
+            this.label13.Location = new System.Drawing.Point(206, 58);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(33, 18);
+            this.label13.Size = new System.Drawing.Size(137, 18);
             this.label13.TabIndex = 7;
-            this.label13.Text = ".....";
+            this.label13.Text = "% x (Bruto x 50%)";
             // 
-            // label12
+            // textBox1
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 11);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 18);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "5% x ";
+            this.textBox1.Location = new System.Drawing.Point(156, 39);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(31, 26);
+            this.textBox1.TabIndex = 8;
             // 
             // JasaPelayanan
             // 
@@ -597,6 +595,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
