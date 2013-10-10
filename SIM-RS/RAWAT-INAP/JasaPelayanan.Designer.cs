@@ -33,7 +33,7 @@
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTotalPenerimaan = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -47,8 +47,6 @@
             this.btnBatalJasPel = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lblTotalJasaPelayanan = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.lvJasaPelayanan = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,23 +57,35 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lblTotalJasaPelayanan = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblPPhNonAhliAsli = new System.Windows.Forms.Label();
+            this.lblPPhAhliAsli = new System.Windows.Forms.Label();
+            this.lblJasaAdministrasiAsli = new System.Windows.Forms.Label();
+            this.lblJmlJaspelAsli = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblPPhNonAhli = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblJasaAdministrasi = new System.Windows.Forms.Label();
             this.lblJmlJaspel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbKetenagaan = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblPPhAhli = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtNilaiProsentase = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,7 +143,7 @@
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.lblTotalPenerimaan);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label8);
@@ -142,15 +152,15 @@
             this.panel4.Size = new System.Drawing.Size(852, 44);
             this.panel4.TabIndex = 117;
             // 
-            // label2
+            // lblTotalPenerimaan
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(291, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 30);
-            this.label2.TabIndex = 122;
-            this.label2.Text = "....";
+            this.lblTotalPenerimaan.AutoSize = true;
+            this.lblTotalPenerimaan.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalPenerimaan.Location = new System.Drawing.Point(291, 7);
+            this.lblTotalPenerimaan.Name = "lblTotalPenerimaan";
+            this.lblTotalPenerimaan.Size = new System.Drawing.Size(37, 30);
+            this.lblTotalPenerimaan.TabIndex = 122;
+            this.lblTotalPenerimaan.Text = "....";
             // 
             // label3
             // 
@@ -296,12 +306,12 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(853, 590);
             this.tabControl1.TabIndex = 113;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.lblTotalJasaPelayanan);
-            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.lvJasaPelayanan);
+            this.tabPage1.Controls.Add(this.lblTotalJasaPelayanan);
             this.tabPage1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
@@ -310,26 +320,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Jasa Pelayanan";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // lblTotalJasaPelayanan
-            // 
-            this.lblTotalJasaPelayanan.AutoSize = true;
-            this.lblTotalJasaPelayanan.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(614, 521);
-            this.lblTotalJasaPelayanan.Name = "lblTotalJasaPelayanan";
-            this.lblTotalJasaPelayanan.Size = new System.Drawing.Size(37, 30);
-            this.lblTotalJasaPelayanan.TabIndex = 120;
-            this.lblTotalJasaPelayanan.Text = "....";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(334, 521);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(262, 30);
-            this.label9.TabIndex = 119;
-            this.label9.Text = "TOTAL SEBELUM PAJAK :";
             // 
             // lvJasaPelayanan
             // 
@@ -348,9 +338,9 @@
             this.lvJasaPelayanan.FullRowSelect = true;
             this.lvJasaPelayanan.GridLines = true;
             this.lvJasaPelayanan.HideSelection = false;
-            this.lvJasaPelayanan.Location = new System.Drawing.Point(5, 4);
+            this.lvJasaPelayanan.Location = new System.Drawing.Point(3, 4);
             this.lvJasaPelayanan.Name = "lvJasaPelayanan";
-            this.lvJasaPelayanan.Size = new System.Drawing.Size(833, 509);
+            this.lvJasaPelayanan.Size = new System.Drawing.Size(839, 509);
             this.lvJasaPelayanan.TabIndex = 116;
             this.lvJasaPelayanan.UseCompatibleStateImageBehavior = false;
             this.lvJasaPelayanan.View = System.Windows.Forms.View.Details;
@@ -401,12 +391,30 @@
             this.columnHeader9.Text = "Jumlah";
             this.columnHeader9.Width = 100;
             // 
+            // lblTotalJasaPelayanan
+            // 
+            this.lblTotalJasaPelayanan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblTotalJasaPelayanan.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblTotalJasaPelayanan.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalJasaPelayanan.ForeColor = System.Drawing.Color.White;
+            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(3, 511);
+            this.lblTotalJasaPelayanan.Name = "lblTotalJasaPelayanan";
+            this.lblTotalJasaPelayanan.Size = new System.Drawing.Size(839, 45);
+            this.lblTotalJasaPelayanan.TabIndex = 121;
+            this.lblTotalJasaPelayanan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.lblPPhNonAhliAsli);
+            this.tabPage2.Controls.Add(this.lblPPhAhliAsli);
+            this.tabPage2.Controls.Add(this.lblJasaAdministrasiAsli);
+            this.tabPage2.Controls.Add(this.lblJmlJaspelAsli);
+            this.tabPage2.Controls.Add(this.panel3);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.lblJasaAdministrasi);
             this.tabPage2.Controls.Add(this.lblJmlJaspel);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.comboBox1);
+            this.tabPage2.Controls.Add(this.cbKetenagaan);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.panel1);
@@ -418,24 +426,105 @@
             this.tabPage2.Text = "Pemotongan Pajak";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // lblPPhNonAhliAsli
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 28);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(91, 18);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "PPh Pasal 21";
+            this.lblPPhNonAhliAsli.AutoSize = true;
+            this.lblPPhNonAhliAsli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPPhNonAhliAsli.Location = new System.Drawing.Point(615, 204);
+            this.lblPPhNonAhliAsli.Name = "lblPPhNonAhliAsli";
+            this.lblPPhNonAhliAsli.Size = new System.Drawing.Size(29, 19);
+            this.lblPPhNonAhliAsli.TabIndex = 10;
+            this.lblPPhNonAhliAsli.Text = "....";
+            this.lblPPhNonAhliAsli.Visible = false;
             // 
-            // label10
+            // lblPPhAhliAsli
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(197, 93);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(29, 19);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "....";
+            this.lblPPhAhliAsli.AutoSize = true;
+            this.lblPPhAhliAsli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPPhAhliAsli.Location = new System.Drawing.Point(615, 142);
+            this.lblPPhAhliAsli.Name = "lblPPhAhliAsli";
+            this.lblPPhAhliAsli.Size = new System.Drawing.Size(29, 19);
+            this.lblPPhAhliAsli.TabIndex = 9;
+            this.lblPPhAhliAsli.Text = "....";
+            this.lblPPhAhliAsli.Visible = false;
+            // 
+            // lblJasaAdministrasiAsli
+            // 
+            this.lblJasaAdministrasiAsli.AutoSize = true;
+            this.lblJasaAdministrasiAsli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJasaAdministrasiAsli.Location = new System.Drawing.Point(502, 93);
+            this.lblJasaAdministrasiAsli.Name = "lblJasaAdministrasiAsli";
+            this.lblJasaAdministrasiAsli.Size = new System.Drawing.Size(29, 19);
+            this.lblJasaAdministrasiAsli.TabIndex = 8;
+            this.lblJasaAdministrasiAsli.Text = "....";
+            this.lblJasaAdministrasiAsli.Visible = false;
+            // 
+            // lblJmlJaspelAsli
+            // 
+            this.lblJmlJaspelAsli.AutoSize = true;
+            this.lblJmlJaspelAsli.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJmlJaspelAsli.Location = new System.Drawing.Point(502, 51);
+            this.lblJmlJaspelAsli.Name = "lblJmlJaspelAsli";
+            this.lblJmlJaspelAsli.Size = new System.Drawing.Size(29, 19);
+            this.lblJmlJaspelAsli.TabIndex = 7;
+            this.lblJmlJaspelAsli.Text = "....";
+            this.lblJmlJaspelAsli.Visible = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel3.Controls.Add(this.lblPPhNonAhli);
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Location = new System.Drawing.Point(201, 193);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(395, 44);
+            this.panel3.TabIndex = 6;
+            // 
+            // lblPPhNonAhli
+            // 
+            this.lblPPhNonAhli.AutoSize = true;
+            this.lblPPhNonAhli.Location = new System.Drawing.Point(201, 11);
+            this.lblPPhNonAhli.Name = "lblPPhNonAhli";
+            this.lblPPhNonAhli.Size = new System.Drawing.Size(23, 18);
+            this.lblPPhNonAhli.TabIndex = 9;
+            this.lblPPhNonAhli.Text = "...";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(10, 11);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(0, 18);
+            this.label12.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(5, 11);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(195, 18);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "5% x Bruto                    =";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 173);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(101, 18);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "PPh Pasal 21 :";
+            // 
+            // lblJasaAdministrasi
+            // 
+            this.lblJasaAdministrasi.AutoSize = true;
+            this.lblJasaAdministrasi.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJasaAdministrasi.Location = new System.Drawing.Point(197, 93);
+            this.lblJasaAdministrasi.Name = "lblJasaAdministrasi";
+            this.lblJasaAdministrasi.Size = new System.Drawing.Size(29, 19);
+            this.lblJasaAdministrasi.TabIndex = 4;
+            this.lblJasaAdministrasi.Text = "....";
             // 
             // lblJmlJaspel
             // 
@@ -456,16 +545,19 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "Jasa Administrasi (10%)  :";
             // 
-            // comboBox1
+            // cbKetenagaan
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbKetenagaan.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbKetenagaan.FormattingEnabled = true;
+            this.cbKetenagaan.Items.AddRange(new object[] {
             "Tenaga Ahli",
             "Non Tenaga Ahli"});
-            this.comboBox1.Location = new System.Drawing.Point(199, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(190, 26);
-            this.comboBox1.TabIndex = 1;
+            this.cbKetenagaan.Location = new System.Drawing.Point(199, 10);
+            this.cbKetenagaan.Name = "cbKetenagaan";
+            this.cbKetenagaan.Size = new System.Drawing.Size(190, 27);
+            this.cbKetenagaan.TabIndex = 1;
+            this.cbKetenagaan.SelectedValueChanged += new System.EventHandler(this.cbKetenagaan_SelectedValueChanged);
+            this.cbKetenagaan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbKetenagaan_KeyDown);
             // 
             // label5
             // 
@@ -488,29 +580,48 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel1.Controls.Add(this.lblPPhAhli);
             this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txtNilaiProsentase);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Location = new System.Drawing.Point(13, 125);
+            this.panel1.Location = new System.Drawing.Point(201, 132);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(545, 87);
+            this.panel1.Size = new System.Drawing.Size(395, 44);
             this.panel1.TabIndex = 0;
+            // 
+            // lblPPhAhli
+            // 
+            this.lblPPhAhli.AutoSize = true;
+            this.lblPPhAhli.Location = new System.Drawing.Point(201, 11);
+            this.lblPPhAhli.Name = "lblPPhAhli";
+            this.lblPPhAhli.Size = new System.Drawing.Size(23, 18);
+            this.lblPPhAhli.TabIndex = 8;
+            this.lblPPhAhli.Text = "...";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(0, 18);
+            this.label11.TabIndex = 5;
+            // 
+            // txtNilaiProsentase
+            // 
+            this.txtNilaiProsentase.Location = new System.Drawing.Point(8, 8);
+            this.txtNilaiProsentase.Name = "txtNilaiProsentase";
+            this.txtNilaiProsentase.Size = new System.Drawing.Size(31, 26);
+            this.txtNilaiProsentase.TabIndex = 8;
+            this.txtNilaiProsentase.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNilaiProsentase_KeyDown);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(206, 58);
+            this.label13.Location = new System.Drawing.Point(45, 11);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(137, 18);
+            this.label13.Size = new System.Drawing.Size(158, 18);
             this.label13.TabIndex = 7;
-            this.label13.Text = "% x (Bruto x 50%)";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(156, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(31, 26);
-            this.textBox1.TabIndex = 8;
+            this.label13.Text = "% x (Bruto x 50%) = ";
             // 
             // JasaPelayanan
             // 
@@ -543,9 +654,10 @@
             this.panel5.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -570,12 +682,10 @@
         private System.ComponentModel.BackgroundWorker bgCariDataJaspel;
         private System.Windows.Forms.Label lblKodeDokter;
         private System.Windows.Forms.Button btnBatalJasPel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTotalPenerimaan;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Label lblTotalJasaPelayanan;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListView lvJasaPelayanan;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader7;
@@ -588,14 +698,25 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbKetenagaan;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblJasaAdministrasi;
         private System.Windows.Forms.Label lblJmlJaspel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNilaiProsentase;
+        private System.Windows.Forms.Label lblTotalJasaPelayanan;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label lblPPhNonAhli;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblPPhAhli;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblJmlJaspelAsli;
+        private System.Windows.Forms.Label lblPPhNonAhliAsli;
+        private System.Windows.Forms.Label lblPPhAhliAsli;
+        private System.Windows.Forms.Label lblJasaAdministrasiAsli;
     }
 }

@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
 
 namespace SIM_RS.RAWAT_INAP
 {
     public partial class JasaPelayanan : Form
     {
-
-        C4Module.MainModule modMain = new C4Module.MainModule();
-        C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
-        C4Module.MessageModule modMsg = new C4Module.MessageModule();
-        C4Module.SQLModule modSQL = new C4Module.SQLModule();
-        C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
+        readonly C4Module.MainModule _modMain = new C4Module.MainModule();
+        readonly C4Module.DatabaseModule _modDb = new C4Module.DatabaseModule();
+        readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
+/*
+        C4Module.SQLModule _modSql = new C4Module.SQLModule();
+        C4Module.EncryptModule _modEncrypt = new C4Module.EncryptModule();
+*/
         readonly BackgroundWorker _bw = new BackgroundWorker();
 
         string _strErr = "";
@@ -164,24 +160,24 @@ namespace SIM_RS.RAWAT_INAP
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
             {                
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
 
-            String strQuerySQL = "SELECT " +
-                                 "MR_DOKTER.idmr_dokter, " +                 //0
-                                 "MR_DOKTER.nama, " +                        //1
-                                 "MR_DOKTER.idmr_tsmf " +                    //2
-                                 "FROM MR_DOKTER WITH (NOLOCK) " +
-                                 "WHERE MR_DOKTER.dipakai = 'Y'";
+            const string strQuerySql = "SELECT " +
+                                       "MR_DOKTER.idmr_dokter, " +                 //0
+                                       "MR_DOKTER.nama, " +                        //1
+                                       "MR_DOKTER.idmr_tsmf " +                    //2
+                                       "FROM MR_DOKTER WITH (NOLOCK) " +
+                                       "WHERE MR_DOKTER.dipakai = 'Y'";
 
-            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
             if (strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 conn.Close();
                 return;
             }
@@ -193,14 +189,9 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-                    _listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
-                    //LstDaftarDokter itemDaftarDokter = new LstDaftarDokter();
-                    //itemDaftarDokter.StrKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    //itemDaftarDokter.StrNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    //itemDaftarDokter.StrSmf = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    //_grpSemuaDokter.Add(itemDaftarDokter);
-                    _grpSemuaDokter.Add(new LstDaftarDokter(modMain.pbstrgetCol(reader, 0, ref strErr, ""), 
-                        modMain.pbstrgetCol(reader, 1, ref strErr, ""), modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                    _listDokter.Add(_modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + _modMain.pbstrgetCol(reader, 1, ref strErr, ""));
+                    _grpSemuaDokter.Add(new LstDaftarDokter(_modMain.pbstrgetCol(reader, 0, ref strErr, ""), 
+                        _modMain.pbstrgetCol(reader, 1, ref strErr, ""), _modMain.pbstrgetCol(reader, 2, ref strErr, "")));
                 }
             }
 
@@ -221,11 +212,11 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.bgCariDataJaspel.RunWorkerAsync();
+                bgCariDataJaspel.RunWorkerAsync();
             }
             else if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                Close();
             }
 
         }
@@ -234,61 +225,59 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
-                this.Close();
+                Close();
             }     
         }
 
+        private bool _isInEditMode;
         private void txtNamaDokter_Leave(object sender, EventArgs e)
         {
-            string strKodeNama = txtNamaDokter.Text.Trim().ToString();
+            string strKodeNama = txtNamaDokter.Text.Trim();
 
             String[] strArrPart = Regex.Split(strKodeNama, "--");
 
-            string strKode = strArrPart[0].Trim().ToString();
+            string strKode = strArrPart[0].Trim();
 
-            lblKodeDokter.Text = strArrPart[0].Trim().ToString();
+            lblKodeDokter.Text = strArrPart[0].Trim();
 
             int intResultSearch = _grpSemuaDokter.FindIndex(
                                     m => m.StrKodeDokter == strKode);
-
-            if (intResultSearch == -1)
+            if (!string.IsNullOrEmpty(txtNamaDokter.Text.Trim()))
             {
-                MessageBox.Show("Nama Dokter yang anda masukkan tidak terdaftar",
-                                "Informasi",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-
-                txtNamaDokter.Focus();
-
+                if (intResultSearch == -1)
+                {
+                    MessageBox.Show(@"Nama Dokter yang anda masukkan tidak terdaftar",
+                        @"Informasi",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    Bersih2();
+                    return;
+                }
+                _isInEditMode = false;
             }
-            else
-            {
-                //btnTambahKompDokter.Focus();
-
-            }
+            _isInEditMode = true;
         }
 
         private void bgCariDataJaspel_DoWork(object sender, DoWorkEventArgs e)
         {
-
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = false);
-            btnBatalJasPel.SafeControlInvoke(Button => btnBatalJasPel.Enabled = false);
+            lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = true);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.Enabled = false);
+            btnBatalJasPel.SafeControlInvoke(button => btnBatalJasPel.Enabled = false);
             String strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
             if (strErr != "")
             {
 
-                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = false);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
 
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "MENCARI JASA PELAYANAN");
-            String strQuerySQL =
+            lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Text = @"MENCARI JASA PELAYANAN");
+            String strQuerySql =
                     "SELECT BL_KASPAV.Regbilling, " +                                   //0
                     "MR_PASIEN.Nama, " +                                                //1
                     "BL_KASPAV.Idmr_Tstatus, " +                                        //2
@@ -312,10 +301,10 @@ namespace SIM_RS.RAWAT_INAP
                     "AND BL_TRANSAKSIDETAIL.idmr_dokter = '"+lblKodeDokter.Text+"' " +
                     "ORDER BY BL_KASPAV.Regbilling,BL_KASPAV.Tanggal,BL_TRANSAKSI.idbl_transaksi";
 
-            SqlDataReader reader = modDb.pbreaderSQL(conn, strQuerySQL, ref strErr);
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
             if (strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 conn.Close();
                 return;
             }
@@ -325,67 +314,72 @@ namespace SIM_RS.RAWAT_INAP
             {
                 while (reader.Read())
                 {
-
-                    //LstDaftarJasaPelayanan itemJasaLayanan = new LstDaftarJasaPelayanan();
-                    //itemJasaLayanan.StrNoBilling = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    //itemJasaLayanan.StrNamaPasien = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    //itemJasaLayanan.StrStatusPasien = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-                    //itemJasaLayanan.StrTglPulang = modMain.pbstrgetCol(reader, 3, ref strErr, "");
-                    //itemJasaLayanan.StrNamaTarif = modMain.pbstrgetCol(reader, 4, ref strErr, "");
-                    //itemJasaLayanan.DblJasaMedis = Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, ""));
-                    //itemJasaLayanan.DblKeringanan = Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, ""));
-                    //itemJasaLayanan.DblHslBersih = Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, ""));
-                    //itemJasaLayanan.StrKodeDokter = modMain.pbstrgetCol(reader, 9, ref strErr, "");
-                    //itemJasaLayanan.StrKodeTransaksi = modMain.pbstrgetCol(reader, 10, ref strErr, "");
-                    //grpJasaPelayanan.Add(itemJasaLayanan);
-                    _grpJasaPelayanan.Add(new LstDaftarJasaPelayanan(modMain.pbstrgetCol(reader, 0, ref strErr, ""),
-                        modMain.pbstrgetCol(reader, 1, ref strErr, ""), modMain.pbstrgetCol(reader, 2, ref strErr, ""),
-                        modMain.pbstrgetCol(reader, 3, ref strErr, ""), modMain.pbstrgetCol(reader, 4, ref strErr, ""),
-                        Convert.ToDouble(modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(modMain.pbstrgetCol(reader, 7, ref strErr, "")),
-                        Convert.ToDouble(modMain.pbstrgetCol(reader, 8, ref strErr, "")), modMain.pbstrgetCol(reader, 9, ref strErr, ""),
-                        modMain.pbstrgetCol(reader, 10, ref strErr, "")
+                    _grpJasaPelayanan.Add(new LstDaftarJasaPelayanan(_modMain.pbstrgetCol(reader, 0, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 1, ref strErr, ""), _modMain.pbstrgetCol(reader, 2, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 3, ref strErr, ""), _modMain.pbstrgetCol(reader, 4, ref strErr, ""),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(_modMain.pbstrgetCol(reader, 7, ref strErr, "")),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 8, ref strErr, "")), _modMain.pbstrgetCol(reader, 9, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 10, ref strErr, "")
                         ));
                 }
 
             }
             else
             {
-                
-                txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = true);
-                txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Text = "");
-                MessageBox.Show("No Register Billing tidak ditemukan ", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"No Register Billing tidak ditemukan ", @"Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _isInEditMode = false;
+                Bersih2();
             }
 
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+            lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = false);
             reader.Close();
-            pvTampilList();
-            btnBatalJasPel.SafeControlInvoke(Button => btnBatalJasPel.Enabled = true);
+            PvTampilList();
+            btnBatalJasPel.SafeControlInvoke(button => btnBatalJasPel.Enabled = true);
         }
 
-        private void pvTampilList()
+        private void Bersih2()
+        {
+            txtNamaDokter.SafeControlInvoke(textBox =>
+            {
+                txtNamaDokter.Enabled = true;
+                txtNamaDokter.Focus();
+            });
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.Text = "");
+            lvJasaPelayanan.SafeControlInvoke(listview => lvJasaPelayanan.Items.Clear());
+            _isInEditMode = false;
+        }
+
+        private void PvTampilList()
         {
             int noUrut = 1;
             var query = (from i in _grpJasaPelayanan
                          select i);
 
-            lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Clear());
+            lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items.Clear());
             foreach (var jaspel in query)
             {
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items.Add(noUrut.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNoBilling));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaPasien));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrStatusPasien));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrTglPulang));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaTarif));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblJasaMedis.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblKeringanan.ToString()));
-                lvJasaPelayanan.SafeControlInvoke(ListView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.DblHslBersih.ToString()));
+                int urut = noUrut;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items.Add(urut.ToString(CultureInfo.InvariantCulture)));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNoBilling));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaPasien));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrStatusPasien));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrTglPulang));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaTarif));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblJasaMedis)));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblKeringanan)));
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblHslBersih)));
                 noUrut++;
             }
 
             var suma = (from s in _grpJasaPelayanan select s.DblHslBersih).Sum();
-            lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
-            lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = string.Format(new System.Globalization.CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", suma));
+            Double biayaAdm = 0.1 * Convert.ToDouble(suma);
+            lblJmlJaspelAsli.Text = "" + Convert.ToDouble(suma);
+            lblJasaAdministrasi.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", biayaAdm);
+            lblJasaAdministrasiAsli.Text = "" + biayaAdm;
+            cbKetenagaan.Text = @"Tenaga Ahli";
+            cbKetenagaan.Focus();
         }
 
 
@@ -401,37 +395,101 @@ namespace SIM_RS.RAWAT_INAP
 
         private string _servertime;
 
+        private void txtNilaiProsentase_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Double pajakAhli = (Convert.ToDouble(txtNilaiProsentase.Text) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
+                lblPPhAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakAhli);
+                lblPPhAhliAsli.Text = "" + pajakAhli;
+                Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                                            - pajakAhli;
+                lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
+            }
+        }
+
+        private void cbKetenagaan_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cbKetenagaan.Text == @"Tenaga Ahli")
+            {
+                txtNilaiProsentase.Enabled = true;
+                txtNilaiProsentase.Focus();
+                lblPPhNonAhli.Text = "";
+                lblPPhNonAhliAsli.Text = "";
+            }
+            else
+            {
+                txtNilaiProsentase.Text = "";
+                txtNilaiProsentase.Enabled = false;
+                lblPPhAhli.Text = "";
+                lblPPhAhliAsli.Text = "";
+
+                Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
+                lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                            - pajakNonAhli;
+                lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
+            }
+        }
+
+        private void cbKetenagaan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (cbKetenagaan.Text == @"Tenaga Ahli")
+                {
+                    txtNilaiProsentase.Enabled = true;
+                    txtNilaiProsentase.Focus();
+                }
+                else
+                {
+                    txtNilaiProsentase.Text = "";
+                    txtNilaiProsentase.Enabled = false;
+                    lblPPhAhli.Text = "";
+                    lblPPhAhliAsli.Text = "";
+                    Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                    lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
+                    lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                    Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
+                           - pajakNonAhli;
+                    lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
+                }
+            }
+        }
+
+        #region PROSES UPDATE KE BL_TRAKSAKSI_DETAIL
         private int GetMaxNoAmbil()
         {
             _strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
 
                 return 0;
             }
             _strQuerySql = "select MAX(noambil) from BILLING..BL_TRANSAKSIDETAIL where tglambil " +
-                "between CONVERT(datetime, '" + _servertime + " 00:00:00', 121) and CONVERT(datetime, '" + _servertime + 
+                "between CONVERT(datetime, '" + _servertime + " 00:00:00', 121) and CONVERT(datetime, '" + _servertime +
                 " 23:59:59', 121)";
 
-            SqlDataReader reader = modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
                 conn.Close();
                 return 0;
             }
             if (reader.HasRows)
             {
                 reader.Read();
-                int noambil = Convert.ToInt16(modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
+                int noambil = Convert.ToInt16(_modMain.pbstrgetCol(reader, 0, ref _strErr, ""));
                 reader.Close();
                 return noambil;
-            } 
+            }
             conn.Close();
             return 1;
         }
@@ -441,36 +499,41 @@ namespace SIM_RS.RAWAT_INAP
             _strErr = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
 
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
 
                 return null;
             }
             _strQuerySql = "select convert(VARCHAR(10), GETDATE(), 120)";
-            
-            SqlDataReader reader = modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strQuerySql, ref _strErr);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_GET, _modMsg.TITLE_ERR);
                 conn.Close();
                 return null;
             }
             if (reader.HasRows)
             {
                 reader.Read();
-                string servertime = modMain.pbstrgetCol(reader, 0, ref _strErr, "");
+                string servertime = _modMain.pbstrgetCol(reader, 0, ref _strErr, "");
                 reader.Close();
                 return servertime;
-            }            
+            }
             conn.Close();
             return null;
         }
 
         private void btnSimpanJasPel_Click(object sender, EventArgs e)
         {
-            _bw.RunWorkerAsync();
+            if (_isInEditMode |_grpJasaPelayanan.Count > 1)
+            {
+                if (!_bw.IsBusy)
+                    _bw.RunWorkerAsync();
+                MessageBox.Show(_grpJasaPelayanan.Count.ToString());
+            }
         }
 
         private bool SaveJazzPelll()
@@ -481,17 +544,17 @@ namespace SIM_RS.RAWAT_INAP
                            "tglambil = getdate() where batal = '' " +
                            "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref _strErr);
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return false;
             }
             SqlTransaction trans = conn.BeginTransaction();
-            modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
             if (_strErr != "")
             {
-                modMsg.pvDlgErr(modMsg.IS_DEV, _strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 trans.Rollback();
                 conn.Close();
                 return false;
@@ -505,19 +568,20 @@ namespace SIM_RS.RAWAT_INAP
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             if (!SaveJazzPelll())
-                MessageBox.Show("TRANSAKSI GAGAL");
+                MessageBox.Show(@"TRANSAKSI GAGAL");
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Error != null)
-            {
-                MessageBox.Show(String.Format("Error : {0}", e.Error.Message));
-            }
-            else
-            {
-                MessageBox.Show("TRANSAKSI SUKSES");
-            }
+            MessageBox.Show(e.Error != null ? String.Format("Error : {0}", e.Error.Message) : "TRANSAKSI SUKSES");
+            Bersih2();
+            _isInEditMode = false;
+        } 
+        #endregion
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+
         }
 
     }
