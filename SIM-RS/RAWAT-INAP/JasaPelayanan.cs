@@ -18,7 +18,7 @@ namespace SIM_RS.RAWAT_INAP
         C4Module.SQLModule _modSql = new C4Module.SQLModule();
         C4Module.EncryptModule _modEncrypt = new C4Module.EncryptModule();
 */
-        readonly BackgroundWorker _bw = new BackgroundWorker();
+        readonly BackgroundWorker _bw1 = new BackgroundWorker();
 
         string _strErr = "";
         string _strQuerySql = "";
@@ -147,12 +147,12 @@ namespace SIM_RS.RAWAT_INAP
             InitializeComponent();
             LoadDataDokter();
 
-            _bw.WorkerSupportsCancellation = true;
-            _bw.WorkerReportsProgress = true;
-            _bw.DoWork +=
-                bw_DoWork;
-            _bw.RunWorkerCompleted +=
-                bw_RunWorkerCompleted;
+            _bw1.WorkerSupportsCancellation = true;
+            _bw1.WorkerReportsProgress = true;
+            _bw1.DoWork +=
+                bw1_DoWork;
+            _bw1.RunWorkerCompleted +=
+                bw1_RunWorkerCompleted;
         }
 
         public void LoadDataDokter() {
@@ -330,7 +330,7 @@ namespace SIM_RS.RAWAT_INAP
                 _isInEditMode = false;
                 Bersih2();
             }
-
+            _isEntryPajak = false;
             lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = false);
             reader.Close();
             PvTampilList();
@@ -347,6 +347,8 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.Text = "");
             lvJasaPelayanan.SafeControlInvoke(listview => lvJasaPelayanan.Items.Clear());
             _isInEditMode = false;
+            _grpJasaPelayanan.Clear();
+            _isEntryPajak = false;
         }
 
         private void PvTampilList()
@@ -390,7 +392,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private void btnBatalJasPel_Click(object sender, EventArgs e)
         {
-
+            Bersih2();
         }
 
         private string _servertime;
@@ -431,6 +433,7 @@ namespace SIM_RS.RAWAT_INAP
                             - pajakNonAhli;
                 lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
             }
+            _isEntryPajak = true;
         }
 
         private void cbKetenagaan_KeyDown(object sender, KeyEventArgs e)
@@ -530,9 +533,16 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (_isInEditMode |_grpJasaPelayanan.Count > 1)
             {
-                if (!_bw.IsBusy)
-                    _bw.RunWorkerAsync();
-                MessageBox.Show(_grpJasaPelayanan.Count.ToString());
+                if (_isEntryPajak)
+                {
+                    if (!_bw1.IsBusy)
+                        _bw1.RunWorkerAsync();
+                }
+                else
+                {
+                    MessageBox.Show(@"Silahkan Hitung Pajak/Potongan");
+                    tabControl1.SelectedTab = tabPage2;
+                }
             }
         }
 
@@ -543,6 +553,7 @@ namespace SIM_RS.RAWAT_INAP
             _strQuerySql = "UPDATE BILLING..BL_TRANSAKSIDETAIL set noambil  = " + noAmbil + ", " +
                            "tglambil = getdate() where batal = '' " +
                            "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
+            string _strQueryPajak = "";
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -565,13 +576,13 @@ namespace SIM_RS.RAWAT_INAP
             return true;
         }
 
-        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        private void bw1_DoWork(object sender, DoWorkEventArgs e)
         {
             if (!SaveJazzPelll())
                 MessageBox.Show(@"TRANSAKSI GAGAL");
         }
 
-        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void bw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show(e.Error != null ? String.Format("Error : {0}", e.Error.Message) : "TRANSAKSI SUKSES");
             Bersih2();
@@ -581,8 +592,12 @@ namespace SIM_RS.RAWAT_INAP
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-
+            if (!_isInEditMode | _grpJasaPelayanan.Count < 1)
+                e.Cancel = true;
+            else
+                _isEntryPajak = true;
         }
 
+        private bool _isEntryPajak;
     }
 }
