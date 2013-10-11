@@ -268,6 +268,7 @@
             // bgCariDataJaspel
             // 
             this.bgCariDataJaspel.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgCariDataJaspel_DoWork);
+            this.bgCariDataJaspel.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgCariDataJaspel_RunWorkerCompleted);
             // 
             // lblKodeDokter
             // 

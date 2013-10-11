@@ -333,12 +333,12 @@ namespace SIM_RS.RAWAT_INAP
             _isEntryPajak = false;
             lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = false);
             reader.Close();
-            PvTampilList();
             btnBatalJasPel.SafeControlInvoke(button => btnBatalJasPel.Enabled = true);
         }
 
         private void Bersih2()
         {
+            tabControl1.SafeControlInvoke(tabControl => tabControl1.SelectedTab = tabPage1);
             txtNamaDokter.SafeControlInvoke(textBox =>
             {
                 txtNamaDokter.Enabled = true;
@@ -349,6 +349,14 @@ namespace SIM_RS.RAWAT_INAP
             _isInEditMode = false;
             _grpJasaPelayanan.Clear();
             _isEntryPajak = false;
+            lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = @".......");
+            lblJmlJaspelAsli.SafeControlInvoke(label => lblJmlJaspelAsli.Text = @".......");
+            lblJasaAdministrasi.SafeControlInvoke(label => lblJasaAdministrasi.Text = @".......");
+            lblJasaAdministrasiAsli.SafeControlInvoke(label => lblJasaAdministrasiAsli.Text = @".......");
+            lblPPhAhli.SafeControlInvoke(label => lblPPhAhli.Text = @".......");
+            lblPPhAhliAsli.SafeControlInvoke(label => lblPPhAhliAsli.Text = @".......");
+            lblPPhNonAhli.SafeControlInvoke(label => lblPPhNonAhli.Text = @".......");
+            lblPPhNonAhliAsli.SafeControlInvoke(label => lblPPhNonAhliAsli.Text = @".......");
         }
 
         private void PvTampilList()
@@ -376,14 +384,17 @@ namespace SIM_RS.RAWAT_INAP
             var suma = (from s in _grpJasaPelayanan select s.DblHslBersih).Sum();
             lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", suma));
             lblJmlJaspel.SafeControlInvoke(label => lblJmlJaspel.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", suma));
-            Double biayaAdm = 0.1 * Convert.ToDouble(suma);
+            _biayaAdm = 0.1 * Convert.ToDouble(suma);
             lblJmlJaspelAsli.Text = "" + Convert.ToDouble(suma);
-            lblJasaAdministrasi.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", biayaAdm);
-            lblJasaAdministrasiAsli.Text = "" + biayaAdm;
+            _bruto = (decimal) suma;
+            lblJasaAdministrasi.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", _biayaAdm);
+            lblJasaAdministrasiAsli.Text = "" + _biayaAdm;
             cbKetenagaan.Text = @"Tenaga Ahli";
             cbKetenagaan.Focus();
         }
 
+        private decimal _bruto;
+        private Double _biayaAdm;
 
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
@@ -407,6 +418,8 @@ namespace SIM_RS.RAWAT_INAP
                 Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
                                             - pajakAhli;
                 lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
+                _pphGlobal = (decimal) pajakAhli;
+                CekIsentryPajak();
             }
         }
 
@@ -426,16 +439,18 @@ namespace SIM_RS.RAWAT_INAP
                 lblPPhAhli.Text = "";
                 lblPPhAhliAsli.Text = "";
 
-                Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
-                lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
-                lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                _pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", _pajakNonAhli);
+                lblPPhNonAhliAsli.Text = "" + _pajakNonAhli;
                 Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
-                            - pajakNonAhli;
+                            - _pajakNonAhli;
                 lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
+                _pphGlobal = (decimal)_pajakNonAhli;
             }
-            _isEntryPajak = true;
+            CekIsentryPajak();
         }
 
+        private Double _pajakNonAhli;
         private void cbKetenagaan_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -451,16 +466,19 @@ namespace SIM_RS.RAWAT_INAP
                     txtNilaiProsentase.Enabled = false;
                     lblPPhAhli.Text = "";
                     lblPPhAhliAsli.Text = "";
-                    Double pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
-                    lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakNonAhli);
-                    lblPPhNonAhliAsli.Text = "" + pajakNonAhli;
+                    _pajakNonAhli = Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.05;
+                    _pphGlobal = (decimal) _pajakNonAhli;
+                    lblPPhNonAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", _pajakNonAhli);
+                    lblPPhNonAhliAsli.Text = "" + _pajakNonAhli;
                     Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
-                           - pajakNonAhli;
+                           - _pajakNonAhli;
                     lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
                 }
+                CekIsentryPajak();
             }
         }
 
+        private decimal _pphGlobal;
         #region PROSES UPDATE KE BL_TRAKSAKSI_DETAIL
         private int GetMaxNoAmbil()
         {
@@ -531,17 +549,36 @@ namespace SIM_RS.RAWAT_INAP
 
         private void btnSimpanJasPel_Click(object sender, EventArgs e)
         {
+            if (_grpJasaPelayanan.Count < 1 & !bgCariDataJaspel.IsBusy)
+            {
+                MessageBox.Show(@"PILIH DOKTER YG MEMILIKI JASA PELAYANAN");
+                txtNamaDokter.Text = "";
+                txtNamaDokter.Focus();
+                return;
+            }
+
+            if (bgCariDataJaspel.IsBusy)
+            {
+                MessageBox.Show(@"MASIH ADA PROSES PENCARIAN");
+                return;
+            }
+
+            if (_bw1.IsBusy)
+            {
+                MessageBox.Show(@"MASIH ADA PROSES PENYIMPANAN");
+                return;
+            }
+
             if (_isInEditMode |_grpJasaPelayanan.Count > 1)
             {
                 if (_isEntryPajak)
                 {
-                    if (!_bw1.IsBusy)
-                        _bw1.RunWorkerAsync();
+                    _bw1.RunWorkerAsync();
                 }
                 else
                 {
                     MessageBox.Show(@"Silahkan Hitung Pajak/Potongan");
-                    tabControl1.SelectedTab = tabPage2;
+                    tabControl1.SafeControlInvoke(tabcontrol => tabControl1.SelectedTab = tabPage2);
                 }
             }
         }
@@ -553,7 +590,9 @@ namespace SIM_RS.RAWAT_INAP
             _strQuerySql = "UPDATE BILLING..BL_TRANSAKSIDETAIL set noambil  = " + noAmbil + ", " +
                            "tglambil = getdate() where batal = '' " +
                            "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
-            string _strQueryPajak = "";
+            string strQueryPajak = "insert into tr_pav_pajak values ('" + lblKodeDokter.Text + "', " +
+                _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate())";
+            MessageBox.Show(strQueryPajak);
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -587,17 +626,36 @@ namespace SIM_RS.RAWAT_INAP
             MessageBox.Show(e.Error != null ? String.Format("Error : {0}", e.Error.Message) : "TRANSAKSI SUKSES");
             Bersih2();
             _isInEditMode = false;
+            _pphGlobal = 0;
         } 
         #endregion
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (!_isInEditMode | _grpJasaPelayanan.Count < 1)
+            if (!_isInEditMode | _grpJasaPelayanan.Count < 1 | _bw1.IsBusy)
                 e.Cancel = true;
             else
+                CekIsentryPajak();
+        }
+
+        private void CekIsentryPajak()
+        {
+            if ((string.IsNullOrEmpty(txtNilaiProsentase.Text.Trim()) & cbKetenagaan.SelectedIndex < 1) | _pphGlobal < 1)
+            {
+                _isEntryPajak = false;
+            }
+            else
+            {
                 _isEntryPajak = true;
+                MessageBox.Show("true");
+            }
         }
 
         private bool _isEntryPajak;
+
+        private void bgCariDataJaspel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            PvTampilList();
+        }
     }
 }
