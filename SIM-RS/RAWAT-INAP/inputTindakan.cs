@@ -50,7 +50,7 @@ namespace SIM_RS.RAWAT_INAP
         string strSMFDokter = "";
 
         bool isProsesUpdate = false;
-
+        bool isProsesRubahResolusi = false;
         //public static Screen PrimaryScreen { get; }
 
         private int intDefaultHeightScreen = 0; 
@@ -833,6 +833,7 @@ namespace SIM_RS.RAWAT_INAP
             if ((intDefaultWidthScreen < 1024) && (intDefaultHeightScreen < 768))
             {
                 C4Module.Resolution modResolution = new C4Module.Resolution(1024, 768);
+                isProsesRubahResolusi = true;
             }
         }
 
@@ -912,7 +913,11 @@ namespace SIM_RS.RAWAT_INAP
             }
             else
             {
-                C4Module.Resolution modResolution = new C4Module.Resolution(intDefaultWidthScreen, intDefaultHeightScreen);
+                if (isProsesRubahResolusi)
+                {
+                    C4Module.Resolution modResolution = new C4Module.Resolution(intDefaultWidthScreen, intDefaultHeightScreen);
+                }
+
                 e.Cancel = false;
             }
             
@@ -1846,6 +1851,15 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (txtKodeTindakan.Text.Trim().ToString() != "") //jika kode tindakan yang di isi saja yang diproses...
             {
+                if (txtKodeTindakan.Text.Trim().ToString() == "JASA SARANA")
+                {
+                    MessageBox.Show("Tidak bisa menambahkan Komponen JASA SARANA dengan Dokter", 
+                                    "Informasi", 
+                                    MessageBoxButtons.OK, 
+                                    MessageBoxIcon.Information);
+                    return;
+                }
+
                 string strKodeNama = txtNamaDokter.Text.Trim().ToString();
 
                 string strKodeDokter = "";
@@ -2014,6 +2028,14 @@ namespace SIM_RS.RAWAT_INAP
 
         private void rubahToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (lvDaftarTindakan.SelectedItems[0].SubItems[3].Text.ToUpper().Trim().ToString() == "JASA SARANA")
+            {
+                MessageBox.Show("Tidak bisa merubah Komponen JASA SARANA dengan dokter","Informasi",
+                                MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
             isProsesUpdate = true;
 
             intIDDetailTindakanUpdate = Convert.ToInt32(lvDaftarTindakan.SelectedItems[0].SubItems[6].Text);

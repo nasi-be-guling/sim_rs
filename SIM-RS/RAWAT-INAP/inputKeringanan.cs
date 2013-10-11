@@ -617,6 +617,11 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
+        private void pnlInputKeringanan_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
        
         
     }
