@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlDaftarTindakan = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblKodeNamaTarif = new System.Windows.Forms.Label();
@@ -39,7 +40,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmsDetailTrans = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rubahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlDaftarTindakan.SuspendLayout();
+            this.cmsDetailTrans.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlDaftarTindakan
@@ -149,6 +153,19 @@
             this.columnHeader5.Text = "Dokter";
             this.columnHeader5.Width = 63;
             // 
+            // cmsDetailTrans
+            // 
+            this.cmsDetailTrans.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rubahToolStripMenuItem});
+            this.cmsDetailTrans.Name = "cmsDetailTrans";
+            this.cmsDetailTrans.Size = new System.Drawing.Size(109, 26);
+            // 
+            // rubahToolStripMenuItem
+            // 
+            this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";
+            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.rubahToolStripMenuItem.Text = "Rubah";
+            // 
             // daftarKomponenPerTarif
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -167,6 +184,7 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.daftarKomponenPerTarif_KeyPress);
             this.pnlDaftarTindakan.ResumeLayout(false);
             this.pnlDaftarTindakan.PerformLayout();
+            this.cmsDetailTrans.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -184,6 +202,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ContextMenuStrip cmsDetailTrans;
+        private System.Windows.Forms.ToolStripMenuItem rubahToolStripMenuItem;
 
     }
 }
