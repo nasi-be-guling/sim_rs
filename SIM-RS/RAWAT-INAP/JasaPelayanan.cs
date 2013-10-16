@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using SIM_RS.DATASET;
 
 namespace SIM_RS.RAWAT_INAP
 {

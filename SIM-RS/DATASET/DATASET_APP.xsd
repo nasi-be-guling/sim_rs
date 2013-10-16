@@ -14,6 +14,10 @@
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="DT_LapJasaPelayanan_1" msprop:Generator_TableClassName="DT_LapJasaPelayanan_1DataTable" msprop:Generator_TableVarName="tableDT_LapJasaPelayanan_1" msprop:Generator_TablePropName="DT_LapJasaPelayanan_1" msprop:Generator_RowDeletingName="DT_LapJasaPelayanan_1RowDeleting" msprop:Generator_UserTableName="DT_LapJasaPelayanan_1" msprop:Generator_RowChangingName="DT_LapJasaPelayanan_1RowChanging" msprop:Generator_RowEvHandlerName="DT_LapJasaPelayanan_1RowChangeEventHandler" msprop:Generator_RowDeletedName="DT_LapJasaPelayanan_1RowDeleted" msprop:Generator_RowEvArgName="DT_LapJasaPelayanan_1RowChangeEvent" msprop:Generator_RowChangedName="DT_LapJasaPelayanan_1RowChanged" msprop:Generator_RowClassName="DT_LapJasaPelayanan_1Row">
           <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nama" msprop:Generator_ColumnVarNameInTable="columnnama" msprop:Generator_ColumnPropNameInRow="nama" msprop:Generator_ColumnPropNameInTable="namaColumn" msprop:Generator_UserColumnName="nama" type="xs:string" minOccurs="0" />
+              <xs:element name="ngetes" msprop:Generator_ColumnVarNameInTable="columnngetes" msprop:Generator_ColumnPropNameInRow="ngetes" msprop:Generator_ColumnPropNameInTable="ngetesColumn" msprop:Generator_UserColumnName="ngetes" type="xs:string" minOccurs="0" />
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
