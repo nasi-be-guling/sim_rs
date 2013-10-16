@@ -142,20 +142,17 @@ namespace SIM_RS.RAWAT_INAP
 
         private void daftarTindakan_Load(object sender, EventArgs e)
         {
-
             this.KeyPreview = true;
-
             cmbPilihanFilter.SelectedIndex = 1;
-
             this.pvTampilDataTindakanNonDB();
-
+            cmbPilihanFilter.Focus();
         }
 
         private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-            //fInputTindakan.pvLoadDetailTarif(strKodeTarif);
+            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
             isUserSelected = true;
             this.Close();
         }
@@ -176,7 +173,7 @@ namespace SIM_RS.RAWAT_INAP
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-            //fInputTindakan.pvLoadDetailTarif(strKodeTarif);
+            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
             isUserSelected = true;
             this.Close();
         }
