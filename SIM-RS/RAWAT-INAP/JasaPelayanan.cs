@@ -600,7 +600,7 @@ namespace SIM_RS.RAWAT_INAP
                            "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
             string strQueryPajak = "insert into tr_pav_pajak values ('" + lblKodeDokter.Text + "', " +
                 _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate())";
-            MessageBox.Show(strQueryPajak);
+            //MessageBox.Show(strQueryPajak);
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -610,6 +610,7 @@ namespace SIM_RS.RAWAT_INAP
             }
             SqlTransaction trans = conn.BeginTransaction();
             _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            _modDb.pbWriteSQLTrans(conn, strQueryPajak, ref _strErr, trans);
             if (_strErr != "")
             {
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
@@ -655,7 +656,7 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 _isEntryPajak = true;
-                MessageBox.Show(@"true");
+                //MessageBox.Show(@"true");
             }
         }
 
