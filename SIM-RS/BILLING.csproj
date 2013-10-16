@@ -148,6 +148,11 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
+    <Compile Include="DATASET\dataSetJaspel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DATASET\DATASET_APP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -295,6 +300,9 @@
     <EmbeddedResource Include="RAWAT-INAP\JasaPelayanan.resx">
       <DependentUpon>JasaPelayanan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LaporanDetailJaspel.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">
       <DependentUpon>LapKasBKP.cs</DependentUpon>
@@ -315,6 +323,17 @@
       <DependentUpon>rekamMedis.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
+    <None Include="DATASET\dataSetJaspel.xsc">
+      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
+    </None>
+    <None Include="DATASET\dataSetJaspel.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dataSetJaspel.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DATASET\dataSetJaspel.xss">
+      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
+    </None>
     <None Include="DATASET\DATASET_APP.xsc">
       <DependentUpon>DATASET_APP.xsd</DependentUpon>
     </None>
@@ -326,6 +345,7 @@
     <None Include="DATASET\DATASET_APP.xss">
       <DependentUpon>DATASET_APP.xsd</DependentUpon>
     </None>
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

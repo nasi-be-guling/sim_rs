@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.LstDaftarJasaPelayananBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
@@ -79,6 +82,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtNilaiProsentase = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.RVDetailJaspel = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -87,7 +96,14 @@
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // LstDaftarJasaPelayananBindingSource
+            // 
+            this.LstDaftarJasaPelayananBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
             // 
             // lblInfoPencarian
             // 
@@ -246,6 +262,7 @@
             this.btnKeluarJasPel.TabIndex = 120;
             this.btnKeluarJasPel.Text = "&KELUAR";
             this.btnKeluarJasPel.UseVisualStyleBackColor = false;
+            this.btnKeluarJasPel.Click += new System.EventHandler(this.btnKeluarJasPel_Click);
             // 
             // btnSimpanJasPel
             // 
@@ -302,7 +319,8 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(14, 63);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(14, 70);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(853, 590);
@@ -624,6 +642,61 @@
             this.label13.TabIndex = 7;
             this.label13.Text = "% x (Bruto x 50%) = ";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.tabControl2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(845, 559);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Laporan";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // RVDetailJaspel
+            // 
+            reportDataSource1.Name = "dsDetailJaspel";
+            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
+            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
+            this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LaporanDetailJaspel.rdlc";
+            this.RVDetailJaspel.Location = new System.Drawing.Point(6, 6);
+            this.RVDetailJaspel.Name = "RVDetailJaspel";
+            this.RVDetailJaspel.Size = new System.Drawing.Size(775, 527);
+            this.RVDetailJaspel.TabIndex = 0;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Location = new System.Drawing.Point(13, 6);
+            this.tabControl2.Multiline = true;
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(820, 547);
+            this.tabControl2.TabIndex = 1;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.RVDetailJaspel);
+            this.tabPage4.Location = new System.Drawing.Point(4, 4);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(787, 539);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(787, 539);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
             // JasaPelayanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -647,6 +720,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pengambilan Jasa Pelayanan";
             this.Load += new System.EventHandler(this.JasaPelayanan_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -661,6 +735,9 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -719,5 +796,11 @@
         private System.Windows.Forms.Label lblPPhNonAhliAsli;
         private System.Windows.Forms.Label lblPPhAhliAsli;
         private System.Windows.Forms.Label lblJasaAdministrasiAsli;
+        private System.Windows.Forms.TabPage tabPage3;
+        private Microsoft.Reporting.WinForms.ReportViewer RVDetailJaspel;
+        private System.Windows.Forms.BindingSource LstDaftarJasaPelayananBindingSource;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }

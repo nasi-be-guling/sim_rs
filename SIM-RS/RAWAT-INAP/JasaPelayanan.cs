@@ -214,6 +214,7 @@ namespace SIM_RS.RAWAT_INAP
             if (e.KeyCode == Keys.Enter)
             {
                 bgCariDataJaspel.RunWorkerAsync();
+               // this.pvTampilLaporan();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -231,6 +232,27 @@ namespace SIM_RS.RAWAT_INAP
         }
 
         private bool _isInEditMode;
+
+        private void pvTampilLaporan() {
+
+            //bgCariDataJaspel.RunWorkerAsync();
+
+            RVDetailJaspel.LocalReport.DataSources.Clear(); //clear report
+           // RVDetailJaspel.LocalReport.ReportEmbeddedResource = @"D:\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc"; // bind reportviewer with .rdlc
+           // RVDetailJaspel.LocalReport.ReportPath = @"\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc";
+           // _reportViewer.LocalReport.ReportPath = exeFolder + @"\Reports\Report1.rdlc";
+
+
+            Microsoft.Reporting.WinForms.ReportDataSource dsDetailJaspel = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJaspel", _grpJasaPelayanan); // set the datasource
+            RVDetailJaspel.LocalReport.DataSources.Add(dsDetailJaspel);
+            dsDetailJaspel.Value = _grpJasaPelayanan;
+
+            RVDetailJaspel.LocalReport.Refresh();
+
+            this.RVDetailJaspel.RefreshReport();
+
+        }
+
         private void txtNamaDokter_Leave(object sender, EventArgs e)
         {
             string strKodeNama = txtNamaDokter.Text.Trim();
@@ -327,7 +349,7 @@ namespace SIM_RS.RAWAT_INAP
             }
             else
             {
-                MessageBox.Show(@"No Register Billing tidak ditemukan ", @"Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Semua Jasa Pelayanan Sudah Diambil ", @"Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _isInEditMode = false;
                 Bersih2();
             }
@@ -358,6 +380,8 @@ namespace SIM_RS.RAWAT_INAP
             lblPPhAhliAsli.SafeControlInvoke(label => lblPPhAhliAsli.Text = @".......");
             lblPPhNonAhli.SafeControlInvoke(label => lblPPhNonAhli.Text = @".......");
             lblPPhNonAhliAsli.SafeControlInvoke(label => lblPPhNonAhliAsli.Text = @".......");
+            lblTotalPenerimaan.SafeControlInvoke(label => lblTotalPenerimaan.Text = @".......");
+            lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = @".......");
         }
 
         private void PvTampilList()
@@ -408,6 +432,7 @@ namespace SIM_RS.RAWAT_INAP
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
             _servertime = GetServerTime();
+            this.RVDetailJaspel.RefreshReport();
         }
 
         private void btnBatalJasPel_Click(object sender, EventArgs e)
@@ -421,7 +446,8 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Double pajakAhli = (Convert.ToDouble(txtNilaiProsentase.Text) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
+                String pajak = _modMain.pbstrBersihkanInput(txtNilaiProsentase.Text);
+                Double pajakAhli = (Convert.ToDouble(pajak) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
                 lblPPhAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakAhli);
                 lblPPhAhliAsli.Text = "" + pajakAhli;
                 Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
@@ -481,12 +507,13 @@ namespace SIM_RS.RAWAT_INAP
                     lblPPhNonAhliAsli.Text = "" + _pajakNonAhli;
                     Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
                            - _pajakNonAhli;
+                    _netto = Convert.ToDecimal(totalPenerimaan);
                     lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
                 }
                 CekIsentryPajak();
             }
         }
-
+        private decimal _netto; 
         private decimal _pphGlobal;
         #region PROSES UPDATE KE BL_TRAKSAKSI_DETAIL
         private int GetMaxNoAmbil()
@@ -599,9 +626,11 @@ namespace SIM_RS.RAWAT_INAP
             _strQuerySql = "UPDATE BILLING..BL_TRANSAKSIDETAIL set noambil  = " + noAmbil + ", " +
                            "tglambil = getdate() where batal = '' " +
                            "and idmr_dokter = '" + lblKodeDokter.Text + "' and idbl_pembayaran > 0 and noambil = 0 ";
+
+           
             string strQueryPajak = "insert into tr_pav_pajak values ('" + lblKodeDokter.Text + "', " +
-                _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate())";
-            //MessageBox.Show(strQueryPajak);
+                _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate(),"+ (_bruto - (Convert.ToDecimal(_biayaAdm) + _pphGlobal)) +")";
+         
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -609,6 +638,7 @@ namespace SIM_RS.RAWAT_INAP
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return false;
             }
+
             SqlTransaction trans = conn.BeginTransaction();
             _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
             _modDb.pbWriteSQLTrans(conn, strQueryPajak, ref _strErr, trans);
@@ -657,7 +687,6 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 _isEntryPajak = true;
-                //MessageBox.Show(@"true");
             }
         }
 
@@ -666,6 +695,12 @@ namespace SIM_RS.RAWAT_INAP
         private void bgCariDataJaspel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             PvTampilList();
+            this.pvTampilLaporan();
+        }
+
+        private void btnKeluarJasPel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
