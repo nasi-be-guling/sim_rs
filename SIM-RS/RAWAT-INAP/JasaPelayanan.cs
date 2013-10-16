@@ -213,6 +213,7 @@ namespace SIM_RS.RAWAT_INAP
             if (e.KeyCode == Keys.Enter)
             {
                 bgCariDataJaspel.RunWorkerAsync();
+               // this.pvTampilLaporan();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -230,6 +231,27 @@ namespace SIM_RS.RAWAT_INAP
         }
 
         private bool _isInEditMode;
+
+        private void pvTampilLaporan() {
+
+            //bgCariDataJaspel.RunWorkerAsync();
+
+            RVDetailJaspel.LocalReport.DataSources.Clear(); //clear report
+           // RVDetailJaspel.LocalReport.ReportEmbeddedResource = @"D:\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc"; // bind reportviewer with .rdlc
+           // RVDetailJaspel.LocalReport.ReportPath = @"\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc";
+           // _reportViewer.LocalReport.ReportPath = exeFolder + @"\Reports\Report1.rdlc";
+
+
+            Microsoft.Reporting.WinForms.ReportDataSource dsDetailJaspel = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJaspel", _grpJasaPelayanan); // set the datasource
+            RVDetailJaspel.LocalReport.DataSources.Add(dsDetailJaspel);
+            dsDetailJaspel.Value = _grpJasaPelayanan;
+
+            RVDetailJaspel.LocalReport.Refresh();
+
+            this.RVDetailJaspel.RefreshReport();
+
+        }
+
         private void txtNamaDokter_Leave(object sender, EventArgs e)
         {
             string strKodeNama = txtNamaDokter.Text.Trim();
@@ -409,6 +431,7 @@ namespace SIM_RS.RAWAT_INAP
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
             _servertime = GetServerTime();
+            this.RVDetailJaspel.RefreshReport();
         }
 
         private void btnBatalJasPel_Click(object sender, EventArgs e)
@@ -671,6 +694,7 @@ namespace SIM_RS.RAWAT_INAP
         private void bgCariDataJaspel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             PvTampilList();
+            this.pvTampilLaporan();
         }
 
         private void btnKeluarJasPel_Click(object sender, EventArgs e)

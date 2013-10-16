@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dataSetJaspel" targetNamespace="http://tempuri.org/dataSetJaspel.xsd" xmlns:mstns="http://tempuri.org/dataSetJaspel.xsd" xmlns="http://tempuri.org/dataSetJaspel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dataSetJaspel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dataSetJaspel" msprop:Generator_UserDSName="dataSetJaspel">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtRincianTabel" msprop:Generator_TableClassName="dtRincianTabelDataTable" msprop:Generator_TableVarName="tabledtRincianTabel" msprop:Generator_TablePropName="dtRincianTabel" msprop:Generator_RowDeletingName="dtRincianTabelRowDeleting" msprop:Generator_UserTableName="dtRincianTabel" msprop:Generator_RowChangingName="dtRincianTabelRowChanging" msprop:Generator_RowEvHandlerName="dtRincianTabelRowChangeEventHandler" msprop:Generator_RowDeletedName="dtRincianTabelRowDeleted" msprop:Generator_RowEvArgName="dtRincianTabelRowChangeEvent" msprop:Generator_RowChangedName="dtRincianTabelRowChanged" msprop:Generator_RowClassName="dtRincianTabelRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="noRekamMedik" msdata:Caption="No Rekam Medik" msprop:Generator_ColumnVarNameInTable="columnnoRekamMedik" msprop:Generator_ColumnPropNameInRow="noRekamMedik" msprop:Generator_ColumnPropNameInTable="noRekamMedikColumn" msprop:Generator_UserColumnName="noRekamMedik" type="xs:string" minOccurs="0" />
+              <xs:element name="namaPasien" msdata:Caption="Nama Pasien" msprop:Generator_ColumnVarNameInTable="columnnamaPasien" msprop:Generator_ColumnPropNameInRow="namaPasien" msprop:Generator_ColumnPropNameInTable="namaPasienColumn" msprop:Generator_UserColumnName="namaPasien" type="xs:string" minOccurs="0" />
+              <xs:element name="status" msdata:Caption="Status" msprop:Generator_ColumnVarNameInTable="columnstatus" msprop:Generator_ColumnPropNameInRow="status" msprop:Generator_ColumnPropNameInTable="statusColumn" msprop:Generator_UserColumnName="status" type="xs:string" minOccurs="0" />
+              <xs:element name="tglPulang" msdata:Caption="Tgl Pulang" msprop:Generator_ColumnVarNameInTable="columntglPulang" msprop:Generator_ColumnPropNameInRow="tglPulang" msprop:Generator_ColumnPropNameInTable="tglPulangColumn" msprop:Generator_UserColumnName="tglPulang" type="xs:string" minOccurs="0" />
+              <xs:element name="namaTindakan" msdata:Caption="Nama Tindakan" msprop:Generator_ColumnVarNameInTable="columnnamaTindakan" msprop:Generator_ColumnPropNameInRow="namaTindakan" msprop:Generator_ColumnPropNameInTable="namaTindakanColumn" msprop:Generator_UserColumnName="namaTindakan" type="xs:string" minOccurs="0" />
+              <xs:element name="jumlah" msdata:Caption="Jumlah" msprop:Generator_ColumnVarNameInTable="columnjumlah" msprop:Generator_ColumnPropNameInRow="jumlah" msprop:Generator_ColumnPropNameInTable="jumlahColumn" msprop:Generator_UserColumnName="jumlah" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
