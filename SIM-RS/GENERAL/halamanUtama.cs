@@ -101,6 +101,21 @@ namespace SIM_RS
         /* EOF PRIVATE VARIABLE */      
 
 
+        /* HOLD VARIABLE OTHER FORM*/
+
+        public class lstDaftarTarif
+        {
+
+            public string strKodeTarif { get; set; }
+            public string strUraianTarif { get; set; }
+            public double dblBiaya { get; set; }
+            public string strSMF { get; set; }
+
+        }
+        public List<lstDaftarTarif> grpLstDaftarTarif = new List<lstDaftarTarif>();
+
+        /* */
+
 
         /*PRIVATE FUNCTION*/
 

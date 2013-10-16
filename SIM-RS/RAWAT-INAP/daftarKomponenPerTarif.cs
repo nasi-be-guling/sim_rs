@@ -29,15 +29,15 @@ namespace SIM_RS.RAWAT_INAP
         private void daftarKomponenPerTarif_Load(object sender, EventArgs e)
         {
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-
+            halamanUtama fHalamanUtama = (halamanUtama)Application.OpenForms["halamanUtama"];
 
             lvDaftarTindakan.Items.Clear();
             foreach (inputTindakan.lstDaftarKomponenTarif itemx in fInputTindakan.grpLstTempTindakanDetail)
             {
                 lvDaftarTindakan.Items.Add(itemx.strKodeTarif);
-                int intResult = fInputTindakan.grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
+                int intResult = fHalamanUtama.grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                    fInputTindakan.grpLstDaftarTarif[intResult].strUraianTarif);
+                    fHalamanUtama.grpLstDaftarTarif[intResult].strUraianTarif);
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strId_Komponen);
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.dblByKomponen.ToString());
                 lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strKodeDokter + "--" + itemx.strNamaDokter);

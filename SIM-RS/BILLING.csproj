@@ -141,6 +141,7 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
+    <Compile Include="DATASET\data.cs" />
     <Compile Include="DATASET\DATASET_APP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

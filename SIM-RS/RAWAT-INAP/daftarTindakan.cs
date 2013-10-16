@@ -32,10 +32,12 @@ namespace SIM_RS.RAWAT_INAP
         private void pvTampilDataTindakanNonDB()
         {
 
-            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+            //inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 
-            fInputTindakan.grpLstDaftarTarif.ForEach(
-           delegate(inputTindakan.lstDaftarTarif itemTarif)
+            halamanUtama fHalamanUtama = (halamanUtama)Application.OpenForms["halamanUtama"];
+
+            fHalamanUtama.grpLstDaftarTarif.ForEach(
+           delegate(halamanUtama.lstDaftarTarif itemTarif)
            {
 
                ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
@@ -152,15 +154,10 @@ namespace SIM_RS.RAWAT_INAP
         private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
-
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-
-            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
-
+            //fInputTindakan.pvLoadDetailTarif(strKodeTarif);
             isUserSelected = true;
-            
             this.Close();
-
         }
 
         private void daftarTindakan_FormClosed(object sender, FormClosedEventArgs e)
@@ -178,20 +175,14 @@ namespace SIM_RS.RAWAT_INAP
         private void lvDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
-
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-
-            fInputTindakan.pvLoadDetailTarif(strKodeTarif);
-
+            //fInputTindakan.pvLoadDetailTarif(strKodeTarif);
             isUserSelected = true;
-
             this.Close();
         }
 
         private void bgWork_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.BeginUpdate());
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.Clear());
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.AddRange(lviDaftarTindakan.ToArray()));
