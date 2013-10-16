@@ -357,6 +357,8 @@ namespace SIM_RS.RAWAT_INAP
             lblPPhAhliAsli.SafeControlInvoke(label => lblPPhAhliAsli.Text = @".......");
             lblPPhNonAhli.SafeControlInvoke(label => lblPPhNonAhli.Text = @".......");
             lblPPhNonAhliAsli.SafeControlInvoke(label => lblPPhNonAhliAsli.Text = @".......");
+            lblTotalPenerimaan.SafeControlInvoke(label => lblTotalPenerimaan.Text = @".......");
+            lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = @".......");
         }
 
         private void PvTampilList()
@@ -420,7 +422,8 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Double pajakAhli = (Convert.ToDouble(txtNilaiProsentase.Text) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
+                String pajak = _modMain.pbstrBersihkanInput(txtNilaiProsentase.Text);
+                Double pajakAhli = (Convert.ToDouble(pajak) / 100) * (Convert.ToDouble(lblJmlJaspelAsli.Text) * 0.5);
                 lblPPhAhli.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", pajakAhli);
                 lblPPhAhliAsli.Text = "" + pajakAhli;
                 Double totalPenerimaan = Convert.ToDouble(lblJmlJaspelAsli.Text) - Convert.ToDouble(lblJasaAdministrasiAsli.Text)
@@ -602,8 +605,8 @@ namespace SIM_RS.RAWAT_INAP
 
            
             string strQueryPajak = "insert into tr_pav_pajak values ('" + lblKodeDokter.Text + "', " +
-                _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate(),"+_netto +")";
-          
+                _bruto + ", " + _biayaAdm + ", " + _pphGlobal + ", getdate(),"+ (_bruto - (Convert.ToDecimal(_biayaAdm) + _pphGlobal)) +")";
+         
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
             SqlConnection conn = _modDb.pbconnKoneksiSQL(ref _strErr);
             if (_strErr != "")
@@ -614,6 +617,7 @@ namespace SIM_RS.RAWAT_INAP
 
             SqlTransaction trans = conn.BeginTransaction();
             _modDb.pbWriteSQLTrans(conn, _strQuerySql, ref _strErr, trans);
+            _modDb.pbWriteSQLTrans(conn, strQueryPajak, ref _strErr, trans);
             if (_strErr != "")
             {
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, _strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
@@ -659,7 +663,6 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 _isEntryPajak = true;
-         
             }
         }
 
