@@ -246,6 +246,7 @@
             this.btnKeluarJasPel.TabIndex = 120;
             this.btnKeluarJasPel.Text = "&KELUAR";
             this.btnKeluarJasPel.UseVisualStyleBackColor = false;
+            this.btnKeluarJasPel.Click += new System.EventHandler(this.btnKeluarJasPel_Click);
             // 
             // btnSimpanJasPel
             // 
