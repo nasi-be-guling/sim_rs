@@ -370,14 +370,22 @@ namespace SIM_RS.RAWAT_INAP
             {
                 int urut = noUrut;
                 lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items.Add(urut.ToString(CultureInfo.InvariantCulture)));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNoBilling));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaPasien));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrStatusPasien));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrTglPulang));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel.StrNamaTarif));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblJasaMedis)));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblKeringanan)));
-                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel.DblHslBersih)));
+                LstDaftarJasaPelayanan jaspel1 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel1.StrNoBilling));
+                LstDaftarJasaPelayanan jaspel2 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel2.StrNamaPasien));
+                LstDaftarJasaPelayanan jaspel3 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel3.StrStatusPasien));
+                LstDaftarJasaPelayanan jaspel4 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel4.StrTglPulang));
+                LstDaftarJasaPelayanan jaspel5 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(jaspel5.StrNamaTarif));
+                LstDaftarJasaPelayanan jaspel6 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel6.DblJasaMedis)));
+                LstDaftarJasaPelayanan jaspel7 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel7.DblKeringanan)));
+                LstDaftarJasaPelayanan jaspel8 = jaspel;
+                lvJasaPelayanan.SafeControlInvoke(listView => lvJasaPelayanan.Items[lvJasaPelayanan.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", jaspel8.DblHslBersih)));
                 noUrut++;
             }
 
@@ -647,7 +655,7 @@ namespace SIM_RS.RAWAT_INAP
             else
             {
                 _isEntryPajak = true;
-                MessageBox.Show("true");
+                MessageBox.Show(@"true");
             }
         }
 
