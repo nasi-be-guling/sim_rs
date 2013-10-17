@@ -20,13 +20,15 @@ namespace SIM_RS.RAWAT_INAP
         C4Module.EncryptModule _modEncrypt = new C4Module.EncryptModule();
 */
         readonly BackgroundWorker _bw1 = new BackgroundWorker();
+        readonly BackgroundWorker _bw2 = new BackgroundWorker();
 
         string _strErr = "";
         string _strQuerySql = "";
 
         /*List - List yang dipakai*/
         #region tak ubah sesuai ketentuan berlaku
-        public class LstDaftarDokter // tak ubah sesuai ketentuan berlaku
+
+        private class LstDaftarDokter // tak ubah sesuai ketentuan berlaku
         {
             private readonly string _strKodeDokter;
             private readonly string _strNamaDokter;
@@ -56,7 +58,7 @@ namespace SIM_RS.RAWAT_INAP
             
         }
 
-        public class LstDaftarJasaPelayanan // tak ubah sesuai ketentuan berlaku
+        private class LstDaftarJasaPelayanan // tak ubah sesuai ketentuan berlaku
         {
             readonly string _strNoBilling;
             readonly string _strNamaPasien;
@@ -135,25 +137,107 @@ namespace SIM_RS.RAWAT_INAP
                 get { return _strNoBilling; }
             }
         }
+
+        private class Kwitansi
+        {
+            private readonly string _nama;
+            private readonly decimal _bruto;
+            private readonly decimal _jasaAdm;
+            private readonly decimal _pph21;
+            private readonly DateTime _tglambil;
+            private readonly decimal _netto;
+            private readonly string _idmrDokter;
+            private readonly decimal _terbilang;
+            private readonly string _npwp;
+            
+            public Kwitansi(decimal bruto, string idmrDokter, decimal jasaAdm, string nama, decimal netto, string npwp, decimal pph21, decimal terbilang, DateTime tglambil)
+            {
+                _bruto = bruto;
+                _idmrDokter = idmrDokter;
+                _jasaAdm = jasaAdm;
+                _nama = nama;
+                _netto = netto;
+                _npwp = npwp;
+                _pph21 = pph21;
+                _terbilang = terbilang;
+                _tglambil = tglambil;
+            }
+
+            public string Npwp
+            {
+                get { return _npwp; }
+            }
+
+            public decimal Terbilang
+            {
+                get { return _terbilang; }
+            }
+
+            public string IdmrDokter
+            {
+                get { return _idmrDokter; }
+            }
+
+            public decimal Netto
+            {
+                get { return _netto; }
+            }
+
+            public DateTime Tglambil
+            {
+                get { return _tglambil; }
+            }
+
+            public decimal Pph21
+            {
+                get { return _pph21; }
+            }
+
+            public decimal JasaAdm
+            {
+                get { return _jasaAdm; }
+            }
+
+            public decimal Bruto
+            {
+                get { return _bruto; }
+            }
+
+            public string Nama
+            {
+                get { return _nama; }
+            }
+        }
+
         #endregion
         readonly List<LstDaftarJasaPelayanan> _grpJasaPelayanan = new List<LstDaftarJasaPelayanan>();
         readonly List<LstDaftarDokter> _grpSemuaDokter = new List<LstDaftarDokter>();
+        List<Kwitansi> _kwitansis = new List<Kwitansi>(); 
 
         /*Daftar Autocomplete*/
         readonly AutoCompleteStringCollection _listDokter = new AutoCompleteStringCollection();
-
-
+        
         public JasaPelayanan()
         {
             InitializeComponent();
             LoadDataDokter();
 
+            #region backgroundworker
             _bw1.WorkerSupportsCancellation = true;
             _bw1.WorkerReportsProgress = true;
             _bw1.DoWork +=
                 bw1_DoWork;
             _bw1.RunWorkerCompleted +=
                 bw1_RunWorkerCompleted;
+
+            _bw2.WorkerSupportsCancellation = true;
+            _bw2.WorkerReportsProgress = true;
+            _bw2.DoWork +=
+                bw2_DoWork;
+            _bw2.RunWorkerCompleted +=
+                bw2_RunWorkerCompleted; 
+            #endregion
+
         }
 
         public void LoadDataDokter() {
@@ -233,7 +317,7 @@ namespace SIM_RS.RAWAT_INAP
 
         private bool _isInEditMode;
 
-        private void pvTampilLaporan() {
+        private void PvTampilLaporan() {
 
             //bgCariDataJaspel.RunWorkerAsync();
 
@@ -249,8 +333,21 @@ namespace SIM_RS.RAWAT_INAP
 
             RVDetailJaspel.LocalReport.Refresh();
 
-            this.RVDetailJaspel.RefreshReport();
+            RVDetailJaspel.RefreshReport();
 
+        }
+
+        private void PvTampilLaporanKwi()
+        {
+            kwi_viewer.LocalReport.DataSources.Clear(); //clear report
+
+            Microsoft.Reporting.WinForms.ReportDataSource dsDetailJaspelKwi = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJaspelKwi", _grpJasaPelayanan); // set the datasource
+            kwi_viewer.LocalReport.DataSources.Add(dsDetailJaspelKwi);
+            dsDetailJaspelKwi.Value = _grpJasaPelayanan;
+
+            kwi_viewer.LocalReport.Refresh();
+
+            kwi_viewer.RefreshReport();
         }
 
         private void txtNamaDokter_Leave(object sender, EventArgs e)
@@ -432,7 +529,8 @@ namespace SIM_RS.RAWAT_INAP
         private void JasaPelayanan_Load(object sender, EventArgs e)
         {
             _servertime = GetServerTime();
-            this.RVDetailJaspel.RefreshReport();
+            RVDetailJaspel.RefreshReport();
+            kwi_viewer.RefreshReport();
         }
 
         private void btnBatalJasPel_Click(object sender, EventArgs e)
@@ -667,7 +765,65 @@ namespace SIM_RS.RAWAT_INAP
             Bersih2();
             _isInEditMode = false;
             _pphGlobal = 0;
+        }
+
+        private void bw2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+
+                lblInfoPencarian.SafeControlInvoke(label => lblInfoPencarian.Visible = false);
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            const string strQuerySql = "SELECT B.Nama, A.bruto, A.jasa_adm, A.pph21, A.tglambil, A.netto, A.idmr_dokter, B.npwp FROM " +
+                                       "BILLING.dbo.TR_PAV_PAJAK A INNER JOIN BILLING.dbo.MR_DOKTER B ON A.idmr_dokter = B.idmr_dokter " +
+                                       "WHERE A.idmr_dokter = '" +  + "'";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            _grpJasaPelayanan.Clear();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _grpJasaPelayanan.Add(new LstDaftarJasaPelayanan(_modMain.pbstrgetCol(reader, 0, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 1, ref strErr, ""), _modMain.pbstrgetCol(reader, 2, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 3, ref strErr, ""), _modMain.pbstrgetCol(reader, 4, ref strErr, ""),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(_modMain.pbstrgetCol(reader, 7, ref strErr, "")),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 8, ref strErr, "")), _modMain.pbstrgetCol(reader, 9, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 10, ref strErr, "")
+                        ));
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(@"Semua Jasa Pelayanan Sudah Diambil ", @"Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _isInEditMode = false;
+                Bersih2();
+            }
+            reader.Close();
+        }
+
+        private void bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            PvTampilList();
+            PvTampilLaporan();
         } 
+
         #endregion
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
@@ -694,13 +850,12 @@ namespace SIM_RS.RAWAT_INAP
 
         private void bgCariDataJaspel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            PvTampilList();
-            this.pvTampilLaporan();
+            _bw2.RunWorkerAsync();
         }
 
         private void btnKeluarJasPel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

@@ -148,6 +148,10 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
+    <Compile Include="DATASET\dataSetJaspel.cs">
+      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DATASET\dataSetJaspel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -271,7 +275,7 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LAPORAN_PRINOUT\Report1.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\repot_kwi.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -300,7 +304,7 @@
     <EmbeddedResource Include="RAWAT-INAP\JasaPelayanan.resx">
       <DependentUpon>JasaPelayanan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaporanDetailJaspel.rdlc">
+    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanDetailJaspel.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />

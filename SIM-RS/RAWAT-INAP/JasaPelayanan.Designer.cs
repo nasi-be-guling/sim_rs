@@ -83,10 +83,11 @@
             this.txtNilaiProsentase = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.RVDetailJaspel = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.RVDetailJaspel = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.kwi_viewer = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -99,6 +100,7 @@
             this.tabPage3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // LstDaftarJasaPelayananBindingSource
@@ -653,17 +655,6 @@
             this.tabPage3.Text = "Laporan";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // RVDetailJaspel
-            // 
-            reportDataSource1.Name = "dsDetailJaspel";
-            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
-            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
-            this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LaporanDetailJaspel.rdlc";
-            this.RVDetailJaspel.Location = new System.Drawing.Point(6, 6);
-            this.RVDetailJaspel.Name = "RVDetailJaspel";
-            this.RVDetailJaspel.Size = new System.Drawing.Size(775, 527);
-            this.RVDetailJaspel.TabIndex = 0;
-            // 
             // tabControl2
             // 
             this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Right;
@@ -687,8 +678,20 @@
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // RVDetailJaspel
+            // 
+            reportDataSource1.Name = "dsDetailJaspel";
+            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
+            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
+            this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanDetailJaspel.rdlc";
+            this.RVDetailJaspel.Location = new System.Drawing.Point(0, 0);
+            this.RVDetailJaspel.Name = "RVDetailJaspel";
+            this.RVDetailJaspel.Size = new System.Drawing.Size(787, 539);
+            this.RVDetailJaspel.TabIndex = 0;
+            // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.kwi_viewer);
             this.tabPage5.Location = new System.Drawing.Point(4, 4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -696,6 +699,14 @@
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // kwi_viewer
+            // 
+            this.kwi_viewer.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.repot_kwi.rdlc";
+            this.kwi_viewer.Location = new System.Drawing.Point(0, 0);
+            this.kwi_viewer.Name = "kwi_viewer";
+            this.kwi_viewer.Size = new System.Drawing.Size(787, 539);
+            this.kwi_viewer.TabIndex = 2;
             // 
             // JasaPelayanan
             // 
@@ -738,6 +749,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -802,5 +814,6 @@
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
+        private Microsoft.Reporting.WinForms.ReportViewer kwi_viewer;
     }
 }
