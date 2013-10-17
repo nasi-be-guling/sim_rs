@@ -1731,7 +1731,7 @@ namespace SIM_RS.RAWAT_INAP
                                     "MR_DOKTER.nama, " +                        //1
                                     "MR_DOKTER.idmr_tsmf " +                    //2
                                    "FROM MR_DOKTER WITH (NOLOCK) " +
-                                   "WHERE MR_DOKTER.dipakai = 'Y' AND status = 'KEU'";
+                                   "WHERE MR_DOKTER.dipakai = 'Y'";
 
                 reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
                 if (strErr != "")
@@ -1749,17 +1749,14 @@ namespace SIM_RS.RAWAT_INAP
                     while (reader.Read())
                     {
                         listDokter.Add(modMain.pbstrgetCol(reader, 0, ref strErr, "") + " -- " + modMain.pbstrgetCol(reader, 1, ref strErr, ""));
-
                         data.lstDaftarDokter itemDaftarDokter = new data.lstDaftarDokter();
                         itemDaftarDokter.strKodeDokter = modMain.pbstrgetCol(reader, 0, ref strErr, "");
                         itemDaftarDokter.strNamaDokter = modMain.pbstrgetCol(reader, 1, ref strErr, "");
                         itemDaftarDokter.strNamaDokter = itemDaftarDokter.strNamaDokter.Trim().ToString();
                         itemDaftarDokter.strSMF = modMain.pbstrgetCol(reader, 2, ref strErr, "");
-
                         data.grpLstDaftarDokter.Add(itemDaftarDokter);
                     }
                 }
-
                 reader.Close();
             }
             else
@@ -1776,7 +1773,6 @@ namespace SIM_RS.RAWAT_INAP
 
             if (data.grpLstDaftarTarif.Count <= 0)
             {
-
                 lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "AMBIL DAFTAR TARIF dari SERVER");
                 strQuerySQL = "SELECT " +
                                     "BL_TARIP.idbl_tarip, " +        //0
