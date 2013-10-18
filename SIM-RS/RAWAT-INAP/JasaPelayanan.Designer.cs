@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.LstDaftarJasaPelayananBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -680,9 +680,9 @@
             // 
             // RVDetailJaspel
             // 
-            reportDataSource1.Name = "dsDetailJaspel";
-            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
-            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
+            reportDataSource2.Name = "dsDetailJaspel";
+            reportDataSource2.Value = this.LstDaftarJasaPelayananBindingSource;
+            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource2);
             this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanDetailJaspel.rdlc";
             this.RVDetailJaspel.Location = new System.Drawing.Point(0, 0);
             this.RVDetailJaspel.Name = "RVDetailJaspel";
@@ -707,6 +707,7 @@
             this.kwi_viewer.Name = "kwi_viewer";
             this.kwi_viewer.Size = new System.Drawing.Size(787, 539);
             this.kwi_viewer.TabIndex = 2;
+            this.kwi_viewer.Load += new System.EventHandler(this.kwi_viewer_Load);
             // 
             // JasaPelayanan
             // 
