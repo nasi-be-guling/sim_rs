@@ -275,6 +275,7 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc" />
     <EmbeddedResource Include="LAPORAN_PRINOUT\repot_kwi.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

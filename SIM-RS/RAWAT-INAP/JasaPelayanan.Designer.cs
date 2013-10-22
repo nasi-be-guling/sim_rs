@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.LstDaftarJasaPelayananBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -88,6 +88,8 @@
             this.RVDetailJaspel = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.kwi_viewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.rvBuktiPajak = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -101,6 +103,7 @@
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // LstDaftarJasaPelayananBindingSource
@@ -660,6 +663,7 @@
             this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Right;
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Location = new System.Drawing.Point(13, 6);
             this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
@@ -675,14 +679,14 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(787, 539);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "Detail JasPel";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // RVDetailJaspel
             // 
-            reportDataSource2.Name = "dsDetailJaspel";
-            reportDataSource2.Value = this.LstDaftarJasaPelayananBindingSource;
-            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource2);
+            reportDataSource1.Name = "dsDetailJaspel";
+            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
+            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
             this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanDetailJaspel.rdlc";
             this.RVDetailJaspel.Location = new System.Drawing.Point(0, 0);
             this.RVDetailJaspel.Name = "RVDetailJaspel";
@@ -697,7 +701,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(787, 539);
             this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.Text = "Pemotongan JasPel";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // kwi_viewer
@@ -708,6 +712,24 @@
             this.kwi_viewer.Size = new System.Drawing.Size(787, 539);
             this.kwi_viewer.TabIndex = 2;
             this.kwi_viewer.Load += new System.EventHandler(this.kwi_viewer_Load);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.rvBuktiPajak);
+            this.tabPage6.Location = new System.Drawing.Point(4, 4);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(787, 539);
+            this.tabPage6.TabIndex = 2;
+            this.tabPage6.Text = "Bukti Pajak";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // rvBuktiPajak
+            // 
+            this.rvBuktiPajak.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.repot_kwi.rdlc";
+            this.rvBuktiPajak.Location = new System.Drawing.Point(3, 3);
+            this.rvBuktiPajak.Name = "rvBuktiPajak";
+            this.rvBuktiPajak.Size = new System.Drawing.Size(787, 539);
+            this.rvBuktiPajak.TabIndex = 3;
             // 
             // JasaPelayanan
             // 
@@ -751,6 +773,7 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -816,5 +839,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private Microsoft.Reporting.WinForms.ReportViewer kwi_viewer;
+        private System.Windows.Forms.TabPage tabPage6;
+        private Microsoft.Reporting.WinForms.ReportViewer rvBuktiPajak;
     }
 }

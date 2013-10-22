@@ -77,10 +77,11 @@ namespace SIM_RS.RAWAT_INAP
             readonly double _dblHslBersih;
             readonly string _strKodeDokter;
             readonly string _strKodeTransaksi;
+            readonly string _strNamaDokter;
 
              public LstDaftarJasaPelayanan(string strNoBilling, string strNamaPasien, string strStatusPasien, 
                 string strTglPulang, string strNamaTarif, double dblJasaMedis, double dblKeringanan, double dblHslBersih,                
-                string strKodeDokter, string strKodeTransaksi)
+                string strKodeDokter, string strKodeTransaksi, string strNamaDokter)
             {
                 _dblHslBersih = dblHslBersih;
                 _dblJasaMedis = dblJasaMedis;
@@ -92,6 +93,7 @@ namespace SIM_RS.RAWAT_INAP
                 _strNoBilling = strNoBilling;
                 _strStatusPasien = strStatusPasien;
                 _strTglPulang = strTglPulang;
+                _strNamaDokter = strNamaDokter;
             }
 
             public string StrKodeTransaksi
@@ -137,6 +139,11 @@ namespace SIM_RS.RAWAT_INAP
             public string StrNamaPasien
             {
                 get { return _strNamaPasien; }
+            }
+
+            public string StrNamaDokter
+            {
+                get { return _strNamaDokter; }
             }
 
             public string StrNoBilling
@@ -328,20 +335,11 @@ namespace SIM_RS.RAWAT_INAP
 
         private void PvTampilLaporan() {
 
-            //bgCariDataJaspel.RunWorkerAsync();
-
-            RVDetailJaspel.LocalReport.DataSources.Clear(); //clear report
-           // RVDetailJaspel.LocalReport.ReportEmbeddedResource = @"D:\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc"; // bind reportviewer with .rdlc
-           // RVDetailJaspel.LocalReport.ReportPath = @"\Source Code\sim_rs\SIM-RS\LaporanDetailJaspel.rdlc";
-           // _reportViewer.LocalReport.ReportPath = exeFolder + @"\Reports\Report1.rdlc";
-
-
+            RVDetailJaspel.LocalReport.DataSources.Clear(); 
             Microsoft.Reporting.WinForms.ReportDataSource dsDetailJaspel = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJaspel", _grpJasaPelayanan); // set the datasource
             RVDetailJaspel.LocalReport.DataSources.Add(dsDetailJaspel);
             dsDetailJaspel.Value = _grpJasaPelayanan;
-
             RVDetailJaspel.LocalReport.Refresh();
-
             RVDetailJaspel.RefreshReport();
 
         }
@@ -417,7 +415,8 @@ namespace SIM_RS.RAWAT_INAP
                     "BL_TRANSAKSIDETAIL.Ringan, " +                                     //7
                     "BL_TRANSAKSIDETAIL.nilai - BL_TRANSAKSIDETAIL.Ringan as tunai, " + //8
                     "BL_TRANSAKSIDETAIL.idmr_dokter, " +                                //9
-                    "BL_TRANSAKSI.idbl_transaksi " +                                    //10
+                    "BL_TRANSAKSI.idbl_transaksi, " +                                   //10
+                    "MR_DOKTER.Nama " +                                                 //11
                     "FROM BL_TRANSAKSI  With (nolock) " +
                     "INNER JOIN BL_KASPAV ON BL_TRANSAKSI.idmr_mutasipasien = BL_KASPAV.Idmr_mutasipasien " +
                     "INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi " +
@@ -448,7 +447,7 @@ namespace SIM_RS.RAWAT_INAP
                         _modMain.pbstrgetCol(reader, 3, ref strErr, ""), _modMain.pbstrgetCol(reader, 4, ref strErr, ""),
                         Convert.ToDouble(_modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(_modMain.pbstrgetCol(reader, 7, ref strErr, "")),
                         Convert.ToDouble(_modMain.pbstrgetCol(reader, 8, ref strErr, "")), _modMain.pbstrgetCol(reader, 9, ref strErr, ""),
-                        _modMain.pbstrgetCol(reader, 10, ref strErr, "")
+                        _modMain.pbstrgetCol(reader, 10, ref strErr, ""), _modMain.pbstrgetCol(reader, 11, ref strErr, "")
                         ));
                 }
 
