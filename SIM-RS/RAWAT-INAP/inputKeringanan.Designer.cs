@@ -83,11 +83,15 @@
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rubahDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bgWorkLoadDataInit = new System.ComponentModel.BackgroundWorker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cmbKomponenTarif = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.pnlDaftarTindakan.SuspendLayout();
             this.panel4.SuspendLayout();
             this.pnlInputKeringanan.SuspendLayout();
             this.cmsMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -121,7 +125,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 50);
+            this.label1.Size = new System.Drawing.Size(222, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "NO REGISTER : ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -130,7 +134,7 @@
             // 
             this.txtNoBilling.BackColor = System.Drawing.Color.White;
             this.txtNoBilling.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoBilling.Location = new System.Drawing.Point(198, 11);
+            this.txtNoBilling.Location = new System.Drawing.Point(233, 11);
             this.txtNoBilling.Name = "txtNoBilling";
             this.txtNoBilling.Size = new System.Drawing.Size(215, 30);
             this.txtNoBilling.TabIndex = 1;
@@ -145,9 +149,9 @@
             this.pnlDaftarTindakan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.pnlDaftarTindakan.Controls.Add(this.lblDaftarTindakan);
             this.pnlDaftarTindakan.Controls.Add(this.lvDaftarTindakan);
-            this.pnlDaftarTindakan.Location = new System.Drawing.Point(4, 161);
+            this.pnlDaftarTindakan.Location = new System.Drawing.Point(4, 228);
             this.pnlDaftarTindakan.Name = "pnlDaftarTindakan";
-            this.pnlDaftarTindakan.Size = new System.Drawing.Size(792, 388);
+            this.pnlDaftarTindakan.Size = new System.Drawing.Size(792, 321);
             this.pnlDaftarTindakan.TabIndex = 115;
             // 
             // lblDaftarTindakan
@@ -184,7 +188,7 @@
             this.lvDaftarTindakan.HideSelection = false;
             this.lvDaftarTindakan.Location = new System.Drawing.Point(4, 24);
             this.lvDaftarTindakan.Name = "lvDaftarTindakan";
-            this.lvDaftarTindakan.Size = new System.Drawing.Size(784, 359);
+            this.lvDaftarTindakan.Size = new System.Drawing.Size(784, 292);
             this.lvDaftarTindakan.TabIndex = 75;
             this.lvDaftarTindakan.UseCompatibleStateImageBehavior = false;
             this.lvDaftarTindakan.View = System.Windows.Forms.View.Details;
@@ -274,7 +278,7 @@
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label3);
-            this.panel4.Location = new System.Drawing.Point(4, 59);
+            this.panel4.Location = new System.Drawing.Point(4, 124);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(792, 98);
             this.panel4.TabIndex = 117;
@@ -369,7 +373,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(106, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 18);
+            this.label7.Size = new System.Drawing.Size(69, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -380,7 +384,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(550, 14);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 18);
+            this.label6.Size = new System.Drawing.Size(58, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -458,9 +462,9 @@
             this.pnlInputKeringanan.Controls.Add(this.label11);
             this.pnlInputKeringanan.Controls.Add(this.label10);
             this.pnlInputKeringanan.Controls.Add(this.label9);
-            this.pnlInputKeringanan.Location = new System.Drawing.Point(5, 162);
+            this.pnlInputKeringanan.Location = new System.Drawing.Point(5, 228);
             this.pnlInputKeringanan.Name = "pnlInputKeringanan";
-            this.pnlInputKeringanan.Size = new System.Drawing.Size(790, 246);
+            this.pnlInputKeringanan.Size = new System.Drawing.Size(790, 180);
             this.pnlInputKeringanan.TabIndex = 118;
             this.pnlInputKeringanan.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlInputKeringanan_Paint);
             // 
@@ -482,7 +486,7 @@
             this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(549, 111);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(48, 18);
+            this.label15.Size = new System.Drawing.Size(49, 18);
             this.label15.TabIndex = 129;
             this.label15.Text = "Sisa : ";
             // 
@@ -567,7 +571,7 @@
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(258, 111);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(90, 18);
+            this.label13.Size = new System.Drawing.Size(91, 18);
             this.label13.TabIndex = 122;
             this.label13.Text = "Keringanan :";
             // 
@@ -610,7 +614,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(20, 111);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 18);
+            this.label12.Size = new System.Drawing.Size(76, 18);
             this.label12.TabIndex = 118;
             this.label12.Text = "Nominal : ";
             // 
@@ -643,7 +647,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(20, 70);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(99, 18);
+            this.label11.Size = new System.Drawing.Size(100, 18);
             this.label11.TabIndex = 114;
             this.label11.Text = "Uraian Tarif : ";
             // 
@@ -691,12 +695,47 @@
             // 
             this.bgWorkLoadDataInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkLoadDataInit_DoWork);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.panel1.Controls.Add(this.cmbKomponenTarif);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Location = new System.Drawing.Point(5, 57);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(792, 50);
+            this.panel1.TabIndex = 119;
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label17.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(0, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(221, 50);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "FILTER NAMA DOKTER : ";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cmbKomponenTarif
+            // 
+            this.cmbKomponenTarif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKomponenTarif.FormattingEnabled = true;
+            this.cmbKomponenTarif.Location = new System.Drawing.Point(232, 14);
+            this.cmbKomponenTarif.Name = "cmbKomponenTarif";
+            this.cmbKomponenTarif.Size = new System.Drawing.Size(298, 28);
+            this.cmbKomponenTarif.TabIndex = 114;
+            // 
             // inputKeringanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.btnKeluarIsiTindakan);
             this.Controls.Add(this.panel2);
@@ -721,6 +760,7 @@
             this.pnlInputKeringanan.ResumeLayout(false);
             this.pnlInputKeringanan.PerformLayout();
             this.cmsMenu.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -781,5 +821,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.Label lblSisa;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox cmbKomponenTarif;
     }
 }
