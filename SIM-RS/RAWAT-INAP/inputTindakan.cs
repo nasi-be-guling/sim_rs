@@ -35,6 +35,7 @@ namespace SIM_RS.RAWAT_INAP
         string strErr = "";
 
         bool boolBypassDokter = false;
+        
 
         /*VARIABLE INSERT TO BL_TRANSAKSI*/
         string strIdMutasiPasien = "";
