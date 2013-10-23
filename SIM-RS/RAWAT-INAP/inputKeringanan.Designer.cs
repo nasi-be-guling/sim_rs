@@ -84,8 +84,8 @@
             this.rubahDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bgWorkLoadDataInit = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
             this.cmbKomponenTarif = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.pnlDaftarTindakan.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -707,6 +707,15 @@
             this.panel1.Size = new System.Drawing.Size(792, 50);
             this.panel1.TabIndex = 119;
             // 
+            // cmbKomponenTarif
+            // 
+            this.cmbKomponenTarif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKomponenTarif.FormattingEnabled = true;
+            this.cmbKomponenTarif.Location = new System.Drawing.Point(232, 14);
+            this.cmbKomponenTarif.Name = "cmbKomponenTarif";
+            this.cmbKomponenTarif.Size = new System.Drawing.Size(298, 28);
+            this.cmbKomponenTarif.TabIndex = 114;
+            // 
             // label17
             // 
             this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -719,15 +728,6 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "FILTER NAMA DOKTER : ";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmbKomponenTarif
-            // 
-            this.cmbKomponenTarif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbKomponenTarif.FormattingEnabled = true;
-            this.cmbKomponenTarif.Location = new System.Drawing.Point(232, 14);
-            this.cmbKomponenTarif.Name = "cmbKomponenTarif";
-            this.cmbKomponenTarif.Size = new System.Drawing.Size(298, 28);
-            this.cmbKomponenTarif.TabIndex = 114;
             // 
             // inputKeringanan
             // 

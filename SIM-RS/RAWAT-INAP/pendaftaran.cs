@@ -496,6 +496,11 @@ namespace SIM_RS.RAWAT_INAP
                 this.pvSimpanDataPasien();
         }
 
+        private void btnIsiCatatanMedis_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 
