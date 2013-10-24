@@ -374,7 +374,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(106, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 18);
+            this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 116;
             this.label7.Text = "Alamat : ";
             // 
@@ -385,7 +385,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(550, 14);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 18);
+            this.label6.Size = new System.Drawing.Size(57, 18);
             this.label6.TabIndex = 115;
             this.label6.Text = "Kelas : ";
             // 
@@ -487,7 +487,7 @@
             this.label15.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(549, 111);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(49, 18);
+            this.label15.Size = new System.Drawing.Size(48, 18);
             this.label15.TabIndex = 129;
             this.label15.Text = "Sisa : ";
             // 
@@ -572,7 +572,7 @@
             this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(258, 111);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(91, 18);
+            this.label13.Size = new System.Drawing.Size(90, 18);
             this.label13.TabIndex = 122;
             this.label13.Text = "Keringanan :";
             // 
@@ -615,7 +615,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(20, 111);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(76, 18);
+            this.label12.Size = new System.Drawing.Size(74, 18);
             this.label12.TabIndex = 118;
             this.label12.Text = "Nominal : ";
             // 
@@ -648,7 +648,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(20, 70);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 18);
+            this.label11.Size = new System.Drawing.Size(99, 18);
             this.label11.TabIndex = 114;
             this.label11.Text = "Uraian Tarif : ";
             // 
