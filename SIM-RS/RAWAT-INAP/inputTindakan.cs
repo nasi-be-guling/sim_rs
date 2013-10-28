@@ -634,6 +634,10 @@ namespace SIM_RS.RAWAT_INAP
         //}
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_strNoBukti"></param>
         private void pvCetakTindakan(string _strNoBukti)
         {           
 
