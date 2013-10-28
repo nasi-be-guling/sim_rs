@@ -67,22 +67,22 @@
   <ItemGroup>
     <Reference Include="C4Module, Version=0.1.5001.27629, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\C4Module.dll</HintPath>
+      <HintPath>Properties\C4Module.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
-      <HintPath>DLL\EPPlus.dll</HintPath>
+      <HintPath>Properties\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Excel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\Excel.dll</HintPath>
+      <HintPath>Properties\Excel.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>Properties\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\Ionic.Zip.dll</HintPath>
+      <HintPath>Properties\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -149,20 +149,6 @@
     </Compile>
     <Compile Include="ControlInvoke.cs" />
     <Compile Include="DATASET\data.cs" />
-    <Compile Include="DATASET\dataSetJaspel.cs">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DATASET\dataSetJaspel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DATASET\DATASET_APP.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ADMIN\daftarPengguna.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -276,8 +262,11 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc" />
-    <EmbeddedResource Include="LAPORAN_PRINOUT\repot_kwi.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiNonDokter.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiDokter.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -329,29 +318,9 @@
       <DependentUpon>rekamMedis.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
-    <None Include="DATASET\dataSetJaspel.xsc">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\dataSetJaspel.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dataSetJaspel.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DATASET\dataSetJaspel.xss">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\DATASET_APP.xsc">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\DATASET_APP.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DATASET_APP.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DATASET\DATASET_APP.xss">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+Kwitansi.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+KwitansiDokter.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstBuktiPajak.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -386,32 +355,32 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.ReportViewer.DataVisualization">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.WinForms">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
