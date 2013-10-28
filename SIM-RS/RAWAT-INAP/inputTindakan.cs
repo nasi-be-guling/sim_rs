@@ -35,6 +35,7 @@ namespace SIM_RS.RAWAT_INAP
         string strErr = "";
 
         bool boolBypassDokter = false;
+        
 
         /*VARIABLE INSERT TO BL_TRANSAKSI*/
         string strIdMutasiPasien = "";
@@ -633,6 +634,10 @@ namespace SIM_RS.RAWAT_INAP
         //}
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_strNoBukti"></param>
         private void pvCetakTindakan(string _strNoBukti)
         {           
 

@@ -23,7 +23,7 @@ namespace SIM_RS.RAWAT_INAP
 
         string strQuerySQL = "";
         string strErr = "";
-
+        bool isFirstDisplayCombo = false;
 
         string strTempKodeNamaDokter = "";
         string strTempKodeDetailTindakan = "";
@@ -95,231 +95,12 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.Enabled = false;
             pnlDaftarTindakan.SendToBack();
             pnlDaftarTindakan.Visible = false;
-        }
-
-        private void pvLoadAllData()
-        {
-
-            #region STATUS CODE : NEED REVIEW LATER
-            /*FAST METHOD*/
-            /*
-            string strTarif = "";
-            string strTempTarif = "";
-            int intUrutan = 1;
-
-            lvDaftarTindakan.Items.Clear();
-
-            foreach (lstDetailTindakan item in grpDetailTindakan)
-            {
-                strTarif = item.strKodeTarif;
-
-                if (strTempTarif != strTarif)
-                {
-                    lvDaftarTindakan.Items.Add(intUrutan.ToString());
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKodeTarif);
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strUraianTarif);
-
-                    intUrutan++;
-                }
-                else
-                {
-                    lvDaftarTindakan.Items.Add("");
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
-                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
-                }
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dtTglInput.ToString());
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKomponen);                
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dblBiaya.ToString());
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dblKeringanan.ToString());
-
-                double dblNominal = item.dblBiaya;
-                double dblNominalPengurangan = item.dblKeringanan;
-                double dblNominalBersih = dblNominal - dblNominalPengurangan;
-
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                dblNominalBersih.ToString()));
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strNamaDokter);
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKodeDetailTindakan);
-
-                strTempTarif = strTarif;
-            }
-            */
-            #endregion
-
-            /* LOAD DATA TINDAKAN YANG ADA.. */
-
-            this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-            if (strErr != "")
-            {
-                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
-            }
-
-            string strNoBilling = "";
-            txtNoBilling.SafeControlInvoke(TextBox => strNoBilling = txtNoBilling.Text.Trim().ToString());
-
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PROSES MENAMPILKAN DATA TINDAKAN");
-
-            this.strQuerySQL = "SELECT " +
-                                    "a.idbl_tarip, " +           //0
-                                    "a.uraiantarip, " +          //1
-                                    "a.tglTransaksi, " +         //2
-                                    "b.idbl_komponen, " +        //3
-                                    "b.nilai, " +                //4
-                                    "b.ringan,  " +             //5
-                                    "c.Nama, " +                //6
-                                    "b.idtrdet, " +             //7
-                                    "c.idmr_dokter " +          //8
-                               "FROM BL_TRANSAKSI AS a " +
-                               "LEFT JOIN BL_TRANSAKSIDETAIL AS b on a.idbl_transaksi = b.idbl_transaksi " +
-                               "LEFT JOIN MR_DOKTER AS c on b.idmr_dokter = c.idmr_dokter " +
-                               "WHERE RegBilling = '" + strNoBilling + "'";
-
-            SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
-            if (strErr != "")
-            {
-                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
-                txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
-
-            lvDaftarTindakan.Items.Clear();
-            int intUrutan = 1;
-            grpDetailTindakan.Clear();
-            string strTgl = "";
-            string strTglTemp = "";
-
-            double dblTotalBiayaKotor = 0;
-            double dblTotalKeringanan = 0;
-            double dblTotalBiayaBersih = 0;
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    lstDetailTindakan item = new lstDetailTindakan();
-                    item.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                    item.strUraianTarif = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-                    item.dtTglInput = Convert.ToDateTime(modMain.pbstrgetCol(reader, 2, ref strErr, ""));
-                    item.strKomponen = modMain.pbstrgetCol(reader, 3, ref strErr, "");
-                    item.dblBiaya = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-                    item.dblKeringanan = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-                    item.strNamaDokter = modMain.pbstrgetCol(reader, 6, ref strErr, "");
-                    item.strKodeDetailTindakan = modMain.pbstrgetCol(reader, 7, ref strErr, "");
-                    item.strKodeDokter = modMain.pbstrgetCol(reader, 8, ref strErr, "");
-                    grpDetailTindakan.Add(item);
-
-                    strTgl = item.dtTglInput.ToString();
-
-                    if (strTglTemp != strTgl)
-                    {
-                        lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
-                        intUrutan++;
-                    }
-                    else
-                    {
-                        lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items.Add(""));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-                    }
-
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                modMain.pbstrgetCol(reader, 3, ref strErr, "")));
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                modMain.pbstrgetCol(reader, 4, ref strErr, "")));
-
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                modMain.pbstrgetCol(reader, 5, ref strErr, "")));
-
-                    double dblNominal = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
-                    double dblNominalPengurangan = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
-                    double dblNominalBersih = dblNominal - dblNominalPengurangan;
-
-                    dblTotalBiayaKotor = dblTotalBiayaKotor + dblNominal;
-                    dblTotalKeringanan = dblTotalKeringanan + dblNominalPengurangan;
-                    dblTotalBiayaBersih = dblTotalBiayaBersih + dblNominalBersih;
-
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    dblNominalBersih.ToString()));
-
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                modMain.pbstrgetCol(reader, 6, ref strErr, "")));
-
-                    /*INVISIBLE idDetailTindakan*/
-                    lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                modMain.pbstrgetCol(reader, 7, ref strErr, "")));
-
-
-
-                    strTglTemp = strTgl;
-
-                }
-
-                lvDaftarTindakan.SafeControlInvoke(
-                           ListView => lvDaftarTindakan.Items.Add(""));
-
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("TOTAL"));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalBiayaKotor.ToString()));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalKeringanan.ToString()));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalBiayaBersih.ToString()));
-                lvDaftarTindakan.SafeControlInvoke(
-                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-
-
-
-            }
-
-            reader.Close();
-            conn.Close();
-            modSQL.pvAutoResizeLV(lvDaftarTindakan, 9); 
-            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
-
-        }
+        }      
 
         private void bgWork_DoWork(object sender, DoWorkEventArgs e)
         {
+            isFirstDisplayCombo = true;
+            
             txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = false);
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
             this.strErr = "";
@@ -405,7 +186,8 @@ namespace SIM_RS.RAWAT_INAP
 
             
             //LOAD DATA LISTVIEW.. 
-            this.pvLoadAllData();
+            //this.pvLoadAllData();
+            this.bgWorkLoadDallData.RunWorkerAsync();
 
             #region CODE STATUS : NEED REMOVE LATER
             /*
@@ -782,7 +564,8 @@ namespace SIM_RS.RAWAT_INAP
             conn.Close();
 
             //load updated data on the listview..
-            this.pvLoadAllData();
+            //this.pvLoadAllData();
+            this.bgWorkLoadDallData.RunWorkerAsync();
 
             pnlInputKeringanan.SendToBack();
             pnlInputKeringanan.Enabled = false;
@@ -840,6 +623,271 @@ namespace SIM_RS.RAWAT_INAP
 
             double dblNilaiAkhir = dblNilaiAwal - dblNilaiPengurangan;
             lblSisa.Text = dblNilaiAkhir.ToString();
+        }
+
+        private void cmbFilterNamaDokter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            isFirstDisplayCombo = false;
+            this.bgWorkLoadDallData.RunWorkerAsync();
+        }
+
+        private void bgWorkLoadDallData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            #region STATUS CODE : NEED REVIEW LATER
+            /*FAST METHOD*/
+            /*
+            string strTarif = "";
+            string strTempTarif = "";
+            int intUrutan = 1;
+
+            lvDaftarTindakan.Items.Clear();
+
+            foreach (lstDetailTindakan item in grpDetailTindakan)
+            {
+                strTarif = item.strKodeTarif;
+
+                if (strTempTarif != strTarif)
+                {
+                    lvDaftarTindakan.Items.Add(intUrutan.ToString());
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKodeTarif);
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strUraianTarif);
+
+                    intUrutan++;
+                }
+                else
+                {
+                    lvDaftarTindakan.Items.Add("");
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("");
+                }
+
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dtTglInput.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKomponen);                
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dblBiaya.ToString());
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.dblKeringanan.ToString());
+
+                double dblNominal = item.dblBiaya;
+                double dblNominalPengurangan = item.dblKeringanan;
+                double dblNominalBersih = dblNominal - dblNominalPengurangan;
+
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                dblNominalBersih.ToString()));
+
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strNamaDokter);
+                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(item.strKodeDetailTindakan);
+
+                strTempTarif = strTarif;
+            }
+            */
+            #endregion
+
+            /* LOAD DATA TINDAKAN YANG ADA.. */
+
+            int intJumlahData = 0;
+
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PROSES MENAMPILKAN DATA");
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = true);
+            lvDaftarTindakan.SafeControlInvoke(ListView => intJumlahData = lvDaftarTindakan.Items.Count);
+
+
+            if (intJumlahData > 0)
+                lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.Clear());
+
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strNoBilling = "";
+            txtNoBilling.SafeControlInvoke(TextBox => strNoBilling = txtNoBilling.Text.Trim().ToString());
+
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PROSES MENAMPILKAN DATA TINDAKAN");
+
+            string strWhere = "";
+            string[] strArrayDokter = null;
+            string strNamaDokter = "";
+            string strKodeDokter = "";
+            cmbFilterNamaDokter.SafeControlInvoke(ComboBox => strArrayDokter = Regex.Split(cmbFilterNamaDokter.Text.Trim().ToString(), "--"));
+
+            if (strArrayDokter.Count() > 1)
+            {
+                strKodeDokter = strArrayDokter[0].ToString();
+                strNamaDokter = strArrayDokter[1].ToString();
+                strWhere = " AND b.idmr_dokter = '" + strKodeDokter + "'";
+            }
+
+            this.strQuerySQL = "SELECT " +
+                                    "a.idbl_tarip, " +           //0
+                                    "a.uraiantarip, " +          //1
+                                    "a.tglTransaksi, " +         //2
+                                    "b.idbl_komponen, " +        //3
+                                    "b.nilai, " +                //4
+                                    "b.ringan,  " +             //5
+                                    "c.Nama, " +                //6
+                                    "b.idtrdet, " +             //7
+                                    "c.idmr_dokter " +          //8
+                               "FROM BL_TRANSAKSI AS a " +
+                               "LEFT JOIN BL_TRANSAKSIDETAIL AS b " +
+                                    "on a.idbl_transaksi = b.idbl_transaksi " +
+                               "LEFT JOIN MR_DOKTER AS c " +
+                                    "on b.idmr_dokter = c.idmr_dokter " +
+                               "WHERE " +
+                                    "RegBilling = '" + strNoBilling + "' " + strWhere;
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
+            if (strErr != "")
+            {
+                lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+                txtNoBilling.SafeControlInvoke(TextBox => txtNoBilling.Enabled = true);
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            lvDaftarTindakan.Items.Clear();
+            int intUrutan = 1;
+            grpDetailTindakan.Clear();
+            string strTgl = "";
+            string strTglTemp = "";
+
+            double dblTotalBiayaKotor = 0;
+            double dblTotalKeringanan = 0;
+            double dblTotalBiayaBersih = 0;
+
+            if (isFirstDisplayCombo)
+            {
+                cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Items.Clear());
+                cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Items.Add(""));
+            }
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lstDetailTindakan item = new lstDetailTindakan();
+                    item.strKodeTarif = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                    item.strUraianTarif = modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    item.dtTglInput = Convert.ToDateTime(modMain.pbstrgetCol(reader, 2, ref strErr, ""));
+                    item.strKomponen = modMain.pbstrgetCol(reader, 3, ref strErr, "");
+                    item.dblBiaya = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    item.dblKeringanan = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    item.strNamaDokter = modMain.pbstrgetCol(reader, 6, ref strErr, "");
+                    item.strKodeDetailTindakan = modMain.pbstrgetCol(reader, 7, ref strErr, "");
+                    item.strKodeDokter = modMain.pbstrgetCol(reader, 8, ref strErr, "");
+                    grpDetailTindakan.Add(item);
+
+                    strTgl = item.dtTglInput.ToString();
+
+                    if (strTglTemp != strTgl)
+                    {
+                        lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                        intUrutan++;
+                    }
+                    else
+                    {
+                        lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items.Add(""));
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                        lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    }
+
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 3, ref strErr, "")));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 4, ref strErr, "")));
+
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 5, ref strErr, "")));
+
+                    double dblNominal = Convert.ToDouble(modMain.pbstrgetCol(reader, 4, ref strErr, ""));
+                    double dblNominalPengurangan = Convert.ToDouble(modMain.pbstrgetCol(reader, 5, ref strErr, ""));
+                    double dblNominalBersih = dblNominal - dblNominalPengurangan;
+
+                    dblTotalBiayaKotor = dblTotalBiayaKotor + dblNominal;
+                    dblTotalKeringanan = dblTotalKeringanan + dblNominalPengurangan;
+                    dblTotalBiayaBersih = dblTotalBiayaBersih + dblNominalBersih;
+
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                    dblNominalBersih.ToString()));
+
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 6, ref strErr, "")));
+
+                    /*INVISIBLE idDetailTindakan*/
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 7, ref strErr, "")));
+
+
+
+                    strTglTemp = strTgl;
+
+                    if (isFirstDisplayCombo)
+                    {
+                        if ((item.strKodeDokter.Trim().ToString() != "") && (item.strKodeDokter.Trim().ToString() != "-"))
+                            cmbFilterNamaDokter.SafeControlInvoke(
+                                    ComboBox => cmbFilterNamaDokter.Items.Add(item.strKodeDokter + " -- " +
+                                                                                           item.strNamaDokter.Trim().ToString()));
+                    }
+
+                }
+
+                lvDaftarTindakan.SafeControlInvoke(
+                           ListView => lvDaftarTindakan.Items.Add(""));
+
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add("TOTAL"));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalBiayaKotor.ToString()));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalKeringanan.ToString()));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(dblTotalBiayaBersih.ToString()));
+                lvDaftarTindakan.SafeControlInvoke(
+                        ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+
+
+            }
+
+            reader.Close();
+            conn.Close();
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 9);
+            lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
         }
 
        
