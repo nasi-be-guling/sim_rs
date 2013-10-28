@@ -762,12 +762,12 @@
             this.btnTambahKompDokter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahKompDokter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahKompDokter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTambahKompDokter.Location = new System.Drawing.Point(766, 210);
             this.btnTambahKompDokter.Name = "btnTambahKompDokter";
-            this.btnTambahKompDokter.Size = new System.Drawing.Size(33, 29);
+            this.btnTambahKompDokter.Size = new System.Drawing.Size(161, 29);
             this.btnTambahKompDokter.TabIndex = 116;
-            this.btnTambahKompDokter.Text = "+";
+            this.btnTambahKompDokter.Text = "TAMBAH DOKTER";
             this.btnTambahKompDokter.UseVisualStyleBackColor = false;
             this.btnTambahKompDokter.Click += new System.EventHandler(this.btnTambahKompDokter_Click);
             // 
@@ -859,14 +859,14 @@
             // rubahToolStripMenuItem
             // 
             this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";
-            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
             this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
             // 
             // hapusToolStripMenuItem1
             // 
             this.hapusToolStripMenuItem1.Name = "hapusToolStripMenuItem1";
-            this.hapusToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
+            this.hapusToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.hapusToolStripMenuItem1.Text = "Hapus";
             this.hapusToolStripMenuItem1.Click += new System.EventHandler(this.hapusToolStripMenuItem1_Click);
             // 

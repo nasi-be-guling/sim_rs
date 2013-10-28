@@ -722,23 +722,53 @@ namespace SIM_RS.RAWAT_INAP
                 strWhere = " AND b.idmr_dokter = '" + strKodeDokter + "'";
             }
 
-            this.strQuerySQL = "SELECT " +
-                                    "a.idbl_tarip, " +           //0
-                                    "a.uraiantarip, " +          //1
-                                    "a.tglTransaksi, " +         //2
-                                    "b.idbl_komponen, " +        //3
-                                    "b.nilai, " +                //4
-                                    "b.ringan,  " +             //5
-                                    "c.Nama, " +                //6
-                                    "b.idtrdet, " +             //7
-                                    "c.idmr_dokter " +          //8
-                               "FROM BL_TRANSAKSI AS a " +
-                               "LEFT JOIN BL_TRANSAKSIDETAIL AS b " +
-                                    "on a.idbl_transaksi = b.idbl_transaksi " +
-                               "LEFT JOIN MR_DOKTER AS c " +
-                                    "on b.idmr_dokter = c.idmr_dokter " +
-                               "WHERE " +
-                                    "RegBilling = '" + strNoBilling + "' " + strWhere;
+            //this.strQuerySQL = "SELECT " +
+            //                        "a.idbl_tarip, " +           //0
+            //                        "a.uraiantarip, " +          //1
+            //                        "a.tglTransaksi, " +         //2
+            //                        "b.idbl_komponen, " +        //3
+            //                        "b.nilai, " +                //4
+            //                        "b.ringan,  " +             //5
+            //                        "c.Nama, " +                //6
+            //                        "b.idtrdet, " +             //7
+            //                        "c.idmr_dokter " +          //8
+            //                   "FROM BL_TRANSAKSI AS a " +
+            //                   "LEFT JOIN BL_TRANSAKSIDETAIL AS b " +
+            //                        "on a.idbl_transaksi = b.idbl_transaksi " +
+            //                   "LEFT JOIN MR_DOKTER AS c " +
+            //                        "on b.idmr_dokter = c.idmr_dokter " +
+            //                   "WHERE " +
+            //                        "RegBilling = '" + strNoBilling + "' " + strWhere;
+
+            this.strQuerySQL = "SELECT "+
+                                "BL_TRANSAKSI.idbl_tarip, "+
+                                "BL_TRANSAKSI.uraiantarip, "+
+                                "BL_TRANSAKSI.Tgltransaksi, "+
+                                "BL_TRANSAKSIDETAIL.Idbl_komponen, "+
+                                "BL_TRANSAKSIDETAIL.nilai, "+
+                                "BL_TRANSAKSIDETAIL.Ringan, "+
+                                "MR_DOKTER.Nama, "+
+                                "BL_TRANSAKSIDETAIL.idtrdet, "+
+                                "MR_DOKTER.idmr_dokter " +
+                                "FROM BL_TRANSAKSI "+
+                                    "LEFT JOIN BL_TRANSAKSIDETAIL "+
+                                "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
+                                "LEFT JOIN MR_DOKTER "+
+                                "ON BL_TRANSAKSIDETAIL.Idmr_dokter = MR_DOKTER.idmr_dokter "+
+                                "GROUP BY "+
+                                        "BL_TRANSAKSI.idbl_tarip, "+
+                                        "BL_TRANSAKSI.uraiantarip,"+
+                                        "BL_TRANSAKSI.Tgltransaksi,"+
+                                        "BL_TRANSAKSI.Regbilling, "+
+                                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+
+                                        "BL_TRANSAKSIDETAIL.nilai, "+
+                                        "BL_TRANSAKSIDETAIL.Ringan, "+
+                                        "MR_DOKTER.Idmr_dokter, "+
+                                        "BL_TRANSAKSIDETAIL.idtrdet, "+
+                                        "MR_DOKTER.Nama " +
+                                 "HAVING BL_TRANSAKSI.Regbilling= '" + strNoBilling + "' "+
+                                 "ORDER BY BL_TRANSAKSIDETAIL.idtrdet ASC";
+
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
@@ -784,7 +814,7 @@ namespace SIM_RS.RAWAT_INAP
 
                     strTgl = item.dtTglInput.ToString();
 
-                    if (strTglTemp != strTgl)
+                    if (item.strKomponen.ToUpper() == "JASA SARANA")
                     {
                         lvDaftarTindakan.SafeControlInvoke(
                             ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));

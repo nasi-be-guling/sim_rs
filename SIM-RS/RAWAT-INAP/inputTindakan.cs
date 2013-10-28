@@ -2256,6 +2256,8 @@ namespace SIM_RS.RAWAT_INAP
                                     grpLstDaftarTindakanDetail[intResult].strNamaDokter;
             txtNamaDokter.Enabled = true;
             btnTambahTindakan.Text = "&UPDATE TINDAKAN";
+            btnTambahTindakan.Enabled = true;
+            btnBatalTindakan.Enabled = true;
         }     
 
         private void hapusToolStripMenuItem1_Click(object sender, EventArgs e)
