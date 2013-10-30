@@ -573,6 +573,7 @@ namespace SIM_RS.RAWAT_INAP
                     "AND BL_TRANSAKSIDETAIL.idmr_dokter = '"+lblKodeDokter.Text+"' " +
                     "ORDER BY BL_KASPAV.Regbilling,BL_KASPAV.Tanggal,BL_TRANSAKSI.idbl_transaksi";
 
+            
             SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
             if (strErr != "")
             {
