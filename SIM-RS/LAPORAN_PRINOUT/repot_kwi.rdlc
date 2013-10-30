@@ -1455,7 +1455,7 @@
               <TextRun>
                 <Value>=Sum(Fields!Bruto.Value, "DataSet2")</Value>
                 <Style>
-                  <Format>n2</Format>
+                  <Format>n0</Format>
                   <Language>id-ID</Language>
                 </Style>
               </TextRun>
@@ -1488,7 +1488,7 @@
               <TextRun>
                 <Value>=Sum(Fields!JasaAdm.Value, "DataSet2")</Value>
                 <Style>
-                  <Format>n2</Format>
+                  <Format>n0</Format>
                   <Language>id-ID</Language>
                 </Style>
               </TextRun>
@@ -1728,7 +1728,7 @@
               <TextRun>
                 <Value>=Sum(Fields!Pph21.Value, "DataSet2")</Value>
                 <Style>
-                  <Format>n2</Format>
+                  <Format>n0</Format>
                   <Language>id-ID</Language>
                 </Style>
               </TextRun>
@@ -1761,7 +1761,7 @@
               <TextRun>
                 <Value>=Sum(Fields!Netto.Value, "DataSet2")</Value>
                 <Style>
-                  <Format>n2</Format>
+                  <Format>n0</Format>
                   <Language>id-ID</Language>
                 </Style>
               </TextRun>
