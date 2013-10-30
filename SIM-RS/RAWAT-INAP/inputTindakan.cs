@@ -2216,7 +2216,10 @@ namespace SIM_RS.RAWAT_INAP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txtNamaDokter.Focus();
+                if (string.IsNullOrEmpty(cmbKomponenTarif.Text.Trim()))
+                    btnSimpanIsiTindakan.Focus();
+                else
+                    txtNamaDokter.Focus();
 
             }
             else if (e.KeyCode == Keys.Escape)

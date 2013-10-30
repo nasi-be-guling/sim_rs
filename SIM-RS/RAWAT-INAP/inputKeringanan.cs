@@ -410,7 +410,7 @@ namespace SIM_RS.RAWAT_INAP
                                 "MR_DOKTER.nama, " +                        //1
                                 "MR_DOKTER.idmr_tsmf " +                    //2
                                "FROM MR_DOKTER WITH (NOLOCK) " +
-                               "WHERE MR_DOKTER.dipakai = 'Y' AND status = 'KEU'";
+                               "WHERE MR_DOKTER.dipakai = 'Y'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
@@ -719,7 +719,7 @@ namespace SIM_RS.RAWAT_INAP
             {
                 strKodeDokter = strArrayDokter[0].ToString();
                 strNamaDokter = strArrayDokter[1].ToString();
-                strWhere = " AND b.idmr_dokter = '" + strKodeDokter + "'";
+                strWhere = " AND MR_DOKTER.idmr_dokter = '" + strKodeDokter + "' ";
             }
 
             //this.strQuerySQL = "SELECT " +
@@ -741,15 +741,15 @@ namespace SIM_RS.RAWAT_INAP
             //                        "RegBilling = '" + strNoBilling + "' " + strWhere;
 
             this.strQuerySQL = "SELECT "+
-                                "BL_TRANSAKSI.idbl_tarip, "+
-                                "BL_TRANSAKSI.uraiantarip, "+
-                                "BL_TRANSAKSI.Tgltransaksi, "+
-                                "BL_TRANSAKSIDETAIL.Idbl_komponen, "+
-                                "BL_TRANSAKSIDETAIL.nilai, "+
-                                "BL_TRANSAKSIDETAIL.Ringan, "+
-                                "MR_DOKTER.Nama, "+
-                                "BL_TRANSAKSIDETAIL.idtrdet, "+
-                                "MR_DOKTER.idmr_dokter " +
+                                "BL_TRANSAKSI.idbl_tarip, "+            //0
+                                "BL_TRANSAKSI.uraiantarip, "+           //1  
+                                "BL_TRANSAKSI.Tgltransaksi, "+          //2
+                                "BL_TRANSAKSIDETAIL.Idbl_komponen, "+   //3
+                                "BL_TRANSAKSIDETAIL.nilai, "+           //4
+                                "BL_TRANSAKSIDETAIL.Ringan, "+          //5
+                                "MR_DOKTER.Nama, "+                     //6
+                                "BL_TRANSAKSIDETAIL.idtrdet, "+         //7
+                                "MR_DOKTER.idmr_dokter " +              //8
                                 "FROM BL_TRANSAKSI "+
                                     "LEFT JOIN BL_TRANSAKSIDETAIL "+
                                 "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
@@ -766,7 +766,7 @@ namespace SIM_RS.RAWAT_INAP
                                         "MR_DOKTER.Idmr_dokter, "+
                                         "BL_TRANSAKSIDETAIL.idtrdet, "+
                                         "MR_DOKTER.Nama " +
-                                 "HAVING BL_TRANSAKSI.Regbilling= '" + strNoBilling + "' "+
+                                 "HAVING BL_TRANSAKSI.Regbilling= '" + strNoBilling + "' " + strWhere + 
                                  "ORDER BY BL_TRANSAKSIDETAIL.idtrdet ASC";
 
 
@@ -831,16 +831,35 @@ namespace SIM_RS.RAWAT_INAP
                     }
                     else
                     {
-                        lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items.Add(""));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                        if (strKodeDokter.Trim().ToString() == "")
+                        {
 
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                ListView => lvDaftarTindakan.Items.Add(""));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
 
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                        }
+                        else
+                        {
+                            lvDaftarTindakan.SafeControlInvoke(
+                           ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                        modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                        modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                            lvDaftarTindakan.SafeControlInvoke(
+                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                        modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                            intUrutan++;
+                        }
                     }
 
                     lvDaftarTindakan.SafeControlInvoke(
@@ -879,12 +898,22 @@ namespace SIM_RS.RAWAT_INAP
 
                     strTglTemp = strTgl;
 
+                    int intKetemu = -1;
+
                     if (isFirstDisplayCombo)
                     {
                         if ((item.strKodeDokter.Trim().ToString() != "") && (item.strKodeDokter.Trim().ToString() != "-"))
+                        {
+
                             cmbFilterNamaDokter.SafeControlInvoke(
+                                    ComboBox => intKetemu = cmbFilterNamaDokter.FindString(item.strKodeDokter.Trim().ToString() + " -- " +
+                                                                                           item.strNamaDokter.Trim().ToString()));
+
+                            if (intKetemu == -1)
+                                cmbFilterNamaDokter.SafeControlInvoke(
                                     ComboBox => cmbFilterNamaDokter.Items.Add(item.strKodeDokter + " -- " +
                                                                                            item.strNamaDokter.Trim().ToString()));
+                        }
                     }
 
                 }

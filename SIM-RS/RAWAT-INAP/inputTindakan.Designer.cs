@@ -398,9 +398,9 @@
             this.lblDokter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDokter.Location = new System.Drawing.Point(27, 213);
             this.lblDokter.Name = "lblDokter";
-            this.lblDokter.Size = new System.Drawing.Size(66, 18);
+            this.lblDokter.Size = new System.Drawing.Size(76, 18);
             this.lblDokter.TabIndex = 99;
-            this.lblDokter.Text = "&Dokter : ";
+            this.lblDokter.Text = "&Operator :";
             // 
             // txtNamaDokter
             // 
@@ -765,9 +765,9 @@
             this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTambahKompDokter.Location = new System.Drawing.Point(766, 210);
             this.btnTambahKompDokter.Name = "btnTambahKompDokter";
-            this.btnTambahKompDokter.Size = new System.Drawing.Size(161, 29);
+            this.btnTambahKompDokter.Size = new System.Drawing.Size(226, 29);
             this.btnTambahKompDokter.TabIndex = 116;
-            this.btnTambahKompDokter.Text = "TAMBAH DOKTER";
+            this.btnTambahKompDokter.Text = "TAMBAHKAN OPERATOR";
             this.btnTambahKompDokter.UseVisualStyleBackColor = false;
             this.btnTambahKompDokter.Click += new System.EventHandler(this.btnTambahKompDokter_Click);
             // 
@@ -859,14 +859,14 @@
             // rubahToolStripMenuItem
             // 
             this.rubahToolStripMenuItem.Name = "rubahToolStripMenuItem";
-            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rubahToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.rubahToolStripMenuItem.Text = "Rubah";
             this.rubahToolStripMenuItem.Click += new System.EventHandler(this.rubahToolStripMenuItem_Click);
             // 
             // hapusToolStripMenuItem1
             // 
             this.hapusToolStripMenuItem1.Name = "hapusToolStripMenuItem1";
-            this.hapusToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.hapusToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
             this.hapusToolStripMenuItem1.Text = "Hapus";
             this.hapusToolStripMenuItem1.Click += new System.EventHandler(this.hapusToolStripMenuItem1_Click);
             // 
