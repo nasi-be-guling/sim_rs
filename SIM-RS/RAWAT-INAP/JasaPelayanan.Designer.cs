@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.LstDaftarJasaPelayananBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.LstDaftarJasPelBS = new System.Windows.Forms.BindingSource(this.components);
+            this.LstBuktiPajakBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
@@ -88,7 +91,14 @@
             this.RVDetailJaspel = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.kwi_viewer = new Microsoft.Reporting.WinForms.ReportViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).BeginInit();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.rvBuktiPajak = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.lblNamaDokter = new System.Windows.Forms.Label();
+            this.bgLaodDokter = new System.ComponentModel.BackgroundWorker();
+            this.lstBuktiPajakBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.KwitansiBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstBuktiPajakBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -101,11 +111,18 @@
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lstBuktiPajakBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // LstDaftarJasaPelayananBindingSource
+            // LstDaftarJasPelBS
             // 
-            this.LstDaftarJasaPelayananBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+            this.LstDaftarJasPelBS.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+            // 
+            // LstBuktiPajakBindingSource
+            // 
+            this.LstBuktiPajakBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
             // 
             // lblInfoPencarian
             // 
@@ -147,7 +164,6 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel2.Controls.Add(this.lblInfoPencarian);
             this.panel2.Controls.Add(this.label1);
@@ -159,15 +175,16 @@
             // 
             // panel4
             // 
-            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel4.Controls.Add(this.lblTotalPenerimaan);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label8);
-            this.panel4.Location = new System.Drawing.Point(15, 659);
+            this.panel4.Location = new System.Drawing.Point(12, 528);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(852, 44);
+            this.panel4.Size = new System.Drawing.Size(1056, 44);
             this.panel4.TabIndex = 117;
             // 
             // lblTotalPenerimaan
@@ -214,13 +231,13 @@
             // 
             // panel5
             // 
-            this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.panel5.Controls.Add(this.label23);
             this.panel5.Controls.Add(this.lblPetugas);
-            this.panel5.Location = new System.Drawing.Point(12, 736);
+            this.panel5.Location = new System.Drawing.Point(12, 586);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(418, 43);
+            this.panel5.Size = new System.Drawing.Size(418, 35);
             this.panel5.TabIndex = 118;
             // 
             // label23
@@ -231,7 +248,7 @@
             this.label23.ForeColor = System.Drawing.Color.White;
             this.label23.Location = new System.Drawing.Point(0, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(126, 43);
+            this.label23.Size = new System.Drawing.Size(126, 35);
             this.label23.TabIndex = 93;
             this.label23.Text = "PETUGAS : ";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -242,7 +259,7 @@
             this.lblPetugas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.lblPetugas.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPetugas.ForeColor = System.Drawing.Color.Black;
-            this.lblPetugas.Location = new System.Drawing.Point(128, 9);
+            this.lblPetugas.Location = new System.Drawing.Point(128, 5);
             this.lblPetugas.Name = "lblPetugas";
             this.lblPetugas.Size = new System.Drawing.Size(27, 25);
             this.lblPetugas.TabIndex = 94;
@@ -250,7 +267,7 @@
             // 
             // btnKeluarJasPel
             // 
-            this.btnKeluarJasPel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnKeluarJasPel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnKeluarJasPel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnKeluarJasPel.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnKeluarJasPel.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
@@ -258,7 +275,7 @@
             this.btnKeluarJasPel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarJasPel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarJasPel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarJasPel.Location = new System.Drawing.Point(750, 733);
+            this.btnKeluarJasPel.Location = new System.Drawing.Point(969, 591);
             this.btnKeluarJasPel.Name = "btnKeluarJasPel";
             this.btnKeluarJasPel.Size = new System.Drawing.Size(101, 30);
             this.btnKeluarJasPel.TabIndex = 120;
@@ -268,7 +285,7 @@
             // 
             // btnSimpanJasPel
             // 
-            this.btnSimpanJasPel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSimpanJasPel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSimpanJasPel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnSimpanJasPel.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnSimpanJasPel.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
@@ -276,7 +293,7 @@
             this.btnSimpanJasPel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpanJasPel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpanJasPel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpanJasPel.Location = new System.Drawing.Point(524, 733);
+            this.btnSimpanJasPel.Location = new System.Drawing.Point(743, 591);
             this.btnSimpanJasPel.Name = "btnSimpanJasPel";
             this.btnSimpanJasPel.Size = new System.Drawing.Size(107, 30);
             this.btnSimpanJasPel.TabIndex = 119;
@@ -292,7 +309,7 @@
             // lblKodeDokter
             // 
             this.lblKodeDokter.AutoSize = true;
-            this.lblKodeDokter.Location = new System.Drawing.Point(436, 740);
+            this.lblKodeDokter.Location = new System.Drawing.Point(436, 729);
             this.lblKodeDokter.Name = "lblKodeDokter";
             this.lblKodeDokter.Size = new System.Drawing.Size(23, 18);
             this.lblKodeDokter.TabIndex = 121;
@@ -301,7 +318,7 @@
             // 
             // btnBatalJasPel
             // 
-            this.btnBatalJasPel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBatalJasPel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBatalJasPel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(75)))), ((int)(((byte)(57)))));
             this.btnBatalJasPel.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.btnBatalJasPel.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
@@ -309,7 +326,7 @@
             this.btnBatalJasPel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatalJasPel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBatalJasPel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatalJasPel.Location = new System.Drawing.Point(637, 733);
+            this.btnBatalJasPel.Location = new System.Drawing.Point(856, 591);
             this.btnBatalJasPel.Name = "btnBatalJasPel";
             this.btnBatalJasPel.Size = new System.Drawing.Size(107, 30);
             this.btnBatalJasPel.TabIndex = 122;
@@ -319,13 +336,16 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(14, 70);
+            this.tabControl1.Location = new System.Drawing.Point(14, 63);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(853, 590);
+            this.tabControl1.Size = new System.Drawing.Size(1054, 459);
             this.tabControl1.TabIndex = 113;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -337,14 +357,16 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(845, 559);
+            this.tabPage1.Size = new System.Drawing.Size(1046, 428);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Jasa Pelayanan";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // lvJasaPelayanan
             // 
-            this.lvJasaPelayanan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lvJasaPelayanan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvJasaPelayanan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader7,
@@ -359,9 +381,9 @@
             this.lvJasaPelayanan.FullRowSelect = true;
             this.lvJasaPelayanan.GridLines = true;
             this.lvJasaPelayanan.HideSelection = false;
-            this.lvJasaPelayanan.Location = new System.Drawing.Point(3, 4);
+            this.lvJasaPelayanan.Location = new System.Drawing.Point(0, -1);
             this.lvJasaPelayanan.Name = "lvJasaPelayanan";
-            this.lvJasaPelayanan.Size = new System.Drawing.Size(839, 509);
+            this.lvJasaPelayanan.Size = new System.Drawing.Size(1046, 378);
             this.lvJasaPelayanan.TabIndex = 116;
             this.lvJasaPelayanan.UseCompatibleStateImageBehavior = false;
             this.lvJasaPelayanan.View = System.Windows.Forms.View.Details;
@@ -400,17 +422,17 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "Jasa Medis";
-            this.columnHeader6.Width = 100;
+            this.columnHeader6.Width = 150;
             // 
             // columnHeader8
             // 
             this.columnHeader8.Text = "Keringanan";
-            this.columnHeader8.Width = 100;
+            this.columnHeader8.Width = 150;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "Jumlah";
-            this.columnHeader9.Width = 100;
+            this.columnHeader9.Width = 150;
             // 
             // lblTotalJasaPelayanan
             // 
@@ -418,9 +440,9 @@
             this.lblTotalJasaPelayanan.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblTotalJasaPelayanan.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalJasaPelayanan.ForeColor = System.Drawing.Color.White;
-            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(3, 511);
+            this.lblTotalJasaPelayanan.Location = new System.Drawing.Point(3, 380);
             this.lblTotalJasaPelayanan.Name = "lblTotalJasaPelayanan";
-            this.lblTotalJasaPelayanan.Size = new System.Drawing.Size(839, 45);
+            this.lblTotalJasaPelayanan.Size = new System.Drawing.Size(1040, 45);
             this.lblTotalJasaPelayanan.TabIndex = 121;
             this.lblTotalJasaPelayanan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -442,7 +464,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(845, 559);
+            this.tabPage2.Size = new System.Drawing.Size(1046, 428);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pemotongan Pajak";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -650,7 +672,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(845, 559);
+            this.tabPage3.Size = new System.Drawing.Size(1046, 428);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Laporan";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -658,13 +680,17 @@
             // tabControl2
             // 
             this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(13, 6);
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Location = new System.Drawing.Point(6, 6);
             this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(820, 547);
+            this.tabControl2.Size = new System.Drawing.Size(1027, 416);
             this.tabControl2.TabIndex = 1;
             // 
             // tabPage4
@@ -673,20 +699,23 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(787, 539);
+            this.tabPage4.Size = new System.Drawing.Size(994, 408);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "Detail JasPel";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // RVDetailJaspel
             // 
-            reportDataSource2.Name = "dsDetailJaspel";
-            reportDataSource2.Value = this.LstDaftarJasaPelayananBindingSource;
-            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource2);
+            this.RVDetailJaspel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            reportDataSource1.Name = "dsDetailJaspel";
+            reportDataSource1.Value = this.LstDaftarJasPelBS;
+            this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
             this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanDetailJaspel.rdlc";
             this.RVDetailJaspel.Location = new System.Drawing.Point(0, 0);
             this.RVDetailJaspel.Name = "RVDetailJaspel";
-            this.RVDetailJaspel.Size = new System.Drawing.Size(787, 539);
+            this.RVDetailJaspel.Size = new System.Drawing.Size(1006, 405);
             this.RVDetailJaspel.TabIndex = 0;
             // 
             // tabPage5
@@ -695,26 +724,78 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(787, 539);
+            this.tabPage5.Size = new System.Drawing.Size(994, 408);
             this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.Text = "Pemotongan JasPel";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // kwi_viewer
             // 
-            this.kwi_viewer.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.repot_kwi.rdlc";
+            this.kwi_viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            reportDataSource2.Name = "DataSet2";
+            reportDataSource2.Value = this.KwitansiBindingSource;
+            this.kwi_viewer.LocalReport.DataSources.Add(reportDataSource2);
+            this.kwi_viewer.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.KuitansiDokter.rdlc";
             this.kwi_viewer.Location = new System.Drawing.Point(0, 0);
             this.kwi_viewer.Name = "kwi_viewer";
-            this.kwi_viewer.Size = new System.Drawing.Size(787, 539);
+            this.kwi_viewer.Size = new System.Drawing.Size(988, 412);
             this.kwi_viewer.TabIndex = 2;
             this.kwi_viewer.Load += new System.EventHandler(this.kwi_viewer_Load);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.rvBuktiPajak);
+            this.tabPage6.Location = new System.Drawing.Point(4, 4);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(994, 408);
+            this.tabPage6.TabIndex = 2;
+            this.tabPage6.Text = "Bukti Pajak";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // rvBuktiPajak
+            // 
+            this.rvBuktiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            reportDataSource3.Name = "BuktiPajak";
+            reportDataSource3.Value = this.LstBuktiPajakBindingSource;
+            this.rvBuktiPajak.LocalReport.DataSources.Add(reportDataSource3);
+            this.rvBuktiPajak.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanBuktiPajak.rdlc";
+            this.rvBuktiPajak.Location = new System.Drawing.Point(3, 3);
+            this.rvBuktiPajak.Name = "rvBuktiPajak";
+            this.rvBuktiPajak.Size = new System.Drawing.Size(1003, 405);
+            this.rvBuktiPajak.TabIndex = 3;
+            // 
+            // lblNamaDokter
+            // 
+            this.lblNamaDokter.AutoSize = true;
+            this.lblNamaDokter.Location = new System.Drawing.Point(889, 27);
+            this.lblNamaDokter.Name = "lblNamaDokter";
+            this.lblNamaDokter.Size = new System.Drawing.Size(23, 18);
+            this.lblNamaDokter.TabIndex = 123;
+            this.lblNamaDokter.Text = "...";
+            // 
+            // bgLaodDokter
+            // 
+            this.bgLaodDokter.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgLaodDokter_DoWork);
+            // 
+            // lstBuktiPajakBindingSource1
+            // 
+            this.lstBuktiPajakBindingSource1.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
+            // 
+            // KwitansiBindingSource
+            // 
+            this.KwitansiBindingSource.DataMember = "Kwitansi";
             // 
             // JasaPelayanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(883, 791);
+            this.ClientSize = new System.Drawing.Size(1080, 632);
+            this.Controls.Add(this.lblNamaDokter);
             this.Controls.Add(this.btnBatalJasPel);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.lblKodeDokter);
@@ -732,7 +813,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pengambilan Jasa Pelayanan";
             this.Load += new System.EventHandler(this.JasaPelayanan_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstBuktiPajakBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -751,6 +833,9 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lstBuktiPajakBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -811,10 +896,17 @@
         private System.Windows.Forms.Label lblJasaAdministrasiAsli;
         private System.Windows.Forms.TabPage tabPage3;
         private Microsoft.Reporting.WinForms.ReportViewer RVDetailJaspel;
-        private System.Windows.Forms.BindingSource LstDaftarJasaPelayananBindingSource;
+        private System.Windows.Forms.BindingSource LstDaftarJasPelBS;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private Microsoft.Reporting.WinForms.ReportViewer kwi_viewer;
+        private System.Windows.Forms.TabPage tabPage6;
+        private Microsoft.Reporting.WinForms.ReportViewer rvBuktiPajak;
+        private System.Windows.Forms.Label lblNamaDokter;
+        private System.ComponentModel.BackgroundWorker bgLaodDokter;
+        private System.Windows.Forms.BindingSource LstBuktiPajakBindingSource;
+        private System.Windows.Forms.BindingSource lstBuktiPajakBindingSource1;
+        private System.Windows.Forms.BindingSource KwitansiBindingSource;
     }
 }

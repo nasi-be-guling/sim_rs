@@ -20,36 +20,43 @@ namespace SIM_RS.RAWAT_INAP
 
         public daftarKomponenPerTarif()
         {
-            InitializeComponent();
-
-            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-            
-
-            lvDaftarTindakan.Items.Clear();
-            foreach (inputTindakan.lstDaftarKomponenTarif itemx in fInputTindakan.grpLstDaftarTindakanDetail)
-            {
-                lvDaftarTindakan.Items.Add(itemx.strKodeTarif);
-
-                int intResult = fInputTindakan.grpLstDaftarTindakan.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                    fInputTindakan.grpLstDaftarTindakan[intResult].strUraianTarif);
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strId_Komponen);
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.dblByKomponen.ToString());
-
-                lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strKodeDokter + "--" + itemx.strNamaDokter);
-
-            }
-
-            modSQL.pvAutoResizeLV(lvDaftarTindakan,5);
+            InitializeComponent();           
 
         }       
 
         private void daftarKomponenPerTarif_Load(object sender, EventArgs e)
         {
+            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+            //halamanUtama fHalamanUtama = (halamanUtama)Application.OpenForms["halamanUtama"];
 
+            lvDaftarTindakan.Items.Clear();
+            foreach (inputTindakan.lstDaftarKomponenTarif itemx in fInputTindakan.grpLstTempTindakanDetail)
+            {
+                lvDaftarTindakan.Items.Add(itemx.strKodeTarif);
+                int intResult = data.grpLstDaftarTarif.FindIndex(m => m.strKodeTarif == itemx.strKodeTarif);
+                if (intResult != -1)
+                {
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                        data.grpLstDaftarTarif[intResult].strUraianTarif);
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strId_Komponen);
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.dblByKomponen.ToString());
+                    lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(itemx.strKodeDokter + "--" + itemx.strNamaDokter);
+                }
+                else
+                {
+                    MessageBox.Show("Tidak dapat menampilkan data", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            lblKodeNamaTarif.Text = fInputTindakan.txtKodeTindakan.Text;
+            modSQL.pvAutoResizeLV(lvDaftarTindakan, 5);
+        }
+
+        private void daftarKomponenPerTarif_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+                this.Close();
         }
     }
 }

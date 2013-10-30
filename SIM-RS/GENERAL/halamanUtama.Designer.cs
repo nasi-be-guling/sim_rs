@@ -75,7 +75,7 @@
             this.lbDaftarMenu.Location = new System.Drawing.Point(6, 38);
             this.lbDaftarMenu.Name = "lbDaftarMenu";
             this.lbDaftarMenu.ScrollAlwaysVisible = true;
-            this.lbDaftarMenu.Size = new System.Drawing.Size(529, 179);
+            this.lbDaftarMenu.Size = new System.Drawing.Size(565, 279);
             this.lbDaftarMenu.TabIndex = 0;
             this.lbDaftarMenu.DoubleClick += new System.EventHandler(this.lbDaftarMenu_DoubleClick);
             this.lbDaftarMenu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbDaftarMenu_KeyPress);
@@ -88,7 +88,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(758, 164);
+            this.pictureBox1.Size = new System.Drawing.Size(794, 164);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -101,7 +101,7 @@
             this.btnKeluarProgram.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnKeluarProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeluarProgram.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKeluarProgram.Location = new System.Drawing.Point(588, 437);
+            this.btnKeluarProgram.Location = new System.Drawing.Point(626, 545);
             this.btnKeluarProgram.Name = "btnKeluarProgram";
             this.btnKeluarProgram.Size = new System.Drawing.Size(171, 30);
             this.btnKeluarProgram.TabIndex = 3;
@@ -201,9 +201,9 @@
             this.tssInfoServer,
             this.toolStripStatusLabel1,
             this.tssTglLengkap});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 478);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 578);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(764, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -257,7 +257,7 @@
             this.panel1.Controls.Add(this.lbDaftarMenu);
             this.panel1.Location = new System.Drawing.Point(3, 167);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(540, 249);
+            this.panel1.Size = new System.Drawing.Size(576, 349);
             this.panel1.TabIndex = 17;
             // 
             // label5
@@ -268,7 +268,7 @@
             this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(540, 33);
+            this.label5.Size = new System.Drawing.Size(576, 33);
             this.label5.TabIndex = 13;
             this.label5.Text = "MENU APLIKASI";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -284,7 +284,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.txtUnitKerja);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(545, 167);
+            this.panel2.Location = new System.Drawing.Point(581, 167);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(216, 249);
             this.panel2.TabIndex = 18;
@@ -299,7 +299,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(198)))), ((int)(((byte)(198)))));
-            this.ClientSize = new System.Drawing.Size(764, 500);
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);

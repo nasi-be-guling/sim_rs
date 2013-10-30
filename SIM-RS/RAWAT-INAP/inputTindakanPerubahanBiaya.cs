@@ -118,7 +118,6 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.Enabled = true);
             dtpTglTindakan.SafeControlInvoke(DateTimePicker => dtpTglTindakan.Enabled = true);
             btnTampilDaftarTindakan.SafeControlInvoke(Button => btnTampilDaftarTindakan.Enabled = true);
-            btnTambahTindakan.SafeControlInvoke(Button => btnTambahTindakan.Enabled = true);
         }
   
 
@@ -580,7 +579,6 @@ namespace SIM_RS.RAWAT_INAP
             grpLstTempTindakanDetail.Clear();
 
             txtKodeTindakan.Focus();
-
         }
 
         private void btnBatalTindakan_Click(object sender, EventArgs e)
@@ -593,7 +591,6 @@ namespace SIM_RS.RAWAT_INAP
             lblBiayaTindakan.Text = "...";
             lblDeskripsiTindakan.Text = "...";
             cmbKomponenTarif.Enabled = true;
-
             txtKodeTindakan.Focus();
         }
     }

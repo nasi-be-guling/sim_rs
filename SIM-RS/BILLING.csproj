@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\PUBLISH\SIM-RS\</PublishUrl>
+    <PublishUrl>D:\PUBLISH\SIM-RS-PAV\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -148,20 +148,7 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
-    <Compile Include="DATASET\dataSetJaspel.cs">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DATASET\dataSetJaspel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DATASET\DATASET_APP.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="DATASET\data.cs" />
     <Compile Include="ADMIN\daftarPengguna.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,7 +262,11 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LAPORAN_PRINOUT\repot_kwi.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiNonDokter.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiDokter.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -327,29 +318,9 @@
       <DependentUpon>rekamMedis.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
-    <None Include="DATASET\dataSetJaspel.xsc">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\dataSetJaspel.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dataSetJaspel.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DATASET\dataSetJaspel.xss">
-      <DependentUpon>dataSetJaspel.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\DATASET_APP.xsc">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\DATASET_APP.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DATASET_APP.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DATASET\DATASET_APP.xss">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+Kwitansi.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+KwitansiDokter.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstBuktiPajak.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -378,42 +349,42 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="Microsoft.ReportViewer.DataVisualization">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.WinForms">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
