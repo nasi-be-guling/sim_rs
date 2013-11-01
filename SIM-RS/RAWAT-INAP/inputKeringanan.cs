@@ -684,6 +684,8 @@ namespace SIM_RS.RAWAT_INAP
 
             /* LOAD DATA TINDAKAN YANG ADA.. */
 
+            cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Enabled = false);
+
             int intJumlahData = 0;
 
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PROSES MENAMPILKAN DATA");
@@ -767,7 +769,7 @@ namespace SIM_RS.RAWAT_INAP
                                         "BL_TRANSAKSIDETAIL.idtrdet, "+
                                         "MR_DOKTER.Nama " +
                                  "HAVING BL_TRANSAKSI.Regbilling= '" + strNoBilling + "' " + strWhere + 
-                                 "ORDER BY BL_TRANSAKSIDETAIL.idtrdet ASC";
+                                 "ORDER BY BL_TRANSAKSIDETAIL.idtrdet, BL_TRANSAKSIDETAIL.Idbl_komponen ASC";
 
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
@@ -814,53 +816,57 @@ namespace SIM_RS.RAWAT_INAP
 
                     strTgl = item.dtTglInput.ToString();
 
-                    if (item.strKomponen.ToUpper() == "JASA SARANA")
-                    {
-                        lvDaftarTindakan.SafeControlInvoke(
+                    lvDaftarTindakan.SafeControlInvoke(
                             ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
-                        intUrutan++;
-                    }
-                    else
-                    {
-                        if (strKodeDokter.Trim().ToString() == "")
-                        {
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                    
 
-                            lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items.Add(""));
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    #region CODE STATUS : NEED REVIEW LATER
+                    //if (item.strKomponen.ToUpper() == "JASA SARANA")
+                    //{
+                        
+                    //}
+                    //else
+                    //{
+                    //    if (strKodeDokter.Trim().ToString() == "")
+                    //    {
 
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //            ListView => lvDaftarTindakan.Items.Add(""));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
 
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-                        }
-                        else
-                        {
-                            lvDaftarTindakan.SafeControlInvoke(
-                           ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                        modMain.pbstrgetCol(reader, 0, ref strErr, "")));
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                        modMain.pbstrgetCol(reader, 1, ref strErr, "")));
-                            lvDaftarTindakan.SafeControlInvoke(
-                                    ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                        modMain.pbstrgetCol(reader, 2, ref strErr, "")));
-                            intUrutan++;
-                        }
-                    }
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    //    }
+                    //    else
+                    //    {
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //       ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                    //        intUrutan++;
+                    //    }
+                    //}
+                    #endregion
 
                     lvDaftarTindakan.SafeControlInvoke(
                             ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
@@ -916,6 +922,8 @@ namespace SIM_RS.RAWAT_INAP
                         }
                     }
 
+                    intUrutan++;
+
                 }
 
                 lvDaftarTindakan.SafeControlInvoke(
@@ -939,7 +947,7 @@ namespace SIM_RS.RAWAT_INAP
                 lvDaftarTindakan.SafeControlInvoke(
                         ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
 
-
+                
 
             }
 
@@ -947,6 +955,8 @@ namespace SIM_RS.RAWAT_INAP
             conn.Close();
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 9);
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+            cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Enabled = true);
+
         }
 
        
