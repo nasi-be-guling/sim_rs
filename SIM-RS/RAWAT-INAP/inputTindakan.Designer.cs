@@ -398,9 +398,9 @@
             this.lblDokter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDokter.Location = new System.Drawing.Point(27, 213);
             this.lblDokter.Name = "lblDokter";
-            this.lblDokter.Size = new System.Drawing.Size(66, 18);
+            this.lblDokter.Size = new System.Drawing.Size(76, 18);
             this.lblDokter.TabIndex = 99;
-            this.lblDokter.Text = "&Dokter : ";
+            this.lblDokter.Text = "&Operator :";
             // 
             // txtNamaDokter
             // 
@@ -762,12 +762,12 @@
             this.btnTambahKompDokter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahKompDokter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTambahKompDokter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTambahKompDokter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTambahKompDokter.Location = new System.Drawing.Point(766, 210);
             this.btnTambahKompDokter.Name = "btnTambahKompDokter";
-            this.btnTambahKompDokter.Size = new System.Drawing.Size(33, 29);
+            this.btnTambahKompDokter.Size = new System.Drawing.Size(226, 29);
             this.btnTambahKompDokter.TabIndex = 116;
-            this.btnTambahKompDokter.Text = "+";
+            this.btnTambahKompDokter.Text = "TAMBAHKAN OPERATOR";
             this.btnTambahKompDokter.UseVisualStyleBackColor = false;
             this.btnTambahKompDokter.Click += new System.EventHandler(this.btnTambahKompDokter_Click);
             // 

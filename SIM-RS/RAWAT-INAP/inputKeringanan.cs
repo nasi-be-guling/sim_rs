@@ -410,7 +410,7 @@ namespace SIM_RS.RAWAT_INAP
                                 "MR_DOKTER.nama, " +                        //1
                                 "MR_DOKTER.idmr_tsmf " +                    //2
                                "FROM MR_DOKTER WITH (NOLOCK) " +
-                               "WHERE MR_DOKTER.dipakai = 'Y' AND status = 'KEU'";
+                               "WHERE MR_DOKTER.dipakai = 'Y'";
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
@@ -684,6 +684,8 @@ namespace SIM_RS.RAWAT_INAP
 
             /* LOAD DATA TINDAKAN YANG ADA.. */
 
+            cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Enabled = false);
+
             int intJumlahData = 0;
 
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Text = "PROSES MENAMPILKAN DATA");
@@ -719,26 +721,56 @@ namespace SIM_RS.RAWAT_INAP
             {
                 strKodeDokter = strArrayDokter[0].ToString();
                 strNamaDokter = strArrayDokter[1].ToString();
-                strWhere = " AND b.idmr_dokter = '" + strKodeDokter + "'";
+                strWhere = " AND MR_DOKTER.idmr_dokter = '" + strKodeDokter + "' ";
             }
 
-            this.strQuerySQL = "SELECT " +
-                                    "a.idbl_tarip, " +           //0
-                                    "a.uraiantarip, " +          //1
-                                    "a.tglTransaksi, " +         //2
-                                    "b.idbl_komponen, " +        //3
-                                    "b.nilai, " +                //4
-                                    "b.ringan,  " +             //5
-                                    "c.Nama, " +                //6
-                                    "b.idtrdet, " +             //7
-                                    "c.idmr_dokter " +          //8
-                               "FROM BL_TRANSAKSI AS a " +
-                               "LEFT JOIN BL_TRANSAKSIDETAIL AS b " +
-                                    "on a.idbl_transaksi = b.idbl_transaksi " +
-                               "LEFT JOIN MR_DOKTER AS c " +
-                                    "on b.idmr_dokter = c.idmr_dokter " +
-                               "WHERE " +
-                                    "RegBilling = '" + strNoBilling + "' " + strWhere;
+            //this.strQuerySQL = "SELECT " +
+            //                        "a.idbl_tarip, " +           //0
+            //                        "a.uraiantarip, " +          //1
+            //                        "a.tglTransaksi, " +         //2
+            //                        "b.idbl_komponen, " +        //3
+            //                        "b.nilai, " +                //4
+            //                        "b.ringan,  " +             //5
+            //                        "c.Nama, " +                //6
+            //                        "b.idtrdet, " +             //7
+            //                        "c.idmr_dokter " +          //8
+            //                   "FROM BL_TRANSAKSI AS a " +
+            //                   "LEFT JOIN BL_TRANSAKSIDETAIL AS b " +
+            //                        "on a.idbl_transaksi = b.idbl_transaksi " +
+            //                   "LEFT JOIN MR_DOKTER AS c " +
+            //                        "on b.idmr_dokter = c.idmr_dokter " +
+            //                   "WHERE " +
+            //                        "RegBilling = '" + strNoBilling + "' " + strWhere;
+
+            this.strQuerySQL = "SELECT "+
+                                "BL_TRANSAKSI.idbl_tarip, "+            //0
+                                "BL_TRANSAKSI.uraiantarip, "+           //1  
+                                "BL_TRANSAKSI.Tgltransaksi, "+          //2
+                                "BL_TRANSAKSIDETAIL.Idbl_komponen, "+   //3
+                                "BL_TRANSAKSIDETAIL.nilai, "+           //4
+                                "BL_TRANSAKSIDETAIL.Ringan, "+          //5
+                                "MR_DOKTER.Nama, "+                     //6
+                                "BL_TRANSAKSIDETAIL.idtrdet, "+         //7
+                                "MR_DOKTER.idmr_dokter " +              //8
+                                "FROM BL_TRANSAKSI "+
+                                    "LEFT JOIN BL_TRANSAKSIDETAIL "+
+                                "ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.Idbl_transaksi "+
+                                "LEFT JOIN MR_DOKTER "+
+                                "ON BL_TRANSAKSIDETAIL.Idmr_dokter = MR_DOKTER.idmr_dokter "+
+                                "GROUP BY "+
+                                        "BL_TRANSAKSI.idbl_tarip, "+
+                                        "BL_TRANSAKSI.uraiantarip,"+
+                                        "BL_TRANSAKSI.Tgltransaksi,"+
+                                        "BL_TRANSAKSI.Regbilling, "+
+                                        "BL_TRANSAKSIDETAIL.Idbl_komponen, "+
+                                        "BL_TRANSAKSIDETAIL.nilai, "+
+                                        "BL_TRANSAKSIDETAIL.Ringan, "+
+                                        "MR_DOKTER.Idmr_dokter, "+
+                                        "BL_TRANSAKSIDETAIL.idtrdet, "+
+                                        "MR_DOKTER.Nama " +
+                                 "HAVING BL_TRANSAKSI.Regbilling= '" + strNoBilling + "' " + strWhere + 
+                                 "ORDER BY BL_TRANSAKSIDETAIL.idtrdet, BL_TRANSAKSIDETAIL.Idbl_komponen ASC";
+
 
             SqlDataReader reader = modDb.pbreaderSQL(conn, this.strQuerySQL, ref strErr);
             if (strErr != "")
@@ -784,34 +816,57 @@ namespace SIM_RS.RAWAT_INAP
 
                     strTgl = item.dtTglInput.ToString();
 
-                    if (strTglTemp != strTgl)
-                    {
-                        lvDaftarTindakan.SafeControlInvoke(
+                    lvDaftarTindakan.SafeControlInvoke(
                             ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
-                                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
-                        intUrutan++;
-                    }
-                    else
-                    {
-                        lvDaftarTindakan.SafeControlInvoke(
-                            ListView => lvDaftarTindakan.Items.Add(""));
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                    lvDaftarTindakan.SafeControlInvoke(
+                            ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                                modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                    
 
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    #region CODE STATUS : NEED REVIEW LATER
+                    //if (item.strKomponen.ToUpper() == "JASA SARANA")
+                    //{
+                        
+                    //}
+                    //else
+                    //{
+                    //    if (strKodeDokter.Trim().ToString() == "")
+                    //    {
 
-                        lvDaftarTindakan.SafeControlInvoke(
-                                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
-                    }
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //            ListView => lvDaftarTindakan.Items.Add(""));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
+                    //    }
+                    //    else
+                    //    {
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //       ListView => lvDaftarTindakan.Items.Add(intUrutan.ToString()));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 0, ref strErr, "")));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                    //        lvDaftarTindakan.SafeControlInvoke(
+                    //                ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
+                    //                    modMain.pbstrgetCol(reader, 2, ref strErr, "")));
+                    //        intUrutan++;
+                    //    }
+                    //}
+                    #endregion
 
                     lvDaftarTindakan.SafeControlInvoke(
                             ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(
@@ -849,13 +904,25 @@ namespace SIM_RS.RAWAT_INAP
 
                     strTglTemp = strTgl;
 
+                    int intKetemu = -1;
+
                     if (isFirstDisplayCombo)
                     {
                         if ((item.strKodeDokter.Trim().ToString() != "") && (item.strKodeDokter.Trim().ToString() != "-"))
+                        {
+
                             cmbFilterNamaDokter.SafeControlInvoke(
+                                    ComboBox => intKetemu = cmbFilterNamaDokter.FindString(item.strKodeDokter.Trim().ToString() + " -- " +
+                                                                                           item.strNamaDokter.Trim().ToString()));
+
+                            if (intKetemu == -1)
+                                cmbFilterNamaDokter.SafeControlInvoke(
                                     ComboBox => cmbFilterNamaDokter.Items.Add(item.strKodeDokter + " -- " +
                                                                                            item.strNamaDokter.Trim().ToString()));
+                        }
                     }
+
+                    intUrutan++;
 
                 }
 
@@ -880,7 +947,7 @@ namespace SIM_RS.RAWAT_INAP
                 lvDaftarTindakan.SafeControlInvoke(
                         ListView => lvDaftarTindakan.Items[lvDaftarTindakan.Items.Count - 1].SubItems.Add(""));
 
-
+                
 
             }
 
@@ -888,6 +955,8 @@ namespace SIM_RS.RAWAT_INAP
             conn.Close();
             modSQL.pvAutoResizeLV(lvDaftarTindakan, 9);
             lblInfoPencarian.SafeControlInvoke(Label => lblInfoPencarian.Visible = false);
+            cmbFilterNamaDokter.SafeControlInvoke(ComboBox => cmbFilterNamaDokter.Enabled = true);
+
         }
 
        
