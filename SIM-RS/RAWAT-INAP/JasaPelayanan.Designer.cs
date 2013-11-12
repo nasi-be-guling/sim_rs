@@ -32,8 +32,10 @@
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.LstDaftarJasPelBS = new System.Windows.Forms.BindingSource(this.components);
+            this.LstDaftarJasaPelayananBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.KwitansiBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.LstBuktiPajakBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.LstDaftarJasPelBS = new System.Windows.Forms.BindingSource(this.components);
             this.lblInfoPencarian = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
@@ -96,9 +98,10 @@
             this.lblNamaDokter = new System.Windows.Forms.Label();
             this.bgLaodDokter = new System.ComponentModel.BackgroundWorker();
             this.lstBuktiPajakBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.KwitansiBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LstBuktiPajakBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -113,16 +116,23 @@
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lstBuktiPajakBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // LstDaftarJasPelBS
+            // LstDaftarJasaPelayananBindingSource
             // 
-            this.LstDaftarJasPelBS.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+            this.LstDaftarJasaPelayananBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+            // 
+            // KwitansiBindingSource
+            // 
+            this.KwitansiBindingSource.DataMember = "Kwitansi";
             // 
             // LstBuktiPajakBindingSource
             // 
             this.LstBuktiPajakBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
+            // 
+            // LstDaftarJasPelBS
+            // 
+            this.LstDaftarJasPelBS.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
             // 
             // lblInfoPencarian
             // 
@@ -709,13 +719,13 @@
             this.RVDetailJaspel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            reportDataSource1.Name = "dsDetailJaspel";
-            reportDataSource1.Value = this.LstDaftarJasPelBS;
+            reportDataSource1.Name = "dsDetailJasaPelayanan";
+            reportDataSource1.Value = this.LstDaftarJasaPelayananBindingSource;
             this.RVDetailJaspel.LocalReport.DataSources.Add(reportDataSource1);
-            this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanDetailJaspel.rdlc";
+            this.RVDetailJaspel.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.DetailJasaPelayanan.rdlc";
             this.RVDetailJaspel.Location = new System.Drawing.Point(0, 0);
             this.RVDetailJaspel.Name = "RVDetailJaspel";
-            this.RVDetailJaspel.Size = new System.Drawing.Size(1006, 405);
+            this.RVDetailJaspel.Size = new System.Drawing.Size(994, 405);
             this.RVDetailJaspel.TabIndex = 0;
             // 
             // tabPage5
@@ -740,7 +750,7 @@
             this.kwi_viewer.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.KuitansiDokter.rdlc";
             this.kwi_viewer.Location = new System.Drawing.Point(0, 0);
             this.kwi_viewer.Name = "kwi_viewer";
-            this.kwi_viewer.Size = new System.Drawing.Size(988, 412);
+            this.kwi_viewer.Size = new System.Drawing.Size(994, 412);
             this.kwi_viewer.TabIndex = 2;
             this.kwi_viewer.Load += new System.EventHandler(this.kwi_viewer_Load);
             // 
@@ -765,7 +775,7 @@
             this.rvBuktiPajak.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.LaporanBuktiPajak.rdlc";
             this.rvBuktiPajak.Location = new System.Drawing.Point(3, 3);
             this.rvBuktiPajak.Name = "rvBuktiPajak";
-            this.rvBuktiPajak.Size = new System.Drawing.Size(1003, 405);
+            this.rvBuktiPajak.Size = new System.Drawing.Size(988, 405);
             this.rvBuktiPajak.TabIndex = 3;
             // 
             // lblNamaDokter
@@ -784,10 +794,6 @@
             // lstBuktiPajakBindingSource1
             // 
             this.lstBuktiPajakBindingSource1.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
-            // 
-            // KwitansiBindingSource
-            // 
-            this.KwitansiBindingSource.DataMember = "Kwitansi";
             // 
             // JasaPelayanan
             // 
@@ -813,8 +819,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pengambilan Jasa Pelayanan";
             this.Load += new System.EventHandler(this.JasaPelayanan_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasaPelayananBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LstBuktiPajakBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LstDaftarJasPelBS)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -835,7 +843,6 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lstBuktiPajakBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.KwitansiBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -908,5 +915,6 @@
         private System.Windows.Forms.BindingSource LstBuktiPajakBindingSource;
         private System.Windows.Forms.BindingSource lstBuktiPajakBindingSource1;
         private System.Windows.Forms.BindingSource KwitansiBindingSource;
+        private System.Windows.Forms.BindingSource LstDaftarJasaPelayananBindingSource;
     }
 }

@@ -223,6 +223,12 @@
     <Compile Include="RAWAT-INAP\LAPORAN\LapPerOperator.Designer.cs">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\ManajemenPajak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\ManajemenPajak.Designer.cs">
+      <DependentUpon>ManajemenPajak.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\pendaftaran.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +268,7 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\DetailJasaPelayanan.rdlc" />
     <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiNonDokter.rdlc" />
     <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -295,9 +302,6 @@
     <EmbeddedResource Include="RAWAT-INAP\JasaPelayanan.resx">
       <DependentUpon>JasaPelayanan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanDetailJaspel.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">
       <DependentUpon>LapKasBKP.cs</DependentUpon>
@@ -307,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapPerOperator.resx">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\ManajemenPajak.resx">
+      <DependentUpon>ManajemenPajak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\pendaftaran.resx">
       <DependentUpon>pendaftaran.cs</DependentUpon>
@@ -355,32 +362,32 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.ReportViewer.DataVisualization">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Microsoft.ReportViewer.WinForms">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

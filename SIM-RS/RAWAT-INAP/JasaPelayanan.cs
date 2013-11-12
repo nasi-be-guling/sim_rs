@@ -34,7 +34,7 @@ namespace SIM_RS.RAWAT_INAP
 
         #region
 
-        private class LstDaftarDokter // tak ubah sesuai ketentuan berlaku
+        private class LstDaftarDokter 
         {
             private readonly string _strKodeDokter;
             private readonly string _strNamaDokter;
@@ -88,12 +88,13 @@ namespace SIM_RS.RAWAT_INAP
             readonly double _dblKeringanan;
             readonly double _dblHslBersih;
             readonly string _strKodeDokter;
+            readonly string _strNamaSMF;
             readonly string _strKodeTransaksi;
             readonly string _strNamaDokter;
 
              public LstDaftarJasaPelayanan(string strNoBilling, string strNamaPasien, string strStatusPasien, 
                 string strTglPulang, string strNamaTarif, double dblJasaMedis, double dblKeringanan, double dblHslBersih,                
-                string strKodeDokter, string strKodeTransaksi, string strNamaDokter)
+                string strKodeDokter, string strKodeTransaksi, string strNamaDokter, string strNamaSMF)
             {
                 _dblHslBersih = dblHslBersih;
                 _dblJasaMedis = dblJasaMedis;
@@ -106,6 +107,7 @@ namespace SIM_RS.RAWAT_INAP
                 _strStatusPasien = strStatusPasien;
                 _strTglPulang = strTglPulang;
                 _strNamaDokter = strNamaDokter;
+                _strNamaSMF = strNamaSMF;
             }
 
             public string StrKodeTransaksi
@@ -161,6 +163,11 @@ namespace SIM_RS.RAWAT_INAP
             public string StrNoBilling
             {
                 get { return _strNoBilling; }
+            }
+
+            public string StrNamaSMF
+            {
+                get { return _strNamaSMF; }
             }
         }
 
@@ -433,10 +440,10 @@ namespace SIM_RS.RAWAT_INAP
 
         private void PvTampilLaporan() {
 
-            RVDetailJaspel.LocalReport.DataSources.Clear(); 
-            Microsoft.Reporting.WinForms.ReportDataSource dsDetailJaspel = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJaspel", _grpJasaPelayanan); // set the datasource
-            RVDetailJaspel.LocalReport.DataSources.Add(dsDetailJaspel);
-            dsDetailJaspel.Value = _grpJasaPelayanan;
+            RVDetailJaspel.LocalReport.DataSources.Clear();
+            Microsoft.Reporting.WinForms.ReportDataSource dsDetailJasaPelayanan = new Microsoft.Reporting.WinForms.ReportDataSource("dsDetailJasaPelayanan", _grpJasaPelayanan); // set the datasource
+            RVDetailJaspel.LocalReport.DataSources.Add(dsDetailJasaPelayanan);
+            dsDetailJasaPelayanan.Value = _grpJasaPelayanan;
             RVDetailJaspel.LocalReport.Refresh();
             RVDetailJaspel.RefreshReport();
 
@@ -560,12 +567,14 @@ namespace SIM_RS.RAWAT_INAP
                     "BL_TRANSAKSIDETAIL.nilai - BL_TRANSAKSIDETAIL.Ringan as tunai, " + //8
                     "BL_TRANSAKSIDETAIL.idmr_dokter, " +                                //9
                     "BL_TRANSAKSI.idbl_transaksi, " +                                   //10
-                    "MR_DOKTER.Nama " +                                                 //11
+                    "MR_DOKTER.Nama, " +                                                 //11
+                    "MR_TSMF.idmr_smf " +                                                //12
                     "FROM BL_TRANSAKSI  With (nolock) " +
                     "INNER JOIN BL_KASPAV ON BL_TRANSAKSI.idmr_mutasipasien = BL_KASPAV.Idmr_mutasipasien " +
                     "INNER JOIN BL_TRANSAKSIDETAIL ON BL_TRANSAKSI.idbl_transaksi = BL_TRANSAKSIDETAIL.idbl_transaksi " +
                     "INNER JOIN MR_PASIEN ON BL_KASPAV.Idmr_pasien = MR_PASIEN.IDMR_PASIEN " +
                     "INNER JOIN MR_DOKTER ON BL_TRANSAKSIDETAIL.idmr_dokter = MR_DOKTER.idmr_dokter " +
+                    "INNER JOIN MR_TSMF ON MR_TSMF.idmr_tsmf = MR_DOKTER.idmr_tsmf " +
                     "WHERE (BL_TRANSAKSI.Batal = '') AND (BL_KASPAV.Batal = '') " +
                     "AND (BL_TRANSAKSIDETAIL.idbl_komponen = 'JASA PELAYANAN') " +
                     "AND (BL_TRANSAKSIDETAIL.noambil = 0) " +
@@ -592,7 +601,7 @@ namespace SIM_RS.RAWAT_INAP
                         _modMain.pbstrgetCol(reader, 3, ref strErr, ""), _modMain.pbstrgetCol(reader, 4, ref strErr, ""),
                         Convert.ToDouble(_modMain.pbstrgetCol(reader, 6, ref strErr, "")), Convert.ToDouble(_modMain.pbstrgetCol(reader, 7, ref strErr, "")),
                         Convert.ToDouble(_modMain.pbstrgetCol(reader, 8, ref strErr, "")), _modMain.pbstrgetCol(reader, 9, ref strErr, ""),
-                        _modMain.pbstrgetCol(reader, 10, ref strErr, ""), _modMain.pbstrgetCol(reader, 11, ref strErr, "")
+                        _modMain.pbstrgetCol(reader, 10, ref strErr, ""), _modMain.pbstrgetCol(reader, 11, ref strErr, ""), _modMain.pbstrgetCol(reader, 12, ref strErr, "")
                         ));
                 }
 
@@ -632,6 +641,7 @@ namespace SIM_RS.RAWAT_INAP
             lblPPhNonAhliAsli.SafeControlInvoke(label => lblPPhNonAhliAsli.Text = @".......");
             lblTotalPenerimaan.SafeControlInvoke(label => lblTotalPenerimaan.Text = @".......");
             lblTotalJasaPelayanan.SafeControlInvoke(label => lblTotalJasaPelayanan.Text = @".......");
+            txtNilaiProsentase.SafeControlInvoke(label => lblPPhNonAhli.Text = @".......");
         }
 
         private void PvTampilList()
@@ -727,6 +737,7 @@ namespace SIM_RS.RAWAT_INAP
                 lblPPhNonAhli.Text = "";
                 lblPPhNonAhliAsli.Text = "";
                 PvTampilLaporanKwi();
+                PvTampilLaporanBuktiPajak();
             }
             else
             {
@@ -743,6 +754,7 @@ namespace SIM_RS.RAWAT_INAP
                             - _pajakNonAhli;
                 lblTotalPenerimaan.Text = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", totalPenerimaan);
                 _pphGlobal = (decimal)_pajakNonAhli;
+                PvTampilLaporanBuktiPajak();
             }
             CekIsentryPajak();
             _bw2.RunWorkerAsync();
