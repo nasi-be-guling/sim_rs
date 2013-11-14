@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SIM_RS.ADMIN;
+using SIM_RS.RAWAT_INAP;
 
 namespace SIM_RS
 {
@@ -17,7 +18,7 @@ namespace SIM_RS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new halamanUtama());
+            Application.Run(new ManajemenPajak());
         }
     }
 

@@ -15,7 +15,10 @@ namespace SIM_RS.RAWAT_INAP
         readonly C4Module.MainModule _modMain = new C4Module.MainModule();
         readonly C4Module.DatabaseModule _modDb = new C4Module.DatabaseModule();
         readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
+        readonly C4Module.SQLModule _modSql = new C4Module.SQLModule();
+        readonly BackgroundWorker _bw = new BackgroundWorker();
 
+        private string _strSQL;
 
         private class LstDaftarDokter
         {
@@ -67,7 +70,64 @@ namespace SIM_RS.RAWAT_INAP
         public ManajemenPajak()
         {
             InitializeComponent();
+            _bw.WorkerSupportsCancellation = true;
+            _bw.WorkerReportsProgress = true;
+            _bw.DoWork +=
+                bw_DoWork;
+            _bw.RunWorkerCompleted +=
+                bw_RunWorkerCompleted;
+
             this.bwLoadDokter.RunWorkerAsync();
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("id-ID");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("id-ID");
+
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+            _strSQL =
+                "SELECT MONTH(dbo.TR_PAV_PAJAK.tglSPJ), sum(dbo.TR_PAV_PAJAK.bruto), sum(dbo.TR_PAV_PAJAK.pph), " +
+                "sum(dbo.TR_PAV_PAJAK.netto) " +
+                "FROM dbo.TR_PAV_PAJAK WHERE dbo.TR_PAV_PAJAK.idmar_dokter = '" + lblKodeDokter.Text.Trim() + "' and year(dbo.TR_PAV_PAJAK.tglSPJ) = 2013 " +
+                "GROUP BY MONTH(dbo.TR_PAV_PAJAK.tglSPJ)";
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strSQL, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+            if (reader.HasRows)
+            {
+                int increment = 1;
+                while (reader.Read())
+                {
+                    ListViewItem item = new ListViewItem(Convert.ToString(increment++));
+                    item.SubItems.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[1]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[2]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[3]));
+                    lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Add(item));
+                }
+                _modSql.pvAutoResizeLV(lvPajakPerDokter, 5);
+            }
+
+            reader.Close();
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //reserved
         }
 
         private void ManajemenPajak_Load(object sender, EventArgs e)
@@ -95,7 +155,7 @@ namespace SIM_RS.RAWAT_INAP
                                        "MR_DOKTER.idmr_tsmf, " +                    //2
                                        "MR_DOKTER.npwp, " +                        //3
                                        "MR_DOKTER.Alamat " +                        //4
-                                       "FROM MR_DOKTER WITH (NOLOCK) " +
+                                       "FROM MR_DOKTER " +
                                        "WHERE MR_DOKTER.dipakai = 'Y'";
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
@@ -189,6 +249,11 @@ namespace SIM_RS.RAWAT_INAP
             txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.Text = "");
             lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Clear());
             _isInEditMode = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _bw.RunWorkerAsync();
         }
 
 
