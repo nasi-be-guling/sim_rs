@@ -191,6 +191,13 @@ namespace SIM_RS.RAWAT_INAP
             _isInEditMode = false;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            "SELECT Sum(dbo.TR_PAV_PAJAK.bruto), Sum(dbo.TR_PAV_PAJAK.pph), MONTH(dbo.TR_PAV_PAJAK.tglSPJ) " +
+            "FROM dbo.TR_PAV_PAJAK WHERE dbo.TR_PAV_PAJAK.idmar_dokter = 'DIL' " +
+            "GROUP BY MONTH(dbo.TR_PAV_PAJAK.tglSPJ)";
+        }
+
 
 
     }
