@@ -133,7 +133,7 @@ namespace SIM_RS.RAWAT_INAP
         private void ManajemenPajak_Load(object sender, EventArgs e)
         {
 
-            this.RVPajakBulanan.RefreshReport();
+            RVPajakBulanan.RefreshReport();
         }
 
         private void bwLoadDokter_DoWork(object sender, DoWorkEventArgs e)
@@ -183,9 +183,9 @@ namespace SIM_RS.RAWAT_INAP
 
             reader.Close();
 
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteCustomSource = _listDokter);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteCustomSource = _listDokter);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource);
         }
 
         private void txtNamaDokter_KeyDown(object sender, KeyEventArgs e)
