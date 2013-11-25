@@ -325,7 +325,6 @@
       <DependentUpon>rekamMedis.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
-    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+Kwitansi.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+KwitansiDokter.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstBuktiPajak.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />

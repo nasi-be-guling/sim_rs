@@ -120,7 +120,7 @@
             // 
             // LstDaftarJasaPelayananBindingSource
             // 
-            this.LstDaftarJasaPelayananBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+//            this.LstDaftarJasaPelayananBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
             // 
             // KwitansiBindingSource
             // 
@@ -128,11 +128,11 @@
             // 
             // LstBuktiPajakBindingSource
             // 
-            this.LstBuktiPajakBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
+            //this.LstBuktiPajakBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstBuktiPajak);
             // 
             // LstDaftarJasPelBS
             // 
-            this.LstDaftarJasPelBS.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
+//            this.LstDaftarJasPelBS.DataSource = typeof(SIM_RS.RAWAT_INAP.JasaPelayanan.LstDaftarJasaPelayanan);
             // 
             // lblInfoPencarian
             // 

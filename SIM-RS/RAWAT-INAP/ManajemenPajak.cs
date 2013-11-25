@@ -62,8 +62,74 @@ namespace SIM_RS.RAWAT_INAP
                 get { return _strAlamat; }
             }
         }
+        private class LstMasterPajak
+        {
+            private readonly string _strIdPajak;
+            private readonly string _strKodeDokter;
+            private readonly string _strNamaDokter;
+            private readonly DateTime _tglSPJ;
+            private readonly DateTime _tglAmbil;
+            private readonly double _bruto;
+            private readonly double _pph;
+            private readonly string _strNpwp;
+
+            public LstMasterPajak(string strKodeDokter, string strNamaDokter, DateTime tglSPJ, DateTime tglAmbil, double bruto, double pph, string strNpwp, string strIdPajak )
+            {
+                _strKodeDokter = strKodeDokter;
+                _strNamaDokter = strNamaDokter;
+                _tglSPJ = tglSPJ;
+                _tglAmbil = tglAmbil;
+                _bruto = bruto;
+                _pph = pph;
+                _strNpwp = strNpwp;
+                _strIdPajak = strIdPajak;
+            }
+
+            public string StrIdPajak
+            {
+                get { return _strIdPajak; }
+            }
+
+            public string StrKodeDokter
+            {
+                get { return _strKodeDokter; }
+            }
+
+            public string StrNamaDokter
+            {
+                get { return _strNamaDokter; }
+            }
+
+            public DateTime TglSPJ
+            {
+                get { return _tglSPJ; }
+            }
+
+            public DateTime TglAmbil
+            {
+                get { return _tglAmbil; }
+            }
+
+            public string strNpwp
+            {
+                get { return _strNpwp; }
+            }
+
+            public double bruto
+            {
+                get { return _bruto; }
+            }
+
+            public double pph
+            {
+                get { return _pph; }
+            }
+        }
+
         readonly List<LstDaftarDokter> _grpSemuaDokter = new List<LstDaftarDokter>();
+        readonly List<LstMasterPajak> _grpMasterPajak = new List<LstMasterPajak>();
         readonly AutoCompleteStringCollection _listDokter = new AutoCompleteStringCollection();
+        readonly AutoCompleteStringCollection _listDokterSPJ = new AutoCompleteStringCollection();
 
         private bool _isInEditMode;
 
@@ -78,6 +144,7 @@ namespace SIM_RS.RAWAT_INAP
                 bw_RunWorkerCompleted;
 
             this.bwLoadDokter.RunWorkerAsync();
+            this.bwLoadPajak.RunWorkerAsync();
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -152,7 +219,7 @@ namespace SIM_RS.RAWAT_INAP
             const string strQuerySql = "SELECT " +
                                        "MR_DOKTER.idmr_dokter, " +                 //0
                                        "MR_DOKTER.nama, " +                        //1
-                                       "MR_DOKTER.idmr_tsmf, " +                    //2
+                                       "MR_DOKTER.idmr_tsmf, " +                   //2
                                        "MR_DOKTER.npwp, " +                        //3
                                        "MR_DOKTER.Alamat " +                        //4
                                        "FROM MR_DOKTER " +
@@ -255,8 +322,226 @@ namespace SIM_RS.RAWAT_INAP
         {
             _bw.RunWorkerAsync();
         }
+       
 
+        /*
+        *  NAME        : PvTampilPajak
+        *  FUNCTION    : Menampilkan Semua Data Pajak dari grpMasterPajak ke List View
+        *  RESULT      : -
+        *  CREATED     : Team Software RSSA
+        *  DATE        : 21-11-2013    
+        */
 
+        private void pvTampilPajak() {
+            int noUrut = 1;
+            lvDokterPajak.Items.Clear();
+            var query = (from i in _grpMasterPajak
+                         where i.TglAmbil.ToShortDateString() == dtpTglAmbil.Value.ToShortDateString()
+                         select i);
+
+            foreach (var pph in query)
+            {
+                lvDokterPajak.Items.Add(noUrut.ToString());
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.TglAmbil.ToString());
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.TglSPJ.ToString());
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.StrNamaDokter);
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.bruto.ToString());
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.pph.ToString());
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.StrKodeDokter);
+                lvDokterPajak.Items[lvDokterPajak.Items.Count - 1].SubItems.Add(pph.StrIdPajak);
+                noUrut++;
+               
+            }
+        }
+        private void btnTglAmbil_Click(object sender, EventArgs e)
+        {           
+            this.pvTampilPajak();
+        }
+
+        /*
+        *  NAME        : PvLoadPajak
+        *  FUNCTION    : Menampilkan Semua Data Pajak sejak Awal Form Dipanggil
+        *  RESULT      : -
+        *  CREATED     : Team Software RSSA
+        *  DATE        : 25-11-2013    
+        */
+        private void bwLoadPajak_DoWork(object sender, DoWorkEventArgs e)
+        {
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            const string strQuerySql = "SELECT " +
+                                       "TR_PAV_PAJAK.idmar_dokter, " +      //0
+                                       "MR_DOKTER.Nama, " +                 //1
+                                       "TR_PAV_PAJAK.tglSPJ, " +            //2
+                                       "TR_PAV_PAJAK.bruto, " +             //3
+                                       "TR_PAV_PAJAK.pph, " +               //4
+                                       "MR_DOKTER.npwp, " +                 //5
+                                       "TR_PAV_PAJAK.tgl, " +               //6
+                                       "TR_PAV_PAJAK.idPajak " +            //7
+                                       "FROM TR_PAV_PAJAK " +
+                                       "LEFT JOIN MR_DOKTER ON TR_PAV_PAJAK.idmar_dokter = MR_DOKTER.idmr_dokter ";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            _grpMasterPajak.Clear();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _grpMasterPajak.Add(new LstMasterPajak(
+                        _modMain.pbstrgetCol(reader, 0, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 1, ref strErr, ""),
+                        Convert.ToDateTime(reader[2]),
+                        Convert.ToDateTime(reader[6]),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 3, ref strErr, "")),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 4, ref strErr, "")),
+                        _modMain.pbstrgetCol(reader, 5, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 7, ref strErr, "")));
+                }
+            }
+
+            reader.Close();
+        }
+
+        private void btnBatal_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void lvDokterPajak_MouseClick(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == System.Windows.Forms.MouseButtons.Right) &&
+                (lvDokterPajak.Items.Count > 0))
+                {
+                   cmsRubahTglSPJ.Show(this.lvDokterPajak, e.Location);
+                }
+        }
+
+        private void rubahTanggalSPJToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lvDokterPajak.Enabled = false;
+            var query = (from i in _grpMasterPajak
+                         where i.StrIdPajak == lvDokterPajak.SelectedItems[0].SubItems[7].Text
+                         select i);
+
+            foreach (var pph in query)
+            {
+                lblIdPajak.Text = pph.StrIdPajak.ToString();
+            }
+        }
+
+        /*
+        *  NAME        : pvRefreshDataPajak
+        *  FUNCTION    : Me-Refreshkan data Pajak baru setelah penggantian data SPJ 
+        *  RESULT      : -
+        *  CREATED     : Team Software RSSA
+        *  DATE        : 25-11-2013    
+        */
+        private void pvRefreshDataPajak()
+        {
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            const string strQuerySql = "SELECT " +
+                                       "TR_PAV_PAJAK.idmar_dokter, " +      //0
+                                       "MR_DOKTER.Nama, " +                 //1
+                                       "TR_PAV_PAJAK.tglSPJ, " +            //2
+                                       "TR_PAV_PAJAK.bruto, " +             //3
+                                       "TR_PAV_PAJAK.pph, " +               //4
+                                       "MR_DOKTER.npwp, " +                 //5
+                                       "TR_PAV_PAJAK.tgl, " +               //6
+                                       "TR_PAV_PAJAK.idPajak " +            //7
+                                       "FROM TR_PAV_PAJAK " +
+                                       "LEFT JOIN MR_DOKTER ON TR_PAV_PAJAK.idmar_dokter = MR_DOKTER.idmr_dokter ";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            _grpMasterPajak.Clear();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    _grpMasterPajak.Add(new LstMasterPajak(
+                        _modMain.pbstrgetCol(reader, 0, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 1, ref strErr, ""),
+                        Convert.ToDateTime(reader[2]),
+                        Convert.ToDateTime(reader[6]),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 3, ref strErr, "")),
+                        Convert.ToDouble(_modMain.pbstrgetCol(reader, 4, ref strErr, "")),
+                        _modMain.pbstrgetCol(reader, 5, ref strErr, ""),
+                        _modMain.pbstrgetCol(reader, 7, ref strErr, "")));
+                }
+            }
+
+            reader.Close();
+            this.pvTampilPajak();
+        }
+
+        private void btnSimpan_Click(object sender, EventArgs e)
+        {
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            /* UPDATE changes TO DATABASE */
+            string strQuerySql = "UPDATE TR_PAV_PAJAK " +
+                                    "SET tglSPJ = '" + string.Format("{0: MM/dd/yyyy HH:mm:ss}", dtpTglSPJ.Value) + "' " +
+                                    "WHERE idPajak = " + lblIdPajak.Text;
+
+            _modDb.pbWriteSQL(conn, strQuerySql, ref strErr);
+            if (strErr != "")
+            {
+
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            MessageBox.Show("Data Berhasil Disimpan");
+            conn.Close();
+            lblIdPajak.Text = "";
+            lvDokterPajak.Enabled = true;
+            this.pvRefreshDataPajak();
+
+        }
 
     }
 }

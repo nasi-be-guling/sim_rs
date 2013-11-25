@@ -948,7 +948,6 @@
         private System.Windows.Forms.Button button1;
         private System.ComponentModel.BackgroundWorker bgWork;
         private System.Windows.Forms.Label lblInfoPencarian;
-        private System.Windows.Forms.Timer timerBlink;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lblStatusPasien;

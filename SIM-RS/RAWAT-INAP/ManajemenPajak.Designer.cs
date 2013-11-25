@@ -28,18 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.lblIdPajak = new System.Windows.Forms.Label();
+            this.lvDokterPajak = new System.Windows.Forms.ListView();
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnTglAmbil = new System.Windows.Forms.Button();
+            this.btnBatal = new System.Windows.Forms.Button();
+            this.dtpTglAmbil = new System.Windows.Forms.DateTimePicker();
+            this.btnSimpan = new System.Windows.Forms.Button();
+            this.dtpTglSPJ = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -77,9 +86,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bwLoadDokter = new System.ComponentModel.BackgroundWorker();
             this.bwLoadPajak = new System.ComponentModel.BackgroundWorker();
+            this.cmsRubahTglSPJ = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rubahTanggalSPJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -101,144 +112,216 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 635);
+            this.tabControl1.Size = new System.Drawing.Size(776, 342);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.panel6);
+            this.tabPage3.Controls.Add(this.lblIdPajak);
+            this.tabPage3.Controls.Add(this.lvDokterPajak);
+            this.tabPage3.Controls.Add(this.panel7);
+            this.tabPage3.Controls.Add(this.btnTglAmbil);
+            this.tabPage3.Controls.Add(this.btnBatal);
+            this.tabPage3.Controls.Add(this.dtpTglAmbil);
+            this.tabPage3.Controls.Add(this.btnSimpan);
+            this.tabPage3.Controls.Add(this.dtpTglSPJ);
             this.tabPage3.Controls.Add(this.panel5);
             this.tabPage3.Location = new System.Drawing.Point(4, 32);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(768, 599);
+            this.tabPage3.Size = new System.Drawing.Size(768, 306);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "SPJ DOKTER";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // panel6
+            // lblIdPajak
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.panel6.Controls.Add(this.button5);
-            this.panel6.Controls.Add(this.button4);
-            this.panel6.Controls.Add(this.button3);
-            this.panel6.Controls.Add(this.dateTimePicker3);
-            this.panel6.Controls.Add(this.textBox1);
-            this.panel6.Controls.Add(this.dateTimePicker2);
-            this.panel6.Location = new System.Drawing.Point(144, 17);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(430, 122);
-            this.panel6.TabIndex = 2;
+            this.lblIdPajak.AutoSize = true;
+            this.lblIdPajak.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdPajak.Location = new System.Drawing.Point(659, 269);
+            this.lblIdPajak.Name = "lblIdPajak";
+            this.lblIdPajak.Size = new System.Drawing.Size(19, 14);
+            this.lblIdPajak.TabIndex = 130;
+            this.lblIdPajak.Text = "...";
+            this.lblIdPajak.Visible = false;
             // 
-            // button5
+            // lvDokterPajak
             // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.button5.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(322, 81);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(93, 22);
-            this.button5.TabIndex = 95;
-            this.button5.Text = "&BATAL";
-            this.button5.UseVisualStyleBackColor = false;
+            this.lvDokterPajak.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDokterPajak.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader19,
+            this.columnHeader15,
+            this.columnHeader16,
+            this.columnHeader17,
+            this.columnHeader18,
+            this.columnHeader20});
+            this.lvDokterPajak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvDokterPajak.FullRowSelect = true;
+            this.lvDokterPajak.GridLines = true;
+            this.lvDokterPajak.HideSelection = false;
+            this.lvDokterPajak.Location = new System.Drawing.Point(14, 53);
+            this.lvDokterPajak.Name = "lvDokterPajak";
+            this.lvDokterPajak.Size = new System.Drawing.Size(730, 207);
+            this.lvDokterPajak.TabIndex = 129;
+            this.lvDokterPajak.UseCompatibleStateImageBehavior = false;
+            this.lvDokterPajak.View = System.Windows.Forms.View.Details;
+            this.lvDokterPajak.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvDokterPajak_MouseClick);
             // 
-            // button4
+            // columnHeader13
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.button4.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(223, 81);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(93, 22);
-            this.button4.TabIndex = 94;
-            this.button4.Text = "S&IMPAN";
-            this.button4.UseVisualStyleBackColor = false;
+            this.columnHeader13.Text = "No";
+            this.columnHeader13.Width = 41;
             // 
-            // button3
+            // columnHeader14
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.button3.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(223, 10);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 23);
-            this.button3.TabIndex = 93;
-            this.button3.Text = "&TAMPILKAN";
-            this.button3.UseVisualStyleBackColor = false;
+            this.columnHeader14.Text = "Tgl Ambil";
+            this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader14.Width = 130;
             // 
-            // dateTimePicker3
+            // columnHeader19
             // 
-            this.dateTimePicker3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker3.Location = new System.Drawing.Point(17, 81);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker3.TabIndex = 3;
+            this.columnHeader19.Text = "TglSPJ";
+            this.columnHeader19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader19.Width = 130;
             // 
-            // textBox1
+            // columnHeader15
             // 
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(17, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 23);
-            this.textBox1.TabIndex = 2;
+            this.columnHeader15.Text = "Nama Dokter";
+            this.columnHeader15.Width = 200;
             // 
-            // dateTimePicker2
+            // columnHeader16
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(17, 10);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker2.TabIndex = 1;
+            this.columnHeader16.Text = "Bruto";
+            this.columnHeader16.Width = 120;
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "Pajak";
+            this.columnHeader17.Width = 100;
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "Kode DOkter";
+            this.columnHeader18.Width = 0;
+            // 
+            // columnHeader20
+            // 
+            this.columnHeader20.Text = "ID Pajak";
+            this.columnHeader20.Width = 0;
+            // 
+            // panel7
+            // 
+            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel7.Controls.Add(this.label11);
+            this.panel7.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel7.Location = new System.Drawing.Point(15, 266);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(202, 30);
+            this.panel7.TabIndex = 128;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(5, 3);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 23);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Tanggal SPJ";
+            // 
+            // btnTglAmbil
+            // 
+            this.btnTglAmbil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnTglAmbil.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnTglAmbil.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnTglAmbil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTglAmbil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTglAmbil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTglAmbil.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTglAmbil.Location = new System.Drawing.Point(486, 17);
+            this.btnTglAmbil.Name = "btnTglAmbil";
+            this.btnTglAmbil.Size = new System.Drawing.Size(93, 29);
+            this.btnTglAmbil.TabIndex = 93;
+            this.btnTglAmbil.Text = "&TAMPILKAN";
+            this.btnTglAmbil.UseVisualStyleBackColor = false;
+            this.btnTglAmbil.Click += new System.EventHandler(this.btnTglAmbil_Click);
+            // 
+            // btnBatal
+            // 
+            this.btnBatal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBatal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnBatal.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnBatal.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnBatal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatal.Location = new System.Drawing.Point(579, 266);
+            this.btnBatal.Name = "btnBatal";
+            this.btnBatal.Size = new System.Drawing.Size(74, 28);
+            this.btnBatal.TabIndex = 127;
+            this.btnBatal.Text = "&BATAL";
+            this.btnBatal.UseVisualStyleBackColor = false;
+            this.btnBatal.Click += new System.EventHandler(this.btnBatal_Click);
+            // 
+            // dtpTglAmbil
+            // 
+            this.dtpTglAmbil.CalendarFont = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpTglAmbil.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpTglAmbil.Location = new System.Drawing.Point(220, 17);
+            this.dtpTglAmbil.Name = "dtpTglAmbil";
+            this.dtpTglAmbil.Size = new System.Drawing.Size(262, 30);
+            this.dtpTglAmbil.TabIndex = 1;
+            // 
+            // btnSimpan
+            // 
+            this.btnSimpan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSimpan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnSimpan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnSimpan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnSimpan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpan.Location = new System.Drawing.Point(491, 266);
+            this.btnSimpan.Name = "btnSimpan";
+            this.btnSimpan.Size = new System.Drawing.Size(82, 28);
+            this.btnSimpan.TabIndex = 126;
+            this.btnSimpan.Text = "S&IMPAN";
+            this.btnSimpan.UseVisualStyleBackColor = false;
+            this.btnSimpan.Click += new System.EventHandler(this.btnSimpan_Click);
+            // 
+            // dtpTglSPJ
+            // 
+            this.dtpTglSPJ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dtpTglSPJ.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpTglSPJ.Location = new System.Drawing.Point(221, 266);
+            this.dtpTglSPJ.Name = "dtpTglSPJ";
+            this.dtpTglSPJ.Size = new System.Drawing.Size(264, 30);
+            this.dtpTglSPJ.TabIndex = 125;
             // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.panel5.Controls.Add(this.label8);
-            this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.label6);
+            this.panel5.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel5.Location = new System.Drawing.Point(14, 17);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(130, 122);
+            this.panel5.Size = new System.Drawing.Size(202, 30);
             this.panel5.TabIndex = 0;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(13, 86);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 16);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Tanggal SPJ";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(13, 51);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 16);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Nama Dokter";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(13, 15);
+            this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(3, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 16);
+            this.label6.Size = new System.Drawing.Size(147, 23);
             this.label6.TabIndex = 0;
             this.label6.Text = "Tanggal Ambil";
             // 
@@ -253,7 +336,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 599);
+            this.tabPage1.Size = new System.Drawing.Size(768, 306);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PER DOKTER";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -430,15 +513,13 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 599);
+            this.tabPage2.Size = new System.Drawing.Size(768, 306);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "REKAPITULASI";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel4.Controls.Add(this.label5);
             this.panel4.Location = new System.Drawing.Point(3, 305);
@@ -461,8 +542,8 @@
             // 
             // RVRekapitulasiPajak
             // 
-            this.RVRekapitulasiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RVRekapitulasiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.RVRekapitulasiPajak.Location = new System.Drawing.Point(3, 341);
             this.RVRekapitulasiPajak.Name = "RVRekapitulasiPajak";
             this.RVRekapitulasiPajak.Size = new System.Drawing.Size(762, 255);
@@ -470,9 +551,9 @@
             // 
             // lvPajakRekapitulasi
             // 
-            this.lvPajakRekapitulasi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvPajakRekapitulasi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lvPajakRekapitulasi.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader6,
@@ -598,12 +679,30 @@
             // 
             this.bwLoadDokter.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadDokter_DoWork);
             // 
+            // bwLoadPajak
+            // 
+            this.bwLoadPajak.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadPajak_DoWork);
+            // 
+            // cmsRubahTglSPJ
+            // 
+            this.cmsRubahTglSPJ.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rubahTanggalSPJToolStripMenuItem});
+            this.cmsRubahTglSPJ.Name = "cmsRubahTglSPJ";
+            this.cmsRubahTglSPJ.Size = new System.Drawing.Size(175, 26);
+            // 
+            // rubahTanggalSPJToolStripMenuItem
+            // 
+            this.rubahTanggalSPJToolStripMenuItem.Name = "rubahTanggalSPJToolStripMenuItem";
+            this.rubahTanggalSPJToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.rubahTanggalSPJToolStripMenuItem.Text = "Rubah Tanggal SPJ";
+            this.rubahTanggalSPJToolStripMenuItem.Click += new System.EventHandler(this.rubahTanggalSPJToolStripMenuItem_Click);
+            // 
             // ManajemenPajak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(793, 650);
+            this.ClientSize = new System.Drawing.Size(793, 357);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManajemenPajak";
@@ -612,8 +711,9 @@
             this.Load += new System.EventHandler(this.ManajemenPajak_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.tabPage3.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -625,6 +725,7 @@
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.cmsRubahTglSPJ.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -669,16 +770,26 @@
         private System.Windows.Forms.Label label5;
         private Microsoft.Reporting.WinForms.ReportViewer RVRekapitulasiPajak;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpTglAmbil;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnTglAmbil;
+        private System.Windows.Forms.Button btnBatal;
+        private System.Windows.Forms.Button btnSimpan;
+        private System.Windows.Forms.DateTimePicker dtpTglSPJ;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListView lvDokterPajak;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader19;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.ColumnHeader columnHeader20;
+        private System.Windows.Forms.ContextMenuStrip cmsRubahTglSPJ;
+        private System.Windows.Forms.ToolStripMenuItem rubahTanggalSPJToolStripMenuItem;
+        private System.Windows.Forms.Label lblIdPajak;
     }
 }
