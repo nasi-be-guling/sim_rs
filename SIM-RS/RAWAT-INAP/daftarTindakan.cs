@@ -32,10 +32,12 @@ namespace SIM_RS.RAWAT_INAP
         private void pvTampilDataTindakanNonDB()
         {
 
-            inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
+            //inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
 
-            fInputTindakan.grpLstDaftarTarif.ForEach(
-           delegate(inputTindakan.lstDaftarTarif itemTarif)
+            halamanUtama fHalamanUtama = (halamanUtama)Application.OpenForms["halamanUtama"];
+
+            fHalamanUtama.grpLstDaftarTarif.ForEach(
+           delegate(halamanUtama.lstDaftarTarif itemTarif)
            {
 
                ListViewItem itemList = new ListViewItem(itemTarif.strKodeTarif);
@@ -140,27 +142,19 @@ namespace SIM_RS.RAWAT_INAP
 
         private void daftarTindakan_Load(object sender, EventArgs e)
         {
-
             this.KeyPreview = true;
-
             cmbPilihanFilter.SelectedIndex = 1;
-
             this.pvTampilDataTindakanNonDB();
-
+            cmbPilihanFilter.Focus();
         }
 
         private void lvDaftarTindakan_DoubleClick(object sender, EventArgs e)
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
-
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-
             fInputTindakan.pvLoadDetailTarif(strKodeTarif);
-
             isUserSelected = true;
-            
             this.Close();
-
         }
 
         private void daftarTindakan_FormClosed(object sender, FormClosedEventArgs e)
@@ -168,7 +162,7 @@ namespace SIM_RS.RAWAT_INAP
             if (isUserSelected)
             {
                 inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-                fInputTindakan.btnTampilDaftarTindakan.Enabled = false;
+                fInputTindakan.btnTampilDaftarTarif.Enabled = false;
                 fInputTindakan.txtNamaDokter.Select();
 
 
@@ -178,20 +172,14 @@ namespace SIM_RS.RAWAT_INAP
         private void lvDaftarTindakan_KeyPress(object sender, KeyPressEventArgs e)
         {
             string strKodeTarif = lvDaftarTindakan.SelectedItems[0].Text + " -- " + lvDaftarTindakan.SelectedItems[0].SubItems[1].Text;
-
             inputTindakan fInputTindakan = (inputTindakan)Application.OpenForms["inputTindakan"];
-
             fInputTindakan.pvLoadDetailTarif(strKodeTarif);
-
             isUserSelected = true;
-
             this.Close();
         }
 
         private void bgWork_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.BeginUpdate());
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.Clear());
             lvDaftarTindakan.SafeControlInvoke(ListView => lvDaftarTindakan.Items.AddRange(lviDaftarTindakan.ToArray()));

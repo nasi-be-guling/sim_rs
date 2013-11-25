@@ -18,14 +18,12 @@ namespace SIM_RS
         C4Module.DatabaseModule modDb = new C4Module.DatabaseModule();
         C4Module.MessageModule modMsg = new C4Module.MessageModule();
         C4Module.SQLModule modSQL = new C4Module.SQLModule();
-        C4Module.EncryptModule modEncrypt = new C4Module.EncryptModule();
 
         /*Private Variable*/
 
         string strSqlQuery = "";
         string strErr = "";
-        string stridUser = "";
-        string strnamaUser = "";
+        string strNamaPetugas = "";
         bool isLoginSuccess = false;
 
         /*EOF Private Variable*/
@@ -42,29 +40,114 @@ namespace SIM_RS
             InitializeComponent();
         }      
 
+        private void txtIdPetugas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar != 13)
+                return;
+
+            bool boolPetugasAda = false;
+
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
+
+            strSqlQuery = "SELECT "+
+                                "Petugas "+
+                          "FROM BILPETUGAS "+
+                          "WHERE idPetugas = '" + strPetugas + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+
+                reader.Read();
+                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                boolPetugasAda = true;
+            }
+
+
+
+            reader.Close();
+
+            cmbUnitKerja.Items.Clear();
+
+            if (boolPetugasAda)
+            {
+
+                strSqlQuery = "SELECT Grup FROM BILHAKAKSES WHERE idPetugas = '" + strPetugas + "' GROUP BY Grup";
+
+                reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+                if (strErr != "")
+                {
+                    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                    //isLoginSuccess = false;
+                    conn.Close();
+                    return;
+                }
+
+                if (reader.HasRows)
+                {
+                    
+                    while (reader.Read())
+                    {
+                        cmbUnitKerja.Items.Add(modMain.pbstrgetCol(reader,0,ref strErr,cmbUnitKerja.Name.ToString()));
+                    }
+
+                }
+
+                cmbUnitKerja.Text = cmbUnitKerja.Items[0].ToString();
+                cmbUnitKerja.Focus();
+                txtIdPetugas.Enabled = false;
+
+            }
+            else
+            {
+                MessageBox.Show("ID Petugas yang anda masukkan tidak ditemukan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtIdPetugas.Focus();
+            }
+
+            conn.Close();
+        }
+
         private void login_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            //if (!isLoginSuccess)
-            //{
-            //    DialogResult msgDialog = MessageBox.Show("Apakah anda akan membatalkan login dan keluar dari program",
-            //                                                "Informasi",
-            //                                                MessageBoxButtons.YesNo,
-            //                                                MessageBoxIcon.Question);
+            if (!isLoginSuccess)
+            {
+                DialogResult msgDialog = MessageBox.Show("Apakah anda akan membatalkan login dan keluar dari program",
+                                                            "Informasi",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question);
 
-            //    if (msgDialog == DialogResult.No)
-            //    {
-            //        e.Cancel = true;
-            //        return;
-            //    }
-            //}
+                if (msgDialog == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
             
         }
 
         private void login_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-            if (stridUser.Equals(""))
+            if (!isLoginSuccess)
             {
                 halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
                 fTCN.isForceQuit = true;
@@ -76,13 +159,39 @@ namespace SIM_RS
 
                 halamanUtama fTCN = (halamanUtama)Application.OpenForms["halamanUtama"];
 
-                fTCN.txtPetugas.Text = strnamaUser;
-                //fTCN.txtUnitKerja.Text = cmbUnitKerja.Text.Trim().ToString();
-                //fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
+                fTCN.txtPetugas.Text = strNamaPetugas;
+                fTCN.txtUnitKerja.Text = cmbUnitKerja.Text.Trim().ToString();
+                fTCN.txtShift.Text = cmbShift.Text.Trim().ToString();
 
-                fTCN.pvLoadInfoUser(stridUser);
+                fTCN.pvLoadInfoUser(txtIdPetugas.Text.Trim().ToString());
                 //fTCN.lbDaftarMenu.Focus();
-                //fTCN.pbScreenCapture.Visible = false;                                   
+                //fTCN.pbScreenCapture.Visible = false;
+                   
+            }
+        }
+
+        private void cmbUnitKerja_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbUnitKerja_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar == 13) && (cmbUnitKerja.Text.Trim().ToString() != ""))
+            {
+
+                cmbShift.Text = cmbShift.Items[0].ToString();
+                cmbShift.Focus();
+                cmbUnitKerja.Enabled = false;
+            }
+        }
+
+        private void cmbShift_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar == 13) && (cmbShift.Text.Trim().ToString() != ""))
+            {
+                isLoginSuccess = true;
+                this.Close();
             }
         }
 
@@ -93,11 +202,16 @@ namespace SIM_RS
 
         private void login_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if(e.KeyCode == Keys.Escape)
             {
                 isLoginSuccess = false;
                 this.Close();
             }
+        }
+
+        private void login_Activated(object sender, EventArgs e)
+        {
+          
         }
 
         private void login_Shown(object sender, EventArgs e)
@@ -107,6 +221,116 @@ namespace SIM_RS
             //fTCN.Opacity = 0.5;
         }
 
+        private void cmbUnitKerja_Leave(object sender, EventArgs e)
+        {
+            if (cmbUnitKerja.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus memilih Unit Kerja", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmbUnitKerja.Select();
+            }
+        }
+
+        private void cmbShift_Leave(object sender, EventArgs e)
+        {
+            if (cmbShift.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus memilih Shif", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmbShift.Select();
+            }
+        }
+
+        private void txtIdPetugas_Leave(object sender, EventArgs e)
+        {
+            if (txtIdPetugas.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("Anda harus mengisi Sandi", "Konfirmasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtIdPetugas.Select();
+                return;
+            }
+
+
+            bool boolPetugasAda = false;
+
+            this.strErr = "";
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strPetugas = modMain.pbstrBersihkanInput(txtIdPetugas.Text);
+
+            strSqlQuery = "SELECT " +
+                                "Petugas " +
+                          "FROM BILPETUGAS " +
+                          "WHERE idPetugas = '" + strPetugas + "'";
+
+            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+            if (strErr != "")
+            {
+                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            if (reader.HasRows)
+            {
+
+                reader.Read();
+                strNamaPetugas = modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                boolPetugasAda = true;
+            }
+
+
+
+            reader.Close();
+
+            cmbUnitKerja.Items.Clear();
+
+            if (boolPetugasAda)
+            {
+
+                strSqlQuery = "SELECT Grup FROM BILHAKAKSES WHERE idPetugas = '" + strPetugas + "' GROUP BY Grup";
+
+                reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
+                if (strErr != "")
+                {
+                    modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
+                    //isLoginSuccess = false;
+                    conn.Close();
+                    return;
+                }
+
+                if (reader.HasRows)
+                {
+
+                    while (reader.Read())
+                    {
+                        cmbUnitKerja.Items.Add(modMain.pbstrgetCol(reader, 0, ref strErr, cmbUnitKerja.Name.ToString()));
+                    }
+
+                }
+
+                cmbUnitKerja.Text = cmbUnitKerja.Items[0].ToString();
+                cmbUnitKerja.Focus();
+                txtIdPetugas.Enabled = false;
+
+            }
+            else
+            {
+                MessageBox.Show("ID Petugas yang anda masukkan tidak ditemukan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtIdPetugas.Select();
+                txtIdPetugas.SelectAll();
+            }
+
+            conn.Close();
+
+
+
+        }
 
         private void login_Paint(object sender, PaintEventArgs e)
         {
@@ -121,85 +345,7 @@ namespace SIM_RS
             //fTCN.pbScreenCapture.Visible = true;
         }
 
-        /*
-     *  NAME        : metode login
-     *  FUNCTION    : proses login ke halaman utama
-     *  RESULT      : -
-     *  CREATED     : Eka Rudito (eka@rudito.web.id)
-     *  DATE        : 16-02-2013
-     */
-
-        private void pvLoginForm() 
-        {
-            this.strErr = "";
-            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
-
-            SqlConnection conn = modDb.pbconnKoneksiSQL(ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_CON, modMsg.TITLE_ERR);
-                return;
-            }
-
-            strSqlQuery = "SELECT id, nama " +
-                          "FROM HIS_DAFTAR_USER " +
-                          "WHERE nip_nbi = '" + modMain.pbstrBersihkanInput(txtuserId.Text) +
-                          "' and sandi = '" + modEncrypt.EncryptToString(txtsandiUser.Text.Trim()) + "'";
-
-            SqlDataReader reader = modDb.pbreaderSQL(conn, strSqlQuery, ref strErr);
-            if (strErr != "")
-            {
-                modMsg.pvDlgErr(modMsg.IS_DEV, strErr, modMsg.DB_GET, modMsg.TITLE_ERR);
-                conn.Close();
-                return;
-            }
-
-            if (reader.HasRows)
-            {
-                reader.Read();
-                stridUser = modMain.pbstrgetCol(reader, 0, ref strErr, "");
-                strnamaUser = modMain.pbstrgetCol(reader, 1, ref strErr, "");
-
-            }
-            reader.Close();
-            conn.Close();
-
-            if (stridUser.Equals(""))
-            {
-                MessageBox.Show("Username ato password salah, silahkan diulang  ('-')('-')");
-                this.pvBersihkanForm();
-            }
-            else
-                this.Close();        
-        }
-
-        private void btnKeluarProgram_Click(object sender, EventArgs e)
-        {
-            this.pvLoginForm();
-        }
-
-        private void txtuserId_KeyUp(object sender, KeyEventArgs e)
-        {
-            if ((e.KeyCode == Keys.Enter) && (txtuserId.Text.Trim().ToString() != ""))
-            {
-                txtsandiUser.Focus();
-            }
-        }
-
-        private void txtsandiUser_KeyUp(object sender, KeyEventArgs e)
-        {
-            if ((e.KeyCode == Keys.Enter) && (txtsandiUser.Text.Trim().ToString() != ""))
-            {
-                btnKeluarProgram.Focus();
-            }
-        }
-
-        private void pvBersihkanForm()
-        {
-            txtuserId.Text = "";
-            txtsandiUser.Text = "";
-            txtuserId.Focus();
-        }
+       
 
     }
        

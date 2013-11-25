@@ -69,6 +69,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.rubahTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hapusTarifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel6.SuspendLayout();
             this.cmsDaftarTarif.SuspendLayout();
             this.SuspendLayout();
@@ -153,7 +154,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(299, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 18);
+            this.label3.Size = new System.Drawing.Size(57, 18);
             this.label3.TabIndex = 120;
             this.label3.Text = "Kelas : ";
             // 
@@ -164,7 +165,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(19, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 18);
+            this.label2.Size = new System.Drawing.Size(74, 18);
             this.label2.TabIndex = 119;
             this.label2.Text = "Nominal : ";
             // 
@@ -175,7 +176,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(19, 69);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 18);
+            this.label1.Size = new System.Drawing.Size(99, 18);
             this.label1.TabIndex = 118;
             this.label1.Text = "Uraian Tarif : ";
             // 
@@ -273,7 +274,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(402, 69);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(122, 18);
+            this.label7.Size = new System.Drawing.Size(121, 18);
             this.label7.TabIndex = 154;
             this.label7.Text = "Kelompok Tarif : ";
             // 
@@ -283,7 +284,7 @@
             this.rbtMulti.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtMulti.Location = new System.Drawing.Point(680, 146);
             this.rbtMulti.Name = "rbtMulti";
-            this.rbtMulti.Size = new System.Drawing.Size(73, 24);
+            this.rbtMulti.Size = new System.Drawing.Size(74, 24);
             this.rbtMulti.TabIndex = 153;
             this.rbtMulti.TabStop = true;
             this.rbtMulti.Text = "MULTI";
@@ -296,7 +297,7 @@
             this.rbtSatuan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtSatuan.Location = new System.Drawing.Point(680, 27);
             this.rbtSatuan.Name = "rbtSatuan";
-            this.rbtSatuan.Size = new System.Drawing.Size(88, 24);
+            this.rbtSatuan.Size = new System.Drawing.Size(89, 24);
             this.rbtSatuan.TabIndex = 152;
             this.rbtSatuan.TabStop = true;
             this.rbtSatuan.Text = "SATUAN";
@@ -319,6 +320,7 @@
             this.btnLoadExcel.TabIndex = 151;
             this.btnLoadExcel.Text = "&LOAD";
             this.btnLoadExcel.UseVisualStyleBackColor = false;
+            this.btnLoadExcel.Click += new System.EventHandler(this.btnLoadExcel_Click);
             // 
             // txtNamaFileExcel
             // 
@@ -337,7 +339,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(17, 152);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 18);
+            this.label6.Size = new System.Drawing.Size(74, 18);
             this.label6.TabIndex = 149;
             this.label6.Text = "File EXCEL";
             // 
@@ -462,9 +464,9 @@
             this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(0, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(301, 20);
+            this.label14.Size = new System.Drawing.Size(208, 20);
             this.label14.TabIndex = 111;
-            this.label14.Text = "DAFTAR TARIF RAWAT JALAN IRNA UTAMA";
+            this.label14.Text = "DAFTAR TARIF RAWAT JALAN";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cmsDaftarTarif
@@ -506,6 +508,10 @@
             this.hapusTarifToolStripMenuItem.Name = "hapusTarifToolStripMenuItem";
             this.hapusTarifToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.hapusTarifToolStripMenuItem.Text = "Hapus Tarif";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // daftarTarif
             // 
@@ -570,5 +576,6 @@
         private System.Windows.Forms.RadioButton rbtSatuan;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

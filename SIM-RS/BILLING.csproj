@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\PUBLISH\SIM-RS\</PublishUrl>
+    <PublishUrl>D:\PUBLISH\SIM-RS-PAV\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -65,17 +65,24 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C4Module">
-      <HintPath>DLL\C4Module.dll</HintPath>
+    <Reference Include="C4Module, Version=0.1.5001.27629, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\C4Module.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
-      <HintPath>DLL\EPPlus.dll</HintPath>
+      <HintPath>Properties\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="Excel">
-      <HintPath>DLL\Excel.dll</HintPath>
+    <Reference Include="Excel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\Excel.dll</HintPath>
     </Reference>
-    <Reference Include="JetBrains.Annotations.NET.2.0">
-      <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net35\JetBrains.Annotations.NET.2.0.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -141,11 +148,7 @@
       <DependentUpon>LapCheckTransAndDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlInvoke.cs" />
-    <Compile Include="DATASET\DATASET_APP.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="DATASET\data.cs" />
     <Compile Include="ADMIN\daftarPengguna.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,11 +167,23 @@
     <Compile Include="GENERAL\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\daftarKomponenPerTarif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\daftarKomponenPerTarif.Designer.cs">
+      <DependentUpon>daftarKomponenPerTarif.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RAWAT-INAP\daftarTindakan.Designer.cs">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputKeringanan.Designer.cs">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
     </Compile>
     <Compile Include="RAWAT-INAP\inputTindakan.cs">
       <SubType>Form</SubType>
@@ -178,6 +193,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\inputTindakanPerubahanBiaya.Designer.cs">
+      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-INAP\JasaPelayanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\JasaPelayanan.designer.cs">
+      <DependentUpon>JasaPelayanan.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\LAPORAN\LapKasBKP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +223,12 @@
     <Compile Include="RAWAT-INAP\LAPORAN\LapPerOperator.Designer.cs">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
     </Compile>
+    <Compile Include="RAWAT-INAP\ManajemenPajak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-INAP\ManajemenPajak.Designer.cs">
+      <DependentUpon>ManajemenPajak.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAWAT-INAP\pendaftaran.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +240,12 @@
     </Compile>
     <Compile Include="RAWAT-JALAN-PAV\inputTindakan.Designer.cs">
       <DependentUpon>inputTindakan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\rekamMedis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAWAT-JALAN-PAV\rekamMedis.Designer.cs">
+      <DependentUpon>rekamMedis.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ADMIN\daftarHakAkses.resx">
       <DependentUpon>daftarHakAkses.cs</DependentUpon>
@@ -229,6 +268,12 @@
     <EmbeddedResource Include="GENERAL\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\DetailJasaPelayanan.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiNonDokter.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\LaporanBuktiPajak.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiDokter.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -239,11 +284,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RAWAT-INAP\daftarKomponenPerTarif.resx">
+      <DependentUpon>daftarKomponenPerTarif.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\daftarTindakan.resx">
       <DependentUpon>daftarTindakan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\inputKeringanan.resx">
+      <DependentUpon>inputKeringanan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\inputTindakanPerubahanBiaya.resx">
+      <DependentUpon>inputTindakanPerubahanBiaya.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\JasaPelayanan.resx">
+      <DependentUpon>JasaPelayanan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN - REPORT\LaporanJasaPelayanan_1.rdlc" />
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapKasBKP.resx">
@@ -255,25 +312,22 @@
     <EmbeddedResource Include="RAWAT-INAP\LAPORAN\LapPerOperator.resx">
       <DependentUpon>LapPerOperator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-INAP\ManajemenPajak.resx">
+      <DependentUpon>ManajemenPajak.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-INAP\pendaftaran.resx">
       <DependentUpon>pendaftaran.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RAWAT-JALAN-PAV\inputTindakan.resx">
       <DependentUpon>inputTindakan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RAWAT-JALAN-PAV\rekamMedis.resx">
+      <DependentUpon>rekamMedis.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="BILLING_TemporaryKey.pfx" />
-    <None Include="DATASET\DATASET_APP.xsc">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
-    <None Include="DATASET\DATASET_APP.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DATASET_APP.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DATASET\DATASET_APP.xss">
-      <DependentUpon>DATASET_APP.xsd</DependentUpon>
-    </None>
-    <None Include="packages.config" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+KwitansiDokter.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstBuktiPajak.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -301,7 +355,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
@@ -337,6 +390,7 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

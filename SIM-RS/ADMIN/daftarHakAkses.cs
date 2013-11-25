@@ -179,6 +179,7 @@ namespace SIM_RS.ADMIN
 
         private void PvLoadData(string strCari = "", int kontrol = 0)
         {
+
             _strErr = "";
 
             C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_ERM;
