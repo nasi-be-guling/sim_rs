@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SIM_RS.ADMIN;
+using SIM_RS.RAWAT_INAP;
 
 namespace SIM_RS
 {

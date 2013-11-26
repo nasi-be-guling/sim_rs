@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnKeluar = new System.Windows.Forms.Button();
             this.lblIdPajak = new System.Windows.Forms.Label();
             this.lvDokterPajak = new System.Windows.Forms.ListView();
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,16 +62,15 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RVPajakBulanan = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCariLagi = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtNamaDokter = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
+            this.InfoProsesExcell = new System.Windows.Forms.Label();
             this.RVRekapitulasiPajak = new Microsoft.Reporting.WinForms.ReportViewer();
             this.lvPajakRekapitulasi = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -80,15 +80,18 @@
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnExport = new System.Windows.Forms.Button();
             this.dtpRentang2 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnTampilkan = new System.Windows.Forms.Button();
             this.dtpRentang1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.bwLoadDokter = new System.ComponentModel.BackgroundWorker();
             this.bwLoadPajak = new System.ComponentModel.BackgroundWorker();
             this.cmsRubahTglSPJ = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rubahTanggalSPJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bwRekapitulasi = new System.ComponentModel.BackgroundWorker();
+            this.lstPajakPerDokter = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -97,9 +100,9 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.cmsRubahTglSPJ.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lstPajakPerDokter)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -114,11 +117,12 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 342);
+            this.tabControl1.Size = new System.Drawing.Size(776, 476);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnKeluar);
             this.tabPage3.Controls.Add(this.lblIdPajak);
             this.tabPage3.Controls.Add(this.lvDokterPajak);
             this.tabPage3.Controls.Add(this.panel7);
@@ -130,10 +134,27 @@
             this.tabPage3.Controls.Add(this.panel5);
             this.tabPage3.Location = new System.Drawing.Point(4, 32);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(768, 306);
+            this.tabPage3.Size = new System.Drawing.Size(768, 440);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "SPJ DOKTER";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnKeluar
+            // 
+            this.btnKeluar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnKeluar.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnKeluar.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnKeluar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnKeluar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnKeluar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKeluar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKeluar.Location = new System.Drawing.Point(585, 17);
+            this.btnKeluar.Name = "btnKeluar";
+            this.btnKeluar.Size = new System.Drawing.Size(93, 29);
+            this.btnKeluar.TabIndex = 131;
+            this.btnKeluar.Text = "&KELUAR";
+            this.btnKeluar.UseVisualStyleBackColor = false;
+            this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
             // 
             // lblIdPajak
             // 
@@ -166,7 +187,7 @@
             this.lvDokterPajak.HideSelection = false;
             this.lvDokterPajak.Location = new System.Drawing.Point(14, 53);
             this.lvDokterPajak.Name = "lvDokterPajak";
-            this.lvDokterPajak.Size = new System.Drawing.Size(730, 207);
+            this.lvDokterPajak.Size = new System.Drawing.Size(730, 339);
             this.lvDokterPajak.TabIndex = 129;
             this.lvDokterPajak.UseCompatibleStateImageBehavior = false;
             this.lvDokterPajak.View = System.Windows.Forms.View.Details;
@@ -220,7 +241,7 @@
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel7.Controls.Add(this.label11);
             this.panel7.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel7.Location = new System.Drawing.Point(15, 266);
+            this.panel7.Location = new System.Drawing.Point(14, 398);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(202, 30);
             this.panel7.TabIndex = 128;
@@ -244,7 +265,7 @@
             this.btnTglAmbil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTglAmbil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnTglAmbil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTglAmbil.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTglAmbil.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTglAmbil.Location = new System.Drawing.Point(486, 17);
             this.btnTglAmbil.Name = "btnTglAmbil";
             this.btnTglAmbil.Size = new System.Drawing.Size(93, 29);
@@ -262,8 +283,8 @@
             this.btnBatal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatal.Location = new System.Drawing.Point(579, 266);
+            this.btnBatal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatal.Location = new System.Drawing.Point(578, 398);
             this.btnBatal.Name = "btnBatal";
             this.btnBatal.Size = new System.Drawing.Size(74, 28);
             this.btnBatal.TabIndex = 127;
@@ -289,8 +310,8 @@
             this.btnSimpan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpan.Location = new System.Drawing.Point(491, 266);
+            this.btnSimpan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpan.Location = new System.Drawing.Point(490, 398);
             this.btnSimpan.Name = "btnSimpan";
             this.btnSimpan.Size = new System.Drawing.Size(82, 28);
             this.btnSimpan.TabIndex = 126;
@@ -302,9 +323,9 @@
             // 
             this.dtpTglSPJ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dtpTglSPJ.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpTglSPJ.Location = new System.Drawing.Point(221, 266);
+            this.dtpTglSPJ.Location = new System.Drawing.Point(220, 398);
             this.dtpTglSPJ.Name = "dtpTglSPJ";
-            this.dtpTglSPJ.Size = new System.Drawing.Size(264, 30);
+            this.dtpTglSPJ.Size = new System.Drawing.Size(261, 30);
             this.dtpTglSPJ.TabIndex = 125;
             // 
             // panel5
@@ -338,7 +359,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 306);
+            this.tabPage1.Size = new System.Drawing.Size(768, 440);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PER DOKTER";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -349,7 +370,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(3, 311);
+            this.panel2.Location = new System.Drawing.Point(3, 267);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(762, 35);
             this.panel2.TabIndex = 121;
@@ -375,6 +396,7 @@
             this.lblNamaDokter.Size = new System.Drawing.Size(28, 23);
             this.lblNamaDokter.TabIndex = 119;
             this.lblNamaDokter.Text = "...";
+            this.lblNamaDokter.Visible = false;
             // 
             // lblKodeDokter
             // 
@@ -384,6 +406,7 @@
             this.lblKodeDokter.Size = new System.Drawing.Size(28, 23);
             this.lblKodeDokter.TabIndex = 118;
             this.lblKodeDokter.Text = "...";
+            this.lblKodeDokter.Visible = false;
             // 
             // lvPajakPerDokter
             // 
@@ -395,15 +418,14 @@
             this.columnHeader7,
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader9});
+            this.columnHeader3});
             this.lvPajakPerDokter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvPajakPerDokter.FullRowSelect = true;
             this.lvPajakPerDokter.GridLines = true;
             this.lvPajakPerDokter.HideSelection = false;
             this.lvPajakPerDokter.Location = new System.Drawing.Point(3, 50);
             this.lvPajakPerDokter.Name = "lvPajakPerDokter";
-            this.lvPajakPerDokter.Size = new System.Drawing.Size(762, 256);
+            this.lvPajakPerDokter.Size = new System.Drawing.Size(762, 214);
             this.lvPajakPerDokter.TabIndex = 117;
             this.lvPajakPerDokter.UseCompatibleStateImageBehavior = false;
             this.lvPajakPerDokter.View = System.Windows.Forms.View.Details;
@@ -434,23 +456,19 @@
             this.columnHeader3.Text = "Stlh Kena Pajak";
             this.columnHeader3.Width = 121;
             // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Jumlah";
-            this.columnHeader9.Width = 150;
-            // 
             // RVPajakBulanan
             // 
             this.RVPajakBulanan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.RVPajakBulanan.Location = new System.Drawing.Point(3, 347);
+            this.RVPajakBulanan.Location = new System.Drawing.Point(3, 305);
             this.RVPajakBulanan.Name = "RVPajakBulanan";
-            this.RVPajakBulanan.Size = new System.Drawing.Size(762, 255);
+            this.RVPajakBulanan.Size = new System.Drawing.Size(762, 129);
             this.RVPajakBulanan.TabIndex = 4;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel1.Controls.Add(this.btnCariLagi);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.txtNamaDokter);
             this.panel1.Controls.Add(this.dateTimePicker1);
@@ -461,6 +479,23 @@
             this.panel1.Size = new System.Drawing.Size(762, 44);
             this.panel1.TabIndex = 3;
             // 
+            // btnCariLagi
+            // 
+            this.btnCariLagi.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnCariLagi.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnCariLagi.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnCariLagi.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnCariLagi.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnCariLagi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCariLagi.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCariLagi.ForeColor = System.Drawing.Color.White;
+            this.btnCariLagi.Location = new System.Drawing.Point(665, 5);
+            this.btnCariLagi.Name = "btnCariLagi";
+            this.btnCariLagi.Size = new System.Drawing.Size(65, 29);
+            this.btnCariLagi.TabIndex = 94;
+            this.btnCariLagi.Text = "&BARU";
+            this.btnCariLagi.UseVisualStyleBackColor = false;
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
@@ -469,10 +504,11 @@
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(641, 7);
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(554, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 29);
+            this.button1.Size = new System.Drawing.Size(105, 29);
             this.button1.TabIndex = 92;
             this.button1.Text = "&TAMPILKAN";
             this.button1.UseVisualStyleBackColor = false;
@@ -483,7 +519,7 @@
             this.txtNamaDokter.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNamaDokter.Location = new System.Drawing.Point(111, 5);
             this.txtNamaDokter.Name = "txtNamaDokter";
-            this.txtNamaDokter.Size = new System.Drawing.Size(437, 33);
+            this.txtNamaDokter.Size = new System.Drawing.Size(350, 33);
             this.txtNamaDokter.TabIndex = 93;
             this.txtNamaDokter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNamaDokter_KeyDown);
             this.txtNamaDokter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNamaDokter_KeyPress);
@@ -494,7 +530,7 @@
             this.dateTimePicker1.CustomFormat = "yyyy";
             this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(554, 6);
+            this.dateTimePicker1.Location = new System.Drawing.Point(467, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(81, 32);
             this.dateTimePicker1.TabIndex = 2;
@@ -514,47 +550,33 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.panel4);
+            this.tabPage2.Controls.Add(this.InfoProsesExcell);
             this.tabPage2.Controls.Add(this.RVRekapitulasiPajak);
             this.tabPage2.Controls.Add(this.lvPajakRekapitulasi);
             this.tabPage2.Controls.Add(this.panel3);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 306);
+            this.tabPage2.Size = new System.Drawing.Size(768, 440);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "REKAPITULASI";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // InfoProsesExcell
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(3, 305);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(762, 35);
-            this.panel4.TabIndex = 123;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(484, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(278, 35);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "LAPORAN REKAPITULASI PAJAK";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.InfoProsesExcell.AutoSize = true;
+            this.InfoProsesExcell.Location = new System.Drawing.Point(698, 277);
+            this.InfoProsesExcell.Name = "InfoProsesExcell";
+            this.InfoProsesExcell.Size = new System.Drawing.Size(28, 23);
+            this.InfoProsesExcell.TabIndex = 125;
+            this.InfoProsesExcell.Text = "...";
+            this.InfoProsesExcell.Visible = false;
             // 
             // RVRekapitulasiPajak
             // 
             this.RVRekapitulasiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.RVRekapitulasiPajak.Location = new System.Drawing.Point(3, 341);
+            this.RVRekapitulasiPajak.Location = new System.Drawing.Point(3, 475);
             this.RVRekapitulasiPajak.Name = "RVRekapitulasiPajak";
             this.RVRekapitulasiPajak.Size = new System.Drawing.Size(762, 255);
             this.RVRekapitulasiPajak.TabIndex = 122;
@@ -577,7 +599,7 @@
             this.lvPajakRekapitulasi.HideSelection = false;
             this.lvPajakRekapitulasi.Location = new System.Drawing.Point(3, 46);
             this.lvPajakRekapitulasi.Name = "lvPajakRekapitulasi";
-            this.lvPajakRekapitulasi.Size = new System.Drawing.Size(762, 256);
+            this.lvPajakRekapitulasi.Size = new System.Drawing.Size(762, 388);
             this.lvPajakRekapitulasi.TabIndex = 118;
             this.lvPajakRekapitulasi.UseCompatibleStateImageBehavior = false;
             this.lvPajakRekapitulasi.View = System.Windows.Forms.View.Details;
@@ -616,9 +638,10 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
+            this.panel3.Controls.Add(this.btnExport);
             this.panel3.Controls.Add(this.dtpRentang2);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.btnTampilkan);
             this.panel3.Controls.Add(this.dtpRentang1);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -626,6 +649,23 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(762, 37);
             this.panel3.TabIndex = 4;
+            // 
+            // btnExport
+            // 
+            this.btnExport.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnExport.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnExport.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnExport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.Location = new System.Drawing.Point(640, 4);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(90, 29);
+            this.btnExport.TabIndex = 95;
+            this.btnExport.Text = "&EXPORT";
+            this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // dtpRentang2
             // 
@@ -646,21 +686,22 @@
             this.label4.TabIndex = 93;
             this.label4.Text = "s/d";
             // 
-            // button2
+            // btnTampilkan
             // 
-            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.button2.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(544, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(118, 29);
-            this.button2.TabIndex = 92;
-            this.button2.Text = "&TAMPILKAN";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnTampilkan.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnTampilkan.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnTampilkan.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.btnTampilkan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTampilkan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnTampilkan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTampilkan.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTampilkan.Location = new System.Drawing.Point(544, 4);
+            this.btnTampilkan.Name = "btnTampilkan";
+            this.btnTampilkan.Size = new System.Drawing.Size(90, 29);
+            this.btnTampilkan.TabIndex = 92;
+            this.btnTampilkan.Text = "&TAMPILKAN";
+            this.btnTampilkan.UseVisualStyleBackColor = false;
+            this.btnTampilkan.Click += new System.EventHandler(this.btnTampilkan_Click);
             // 
             // dtpRentang1
             // 
@@ -707,12 +748,19 @@
             this.rubahTanggalSPJToolStripMenuItem.Text = "Rubah Tanggal SPJ";
             this.rubahTanggalSPJToolStripMenuItem.Click += new System.EventHandler(this.rubahTanggalSPJToolStripMenuItem_Click);
             // 
+            // bwRekapitulasi
+            // 
+            this.bwRekapitulasi.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRekapitulasi_DoWork);
+            // 
+            // lstPajakPerDokter
+            // 
+            // 
             // ManajemenPajak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
-            this.ClientSize = new System.Drawing.Size(793, 357);
+            this.ClientSize = new System.Drawing.Size(793, 491);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManajemenPajak";
@@ -732,10 +780,11 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.cmsRubahTglSPJ.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lstPajakPerDokter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -757,14 +806,13 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.ComponentModel.BackgroundWorker bwLoadDokter;
         private System.Windows.Forms.Label lblKodeDokter;
         private System.Windows.Forms.Label lblNamaDokter;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnTampilkan;
         private System.Windows.Forms.DateTimePicker dtpRentang1;
         private System.Windows.Forms.Label label3;
         private System.ComponentModel.BackgroundWorker bwLoadPajak;
@@ -777,8 +825,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.DateTimePicker dtpRentang2;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label5;
         private Microsoft.Reporting.WinForms.ReportViewer RVRekapitulasiPajak;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DateTimePicker dtpTglAmbil;
@@ -802,5 +848,11 @@
         private System.Windows.Forms.ContextMenuStrip cmsRubahTglSPJ;
         private System.Windows.Forms.ToolStripMenuItem rubahTanggalSPJToolStripMenuItem;
         private System.Windows.Forms.Label lblIdPajak;
+        private System.Windows.Forms.Button btnExport;
+        private System.ComponentModel.BackgroundWorker bwRekapitulasi;
+        private System.Windows.Forms.Label InfoProsesExcell;
+        private System.Windows.Forms.Button btnKeluar;
+        private System.Windows.Forms.Button btnCariLagi;
+        private System.Windows.Forms.BindingSource lstPajakPerDokter;
     }
 }

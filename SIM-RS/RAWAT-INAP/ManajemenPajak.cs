@@ -15,7 +15,12 @@ namespace SIM_RS.RAWAT_INAP
         readonly C4Module.MainModule _modMain = new C4Module.MainModule();
         readonly C4Module.DatabaseModule _modDb = new C4Module.DatabaseModule();
         readonly C4Module.MessageModule _modMsg = new C4Module.MessageModule();
+        readonly C4Module.SQLModule _modSql = new C4Module.SQLModule();
+        readonly BackgroundWorker _bw = new BackgroundWorker();
 
+        private string _strSQL;
+        private int intLvNoRekap = 1;
+        private string strNamaFile = "";  
 
         private class LstDaftarDokter
         {
@@ -122,9 +127,28 @@ namespace SIM_RS.RAWAT_INAP
                 get { return _pph; }
             }
         }
+        public class LstRekapPajakDokter
+        {
+            public string strtglspj { get; set; }
+            public string strnamadokter { get; set; }
+            public string strbruto { get; set; }
+            public string strpph { get; set; }
+            public string netto { get; set; }
+        }    
+
+        public class LstPajakPerDokter{
+            public string strNoUrut { get; set; }
+            public string strbulanSPJ { get; set; }
+            public double dblBruto { get; set; }
+            public double dblPph { get; set; }
+            public string strNamaDokter { get; set; }
+            public string strNPWP { get; set; }
+        }
 
         readonly List<LstDaftarDokter> _grpSemuaDokter = new List<LstDaftarDokter>();
         readonly List<LstMasterPajak> _grpMasterPajak = new List<LstMasterPajak>();
+        readonly List<LstPajakPerDokter> _grpPajakPerDokter = new List<LstPajakPerDokter>();
+        readonly List<LstRekapPajakDokter> _grpRekapPajakDokter = new List<LstRekapPajakDokter>();
         readonly AutoCompleteStringCollection _listDokter = new AutoCompleteStringCollection();
         readonly AutoCompleteStringCollection _listDokterSPJ = new AutoCompleteStringCollection();
 
@@ -133,14 +157,81 @@ namespace SIM_RS.RAWAT_INAP
         public ManajemenPajak()
         {
             InitializeComponent();
+            _bw.WorkerSupportsCancellation = true;
+            _bw.WorkerReportsProgress = true;
+            _bw.DoWork +=
+                bw_DoWork;
+            _bw.RunWorkerCompleted +=
+                bw_RunWorkerCompleted;
+
             this.bwLoadDokter.RunWorkerAsync();
             this.bwLoadPajak.RunWorkerAsync();
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Clear());
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("id-ID");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("id-ID");
+
+            String strErr = "";
+
+
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+            
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+            _strSQL =
+                "SELECT MONTH(dbo.TR_PAV_PAJAK.tglSPJ), sum(dbo.TR_PAV_PAJAK.bruto), sum(dbo.TR_PAV_PAJAK.pph), " +
+                "sum(dbo.TR_PAV_PAJAK.netto) " +
+                "FROM dbo.TR_PAV_PAJAK WHERE dbo.TR_PAV_PAJAK.idmar_dokter = '" + lblKodeDokter.Text.Trim() + "' and year(dbo.TR_PAV_PAJAK.tglSPJ) = 2013 " +
+                "GROUP BY MONTH(dbo.TR_PAV_PAJAK.tglSPJ)";
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strSQL, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+            if (reader.HasRows)
+            {
+                int increment = 1;
+                while (reader.Read())
+                {
+                    ListViewItem item = new ListViewItem(Convert.ToString(increment++));
+                    item.SubItems.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[1]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[2]));
+                    item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[3]));
+                    lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Add(item));
+
+                    LstPajakPerDokter itemPajakPerDokter = new LstPajakPerDokter();
+                    itemPajakPerDokter.strNoUrut = Convert.ToString(increment++);
+                    itemPajakPerDokter.strbulanSPJ = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]);
+                    itemPajakPerDokter.dblBruto = Convert.ToDouble(reader[1]);
+                    itemPajakPerDokter.dblPph = Convert.ToDouble(reader[2]);
+                    _grpPajakPerDokter.Add(itemPajakPerDokter);
+                }
+                _modSql.pvAutoResizeLV(lvPajakPerDokter, 5);
+            }
+
+            reader.Close();
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //reserved
         }
 
         private void ManajemenPajak_Load(object sender, EventArgs e)
         {
 
-            this.RVPajakBulanan.RefreshReport();
+            RVPajakBulanan.RefreshReport();
         }
 
         private void bwLoadDokter_DoWork(object sender, DoWorkEventArgs e)
@@ -161,8 +252,8 @@ namespace SIM_RS.RAWAT_INAP
                                        "MR_DOKTER.nama, " +                        //1
                                        "MR_DOKTER.idmr_tsmf, " +                   //2
                                        "MR_DOKTER.npwp, " +                        //3
-                                       "MR_DOKTER.Alamat " +                       //4
-                                       "FROM MR_DOKTER WITH (NOLOCK) " +
+                                       "MR_DOKTER.Alamat " +                        //4
+                                       "FROM MR_DOKTER " +
                                        "WHERE MR_DOKTER.dipakai = 'Y'";
 
             SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
@@ -190,9 +281,9 @@ namespace SIM_RS.RAWAT_INAP
 
             reader.Close();
 
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteCustomSource = _listDokter);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
-            txtNamaDokter.SafeControlInvoke(TextBox => txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteCustomSource = _listDokter);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteMode = AutoCompleteMode.SuggestAppend);
+            txtNamaDokter.SafeControlInvoke(textBox => txtNamaDokter.AutoCompleteSource = AutoCompleteSource.CustomSource);
         }
 
         private void txtNamaDokter_KeyDown(object sender, KeyEventArgs e)
@@ -258,6 +349,10 @@ namespace SIM_RS.RAWAT_INAP
             _isInEditMode = false;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _bw.RunWorkerAsync();
+        }
        
 
         /*
@@ -357,7 +452,10 @@ namespace SIM_RS.RAWAT_INAP
 
         private void btnBatal_Click(object sender, EventArgs e)
         {
-            Close();
+            lvDokterPajak.Items.Clear();
+            lvDokterPajak.Enabled = true;
+            btnSimpan.Enabled = false;
+            
         }
 
         private void lvDokterPajak_MouseClick(object sender, MouseEventArgs e)
@@ -479,16 +577,104 @@ namespace SIM_RS.RAWAT_INAP
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void bwRekapitulasi_DoWork(object sender, DoWorkEventArgs e)
         {
+            InfoProsesExcell.SafeControlInvoke(Label => InfoProsesExcell.Visible = true);
+            InfoProsesExcell.SafeControlInvoke(Label => InfoProsesExcell.Text = "Proses Load Data Rekap...");
+            btnTampilkan.SafeControlInvoke(Button => btnTampilkan.Enabled = false);
+            btnExport.SafeControlInvoke(Button => btnExport.Enabled = false);
 
+            DateTime dtTglServer = DateTime.Now;
+            String strErr = "";
+
+            C4Module.MainModule.strRegKey = halamanUtama.FULL_REG_BILLING_LAMA;
+
+            SqlConnection conn = _modDb.pbconnKoneksiSQL(ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                return;
+            }
+
+            string strQuerySql = "SELECT a.tglSPJ, b.Nama, a.bruto, a.pph, a.netto " +
+                                 "FROM TR_PAV_PAJAK a INNER JOIN MR_DOKTER b ON b.idmr_dokter = a.idmar_dokter " +
+                                 "WHERE a.tglSPJ BETWEEN '" + dtpRentang1.Value.ToString("MM/dd/yyyy 00:00:00") +
+                                 "' AND '" + dtpRentang2.Value.ToString("MM/dd/yyyy 23:59:59") +
+                                 "' ORDER BY a.tglSPJ DESC";
+
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, strQuerySql, ref strErr);
+            if (strErr != "")
+            {
+                _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
+                conn.Close();
+                return;
+            }
+
+            InfoProsesExcell.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items.Clear());
+            _grpRekapPajakDokter.Clear();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    LstRekapPajakDokter itemRekapPajakDokter = new LstRekapPajakDokter();
+                    itemRekapPajakDokter.strtglspj = string.Format(new CultureInfo("id-ID"), "{0:dd/MMMM/yyyy}", reader[0]);
+                    itemRekapPajakDokter.strnamadokter = _modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                    itemRekapPajakDokter.strbruto = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[2]);
+                    itemRekapPajakDokter.strpph = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[3]);
+                    itemRekapPajakDokter.netto = string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[4]);
+                    _grpRekapPajakDokter.Add(itemRekapPajakDokter);
+
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items.Add(Convert.ToString(intLvNoRekap)));
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items[lvPajakRekapitulasi.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "{0:dd/MMMM/yyyy}", reader[0])));
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items[lvPajakRekapitulasi.Items.Count - 1].SubItems.Add(_modMain.pbstrgetCol(reader, 1, ref strErr, "")));
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items[lvPajakRekapitulasi.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[2])));
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items[lvPajakRekapitulasi.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[3])));
+                    lvPajakRekapitulasi.SafeControlInvoke(ListView => lvPajakRekapitulasi.Items[lvPajakRekapitulasi.Items.Count - 1].SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[4])));
+                    intLvNoRekap++;
+                }
+            }
+
+            reader.Close();
+            conn.Close();
+
+            InfoProsesExcell.SafeControlInvoke(Label => InfoProsesExcell.Visible = false);
+            InfoProsesExcell.SafeControlInvoke(Label => InfoProsesExcell.Text = "");
+            btnTampilkan.SafeControlInvoke(Button => btnTampilkan.Enabled = false);
+            btnExport.SafeControlInvoke(Button => btnExport.Enabled = true);
         }
 
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.SaveFileDialog())
+            {
+                dialog.Title = "Pilih Lokasi Export File";
+                dialog.DefaultExt = "*.xlsx";
+                dialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    strNamaFile = dialog.FileName;
+                }
+            }
 
+            if (strNamaFile.Trim().ToString() != "")
+            {
+                if (!bwRekapitulasi.IsBusy)
+                    this.bwRekapitulasi.RunWorkerAsync();
+            }
+        }
 
+        private void btnTampilkan_Click(object sender, EventArgs e)
+        {
+            if (!bwRekapitulasi.IsBusy)
+                this.bwRekapitulasi.RunWorkerAsync();
+        }
 
-
-
+        private void btnKeluar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
 
 

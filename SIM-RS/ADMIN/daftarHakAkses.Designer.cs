@@ -310,19 +310,19 @@ namespace SIM_RS.ADMIN
             this.aktifkanToolStripMenuItem,
             this.batalkanToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 48);
             // 
             // aktifkanToolStripMenuItem
             // 
             this.aktifkanToolStripMenuItem.Name = "aktifkanToolStripMenuItem";
-            this.aktifkanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aktifkanToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.aktifkanToolStripMenuItem.Text = "Aktifkan";
             this.aktifkanToolStripMenuItem.Click += new System.EventHandler(this.aktifkanToolStripMenuItem_Click);
             // 
             // batalkanToolStripMenuItem
             // 
             this.batalkanToolStripMenuItem.Name = "batalkanToolStripMenuItem";
-            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.batalkanToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.batalkanToolStripMenuItem.Text = "Batalkan";
             this.batalkanToolStripMenuItem.Click += new System.EventHandler(this.batalkanToolStripMenuItem_Click);
             // 
