@@ -145,12 +145,36 @@ namespace SIM_RS.RAWAT_INAP
             public string strNPWP { get; set; }
         }
 
+        #region LIST UNTUK REPORT
+
+        public class ReportPajakPerDokter
+        {
+            public ReportPajakPerDokter(string npwp, string namaDokter, string bulan, decimal bruto, decimal pph, decimal netto)
+            {
+                Npwp = npwp;
+                NamaDokter = namaDokter;
+                Bulan = bulan;
+                Bruto = bruto;
+                Pph = pph;
+                Netto = netto;
+            }
+            public string Npwp { get; set; }
+            public string NamaDokter { get; set; }
+            public string Bulan { get; set; }
+            public decimal Bruto { get; set; }
+            public decimal Pph { get; set; }
+            public decimal Netto { get; set; }
+        }
+
+        #endregion
+
         readonly List<LstDaftarDokter> _grpSemuaDokter = new List<LstDaftarDokter>();
         readonly List<LstMasterPajak> _grpMasterPajak = new List<LstMasterPajak>();
         readonly List<LstPajakPerDokter> _grpPajakPerDokter = new List<LstPajakPerDokter>();
         readonly List<LstRekapPajakDokter> _grpRekapPajakDokter = new List<LstRekapPajakDokter>();
         readonly AutoCompleteStringCollection _listDokter = new AutoCompleteStringCollection();
         readonly AutoCompleteStringCollection _listDokterSPJ = new AutoCompleteStringCollection();
+        readonly List<ReportPajakPerDokter> _listPajakPerDokter = new List<ReportPajakPerDokter>();
 
         private bool _isInEditMode;
 
@@ -170,6 +194,8 @@ namespace SIM_RS.RAWAT_INAP
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+            string namadokter = null;
+            string npwpdokter = null;
             lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Clear());
             Thread.CurrentThread.CurrentCulture = new CultureInfo("id-ID");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("id-ID");
@@ -186,12 +212,20 @@ namespace SIM_RS.RAWAT_INAP
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
                 return;
             }
+            SqlDataReader reader = _modDb.pbreaderSQL(conn, "select nama, npwp from mr_dokter where idmr_dokter = '"+lblKodeDokter.Text.Trim()+"'", ref strErr);
+            if (reader.HasRows)
+            {
+                reader.Read();
+                namadokter = _modMain.pbstrgetCol(reader, 0, ref strErr, "");
+                npwpdokter = _modMain.pbstrgetCol(reader, 1, ref strErr, "");
+                reader.Close();
+            }
             _strSQL =
                 "SELECT MONTH(dbo.TR_PAV_PAJAK.tglSPJ), sum(dbo.TR_PAV_PAJAK.bruto), sum(dbo.TR_PAV_PAJAK.pph), " +
                 "sum(dbo.TR_PAV_PAJAK.netto) " +
                 "FROM dbo.TR_PAV_PAJAK WHERE dbo.TR_PAV_PAJAK.idmar_dokter = '" + lblKodeDokter.Text.Trim() + "' and year(dbo.TR_PAV_PAJAK.tglSPJ) = 2013 " +
                 "GROUP BY MONTH(dbo.TR_PAV_PAJAK.tglSPJ)";
-            SqlDataReader reader = _modDb.pbreaderSQL(conn, _strSQL, ref strErr);
+            reader = _modDb.pbreaderSQL(conn, _strSQL, ref strErr);
             if (strErr != "")
             {
                 _modMsg.pvDlgErr(_modMsg.IS_DEV, strErr, _modMsg.DB_CON, _modMsg.TITLE_ERR);
@@ -203,6 +237,9 @@ namespace SIM_RS.RAWAT_INAP
                 int increment = 1;
                 while (reader.Read())
                 {
+                    _listPajakPerDokter.Add(new ReportPajakPerDokter(npwpdokter, namadokter, CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]), 
+                        Convert.ToDecimal(reader[1]), Convert.ToDecimal(reader[2]), Convert.ToDecimal(reader[3])));
+                    
                     ListViewItem item = new ListViewItem(Convert.ToString(increment++));
                     item.SubItems.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]));
                     item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[1]));
@@ -210,8 +247,9 @@ namespace SIM_RS.RAWAT_INAP
                     item.SubItems.Add(string.Format(new CultureInfo("id-ID"), "Rp. {0:n}", reader[3]));
                     lvPajakPerDokter.SafeControlInvoke(listview => lvPajakPerDokter.Items.Add(item));
 
+                    // ngisor iki gawe opo vi????????
                     LstPajakPerDokter itemPajakPerDokter = new LstPajakPerDokter();
-                    itemPajakPerDokter.strNoUrut = Convert.ToString(increment++);
+                    //itemPajakPerDokter.strNoUrut = Convert.ToString(increment++); << ayahab
                     itemPajakPerDokter.strbulanSPJ = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)reader[0]);
                     itemPajakPerDokter.dblBruto = Convert.ToDouble(reader[1]);
                     itemPajakPerDokter.dblPph = Convert.ToDouble(reader[2]);
@@ -221,16 +259,21 @@ namespace SIM_RS.RAWAT_INAP
             }
 
             reader.Close();
+            conn.Close();
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //reserved
+            RVPajakBulanan.LocalReport.DataSources.Clear();
+            Microsoft.Reporting.WinForms.ReportDataSource buktiPajak = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", _listPajakPerDokter); // set the datasource
+            RVPajakBulanan.LocalReport.DataSources.Add(buktiPajak);
+            buktiPajak.Value = _listPajakPerDokter;
+            RVPajakBulanan.LocalReport.Refresh();
+            RVPajakBulanan.RefreshReport();
         }
 
         private void ManajemenPajak_Load(object sender, EventArgs e)
         {
-
             RVPajakBulanan.RefreshReport();
         }
 

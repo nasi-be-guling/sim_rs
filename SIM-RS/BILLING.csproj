@@ -274,6 +274,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="LAPORAN_PRINOUT\KuitansiDokter.rdlc" />
+    <EmbeddedResource Include="LAPORAN_PRINOUT\reportan_perdokter.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -328,6 +329,7 @@
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+KwitansiDokter.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstBuktiPajak.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.JasaPelayanan+LstDaftarJasaPelayanan.datasource" />
+    <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.ManajemenPajak+ReportPajakPerDokter.datasource" />
     <None Include="Properties\DataSources\SIM_RS.RAWAT_INAP.ManajemenPajak.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

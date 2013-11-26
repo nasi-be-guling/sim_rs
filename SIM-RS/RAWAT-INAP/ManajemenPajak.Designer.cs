@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnKeluar = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@
             this.rubahTanggalSPJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bwRekapitulasi = new System.ComponentModel.BackgroundWorker();
             this.lstPajakPerDokter = new System.Windows.Forms.BindingSource(this.components);
+            this.ReportPajakPerDokterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -103,13 +105,14 @@
             this.panel3.SuspendLayout();
             this.cmsRubahTglSPJ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lstPajakPerDokter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportPajakPerDokterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
@@ -169,9 +172,9 @@
             // 
             // lvDokterPajak
             // 
-            this.lvDokterPajak.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDokterPajak.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDokterPajak.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader13,
             this.columnHeader14,
@@ -366,8 +369,8 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(219)))), ((int)(((byte)(219)))));
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(3, 267);
@@ -410,9 +413,9 @@
             // 
             // lvPajakPerDokter
             // 
-            this.lvPajakPerDokter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvPajakPerDokter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvPajakPerDokter.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader7,
@@ -458,8 +461,12 @@
             // 
             // RVPajakBulanan
             // 
-            this.RVPajakBulanan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RVPajakBulanan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            reportDataSource1.Name = "DataSet1";
+            reportDataSource1.Value = this.ReportPajakPerDokterBindingSource;
+            this.RVPajakBulanan.LocalReport.DataSources.Add(reportDataSource1);
+            this.RVPajakBulanan.LocalReport.ReportEmbeddedResource = "SIM_RS.LAPORAN_PRINOUT.reportan_perdokter.rdlc";
             this.RVPajakBulanan.Location = new System.Drawing.Point(3, 305);
             this.RVPajakBulanan.Name = "RVPajakBulanan";
             this.RVPajakBulanan.Size = new System.Drawing.Size(762, 129);
@@ -574,8 +581,8 @@
             // 
             // RVRekapitulasiPajak
             // 
-            this.RVRekapitulasiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RVRekapitulasiPajak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RVRekapitulasiPajak.Location = new System.Drawing.Point(3, 475);
             this.RVRekapitulasiPajak.Name = "RVRekapitulasiPajak";
             this.RVRekapitulasiPajak.Size = new System.Drawing.Size(762, 255);
@@ -583,9 +590,9 @@
             // 
             // lvPajakRekapitulasi
             // 
-            this.lvPajakRekapitulasi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvPajakRekapitulasi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvPajakRekapitulasi.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader6,
@@ -752,8 +759,9 @@
             // 
             this.bwRekapitulasi.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRekapitulasi_DoWork);
             // 
-            // lstPajakPerDokter
+            // ReportPajakPerDokterBindingSource
             // 
+            this.ReportPajakPerDokterBindingSource.DataSource = typeof(SIM_RS.RAWAT_INAP.ManajemenPajak.ReportPajakPerDokter);
             // 
             // ManajemenPajak
             // 
@@ -785,6 +793,7 @@
             this.panel3.PerformLayout();
             this.cmsRubahTglSPJ.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lstPajakPerDokter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportPajakPerDokterBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -854,5 +863,6 @@
         private System.Windows.Forms.Button btnKeluar;
         private System.Windows.Forms.Button btnCariLagi;
         private System.Windows.Forms.BindingSource lstPajakPerDokter;
+        private System.Windows.Forms.BindingSource ReportPajakPerDokterBindingSource;
     }
 }
